@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +36,7 @@ public class DefaultQuizService implements QuizService {
     public List<QuizDto> getAllQuizzes() {
         return quizRepository.findAll()
                 .stream().map(mapper::toDto)
-                .toList();
+                .collect(Collectors.toList());
 
     }
 
