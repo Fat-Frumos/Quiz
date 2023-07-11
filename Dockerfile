@@ -32,6 +32,8 @@ COPY start.sh /start.sh
 RUN yum install -y epel-release
 RUN yum install -y nginx
 
+COPY default.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 22 8080 80
 
 CMD nginx && /usr/sbin/sshd -D
