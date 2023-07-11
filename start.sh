@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p /usr/share/nginx/html
 
 IP=$(ifconfig eth0 | grep 'inet ' | awk '{print $2}')
 echo "<h1>$USER, $PASSWORD, $PORT, $IP</h1>" > /usr/share/nginx/html/index.html

@@ -11,7 +11,6 @@ RUN ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
 RUN sed -i '/^sessions+requireds+pam_loginuid.so/s/^ /#/' /etc/pam.d/sshd
 
 RUN mkdir -p /root/.ssh && chown root.root /root && chmod 700 /root/.ssh
-RUN mkdir -p /usr/share/nginx/html
 
 RUN ssh-keygen -t rsa -f mykey -N ""
 RUN cat mykey
@@ -28,7 +27,7 @@ ENV USER=newuser
 ENV PASSWORD=password
 ENV PORT=22
 
-RUN mkdir -p /usr/share/nginx/html
+# RUN mkdir -p /usr/share/nginx/html
 
 COPY start.sh /start.sh
 
@@ -37,7 +36,6 @@ RUN yum install -y nginx
 
 COPY default.conf /etc/nginx/conf.d/default.conf
 
-RUN echo "<h2>$USER, $PASSWORD, $PORT</h2>" > /usr/share/nginx/html/index.html
 EXPOSE 22 8080 80
 
 CMD nginx && /usr/sbin/sshd -D
