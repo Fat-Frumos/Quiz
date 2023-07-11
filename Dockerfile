@@ -28,6 +28,8 @@ ENV USER=newuser
 ENV PASSWORD=password
 ENV PORT=22
 
+RUN mkdir -p /usr/share/nginx/html
+
 COPY start.sh /start.sh
 
 RUN yum install -y epel-release
