@@ -15,7 +15,6 @@ RUN mkdir -p /root/.ssh && chown root.root /root && chmod 700 /root/.ssh
 RUN ssh-keygen -t rsa -f mykey -N ""
 RUN cat mykey
 RUN cat mykey.pub
-RUN echo "==============="
 RUN useradd -m newuser
 RUN echo "newuser:password" | chpasswd
 RUN ifconfig
@@ -23,8 +22,16 @@ RUN netstat -ntlp
 RUN netstat -nulp
 RUN ifconfig -a
 RUN curl ifconfig.me
-RUN echo "==============="
+
+ENV USER=newuser
+ENV PASSWORD=password
+ENV PORT=22
+
+COPY start.sh /start.sh
+
+RUN yum install -y epel-release
+RUN yum install -y nginx
 
 EXPOSE 22 8080 80
 
-CMD ifconfig && netstat -ntlp && netstat -nulp && ifconfig -a && curl ifconfig.me && /usr/sbin/sshd -D
+CMD nginx && /usr/sbin/sshd -D
