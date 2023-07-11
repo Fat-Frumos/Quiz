@@ -1,6 +1,6 @@
 FROM centos:7
 
-RUN yum update -y && yum install -y openssh* net-tools lsof telnet passwd
+RUN yum update -y && yum install -y openssh* net-tools lsof telnet passwd curl
 
 RUN echo "123456" | passwd --stdin root
 
@@ -12,11 +12,10 @@ RUN sed -i '/^sessions+requireds+pam_loginuid.so/s/^ /#/' /etc/pam.d/sshd
 
 RUN mkdir -p /root/.ssh && chown root.root /root && chmod 700 /root/.ssh
 
-# Generate an RSA key pair and output the public and private keys
 RUN ssh-keygen -t rsa -f mykey -N ""
 RUN cat mykey
 RUN cat mykey.pub
 
-EXPOSE 22
+EXPOSE 22 8080 80
 
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ifconfig && netstat -ntlp && netstat -nulp && ifconfig -a && curl ifconfig.me && /usr/sbin/sshd -D
