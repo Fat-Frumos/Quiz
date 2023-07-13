@@ -1,0 +1,43 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: admin
+          password: admin
+        - id: developer
+          password: developer
+
+  sonarGlobalConfiguration:
+    installations:
+      - name: "local"
+        serverUrl: "http://localhost:9000"
+
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            permissions:
+              - "Overall/Administer"
+            pattern: ".*"
+            description: "Admin role with all permissions"
+          - name: "developer"
+            permissions:
+              - "Job/Build"
+              - "Job/Cancel"
+            pattern: ".*"
+            description: "Developer role with build and cancel permissions"
+
+security:
+  queueItemAuthenticator:
+    authenticators:
+      - global:
+          strategy: triggeringUsersAuthorizationStrategy
+
+unclassified:
+  location:
+    url: http://server_ip:8080/
+
+jobs:
+  - script: seedjob.groovy
