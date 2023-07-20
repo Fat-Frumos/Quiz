@@ -8,11 +8,6 @@ jenkins:
         - id: developer
           password: developer
 
-  sonarGlobalConfiguration:
-    installations:
-      - name: "local"
-        serverUrl: "http://localhost:9000"
-
   authorizationStrategy:
     roleBased:
       roles:
@@ -38,6 +33,3 @@ security:
 unclassified:
   location:
     url: http://server_ip:8080/
-
-jobs:
-  - script: seedjob.groovy

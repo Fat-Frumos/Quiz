@@ -36,3 +36,13 @@ Build the project with Maven Tool without Tests
 Maven will perform the necessary build tasks, such as compiling the code, 
 creating the project's artifacts, and verifying their correctness. 
 `mvn verify -e`
+
+### add
+`jobs:
+  - script: seedjob.groovy`
+
+`sonarGlobalConfiguration:
+    installations:
+      - name: "local"
+        serverUrl: "http://localhost:9000"`
+
