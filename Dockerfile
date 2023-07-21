@@ -5,7 +5,9 @@ SHELL ["/bin/bash", "-c"]
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get upgrade --yes && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes ca-certificates
+
 COPY docker-archive-keyring.gpg /usr/share/keyrings/docker-archive-keyring.gpg
+COPY docker.list /etc/apt/sources.list.d/docker.list
 
 RUN apt-get update && \
     DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
