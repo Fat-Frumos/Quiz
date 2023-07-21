@@ -1,3 +1,14 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - usernamePassword:
+          scope: GLOBAL
+          id: github
+          username: root
+          password: root
+          description: "Git Login"
+
 jenkins:
   securityRealm:
     local:
@@ -9,20 +20,15 @@ jenkins:
           password: developer
 
   authorizationStrategy:
-    roleBased:
-      roles:
-        global:
-          - name: "admin"
-            permissions:
-              - "Overall/Administer"
-            pattern: ".*"
-            description: "Admin role with all permissions"
-          - name: "developer"
-            permissions:
-              - "Job/Build"
-              - "Job/Cancel"
-            pattern: ".*"
-            description: "Developer role with build and cancel permissions"
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+        - "Job/Build:developer"
+        - "Job/Cancel:developer"
+
+  remotingSecurity:
+    enabled: true
 
 security:
   queueItemAuthenticator:
@@ -33,3 +39,33 @@ security:
 unclassified:
   location:
     url: http://server_ip:8080/
+
+unclassified:
+  simple-theme-plugin:
+    elements:
+      - cssUrl:
+          url: "https://cdn.jsdelivr.net/gh/afonsof/jenkins-material-theme@gh-pages/dist/material-cyan.css"
+
+jobs:
+  - file: /usr/local/seedjob.groovy
+
+jobs:
+  - script: >
+      pipelineJob('pipeline') {
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote {
+                  url('https://github.com/Fat-Frumos/Lab.git')
+                }
+                branches('*/developer')
+              }
+            }
+            scriptPath('Jenkinsfile')
+          }
+        }
+        triggers {
+          scm('H/5 * * * *')
+        }
+      }

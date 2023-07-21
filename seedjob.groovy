@@ -4,7 +4,7 @@ job('seed_job') {
       remote {
         url('https://github.com/Fat-Frumos/Lab.git')
       }
-      branch('master')
+      branch('module#03')
     }
   }
   steps {

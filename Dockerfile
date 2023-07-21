@@ -1,15 +1,60 @@
-FROM jenkins/jenkins:latest
-USER root
-RUN apt-get update && apt-get install -y lsb-release
-RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc https://download.docker.com/linux/debian/gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-  https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y docker-ce-cli
+FROM ubuntu:20.04
 
-USER jenkins
-ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
-ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yaml
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-COPY casc.yaml /var/jenkins_home/casc.yaml
-COPY seedjob.groovy /usr/local/seedjob.groovy
-RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
+SHELL ["/bin/bash", "-c"]
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get upgrade --yes && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes ca-certificates
+COPY docker-archive-keyring.gpg /usr/share/keyrings/docker-archive-keyring.gpg
+COPY docker.list /etc/apt/sources.list.d/docker.list
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes \
+      bash \
+      build-essential \
+      ca-certificates \
+      containerd.io \
+      curl \
+      docker-ce \
+      docker-ce-cli \
+      docker-compose-plugin \
+      htop \
+      locales \
+      man \
+      python3 \
+      python3-pip \
+      software-properties-common \
+      sudo \
+      systemd \
+      systemd-sysv \
+      unzip \
+      vim \
+      wget \
+      rsync && \
+
+    add-apt-repository ppa:git-core/ppa && \
+    DEBIAN_FRONTEND="noninteractive" apt-get install --yes git
+
+
+RUN systemctl enable docker
+
+RUN curl -L "https://github.com/docker/compose/releases/download/v2.16.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
+
+ENV LANG en_US.UTF-8
+
+RUN useradd coder \
+      --create-home \
+      --shell=/bin/bash \
+      --groups=docker \
+      --uid=1000 \
+      --user-group && \
+    echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
+
+USER coder
+
+COPY docker-compose.yml /docker-compose.yml
+
+WORKDIR /app
+
+CMD ["docker-compose", "up"]
