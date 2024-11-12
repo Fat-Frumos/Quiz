@@ -1,0 +1,2921 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SAP</title>
+    <link rel='stylesheet' id='bwp-syntax-css'
+          href='http://javainsimpleway.com/wp-content/plugins/better-wordpress-syntax-based-on-geshi/css/bwp-syntax.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='adsns-css'
+          href='http://javainsimpleway.com/wp-content/plugins/adsense-plugin/css/adsns.css?v=1.40&#038;ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='dashicons-css'
+          href='http://javainsimpleway.com/wp-includes/css/dashicons.min.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='cptch_desktop_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/captcha/css/desktop_style.css?ver=4.2.8' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/category-post-list-widget/css/main.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-code-css'
+          href='http://javainsimpleway.com/wp-content/plugins/code-highlight/css/style.css?ver=4.5.28' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='new_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/responsive-attention-box/css/common.css?ver=1.0.0'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='nb-font-css'
+          href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic%7CMontserrat:400,700%7COpen+Sans:400,600,700,300%7CLibre+Baskerville:400,700%7CPlayfair:400,700%7CDroid+Serif:400,700%7CPT+Serif:400,700%7CNoto+Serif:400,700'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-css-css' href='http://javainsimpleway.com/wp-content/themes/nicebird/style.css'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/bootstrap.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='global-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/global.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-animation-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome-animation.css'
+          type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/nb-style.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='support.css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/support.css' type='text/css'
+          media='all'/>
+    <style>
+        body, input, button, select, textarea, code, kbd, pre, samp {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #000;
+            color: #ccc;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 900;
+        }
+
+        h1 {
+            margin-left: 30px;
+        }
+
+        .bwp-syntax-block.clearfix {
+            width: 75%;
+        }
+    </style>
+</head>
+<body>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Defining Item types in hybris</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p>There are <strong>3</strong> ways of defining an <strong>item type</strong> in Hybris.</p>
+        <p>We need to decide one of the ways based on the requirement.<strong><br>
+        </strong></p><h5><strong>What are those 3 ways?</strong></h5>
+        <p><strong></strong></p>
+        <p><strong>1)</strong> Define the new item type <strong>without extending</strong> any <strong>existing</strong>
+            item type</p>
+        <p><strong>2)</strong> Define the new item type <strong>by extending</strong> it with <strong>existing</strong>
+            item type</p>
+        <p><strong>3)</strong> Define the <strong>existing</strong> item type <strong>again</strong> with new attributes
+            <strong><br>
+            </strong></p><h4><strong>1) Define new item type without extending any existing item type</strong></h4>
+        <strong>
+        </strong>
+        <p><strong></strong><br>
+            In this case, we are supposed to define the <strong>new item type</strong> in our <strong>items.xml</strong>
+            file <strong>without extending</strong> any of the existing item type.</p>
+        <p><strong>Requirement:</strong><br>
+            Store third party integration system credentials like <strong>username</strong> and
+            <strong>password</strong> in <strong>DB </strong>and access them while making a third party call.</p>
+        <p>As per the requirement,we need to define one <strong>new item type</strong> which can store
+            <strong>username</strong> and <strong>password</strong>.</p>
+        <p>So create a new item type with attributes as below</p>
+        <div class="bwp-syntax-source"><pre class="no-parse">
+            &lt;itemtype code="IntegrationSystemCredentials" autocreate="true" generate="true"&gt;
+				&lt;deployment table="IntegrationSystemCredentials" typecode="11000" /&gt;
+				&lt;attributes&gt;
+					&lt;attribute qualifier="code" type="java.lang.String"&gt;
+						&lt;modifiers optional="false" unique="true"/&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+					&lt;attribute qualifier="username" type="java.lang.String"&gt;
+						&lt;modifiers unique="false"/&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+					&lt;attribute qualifier="password" type="java.lang.String" &gt;
+						&lt;modifiers unique="false" encrypted="true"/&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+				&lt;/attributes&gt;
+			&lt;/itemtype&gt;</pre>
+        </div>
+
+        <p><br><br>
+            We have defined a new item type called <strong>IntegrationSystemCredentials</strong> which has
+            <strong>3</strong> attributes as explained below</p>
+        <p><strong>Code:</strong> It will be <strong>unique identifier</strong> for each record<br>
+            <strong>Username:</strong> <strong>username</strong> of the third party system<br>
+            <strong>Password:</strong> <strong>password</strong> of the third party system<strong><br>
+            </strong></p><h6><strong>autocreate=true at the item type level</strong></h6>
+        <p><strong></strong>It hints hybris to create a <strong>new database entry</strong> for this type at <strong>initialization/update</strong>
+            process<br>
+            If we set it to <strong>false</strong>,build will <strong>fail</strong>.<br>
+            We should set it to <strong>true</strong> for the <strong>first definition</strong> of item type.<br>
+            <strong><br>
+            </strong></p><h6><strong>generate=true at the item type level</strong></h6>
+        <p><strong></strong>It hints hybris to generate a new <strong>jalo class</strong> for this type during build
+            time.<br>
+            If we set it to <strong>false</strong>,then <strong>jalo class</strong> will not be generated however
+            <strong>model class</strong> will always be generated.<br>
+            We should set it to <strong>true</strong> for the <strong>first definition</strong> of item type.<br>
+            <strong><br>
+            </strong></p><h6><strong>Deployment table and typecode</strong></h6>
+        <p><strong></strong><strong>Deployment</strong> specifies the <strong>table name</strong> where all the
+            instances of the item type are stored.</p>
+        <p><strong>typecode</strong> specifies the <strong>unique number</strong> which will be used internally by
+            Hybris to reference the type.<br>
+            Its value should be <strong>between 0 &amp; 32767</strong> and should be <strong>unique</strong>.<br>
+            If we use the <strong>typecode</strong> which is already <strong>exists</strong> then build will <strong>fail</strong>.<br>
+            <strong>typecode</strong> values <strong>between 0 and 10000</strong> are <strong>reserved</strong> for
+            hybris internal use, <strong>typecode</strong> values <strong>greater than 10000</strong> can be
+            used.<strong><br>
+            </strong></p><h6><strong>Attributes of an item type</strong></h6>
+        <p><strong></strong>We can define as many <strong>attributes</strong> as we want for an item type.<br>
+            Each attribute has to specify the <strong>data type,modifiers and persistent type</strong>.<br>
+            <strong>Type</strong> can be either <strong>primitive</strong> type or can be <strong>reference</strong> to
+            any existing type.<strong><br>
+            </strong></p><h6><strong>Modifiers for attributes</strong></h6>
+        <p><strong></strong><strong>read = true</strong> means attribute is readable and corresponding
+            <strong>getter</strong> method will be generated for the attribute<br>
+            Default value is true.</p>
+        <p><strong>write=true</strong> means attribute is writable and corresponding <strong>setter</strong> method will
+            be generated for the attribute<br>
+            Default value is true.</p>
+        <p><strong>search=true</strong> means attribute can be <strong>searchable</strong> by a
+            <strong>FlexibleSearch</strong><br>
+            Default value is true.</p>
+        <p><strong>Optional=true</strong> means attribute is <strong>not mandatory</strong><br>
+            Default value is true.<br>
+            To make any attribute as <strong>mandatory</strong>, set <strong>optional</strong> as <strong>false</strong><strong><br>
+            </strong></p><h4><strong>persistent type for attributes</strong></h4>
+        <p><strong></strong><strong>Persistent type</strong> can be either <strong>property</strong> or
+            <strong>dynamic</strong>.<br>
+            If it is set as <strong>property</strong> then value will be <strong>stored in DB</strong> and it’s called
+            <strong>persistent attribute</strong>.<br>
+            If it is set as <strong>dynamic</strong> then value will <strong>not be stored in DB</strong> and it’s
+            called <strong>dynamic attribute</strong>.</p>
+        <p><strong><br>
+        </strong></p><h5><strong>2) Define new item type but extend it with existing item type</strong></h5>
+        <p><strong></strong><br>
+            In some cases we need to define <strong>new item type</strong> but we have to <strong>extend</strong> the
+            existing item type.</p>
+        <p><strong>Requirement:</strong><br>
+            Add a new functionality such that any <strong>product</strong> in our system should hold the <strong>list of
+                genders</strong> and that product is used only for those genders list.<br>
+            If product <strong>“A”</strong> is designed for only <strong>Male</strong>, the Product <strong>A</strong>
+            <strong>gender list</strong> will have only <strong>Male</strong> element in it.<br>
+            If product <strong>“B”</strong> is designed for both <strong>Male</strong> and <strong>Female</strong> then
+            product <strong>“B”</strong> <strong>gender list</strong> will have <strong>2</strong> elements for <strong>Male</strong>
+            and <strong>Female</strong>.</p>
+        <p>As per the requirement, we have to make sure that <strong>Product</strong> item type will have <strong>list
+            of genders</strong> as a new element.</p>
+        <p>So let’s define one new item type called <strong>“ApparelProduct”</strong> which will extend existing item
+            type called <strong>Product</strong> and add the new property as <strong>gender list</strong>.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"ApparelProduct"</span> <span class="kw1">extends</span><span
+                                    class="sy0">=</span><span class="st0">"Product"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> jaloclass<span
+                                    class="sy0">=</span><span class="st0">"org.training.core.jalo.ApparelProduct"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span
+                                    class="sy0">&gt;</span>Base apparel product extension that contains additional
+                                attributes.<span class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute qualifier<span class="sy0">=</span><span
+                                    class="st0">"genders"</span> type<span class="sy0">=</span><span class="st0">"GenderList"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span class="sy0">&gt;</span><span
+                                        class="kw3">List</span> of genders that the ApparelProduct is designed for<span
+                                        class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers <span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence type<span
+                                        class="sy0">=</span><span class="st0">"property"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>itemtype<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="ApparelProduct" extends="Product"
+				autocreate="true" generate="true" jaloclass="org.training.core.jalo.ApparelProduct"&gt;
+				&lt;description&gt;Base apparel product extension that contains additional attributes.&lt;/description&gt;
+				&lt;attributes&gt;
+					&lt;attribute qualifier="genders" type="GenderList"&gt;
+						&lt;description&gt;List of genders that the ApparelProduct is designed for&lt;/description&gt;
+						&lt;modifiers /&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+				&lt;/attributes&gt;
+			&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>We can see that <strong>autocreate</strong> and <strong>generate</strong> set as <strong>true</strong> as
+            it’s a new item type.<br>
+            <strong><br>
+            </strong></p><h5><strong>3) Define the existing item type again with new attributes</strong></h5>
+        <p><strong></strong><br>
+            In some cases we need to add attributes to the <strong>existing item type</strong> without defining a new
+            item type.<br>
+            In this case we just need to define the item type with <strong>existing item type code</strong> and add
+            <strong>new attributes</strong>.</p>
+        <p><strong>Requirement:</strong><br>
+            Add a <strong>new flag</strong> to the Address type to identify it as <strong>permanent</strong> address or
+            not.</p>
+        <p>We need to add a <strong>new Boolean</strong> flag for <strong>Address</strong> type.</p>
+        <p>let’s define the Address type with existing item code as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Address"</span> autocreate<span class="sy0">=</span><span class="st0">"false"</span>
+                                generate<span class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>attribute qualifier<span
+                                    class="sy0">=</span><span class="st0">"permanentAddress"</span> type<span
+                                    class="sy0">=</span><span class="st0">"java.lang.Boolean"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>description<span class="sy0">&gt;</span>PermanentAddress<span
+                                    class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>defaultvalue<span class="sy0">&gt;</span><span class="kw3">Boolean</span>.<span
+                                    class="me1">FALSE</span><span class="sy0">&lt;/</span>defaultvalue<span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>modifiers read<span class="sy0">=</span><span class="st0">"true"</span>
+                                write<span class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>persistence type<span class="sy0">=</span><span class="st0">"property"</span><span
+                                    class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attribute<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">
+                &lt;itemtype code="Address" autocreate="false" generate="false"&gt;
+			    &lt;attributes&gt;
+                    &lt;attribute qualifier="permanentAddress" type="java.lang.Boolean"&gt;
+					    &lt;description&gt;PermanentAddress&lt;/description&gt;
+					    &lt;defaultvalue&gt;Boolean.FALSE&lt;/defaultvalue&gt;
+					    &lt;modifiers read="true" write="true" search="true" optional="false"/&gt;
+					    &lt;persistence type="property"/&gt;
+				    &lt;/attribute&gt;
+			    &lt;/attributes&gt;</pre>
+            </div>
+        </div>
+
+        <p>We can see that item type with <strong>code</strong> as <strong>Address</strong> is defined already in
+            <strong>core-items.xml</strong> file and we have defined it again with <strong>same code</strong>.<br>
+            So its <strong>not a new item type</strong> and hence <strong>autocreate</strong> and
+            <strong>generate</strong> is set as <strong>false</strong>.</p>
+        <p>It means we are adding the <strong>new attribute</strong> directly in the <strong>existing item type</strong>
+            without creating a new item type.</p>
+        <p>So newly added attribute will be generated in <strong>existing Address model</strong> class.<br>
+            Because of which, we have to give <strong>autocreate</strong> and <strong>generate</strong> as
+            <strong>false</strong>.</p>
+    </div>
+
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Deployment and Typecodes in items.xml</h1>
+        <ul class="post-details clearfix">
+            <li class="admin-icon">
+                <i class="fa fa-user"></i> <a href="http://javainsimpleway.com/author/karibasappagc/"
+                                              title="Posts by Raj" rel="author">Raj</a></li>
+            <li><i class="fa fa-clock-o"></i>
+                <a href="http://javainsimpleway.com/2016/10/" title="Post Date">18th Oct 2016</a>
+            </li>
+            <li>
+                <i class="fa fa-comments-o"></i>
+                <a href="http://javainsimpleway.com/deployment-and-typecodes-in-items-xml/#respond"
+                   title="Post Comment">11</a>
+            </li>
+            <li>
+                <i class="fa fa-eye "></i>
+                <a href="http://javainsimpleway.com/deployment-and-typecodes-in-items-xml/" title="Post View">108060</a>
+            </li>
+            <li>
+                <span class="post-tag-name"><i class="fa fa-tag"></i>
+                        <a href="http://javainsimpleway.com/tag/what-is-deployment-in-hybris/" title="Post Tag">what is Deployment in hybris </a>
+                        <a href="http://javainsimpleway.com/tag/what-is-type-code-in-hybris/" title="Post Tag">what is type code in hybris </a>
+                        <a href="http://javainsimpleway.com/tag/what-is-typecode-in-hybris/" title="Post Tag">what is typecode in hybris </a>
+                        <a href="http://javainsimpleway.com/tag/why-do-we-need-deployment-in-hybris/" title="Post Tag">why do we need deployment in hybris </a>
+                        <a href="http://javainsimpleway.com/tag/why-do-we-need-type-code-in-hybris/" title="Post Tag">why do we need type code in hybris </a>
+                        <a href="http://javainsimpleway.com/tag/why-do-we-need-typecode-in-hybris/" title="Post Tag">why do we need typecode in hybris </a>	                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="post-content-body">
+
+        <p>We know that in Hybris <strong>items</strong> can be persisted in <strong>database</strong>.<br>
+            It means they will be stored in the <strong>tables</strong>.</p>
+        <p>So we need to specify the <strong>table name</strong> while defining the <strong>item type</strong> so that
+            the values of the <strong>item type</strong> will be persisted in that <strong>table</strong>.</p>
+        <p>This process of defining the <strong>table</strong> for the <strong>item type</strong> in
+            <strong>items.xml</strong> is called <strong>deployment</strong>.</p>
+        <p><strong>Each instances</strong> of an item type is stored as <strong>one row</strong> in the
+            <strong>table</strong>.</p>
+        <p>In <strong>Deployment tag</strong> we specify <strong>table name</strong> and <strong>typecode</strong> as
+            below.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>deployment table<span
+                                    class="sy0">=</span><span class="st0">"MyContactInfo"</span> typecode<span
+                                    class="sy0">=</span><span class="st0">"12000"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;deployment table="MyContactInfo" typecode="12000"/&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong>Table</strong> name and <strong>typecode</strong> should be <strong>unique</strong> globally.</p>
+        <p><strong>Typecode</strong> value should be greater than <strong>10000</strong> and less than
+            <strong>32767</strong>.</p>
+        <p><strong>Typecode</strong> is used during the <strong>PK generation</strong> mechanism and hence it should be
+            <strong>unique</strong></p>
+        <p><strong>Typecode</strong> values between <strong>0 &amp; 10000</strong> are <strong>reserved</strong> by
+            Hybris<strong><br>
+            </strong></p><h6><strong>Deployment inheritance from a type to its subtypes</strong></h6>
+        <p><strong></strong>If we don’t specify the <strong>deployment</strong> for any of our item type then <strong>deployment</strong>
+            specified in the <strong>closest type in the hierarchy</strong> will be considered.</p>
+        <p>If there is <strong>no hierarchy</strong> which means if the item type is <strong>not extending any item
+            type</strong> then by default <strong>GenericItem</strong> will be considered as the parent of the item
+            type.<br>
+            And hence the deployment of <strong>GenericItem</strong> will be used by the item type.</p>
+        <p>So all the instances of this item type will be stored in the <strong>GenericItem</strong> table</p>
+        <p>We can also <strong>extend GenericItem</strong> for our item type however it will be <strong>extended by
+            default</strong> if item type is not specified with any parent type.</p>
+        <p>It’s same as Object class for all the java classes.</p>
+        <p><strong>Example:</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"PaymentInfo"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"GenericItem"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                jaloclass<span class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.order.payment.PaymentInfo"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                generate<span class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="PaymentInfo"
+                  extends="GenericItem"
+                  jaloclass="de.hybris.platform.jalo.order.payment.PaymentInfo"
+                  autocreate="true"
+                  generate="true"&gt;</pre>
+            </div>
+        </div>
+
+        <p>is same as</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"PaymentInfo” jaloclass="</span>de.<span class="me1">hybris</span>.<span
+                                    class="me1">platform</span>.<span class="me1">jalo</span>.<span
+                                    class="me1">order</span>.<span class="me1">payment</span>.<span class="me1">PaymentInfo</span><span
+                                    class="st0">"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="st0"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;autocreate="</span><span
+                                    class="kw2">true</span><span class="st0">"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="st0"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;generate="</span><span
+                                    class="kw2">true</span><span class="st0">"&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="PaymentInfo” jaloclass="de.hybris.platform.jalo.order.payment.PaymentInfo"
+                  autocreate="true"
+                  generate="true"&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+        </strong></p><h6><strong>When we should define deployment mandatorily?</strong></h6>
+        <p><strong></strong></p>
+        <p><strong>
+            <h7>We should define deployment for an item type in the following scenarios</h7>
+        </strong></p>
+        <p><strong>1) Defining <strong>new item type</strong> by <strong>extending GenericItem</strong><br>
+            <strong>Example:</strong></strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Unit"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"GenericItem"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                jaloclass<span class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.product.Unit"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                generate<span class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Units"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"10"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="Unit"
+                  extends="GenericItem"
+                  jaloclass="de.hybris.platform.jalo.product.Unit"
+                  autocreate="true"
+                  generate="true"&gt;
+            &lt;deployment table="Units" typecode="10"/&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong>2)Defining new item type by extending existing item type for which there is no
+            deployment</strong><br>
+            <strong>Example:</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"AbstractOrder"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"GenericItem"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                jaloclass<span class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.order.AbstractOrder"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                generate<span class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">abstract</span><span class="sy0">=</span><span class="st0">"true"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Cart"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">extends</span><span class="sy0">=</span><span class="st0">"AbstractOrder"</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                jaloclass<span class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.order.Cart"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                generate<span class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Carts"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"43"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="AbstractOrder"
+                  extends="GenericItem"
+                  jaloclass="de.hybris.platform.jalo.order.AbstractOrder"
+                  autocreate="true"
+                  generate="true"
+                  abstract="true"&gt;
+&lt;itemtype code="Cart"
+                  extends="AbstractOrder"
+                  jaloclass="de.hybris.platform.jalo.order.Cart"
+                  autocreate="true"
+                  generate="true"&gt;
+            &lt;deployment table="Carts" typecode="43"/&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong>deployment</strong> is not defined for <strong>AbstractOrder</strong> as its
+            <strong>abstract</strong> type,<strong>Cart</strong> is extending <strong>AbstractOrder</strong> , so
+            <strong>deployment</strong> must be defined for <strong>Cart</strong>.<strong><br>
+            </strong></p><h6><strong>Note:</strong></h6>
+        <p><strong></strong><strong>1)</strong> If we <strong>don’t specify deployment</strong> for the above scenarios
+            then <strong>build</strong> will <strong>fail</strong>.<br>
+            If we want to <strong>pass the build</strong> and let items to be stored in <strong>GenericItem</strong>
+            table then define below property in the <strong>local.properties</strong> file</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">build.<span class="me1">development</span>.<span
+                                    class="me1">mode</span><span class="sy0">=</span><span class="kw2">false</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">build.development.mode=false</pre>
+            </div>
+        </div>
+
+        <p>This is not advisable because <strong>storing many item types</strong> in <strong>GenericItem</strong> table
+            will <strong>decrease</strong> the <strong>performance</strong> and possibility of <strong>data
+                truncation</strong> due to <strong>columns limit</strong> in the table.</p>
+        <p><strong>2)</strong><strong>Deployment table</strong> should not be defined for any Item type if there is
+            already a <strong>deployment defined for its super type</strong> otherwise it will <strong>decrease</strong>
+            the <strong>performance</strong> as it has to perform <strong>multiple joins</strong> while retrieving.</p>
+        <p>Example:</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Product"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"GenericItem"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                jaloclass<span class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.product.Product"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                generate<span class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Products"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"1"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"ApparelProduct"</span> <span class="kw1">extends</span><span
+                                    class="sy0">=</span><span class="st0">"Product"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> jaloclass<span
+                                    class="sy0">=</span><span class="st0">"org.training.core.jalo.ApparelProduct"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span
+                                    class="sy0">&gt;</span>Base apparel product extension that contains additional
+                                attributes.<span class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute qualifier<span class="sy0">=</span><span
+                                    class="st0">"genders"</span> type<span class="sy0">=</span><span class="st0">"GenderList"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span class="sy0">&gt;</span><span
+                                        class="kw3">List</span> of genders that the ApparelProduct is designed for<span
+                                        class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers <span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence type<span
+                                        class="sy0">=</span><span class="st0">"property"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>itemtype<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="Product"
+                  extends="GenericItem"
+                  jaloclass="de.hybris.platform.jalo.product.Product"
+                  autocreate="true"
+                  generate="true"&gt;
+            &lt;deployment table="Products" typecode="1"/&gt;
+
+&lt;itemtype code="ApparelProduct" extends="Product"
+				autocreate="true" generate="true" jaloclass="org.training.core.jalo.ApparelProduct"&gt;
+				&lt;description&gt;Base apparel product extension that contains additional attributes.&lt;/description&gt;
+				&lt;attributes&gt;
+					&lt;attribute qualifier="genders" type="GenderList"&gt;
+						&lt;description&gt;List of genders that the ApparelProduct is designed for&lt;/description&gt;
+						&lt;modifiers /&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+				&lt;/attributes&gt;
+			&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>In this case Its not advisable to specify the deployment for <strong>ApparelProduct</strong> as it is
+            extending <strong>Product</strong> and <strong>Product</strong> has the <strong>deployment</strong> defined
+            already.</p>
+
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Defining collection in items.xml</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p><strong>Collection</strong> basically contains the elements of <strong>element type</strong>.<br>
+            <strong>element type</strong> means the type of elements we are adding into the <strong>collection</strong>.
+        </p>
+        <p>Example:<br>
+            <strong>Collection of String</strong> will contain the elements of <strong>String element type</strong>.<br>
+            <strong>Collection of Integer</strong> will contain the <strong>elements of Integer type</strong>.<br>
+            <strong>Collection of Address</strong> will contain the <strong>elements of Address
+                type</strong>.<strong><br>
+            </strong></p><h5><strong>Note:</strong></h5>
+        <p><strong></strong><strong>Element type can be a simple atomic type or it can be any other complex
+            type.</strong></p>
+        <p><strong>We define collection of string as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"StringCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"java.lang.String"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="StringCollection" elementtype="java.lang.String" autocreate="true" generate="false"/&gt;</pre>
+            </div>
+        </div>
+
+        <p>We have not specified the <strong>type</strong>,so it takes <strong>Collection of String</strong> by default.
+        </p>
+        <p><strong>We define List of string as below</strong>
+
+        </p>
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"StringCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"java.lang.String"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span> type<span
+                                    class="sy0">=</span><span class="st0">"list"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="StringCollection" elementtype="java.lang.String" autocreate="true" generate="false" type="list"/&gt;</pre>
+            </div>
+        </div>
+
+        <p>We have specified <strong>type=list</strong> so It will be <strong>List of String</strong>.</p>
+        <p><strong>We define Set of string as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"StringCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"java.lang.String"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span> type<span
+                                    class="sy0">=</span><span class="st0">"set"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="StringCollection" elementtype="java.lang.String" autocreate="true" generate="false" type="set"/&gt;</pre>
+            </div>
+        </div>
+
+        <p>In all the above definitions, <strong>elementtype</strong> is <strong>String </strong>which is an <strong>atomic
+            type</strong></p>
+        <p><strong>We define Collection of Address as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"AddressCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"Address"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="AddressCollection" elementtype="Address" autocreate="true" generate="false"/&gt;</pre>
+            </div>
+        </div>
+
+        <p>Here <strong>elementtype</strong> is <strong>Address</strong> which is a <strong>complex type</strong> and
+            also another <strong>item type</strong>.</p>
+        <p><strong>We define List of Language as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"LanguageList"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"Language"</span> autocreate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> generate<span class="sy0">=</span><span class="st0">"false"</span>
+                                type<span class="sy0">=</span><span class="st0">"list"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="LanguageList" elementtype="Language" autocreate="true" generate="false" type="list"/&gt;</pre>
+            </div>
+        </div>
+
+        <p>Here <strong>elementtype</strong> is <strong>Language</strong> which is a again another <strong>item
+            type</strong><br>
+            <strong><br>
+            </strong></p><h4><strong>How we use these collections with item type?</strong></h4>
+        <p><strong></strong>Once we have created the collection, we need to inject them to the required item type.</p>
+        <p><strong>We can inject <strong>list of language</strong> and list of String to our <strong>CustomUser</strong>
+            type as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"CustomUser"</span> autocreate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> generate<span class="sy0">=</span><span class="st0">"false"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"CustomUser"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"11001"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute qualifier<span class="sy0">=</span><span
+                                    class="st0">"userId"</span> type<span class="sy0">=</span><span class="st0">"java.lang.String"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers optional<span
+                                        class="sy0">=</span><span class="st0">"false"</span> unique<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence type<span
+                                        class="sy0">=</span><span class="st0">"property"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute qualifier<span class="sy0">=</span><span
+                                    class="st0">"languages"</span> type<span class="sy0">=</span><span class="st0">"LanguageList"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers unique<span
+                                        class="sy0">=</span><span class="st0">"false"</span> read<span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence type<span
+                                        class="sy0">=</span><span class="st0">"property"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute qualifier<span class="sy0">=</span><span
+                                    class="st0">"nickNames"</span> type<span class="sy0">=</span><span class="st0">"StringCollection"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers unique<span
+                                        class="sy0">=</span><span class="st0">"false"</span> read<span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence type<span
+                                        class="sy0">=</span><span class="st0">"property"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>itemtype<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="CustomUser" autocreate="true" generate="false"&gt;
+				&lt;deployment table="CustomUser" typecode="11001" /&gt;
+				&lt;attributes&gt;
+					&lt;attribute qualifier="userId" type="java.lang.String"&gt;
+						&lt;modifiers optional="false" unique="true"/&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+					&lt;attribute qualifier="languages" type="LanguageList"&gt;
+						&lt;modifiers unique="false" read="false"/&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+					&lt;attribute qualifier="nickNames" type="StringCollection"&gt;
+						&lt;modifiers unique="false" read="false"/&gt;
+						&lt;persistence type="property" /&gt;
+					&lt;/attribute&gt;
+				&lt;/attributes&gt;
+			&lt;/itemtype&gt; </pre>
+            </div>
+        </div>
+
+        <p>We can see that <strong>2nd attribute</strong> has a qualifier called <strong>“languages”</strong><br>
+            And its type is <strong>“LanguageList”</strong> which is basically the <strong>code</strong> we defined in
+            the <strong>collection of Language</strong> using below tag</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"LanguageList"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"Language"</span> autocreate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> generate<span class="sy0">=</span><span class="st0">"false"</span>
+                                type<span class="sy0">=</span><span class="st0">"list"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="LanguageList" elementtype="Language" autocreate="true" generate="false" type="list"/&gt; </pre>
+            </div>
+        </div>
+
+        <p><br><br>
+            We can see that <strong>3rd attribute</strong> has a qualifier called <strong>“nickNames”</strong><br>
+            And its type is <strong>“StringCollection”</strong> which is basically the <strong>code</strong> we defined
+            in the <strong>collection of String</strong> using below tag</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"StringCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"java.lang.String"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="StringCollection" elementtype="java.lang.String" autocreate="true" generate="false"/&gt;</pre>
+            </div>
+        </div>
+
+        <p>The <strong>code </strong>in the <strong>collectiontype </strong>tag should become the <strong>type </strong>for
+            an <strong>attribute </strong>in the attribute definition.<br>
+            <strong><br>
+                After adding this change in items.xml file, do the build</strong></p>
+        <p><strong>CustomUserModel.java</strong> file will be generated<br>
+            Check this file for the attribute called <strong>“languages”</strong> and <strong>“nickNames”</strong></p>
+        <p>It should be generated as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> List<span class="sy0">&lt;</span>LanguageModel<span
+                                    class="sy0">&gt;</span> _languages<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">private</span> Collection<span class="sy0">&lt;</span>String<span
+                                    class="sy0">&gt;</span> _nickNames<span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">private List&lt;LanguageModel&gt; _languages;
+private Collection&lt;String&gt; _nickNames;</pre>
+            </div>
+        </div>
+
+        <p><strong>So we have defined List of langauge and a collection of String for CustomUserModel.</strong></p>
+        <p>While defining collection,<br>
+            make <strong>autocreate as true</strong> so that <strong>collection type</strong> gets created in the
+            backend.<br>
+            make <strong>generate as false</strong> as we don’t need to generate Jalo class for collection type.<strong><br>
+            </strong></p><h4><strong>How collection will be stored in DB ?</strong></h4>
+        <p><strong></strong><br>
+            <strong>There are 2 cases in Collection</strong></p>
+        <p><strong>1)Collection of Atomic type</strong><br>
+            In our <strong>CustomUser</strong> item type we have defined <strong>List of nickName</strong> Where
+            nickName is a String which is <strong>atomic type</strong>.</p>
+        <p>If collection contains <strong>atomic types</strong> then the values are stored as <strong>binary
+            fields</strong> in the database.</p>
+        <p><strong>2)Collection of Non atomic/composed type</strong><br>
+            In our <strong>CustomUser</strong> item type we have defined <strong>List of Language</strong> Where
+            Language is a separate item type.</p>
+        <p>If collection contains <strong>complex types</strong> then those <strong>items PKs</strong> are stored as one
+            <strong>single String</strong> <strong>separated by comma</strong> for each <strong>PK</strong> in the
+            database.</p>
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Defining Relation in items.xml in Hybris</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p><strong>Relation</strong> types help us to maintain the <strong>m:n</strong> relation between <strong>2
+            tables</strong>.<strong><br>
+        </strong></p><h5><strong>Let’s consider <strong>2</strong> possible cases in relation</strong></h5>
+        <p><strong></strong><strong><br>
+        </strong></p><h6><strong>Case 1:</strong></h6>
+        <p><strong></strong><strong>One to Many/Many to One</strong><br>
+            One <strong>user</strong> can have any number of <strong>contacts</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>relation code<span class="sy0">=</span><span
+                                    class="st0">"User2ContactInfos"</span> generate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> localized<span class="sy0">=</span><span class="st0">"false"</span>
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>sourceElement
+                                type<span class="sy0">=</span><span class="st0">"User"</span> cardinality<span
+                                        class="sy0">=</span><span class="st0">"one"</span> qualifier<span
+                                        class="sy0">=</span><span class="st0">"user"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>sourceElement<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>targetElement
+                                type<span class="sy0">=</span><span class="st0">"AbstractContactInfo"</span> cardinality<span
+                                        class="sy0">=</span><span class="st0">"many"</span> qualifier<span
+                                        class="sy0">=</span><span class="st0">"contactInfos"</span> ordered<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"true"</span> partof<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>targetElement<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>relation<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;relation code="User2ContactInfos" generate="true" localized="false" autocreate="true"&gt;
+            &lt;sourceElement type="User" cardinality="one" qualifier="user"&gt;
+                &lt;modifiers read="true" write="true" search="true" optional="false"/&gt;
+            &lt;/sourceElement&gt;
+            &lt;targetElement type="AbstractContactInfo" cardinality="many" qualifier="contactInfos" ordered="true"&gt;
+                &lt;modifiers read="true" write="true" search="true" optional="true" partof="true"/&gt;
+            &lt;/targetElement&gt;
+        &lt;/relation&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+        </strong></p><h6><strong>We can see below entries in model class after build</strong></h6>
+        <p><strong></strong><br>
+            <strong>UserModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> Collection<span class="sy0">&lt;</span>AbstractContactInfoModel<span
+                                    class="sy0">&gt;</span> _contactInfos<span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">private Collection&lt;AbstractContactInfoModel&gt; _contactInfos;</pre>
+            </div>
+        </div>
+
+        <p><br><br>
+            <strong>AbstractContactInfoModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> UserModel _user<span class="sy0">;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">private UserModel _user;</pre>
+            </div>
+        </div>
+
+        <p><br><br>
+            Since its a <strong>One To Many</strong> relation, we can observe that <strong>Collection</strong> is
+            generated in <strong>UserModel</strong> class and just <strong>single User</strong> entity is generated in
+            <strong>AbstractContactInfoModel</strong> class<br>
+            <strong><br>
+            </strong></p><h6><strong>Case 2:</strong></h6>
+        <p><strong></strong><strong>Many to many</strong><br>
+            Consider the relation between <strong>Product</strong> and <strong>categories</strong><br>
+            One product can belong to many categories<br>
+            And one category can contain many products.<br>
+            It is <strong>m:n</strong> relation.</p>
+        <p><strong>We can define the relation for such case as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>relation code<span class="sy0">=</span><span
+                                    class="st0">"CategoryProductRelation"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> localized<span
+                                    class="sy0">=</span><span class="st0">"false"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Cat2ProdRel"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"143"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>sourceElement
+                                qualifier<span class="sy0">=</span><span class="st0">"supercategories"</span> type<span
+                                        class="sy0">=</span><span class="st0">"Category"</span> cardinality<span
+                                        class="sy0">=</span><span class="st0">"many"</span> ordered<span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span
+                                    class="sy0">&gt;</span><span class="kw1">Super</span> Categories<span class="sy0">&lt;/</span>description<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>sourceElement<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>targetElement
+                                qualifier<span class="sy0">=</span><span class="st0">"products"</span> type<span
+                                        class="sy0">=</span><span class="st0">"Product"</span> cardinality<span
+                                        class="sy0">=</span><span class="st0">"many"</span> collectiontype<span
+                                        class="sy0">=</span><span class="st0">"list"</span> ordered<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span
+                                    class="sy0">&gt;</span>Products<span class="sy0">&lt;/</span>description<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>targetElement<span
+                                    class="sy0">&gt;</span>&nbsp; &nbsp; &nbsp; &nbsp;
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>relation<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;relation code="CategoryProductRelation" autocreate="true" generate="true" localized="false"&gt;
+			&lt;deployment table="Cat2ProdRel" typecode="143"/&gt;
+    		&lt;sourceElement qualifier="supercategories" type="Category" cardinality="many" ordered="false"&gt;
+    		    &lt;description&gt;Super Categories&lt;/description&gt;
+    			&lt;modifiers read="true" write="true" search="true" optional="true"/&gt;
+    		&lt;/sourceElement&gt;
+    		&lt;targetElement qualifier="products" type="Product" cardinality="many" collectiontype="list" ordered="true"&gt;
+    		    &lt;description&gt;Products&lt;/description&gt;
+    			&lt;modifiers read="true" write="true" search="true" optional="true"/&gt;
+    		&lt;/targetElement&gt;
+    	&lt;/relation&gt;</pre>
+            </div>
+        </div>
+
+        <p>We have defined the relation with code <strong>“CategoryProductRelation”</strong><br>
+            Speicifed the deployment table called <strong>“Cat2ProdRel”</strong></p>
+        <p>We have <strong>2</strong> important things here,<strong>sourceElement</strong> and
+            <strong>targetElement</strong>.<br>
+            We can see that <strong>cardinality</strong> is mentioned as <strong>many in source</strong> and <strong>many
+                in target</strong>, so it’s a <strong>many to many</strong> relation.</p>
+        <p>We can see qualifier as <strong>superCategories</strong> in the <strong>source</strong> which is of type
+            <strong>Category</strong>.<br>
+            We can see qualifier as <strong>products</strong> in the <strong>target</strong> which is of type <strong>Product</strong>.<br>
+            It means Inside a <strong>Category </strong>it creates a variable called <strong>products </strong>and
+            inside a <strong>Product </strong>it creates a variable called <strong>superCategories</strong></p>
+        <p><strong>Generate</strong> will have <strong>no effect</strong> for relation.</p>
+        <p><strong>Autocreate true</strong> makes the <strong>relation type</strong> to be created.</p>
+        <p>We have specified collection type as <strong>List</strong> for <strong>target</strong>.<strong><br>
+        </strong></p><h6><strong>After the build, we can see below entries in java class</strong></h6>
+        <p><strong></strong><br>
+            <strong>CategoryModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> List<span class="sy0">&lt;</span>ProductModel<span
+                                    class="sy0">&gt;</span> _products<span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">private List&lt;ProductModel&gt; _products;</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+            ProductModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> Collection<span class="sy0">&lt;</span>CategoryModel<span
+                                    class="sy0">&gt;</span> _supercategories<span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">private Collection&lt;CategoryModel&gt; _supercategories;</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+        </strong></p><h6><strong>How Relation works in backend?</strong></h6>
+        <p><strong></strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/mn_relation.jpg" alt="M:N relation"></p>
+        <p><strong>One table</strong> will be created for <strong>Products</strong><br>
+            <strong>One table</strong> will be created for <strong>Categories</strong><br>
+            <strong>One extra table</strong> will be created for <strong>LinkItem</strong>(elements on both sides of the
+            relation are linked together via instances of a LinkItem table)</p>
+        <p>Each <strong>LinkItem</strong> instance stores the <strong>PKs</strong> of the related items for each row.
+        </p>
+        <p>So every row of <strong>product</strong> with associated <strong>category</strong> will have <strong>one
+            row</strong> in the LinkItem table with <strong>PK of Catrgory</strong> and associated <strong>PK of
+            Product</strong>.</p>
+        <p>LinkItem instances are used internally by hybris.<br>
+            We just need to call <strong>getters</strong> and <strong>setters</strong> at the API level to set and get
+            the values.<strong><br>
+            </strong></p><h6><strong>Note:</strong></h6>
+        <p><strong></strong><strong>Extra table</strong> will be created only for <strong>many to many</strong>
+            relations
+        </p>
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Collection v/s relation in Hybris</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p>We know that <b>Collection</b> can be used as an <strong>alternative </strong>for <b>OneToMany</b> relation
+        </p>
+        <p>But in that case, why do we go for <b>Relation</b> sometimes and why do we go for <b>collection</b> some
+            other times?</p>
+        <p>Let’s see in detail what happens <strong>when </strong>we go for <strong>collection </strong>and what happens
+            when we go for <strong>relation</strong>.<strong><br>
+            </strong></p><h5><strong>Requirement : Need to define data model such that One Country will have many
+        Regions</strong></h5>
+        <p><strong></strong><br>
+            <strong>In this kind of requirement, we have 2 options to choose in Hybris</strong></p>
+        <p><strong>1) Relation</strong></p>
+        <p><strong>2) Collection</strong><strong><br>
+        </strong></p>
+        <h3><strong> Relation</strong></h3>
+        <p><strong></strong>We know that <strong>Relation </strong>can be <strong>defined </strong>as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>relation code<span class="sy0">=</span><span
+                                    class="st0">"Country2RegionRelation"</span> generate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> localized<span class="sy0">=</span><span class="st0">"false"</span>
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;</span>sourceElement type<span class="sy0">=</span><span
+                                    class="st0">"Country"</span> qualifier<span class="sy0">=</span><span class="st0">"country"</span>
+                                cardinality<span class="sy0">=</span><span class="st0">"one"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers read<span class="sy0">=</span><span
+                                        class="st0">"true"</span> write<span class="sy0">=</span><span class="st0">"true"</span>
+                                search<span class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"false"</span> unique<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;/</span>sourceElement<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;</span>targetElement type<span class="sy0">=</span><span
+                                    class="st0">"Region"</span> qualifier<span class="sy0">=</span><span class="st0">"regions"</span>
+                                cardinality<span class="sy0">=</span><span class="st0">"many"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers read<span class="sy0">=</span><span
+                                        class="st0">"true"</span> write<span class="sy0">=</span><span class="st0">"true"</span>
+                                search<span class="sy0">=</span><span class="st0">"true"</span> partof<span class="sy0">=</span><span
+                                        class="st0">"true"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;/</span>targetElement<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>relation<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;relation code="Country2RegionRelation" generate="true" localized="false" autocreate="true"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;sourceElement type="Country" qualifier="country" cardinality="one"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     &lt;modifiers read="true" write="true" search="true" optional="false" unique="true"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/sourceElement&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;targetElement type="Region" qualifier="regions" cardinality="many"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     &lt;modifiers read="true" write="true" search="true" partof="true"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/targetElement&gt;
+&lt;/relation&gt;</pre>
+            </div>
+        </div>
+
+        <p>After <strong>adding </strong>this change and <strong>build successful</strong>, we can see the classes as
+            below</p>
+        <p><strong>CountryModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> Collection<span class="sy0">&lt;</span>RegionModel<span
+                                    class="sy0">&gt;</span>_regions<span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">private Collection&lt;RegionModel&gt;_regions;</pre>
+            </div>
+        </div>
+
+        <p><br><br>
+            <strong>RegionModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">private</span> CountryModel _country<span
+                                    class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">private CountryModel _country;</pre>
+            </div>
+        </div>
+
+        <p><br>we can observe that there is a <strong>Bidirectional</strong> mapping is done.<br>
+            We can get collection of <strong>regions </strong>from <strong>country </strong>and we can get <strong>country </strong>from
+            <strong>region </strong>to which the <strong>region</strong> belongs to.</p>
+        <p><strong>Tables</strong> for this <strong>relation </strong>are as below</p>
+        <p><strong>Country table</strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/country_table_for_relation.jpg"
+                alt="country_table_for_relation"></p>
+        <p>since there is a <strong>relation </strong>between <strong>2 tables</strong>,The <strong>primary key</strong>
+            of <strong>Country table</strong> will become the <strong>foreign key</strong> in <strong>Region
+                table</strong> and looks like below</p>
+        <p><strong>Region table</strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/Region_table_for_relation.jpg"
+                alt="region_table"></p>
+        <p>Assume that <strong>country </strong>with <strong>PK </strong>value <strong>C1 </strong>has <strong>2
+            regions</strong>(region with PK value <strong>R1</strong> and <strong>R2</strong>)</p>
+        <p><strong>Country </strong>with <strong>PK </strong>value <strong>C2 </strong>has <strong>3 regions</strong>(region
+            with PK value <strong>R3</strong>,<strong>R4</strong> and <strong>R5</strong>)</p>
+        <p><strong>Region Table with above details</strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/After_country_region_merge.jpg"
+                alt="After_country_region_merge"></p>
+        <p>We can see that,<strong>Region </strong>table has <strong>Country’s PK</strong> has a <strong>foreign
+            key</strong> which is <strong>associated </strong>for <strong>each row</strong> of a <strong>Region</strong>.<strong><br>
+        </strong></p>
+        <h3><strong>Collection</strong></h3>
+        <p><strong></strong>Let’s use <strong>Collection </strong>for the same</p>
+        <p>First we need to <strong>define </strong>the <strong>collection type</strong> as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"RegionCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"Region"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">&lt;collectiontype code="RegionCollection" elementtype="Region" autocreate="true" generate="false"/&gt;</pre>
+            </div>
+        </div>
+
+        <p><br>Now we need to <strong>add </strong>this <strong>collection </strong>to <strong>Country item
+            type</strong> as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Country"</span> <span class="kw1">extends</span><span
+                                    class="sy0">=</span><span class="st0">"C2LItem"</span> jaloclass<span
+                                    class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.c2l.Country"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>deployment table<span
+                                    class="sy0">=</span><span class="st0">"Countries"</span> typecode<span
+                                    class="sy0">=</span><span class="st0">"34"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                &nbsp; &nbsp;<span class="sy0">&lt;</span>attribute autocreate<span class="sy0">=</span><span
+                                        class="st0">"true"</span> qualifier<span class="sy0">=</span><span class="st0">"regions"</span>
+                                type<span class="sy0">=</span><span class="st0">"RegionCollection"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>modifiers read<span
+                                        class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"false"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>persistence type<span
+                                        class="sy0">=</span><span class="st0">"jalo"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="Country" extends="C2LItem" jaloclass="de.hybris.platform.jalo.c2l.Country"
+               autocreate="true" generate="true"&gt;
+     &lt;deployment table="Countries" typecode="34"/&gt;
+    &lt;attributes&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      &lt;attribute autocreate="true" qualifier="regions" type="RegionCollection"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;          &lt;modifiers read="true" write="true" search="false" optional="true"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      &lt;persistence type="jalo"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p><br><strong>After </strong>doing <strong>build </strong>we can see below changes</p>
+        <p><strong>CountryModel.java</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">Collection<span class="sy0">&lt;</span>RegionModel<span
+                                    class="sy0">&gt;</span> regions<span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">Collection&lt;RegionModel&gt; regions;</pre>
+            </div>
+        </div>
+
+        <p>But inside <strong>RegionModel.java</strong>,we <strong>will not</strong> see <strong>CountryModel </strong>reference
+            because it’s a <strong>collection</strong> <strong>not a relation</strong></p>
+        <p><strong>Country Table</strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/country_table_for_collection.jpg"
+                alt="country_table_for_collection"></p>
+        <p><strong>Region Table</strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/region_table_for_collection.jpg"
+                alt="region_table_for_collection"></p>
+        <p>There is <strong>no relation</strong> between <strong>2 tables</strong> rather <strong>Country </strong>has
+            to <strong>hold </strong>the <strong>collection </strong>of <strong>Region</strong>.</p>
+        <p>Hence it <strong>stores </strong>the <strong>PK </strong>of <strong>Regions </strong>on <strong>each
+            country</strong>.</p>
+        <p>Assume that <strong>country </strong>with <strong>PK </strong>value <strong>C1 </strong>has <strong>2
+            regions</strong> (region with PK value <strong>R1</strong> and <strong>R2</strong>)</p>
+        <p><strong>Country </strong>with <strong>PK </strong>value <strong>C2 </strong>has <strong>3 regions</strong>
+            (region with PK value <strong>R3</strong>,<strong>R4</strong> and <strong>R5</strong>)</p>
+        <p><strong>Country Table with above details</strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/country_holds_pks-of-region_collection.jpg"
+                alt="country_holds_pks-of-region_collection"></p>
+        <p>Here we <strong>don’t</strong> have <strong>bidirectional relation</strong> between <strong>Country </strong>and
+            <strong>Region </strong>table.</p>
+        <p><strong>Country </strong>table <strong>holds </strong>the <strong>PKs of Region</strong> table by <strong>comma
+            separated</strong>.</p>
+        <p>Since it <strong>stores </strong>the PKs in a <strong>comma separated way</strong>, there is a
+            <strong>chance </strong>of <strong>data truncation</strong> if there are <strong>many Regions</strong>
+            associated for <strong>one country</strong> because <strong>each </strong>column in
+            <strong>Database </strong>has its <strong>own </strong>characters <strong>limit</strong>.<strong><br>
+            </strong></p>
+        <h3><strong>Pros and Cons of Collection</strong></h3>
+        <p><strong></strong><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/pros_cons_of-collection.jpg"
+                                 alt="pros_cons_of-collection"><br>
+            <strong><br>
+            </strong></p>
+        <h3><strong>Pros and Cons of Relation</strong></h3>
+        <p><strong></strong><img src="http://javainsimpleway.com/wp-content/uploads/2016/11/pros_cons_of-relation.jpg"
+                                 alt="pros_cons_of-relation.png"><br>
+            <strong><br>
+            </strong></p>
+        <h3><strong>When to use and when not use Collection/Relation? </strong></h3>
+        <p><strong></strong>There is <strong>no </strong>such <strong>hard </strong>and <strong>fast </strong>rule for
+            choosing <strong>Collection/Relation</strong>, we just need to consider <strong>few points</strong> before
+            choosing it.<strong><br>
+            </strong></p><h5><strong>When to Use Collection?</strong></h5>
+        <p><strong></strong>Prefer <strong>collection </strong>when we are <strong>sure </strong>that in our <strong>current </strong>and
+            <strong>future </strong>requirements, we <strong>will not</strong> have <strong>many </strong>rows <strong>mapped </strong>for
+            <strong>one side</strong>.<br>
+            It means whenever the collection <strong>size </strong>is <strong>small</strong>,we can <strong>prefer
+                collection</strong> as it helps to achieve <strong>faster retrieval</strong><strong><br>
+            </strong></p><h5><strong>When not to use Collection?</strong></h5>
+        <p><strong></strong><strong>Don’t use</strong> collection whenever the collection <strong>size </strong>is very
+            <strong>big </strong>as it can lead to <strong>data truncation</strong><strong><br>
+            </strong></p><h5><strong>When to use Relation?</strong></h5>
+        <p><strong></strong>Whenever the <strong>collection size</strong> is <strong>bigger </strong>or there is a
+            <strong>chance </strong>that it can <strong>grow bigger</strong> then prefer <strong>Relation </strong>as it
+            assures that there <strong>will </strong>be <strong>no data truncation</strong>.<br>
+            For <strong>many </strong>to <strong>many </strong>, we should go for
+            <strong>Relation </strong>always.<strong><br>
+            </strong></p><h5><strong>When not to use Relation?</strong></h5>
+        <p><strong></strong>We can just prefer <strong>collection </strong>in place of <strong>Relation </strong>whenever
+            the collection <strong>size </strong>is <strong>smaller </strong>to compensate <strong>slow </strong>
+            <strong>retrieval </strong>of <strong>Relation</strong> but in that case we need to negotiate with <strong>Bidirectional </strong>mapping.
+        </p>
+        <p>So <strong>choose </strong>it based on the <strong>above factors</strong> which suits your requirements.</p>
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Dynamic Attribute</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p>As we all know that <strong>any attribute</strong> we define in <strong>item type</strong> will have a
+            <strong>tag </strong>called <strong>persistent type.</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">persistent type<span class="sy0">=</span>”property”</div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">persistent type=”property”</pre>
+            </div>
+        </div>
+
+        <p>In this case,<br>
+            <b>Corresponding column</b> will be <b>created </b>in the <b>database </b>and hence the <b>values</b> will
+            be stored in the <b>DB</b>. So it’s called <strong>persistent attribute</strong>.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">persistent type<span class="sy0">=</span>”dynamic”</div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">persistent type=”dynamic”</pre>
+            </div>
+        </div>
+
+        <p>In this case,<br>
+            There will be <b>no column created </b>in the <b>database </b> and hence <b>values</b> <b>will not be
+                stored</b> in the <strong>database</strong>.<br>
+            So it’s called <strong>Non persistent</strong> or <strong>dynamic attribute.</strong></p>
+        <p>For every <strong>dynamic attribute</strong> we define, we need to mention the <strong>attribute
+            handler</strong> otherwise <strong>Bean Id</strong> will be generated <strong>automatically</strong> and we
+            have to use the <b>same bean id</b> while defining Spring bean in XML.</p>
+        <p><strong>Attribute handler</strong> is implemented using <strong>Spring</strong>.</p>
+        <p>So we need to mention the spring <strong>bean id</strong> for the <strong>attribute handler</strong>.</p>
+        <p>Then we need to define the <strong>class</strong> for that spring <strong>bean id</strong> which provides the
+            <strong>custom logic</strong> for the <strong>dynamic attribute</strong>.<strong><br>
+            </strong></p><h5><strong>Note:</strong></h5>
+        <p><strong></strong>It is <b>possible </b>that one <b>item type</b> can have <b>any </b>number of <b>dynamic
+            attributes</b>.<b><br>
+        </b></p><h5><b>Requirement:<br>
+        Identify how old the customer is in our site so that we can give some discount to those customers who are 3
+        years old.</b></h5><b>
+    </b>
+        <p><b></b></p>
+        <h5><strong>How to achieve it?</strong></h5>
+        <p>We <strong>need </strong>to <strong>get </strong>the customer’s <strong>registration date</strong> which we
+            <strong>store </strong>as <strong>creation_time</strong> in DB and we need to get <strong>current
+                time</strong> from <strong>Java Date API</strong>. </p>
+        <p>We need to do <strong>current_time – creation_time</strong> to know how old the customer is.</p>
+        <p>We can add a <b>new attribute called “<b>customer_site_age</b>” as <b>dynamic attribute</b>.<b><br>
+        </b></b></p><h4><b><b>Let’s see the steps for the same.<br><br>
+        Step 1:</b></b></h4>
+        <p><b>Define a new attribute in the items.xml for Customer item type and make it as dynamic attribute.</b></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Customer"</span> autocreate<span class="sy0">=</span><span class="st0">"false"</span>
+                                generate<span class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                                &nbsp; &nbsp;<span class="sy0">&lt;</span>description<span class="sy0">&gt;</span>Extending
+                                Customer type with additional attributes.<span class="sy0">&lt;/</span>description<span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;</span>attribute autocreate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> qualifier<span class="sy0">=</span><span class="st0">"customer_site_age"</span>
+                                type<span class="sy0">=</span><span class="st0">"java.lang.Integer"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="sy0">&lt;</span>modifiers read<span class="sy0">=</span>”<span class="kw2">true</span>”
+                                write<span class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="sy0">&lt;</span>persistence type<span class="sy0">=</span><span
+                                        class="st0">"dynamic"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>description<span
+                                        class="sy0">&gt;</span>Dynamic attribute <span class="kw1">for</span> customer
+                                site age<span class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;/</span>attributes<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="Customer" autocreate="false" generate="false"&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;      &lt;description&gt;Extending Customer type with additional attributes.&lt;/description&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;attributes&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;attribute autocreate="true" qualifier="customer_site_age" type="java.lang.Integer"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;modifiers read=”true” write="true"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;persistence type="dynamic"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;           &lt;description&gt;Dynamic attribute for customer site age&lt;/description&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/attribute&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/attributes&gt;
+&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>Here we have defined the <strong>persistent type</strong> as <strong>dynamic</strong>.<strong><br>
+        </strong></p><h5><strong>Step 2:</strong></h5>
+        <p><strong></strong><strong>Define the Attributehandler which should be the bean id of the class which
+            implements DynamicAttributeHandler.</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Customer"</span> autocreate<span class="sy0">=</span><span class="st0">"false"</span>
+                                generate<span class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="sy0">&lt;</span>description<span class="sy0">&gt;</span>Extending Customer
+                                type with additional attributes.<span class="sy0">&lt;/</span>description<span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;</span>attribute autocreate<span class="sy0">=</span><span
+                                    class="st0">"true"</span> qualifier<span class="sy0">=</span><span class="st0">"customer_site_age"</span>
+                                type<span class="sy0">=</span><span class="st0">"java.lang.Integer"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="sy0">&lt;</span>modifiers write<span class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="sy0">&lt;</span>persistence type<span class="sy0">=</span><span
+                                        class="st0">"dynamic"</span> attributeHandler<span class="sy0">=</span><span
+                                        class="st0">"customerSiteAge"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="sy0">&lt;</span>description<span class="sy0">&gt;</span>Dynamic attribute
+                                <span class="kw1">for</span> customer site age<span
+                                        class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="sy0">&lt;/</span>attributes<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="Customer" autocreate="false" generate="false"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;description&gt;Extending Customer type with additional attributes.&lt;/description&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;attributes&gt;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;attribute autocreate="true" qualifier="customer_site_age" type="java.lang.Integer"&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;modifiers write="false"/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;persistence type="dynamic" attributeHandler="customerSiteAge"/&gt;
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;description&gt;Dynamic attribute for customer site age&lt;/description&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/attribute&gt;
+ &nbsp;&nbsp;&nbsp;&nbsp; &lt;/attributes&gt;
+&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>We have added <strong>attributeHandler=”CustomerSiteAge”</strong> in the <strong>persistent
+            tag.</strong><b><br>
+        </b></p><h5><b>Step 3:</b></h5><b>
+    </b>
+        <p><b></b> <b>Define the class with custom logic</b></p>
+        <p>We can define the new class either by <strong>extending AbstractDynamicAttributeHandler</strong> or by
+            <strong>implementing DynamicAttributeHandler</strong></p>
+        <p>Define it in the <strong>trainingcore</strong>(your custom core) extension in <strong>org.training.core.attributes</strong>
+            package</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">class</span>
+                                CustomerSiteAgeHandler <span class="kw1">extends</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">AbstractDynamicAttributeHandler<span class="sy0">&lt;</span><span
+                                    class="kw3">Integer</span>, CustomerModel<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; @Override</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="kw1">public</span> <span
+                                    class="kw3">Integer</span> get<span class="br0">(</span><span
+                                    class="kw1">final</span> CustomerModel model<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="kw4">int</span> customerSiteAge <span class="sy0">=</span> <span class="nu0">0</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="kw1">try</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="kw1">final</span> <span class="kw3">Date</span> customerRegisteredDate
+                                <span class="sy0">=</span> model.<span class="me1">getCreationtime</span><span
+                                        class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="kw1">final</span> <span class="kw3">Calendar</span> cal <span
+                                        class="sy0">=</span> <span class="kw3">Calendar</span>.<span class="me1">getInstance</span><span
+                                        class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                cal.<span class="me1">setTime</span><span
+                                        class="br0">(</span>customerRegisteredDate<span class="br0">)</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="kw1">final</span> <span class="kw4">int</span> registeredYear <span
+                                        class="sy0">=</span> cal.<span class="me1">get</span><span
+                                        class="br0">(</span><span class="kw3">Calendar</span>.<span
+                                        class="me1">YEAR</span><span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="kw1">final</span> <span class="kw4">int</span> currentYear <span
+                                        class="sy0">=</span> <span class="kw3">Calendar</span>.<span class="me1">getInstance</span><span
+                                        class="br0">(</span><span class="br0">)</span>.<span class="me1">get</span><span
+                                        class="br0">(</span><span class="kw3">Calendar</span>.<span
+                                        class="me1">YEAR</span><span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                customerSiteAge <span class="sy0">=</span> currentYear <span class="sy0">-</span>
+                                registeredYear<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="kw1">catch</span> <span class="br0">(</span><span class="kw1">final</span>
+                                <span class="kw3">Exception</span> e<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                e.<span class="me1">printStackTrace</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                                    class="kw1">return</span> customerSiteAge<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">public class CustomerSiteAgeHandler extends
+AbstractDynamicAttributeHandler&lt;Integer, CustomerModel&gt;
+{
+&nbsp; @Override
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public Integer get(final CustomerModel model)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int customerSiteAge = 0;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final Date customerRegisteredDate = model.getCreationtime();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final Calendar cal = Calendar.getInstance();
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cal.setTime(customerRegisteredDate);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final int registeredYear = cal.get(Calendar.YEAR);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; customerSiteAge = currentYear - registeredYear;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; catch (final Exception e)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; e.printStackTrace();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return customerSiteAge;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+}</pre>
+            </div>
+        </div>
+
+        <p><b><br>
+        </b></p><h5><b>Step 4:</b></h5><b>
+    </b>
+        <p><b></b><b>Associate the attribute handler specified in items.xml with spring bean id in
+            trainingcore-spring.xml(your_custom_core-spring.xml)</b></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>bean id<span class="sy0">=</span><span
+                                    class="st0">"customerSiteAge"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">class</span><span class="sy0">=</span><span class="st0">"org.training.core.attributes.CustomerSiteAgeHandler"</span><span
+                                    class="sy0">/&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;bean id="customerSiteAge"
+class="org.training.core.attributes.CustomerSiteAgeHandler"/&gt;</pre>
+            </div>
+        </div>
+
+        <p><b>Note:</b><br>
+            <b>customerSiteAge</b> mentioned as <b>spring bean id</b> above should be same as <b>attributeHandler</b>
+            mentioned in <b>items.xml</b>.<b><br>
+            </b></p><h5><b>Step 5:</b></h5><b>
+    </b>
+        <p><b></b><b>Build and then update the system either using HAC or using ant command</b></p>
+        <p>Now whenever we access <b>customer Model</b>, we can also access the <b>customerSiteAge</b>attribute from
+            <strong>customer model</strong>,<br>
+            we will get the result of our <b>custom logic</b> in that attribute.</p>
+        <p>We can display it in any <strong>UI page</strong> by setting its value in appropriate controller and model
+            attribute.<strong><br>
+            </strong></p>
+        <h3><strong>Advantages of Dynamic attribute</strong></h3>
+        <p><strong></strong> Data <strong>will not</strong> be <strong>saved </strong>in <strong>DB </strong>as its
+            <strong>dynamic</strong></p>
+        <p>The <b>custom logic</b> is written <b>once </b>and used all the time <b>wherever </b>that attribute is <b>required</b>.<b><br>
+        </b></p><h6><b>When we should go for Dynamic attribute?</b></h6><b>
+    </b>
+        <p><b></b><br>
+            We should choose <strong>dynamic attribute</strong> whenever we <strong>want </strong>to get <strong>some
+                derived data</strong> based on <strong>existing values</strong>.</p>
+        <p>So <strong>instead of</strong> saving <strong>one more column</strong>, we can make it as
+            <strong>dynamic </strong>and <strong>compute </strong>its value <strong>based </strong>on the <strong>current
+                values</strong>.<strong><br>
+            </strong></p><h5><strong>Dynamic in Enum?</strong></h5>
+        <p><strong></strong><strong>Dynamic in enum</strong> is <strong>completely different</strong> from <strong>Dynamic
+            attributes</strong>.</p>
+        <p>If an <strong>Enumtype </strong>is <strong>non-dynamic</strong> (by default, dynamic=”false”) we are <strong>not
+            allowed</strong> to <strong>add new values</strong> at <strong>runtime</strong>.</p>
+        <p>If we <strong>add </strong>any <strong>non-dynamic enumtype</strong> without values,<strong>build </strong>will
+            <strong>fail </strong>as it <strong>does not</strong> have any effect.</p>
+        <p>So if you <strong>want </strong>to <strong>add new values</strong> at <strong>runtime </strong>we have to
+            make <strong>dynamic=”true”</strong> for an <strong>enum</strong>.</p>
+        <p>We can <strong>change </strong>the <strong>flag anytime</strong> but <strong>enforces a system
+            update</strong>.</p>
+        <p>If <strong>dynamic=”false”</strong> the <strong>servicelayer </strong>generates real <strong>java
+            enums </strong><strong>(</strong>having a fixed set of values<strong>)</strong>.</p>
+        <p>If <strong>dynamic=”true”</strong> it generates <strong>hybris enums</strong> which can be used <strong>without
+            fixed values</strong>(means we can add run time values).</p>
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Redeclare in items.xml</h1>
+    </div>
+    <div class="post-content-body">
+        <h4><strong>Introduction</strong></h4>
+        <p>In <strong>Java</strong> , we have a concept called <strong>variable hiding</strong> which means <strong>variable
+            with the same name</strong> is defined in both <strong>parent</strong> and <strong>child</strong> classes.
+        </p>
+        <p>In such cases,<strong>variable from Parent</strong> will be <strong>inherited</strong> but it will be
+            <strong>hidden</strong> in the <strong>Child </strong>class as the <strong>Child</strong> class also has the
+            same variable.</p>
+        <p>we can also change the <strong>variable data type</strong> in <strong>Child</strong> class keeping the
+            <strong>same variable name</strong>.</p>
+        <p>For more details on Variable hiding in Java, <a
+                href="http://javainsimpleway.com/variable-hiding-in-java/"><strong><u>Click here</u></strong></a></p>
+        <p><strong>Similar to Variable Hiding in Java, we have a concept called “Re declaring” the attributes” in
+            Hybris.</strong></p>
+        <h4><strong>Re declaring the attributes in Hybris</strong></h4>
+        <p>Sometimes it is required to <strong>re declare</strong> the attribute in the <strong>child item type</strong>
+            for various reasons.</p>
+        <p>It could be to <strong>change the Data type</strong> of an attribute or make an attribute as <strong>read
+            only</strong> etc. </p>
+        <p>So We can <strong>re declare </strong>the <strong>same attributes</strong> in the <strong>Child</strong> item
+            type to change such <strong>behavior</strong></p>
+        <h5><strong>Examples:</strong></h5>
+        <p>We can change the modifier from <strong>read=true</strong> to <strong>read=false</strong></p>
+        <p>We can make attribute as <strong>unique</strong>.</p>
+        <p>We can add <strong>write=false.</strong></p>
+        <p>We can also change the <strong>type of the attribute</strong> but only to <strong>subtypes</strong>.</p>
+        <h5><b>Example 1:</b></h5>
+        <h6><b>Adding unique flag for the redefined attribute.</b></h6>
+        <p>We can see that <strong>isocode attribute</strong> is <strong>re defined</strong> in <strong>Country</strong>
+            item type even though its defined in its Parent item type called <strong>C2Litem</strong>.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"C2LItem"</span> <span class="kw1">extends</span><span
+                                    class="sy0">=</span><span class="st0">"GenericItem"</span> jaloclass<span
+                                    class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.c2l.C2LItem"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> <span class="kw1">abstract</span><span
+                                        class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>attribute
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> qualifier<span
+                                        class="sy0">=</span><span class="st0">"active"</span> type<span
+                                        class="sy0">=</span><span class="st0">"java.lang.Boolean"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence
+                                type<span class="sy0">=</span><span class="st0">"property"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>defaultvalue<span
+                                    class="sy0">&gt;</span><span class="kw3">Boolean</span>.<span
+                                    class="me1">valueOf</span><span class="br0">(</span><span
+                                    class="kw2">false</span><span class="br0">)</span><span class="sy0">&lt;/</span>defaultvalue<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;/</span>attribute<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>attribute
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> qualifier<span
+                                        class="sy0">=</span><span class="st0">"isocode"</span> type<span
+                                        class="sy0">=</span><span class="st0">"java.lang.String"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>persistence
+                                type<span class="sy0">=</span><span class="st0">"property"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional <span
+                                        class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>custom<span
+                                    class="sy0">-</span>properties<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"hmcIndexField"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp;<span class="sy0">&lt;</span>value<span class="sy0">&gt;</span><span class="st0">"thefield"</span><span
+                                        class="sy0">&lt;/</span>value<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span
+                                    class="sy0">&lt;/</span>property<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span
+                                    class="sy0">&lt;/</span>custom<span class="sy0">-</span>properties<span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attribute<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Country"</span> <span class="kw1">extends</span><span
+                                    class="sy0">=</span><span class="st0">"C2LItem"</span> jaloclass<span
+                                    class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.c2l.Country"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Countries"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"34"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>attribute
+                                qualifier<span class="sy0">=</span><span class="st0">"isocode"</span> type<span
+                                        class="sy0">=</span><span class="st0">"java.lang.String"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp; &nbsp;redeclare<span class="sy0">=</span><span
+                                        class="st0">"true"</span> generate<span class="sy0">=</span><span class="st0">"false"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="sy0">&lt;</span>modifiers
+                                read<span class="sy0">=</span><span class="st0">"true"</span> write<span
+                                        class="sy0">=</span><span class="st0">"true"</span> search<span
+                                        class="sy0">=</span><span class="st0">"true"</span> optional<span
+                                        class="sy0">=</span><span class="st0">"false"</span> unique<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attribute<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="C2LItem" extends="GenericItem" jaloclass="de.hybris.platform.jalo.c2l.C2LItem"
+                  autocreate="true" abstract="true" generate="true"&gt;
+      &lt;attributes&gt;
+           &lt;attribute autocreate="true" qualifier="active" type="java.lang.Boolean"&gt;
+                &lt;persistence type="property"/&gt;
+                &lt;modifiers read="true" write="true" search="true" optional="false"/&gt;
+                &lt;defaultvalue&gt;Boolean.valueOf(false)&lt;/defaultvalue&gt;
+           &lt;/attribute&gt;
+           &lt;attribute autocreate="true" qualifier="isocode" type="java.lang.String"&gt;
+                &lt;persistence type="property"/&gt;
+                &lt;modifiers read="true" write="true" search="true" optional ="false"/&gt;
+                &lt;custom-properties&gt;
+                &lt;property name="hmcIndexField"&gt;
+                     &lt;value&gt;"thefield"&lt;/value&gt;
+                 &lt;/property&gt;
+                 &lt;/custom-properties&gt;
+            &lt;/attribute&gt;
+      &lt;/attributes&gt;
+&lt;/itemtype&gt;
+
+&lt;itemtype code="Country" extends="C2LItem" jaloclass="de.hybris.platform.jalo.c2l.Country"
+                  autocreate="true" generate="true"&gt;
+            &lt;deployment table="Countries" typecode="34"/&gt;
+       &lt;attributes&gt;
+               &lt;attribute qualifier="isocode" type="java.lang.String"
+                           redeclare="true" generate="false"&gt;
+               &lt;modifiers read="true" write="true" search="true" optional="false" unique="true"/&gt;
+                &lt;/attribute&gt;
+        &lt;/attributes&gt;
+&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>We have <strong>re defined</strong> the attribute <strong>“isocode”</strong> in the <strong>Country</strong>
+            item type and we have added <strong>unique=”true”</strong> to make sure that it will be
+            <strong>unique</strong>.</p>
+        <p>Since we are <strong>redefining </strong>the attribute, we have to make <strong>redeclare=”true”</strong>.
+        </p>
+        <h5><b>Example2 :</b></h5>
+        <h6><b>Changing the type of redefined attribute.</b></h6>
+        <p>We have defined the attribute called <strong>“entries”</strong> in the <strong>AbstractOrder</strong> item
+            type<br>
+            It has been <strong>re defined </strong>in <strong>Cart </strong>as well as <strong>Order</strong> item
+            type.</p>
+        <p><strong>Entries </strong>is available in <strong>AbstractOrder </strong>as a <strong>List of
+            AbstractOrderEntry </strong><br>
+            It is <strong>re defined</strong> in <strong>Cart</strong> as a <strong>List of CartEntry </strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">&nbsp; <span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"CartEntryCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"CartEntry"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; type<span class="sy0">=</span><span class="st0">"list"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>collectiontype
+                                code<span class="sy0">=</span><span class="st0">"OrderEntryCollection"</span>
+                                elementtype<span class="sy0">=</span><span class="st0">"OrderEntry"</span>
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"false"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; type<span class="sy0">=</span><span class="st0">"list"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Cart"</span> <span class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"AbstractOrder"</span> jaloclass<span class="sy0">=</span><span
+                                    class="st0">"de.hybris.platform.jalo.order.Cart"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Carts"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"43"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;<span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attribute autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> redeclare<span
+                                    class="sy0">=</span><span class="st0">"true"</span> qualifier<span
+                                    class="sy0">=</span><span class="st0">"entries"</span> &nbsp; &nbsp;
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp; type<span class="sy0">=</span><span class="st0">"CartEntryCollection"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attribute
+                                type<span class="sy0">=</span><span class="st0">"java.lang.String"</span> qualifier<span
+                                        class="sy0">=</span><span class="st0">"sessionId"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; <span class="sy0">&lt;</span>persistence type<span class="sy0">=</span><span
+                                        class="st0">"property"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; <span class="sy0">&lt;</span>modifiers read<span class="sy0">=</span><span
+                                        class="st0">"true"</span> write<span class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>attribute<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp;<span class="sy0">&lt;/</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">  &lt;collectiontype code="CartEntryCollection" elementtype="CartEntry" autocreate="true" generate="false"
+                        type="list"/&gt;
+        &lt;collectiontype code="OrderEntryCollection" elementtype="OrderEntry" autocreate="true" generate="false"
+                        type="list"/&gt;
+&lt;itemtype code="Cart" extends="AbstractOrder" jaloclass="de.hybris.platform.jalo.order.Cart"
+            autocreate="true" generate="true"&gt;
+            &lt;deployment table="Carts" typecode="43"/&gt;
+   &lt;attributes&gt;
+      &lt;attribute autocreate="true" redeclare="true" qualifier="entries"
+                          type="CartEntryCollection"/&gt;
+                &lt;attribute type="java.lang.String" qualifier="sessionId"&gt;
+                      &lt;persistence type="property"/&gt;
+                      &lt;modifiers read="true" write="true"/&gt;
+                &lt;/attribute&gt;
+   &lt;/attributes&gt;
+&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>It is <strong>re defined</strong> in <strong>Order</strong> as a <strong>List of OrderEntry </strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                ></a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">&nbsp; <span class="sy0">&lt;</span>collectiontype code<span
+                                    class="sy0">=</span><span class="st0">"CartEntryCollection"</span> elementtype<span
+                                    class="sy0">=</span><span class="st0">"CartEntry"</span> autocreate<span
+                                    class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                    class="sy0">=</span><span class="st0">"false"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; type<span class="sy0">=</span><span class="st0">"list"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>collectiontype
+                                code<span class="sy0">=</span><span class="st0">"OrderEntryCollection"</span>
+                                elementtype<span class="sy0">=</span><span class="st0">"OrderEntry"</span>
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"false"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; type<span class="sy0">=</span><span class="st0">"list"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span class="sy0">=</span><span
+                                    class="st0">"Order"</span> <span class="kw1">extends</span><span
+                                    class="sy0">=</span><span class="st0">"AbstractOrder"</span> jaloclass<span
+                                    class="sy0">=</span><span class="st0">"de.hybris.platform.jalo.order.Order"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>deployment
+                                table<span class="sy0">=</span><span class="st0">"Orders"</span> typecode<span
+                                        class="sy0">=</span><span class="st0">"45"</span> propertytable<span
+                                        class="sy0">=</span><span class="st0">"OrderProps"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;<span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attribute
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> redeclare<span
+                                        class="sy0">=</span><span class="st0">"true"</span> qualifier<span
+                                        class="sy0">=</span><span class="st0">"entries"</span> &nbsp;
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; &nbsp; &nbsp;type<span class="sy0">=</span><span class="st0">"OrderEntryCollection"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp;<span class="sy0">&lt;/</span>attribute</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;/</span>itemtype<span class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">  &lt;collectiontype code="CartEntryCollection" elementtype="CartEntry" autocreate="true" generate="false"
+                        type="list"/&gt;
+        &lt;collectiontype code="OrderEntryCollection" elementtype="OrderEntry" autocreate="true" generate="false"
+                        type="list"/&gt;
+&lt;itemtype code="Order" extends="AbstractOrder" jaloclass="de.hybris.platform.jalo.order.Order"
+                  autocreate="true" generate="true"&gt;
+        &lt;deployment table="Orders" typecode="45" propertytable="OrderProps"/&gt;
+   &lt;attributes&gt;
+        &lt;attribute autocreate="true" redeclare="true" qualifier="entries"
+                                                 type="OrderEntryCollection"/&gt;
+   &lt;/attribute
+&lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p><br></p>
+        <h5><strong>Note:</strong></h5>
+        <p>While <strong>re defining</strong>, If its required to change the <strong>data type</strong> of an attribute,
+            it can be changed to its <strong>Sub Type only</strong> otherwise we will get<br>
+            the <strong>build error</strong> as <strong>“The return type is incompatible”</strong>.</p>
+        <p>In the above case, <strong>OrderEntry </strong>and <strong>CartEntry </strong>both are the <strong>sub
+            types</strong> of <strong>AbstractOrderEntry</strong>.</p>
+        <p>Hence it’s allowed to change from <strong>List of AbstractOrderEntry </strong> to <strong>List of
+            CartEntry </strong> and <strong>List of OrderEntry</strong></p>
+    </div>
+</article>
+
+<article class="post-content">
+    <h1>Collection v/s relation in Hybris</h1>
+    <h3> Basically, there are two technically different ways of modeling collections in hybris:</h3>
+    <p>
+        CollectionTypes
+
+        Think of CollectionTypes in hybris as a backpack mounted onto a type
+        By runtime, CollectionTypes are resolved into a Collection of a kind of item, such as a List of MediaModels
+        Can cause overflow, resulting in truncation and therefore loss of data
+        More difficult to search and lower performance
+        On the database level, CollectionTypes are a comma-separated list of PKs, so there is a maximum
+        RelationTypes
+
+        Create links between all kinds of types Create type-safe n-to-m relations: Only link such elements of the source
+        /
+        target type declared at the relation
+        Values for relations are stored in a separate database table +Each value is stored in a separate table row
+    </p>
+    <hr>
+    <p>
+        CollectionType is discouraged and RelationType should be used whenever possible. This is because, the maximum
+        length
+        of
+        the database field of a CollectionType is limited and a CollectionType with many values may end up getting its
+        values
+        truncated. In addition, the values of CollectionTypes are written in a CSV format and not in a normalized way.
+        By
+        consequence, hybris recommends using RelationTypes whenever possible.
+
+        CollectionType: CollectionTypes are based on the Java Collection class i.e. a Collection is a list of elements.
+        1:n - Keep links to the respective values via an attribute on the source item, for example, a list of Primary
+        Keys.
+        n:1 - Store the attribute values at the respective target items and have a getter method at the source type to
+        retrieve
+        the values.
+        RelationType:
+        n:m - Internally, the elements on both sides of the relation are linked together via instances of a helper type
+        called
+        LinkItem. LinkItems hold two attributes, SourceItem and TargetItem, that hold references to the respective item.
+        For each entry within a relation (in other words, for each link from one item to another), there is a LinkItem
+        instance
+        that stores the PKs of the related items. LinkItem instances are handled transparently and automatically by the
+        platform: On the API level, you only need to use the respective getter and setter methods.
+    </p>
+</article>
+</body>
+</html>

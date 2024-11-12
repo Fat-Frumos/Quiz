@@ -1,0 +1,380 @@
+<div role="main" tabindex="-1" class="UtePc RCETm SwuGbc" aria-hidden="false">
+    <section id="h.438f6235821fbea9_8" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd purZT-AhqUyc-II5mzb ZcASvf-AhqUyc-II5mzb pSzOP-AhqUyc-qWD73c Ktthjf-AhqUyc-qWD73c JNdkSc SQVYQc">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="">
+                            <div class="oKdM2c ZZyype Kzv0Me">
+                                <div id="h.438f6235821fbea9_5"
+                                     class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb JYTMs">
+                                    <div class="jXK9ad-SmKAyb">
+                                        <div class="tyJCtd mGzaTb Depvyb baZpAe">
+                                            <div id="h.tokcb15ffw0w" class="Ap4VC aP9Z7e"></div>
+                                            <h1 id="h.tokcb15ffw0w_l" class="CDt4Ke zfr3Q duRjpb"
+                                                style="text-align: center;" tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Events
+                                                </div>
+                                            </h1>
+                                            <p>Events are meant for exchanging
+                                                information between loosely coupled components. Hybris event system is
+                                                based on the spring event framework. Hybris events allow us to publish
+                                                and listen to specific events for perform business logic depending on
+                                                the event that occured. Events can be published either locally or across
+                                                cluster nodes. </p>
+                                            <p><span style="font-variant: normal;">Events are </span>good
+                                                to use when we want to pass on the processing to another thread. we use
+                                                event for less priority task or long time running task or something
+                                                which can be done in parallel by separated thread from the main thread.
+                                                For example triggering of email, sending report to third party server,
+                                                adding logs etc.</p>
+                                            <div id="h.s4jhjkiyvryt" class="CobnVe aP9Z7e"></div>
+                                            <h2 id="h.s4jhjkiyvryt_l" class="CDt4Ke zfr3Q JYVBee"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Events Mechanism
+                                                </div>
+                                            </h2>
+                                            <p>Let’s see how we can create, publish
+                                                custom events and how to create event <span
+                                                        style="font-variant: normal;">listener</span>.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="h.438f6235821fbea9_16" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div class="hJDwNd-AhqUyc-EehZO Ft7HRd-AhqUyc-EehZO purZT-AhqUyc-II5mzb ZcASvf-AhqUyc-II5mzb pSzOP-AhqUyc-qWD73c Ktthjf-AhqUyc-qWD73c JNdkSc SQVYQc">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="">
+                            <div class="oKdM2c ZZyype Kzv0Me">
+                                <div id="h.438f6235821fbea9_13"
+                                     class="hJDwNd-AhqUyc-EehZO Ft7HRd-AhqUyc-EehZO jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb">
+                                    <div class="jXK9ad-SmKAyb">
+                                        <div class="tyJCtd baZpAe">
+                                            <img src="https://lh4.googleusercontent.com/pEdHJRtE9CMV_GjfpaT6V6qmiyiCaJf52yhat55gdVLqdxlM_7D4LtkGDTuDyKyYKDZLbtRCUSvkCYNUS9JRtyApC64d8A1_zsjM2-0OcxgzfF2Qj0wEKdz028a8EUKVLQ=w1280"
+                                                 class="CENy8b" role="img"
+                                                 style="width: 100.0000002881%; margin: 0% 0 0% -0.0000001441%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="h.438f6235821fbea9_20" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd purZT-AhqUyc-II5mzb ZcASvf-AhqUyc-II5mzb pSzOP-AhqUyc-qWD73c Ktthjf-AhqUyc-qWD73c JNdkSc SQVYQc">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="">
+                            <div class="oKdM2c ZZyype Kzv0Me">
+                                <div id="h.438f6235821fbea9_17"
+                                     class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb JYTMs">
+                                    <div class="jXK9ad-SmKAyb">
+                                        <div class="tyJCtd mGzaTb Depvyb baZpAe">
+                                            <div id="h.6894biua5w1j" class="GV3q8e aP9Z7e"></div>
+                                            <h3 id="h.6894biua5w1j_l" class="CDt4Ke zfr3Q OmQG5e"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Create Custom Event
+                                                </div>
+                                            </h3>
+                                            <p>Event is hold the necessary data to be
+                                                passed to the EventListener. It is define by a class which extends
+                                                AbstractEvent. This class will hold all the data which will be passed to
+                                                the EventListener.</p>
+                                            <p>
+                                                package com.experts.hybris.core.event;</p>
+                                            <p>
+                                                import de.hybris.platform.servicelayer.event.events.AbstractEvent;</p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                public class ExpertHybrisEvent extends AbstractEvent {</p>
+                                            <p>
+                                                private String name;</p>
+                                            <p></p>
+                                            <p>
+                                                public ExpertHybrisEvent(String name) {</p>
+                                            <p>
+                                                this.name = name;</p>
+                                            <p>
+                                                }</p>
+                                            <p>
+                                                public String getName(){</p>
+                                            <p>
+                                                return name; </p>
+                                            <p>
+                                                }</p>
+                                            <p>
+                                                }</p>
+                                            <div id="h.u2mzpw3hfh5y" class="GV3q8e aP9Z7e"></div>
+                                            <h3 id="h.u2mzpw3hfh5y_l" class="CDt4Ke zfr3Q OmQG5e"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Create EventListener
+                                                </div>
+                                            </h3>
+                                            <p>EventListener will listen to trigger event
+                                                and run business logic which is define inside onEvent(event) method. The
+                                                easiest way to create an event listener is to extend the
+                                                AbstractEventListener class and override its onEvent() method.</p>
+                                            <p>
+                                                package com.experts.hybris.core.listener;</p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                import com.experts.hybris.core.event.ExpertHybrisEvent;</p>
+                                            <p>
+                                                import
+                                                de.hybris.platform.servicelayer.event.impl.AbstractEventListener;</p>
+                                            <p>
+                                                public class ExpertHybrisEventListener extends AbstractEventListener&lt;ExpertHybrisEvent&gt;
+                                                {</p>
+                                            <p>
+                                                @Override</p>
+                                            <p>
+                                                protected void onEvent(ExpertHybrisEvent expertHybrisEvent) {</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>//
+                                                write business logic here.</p>
+                                            <p>
+                                                System.out.println("Hi " + expertHybrisEvent.getName());</p>
+                                            <p>
+                                                }</p>
+                                            <p>
+                                                }</p>
+                                            <div id="h.4m7sahhre780" class="GV3q8e aP9Z7e"></div>
+                                            <h3 id="h.4m7sahhre780_l" class="CDt4Ke zfr3Q OmQG5e"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Register EventListener
+                                                </div>
+                                            </h3>
+                                            <p>Register event listener as spring bean in
+                                                &lt;extension&gt;core-spring.xml(like trainingcore-spring.xml)
+                                                file. </p>
+                                            <p>
+                                                <span style="color: #1c1c1c;">&lt;bean id="expertHybrisEventListener" class="com.experts.hybris.core.listener.ExpertHybrisEventListener" parent="abstractSiteEventListener"&gt;</span>
+                                            </p>
+                                            <p>
+                                                <span style="color: #1c1c1c;">&lt;/bean&gt;</span></p>
+                                            <div id="h.y4m1a9z6lrqc" class="GV3q8e aP9Z7e"></div>
+                                            <h3 id="h.y4m1a9z6lrqc_l" class="CDt4Ke zfr3Q OmQG5e"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Publish Event
+                                                </div>
+                                            </h3>
+                                            <p>Publishing the event is easy. we just need
+                                                to call publishEvent(event) method of EventService class with instance
+                                                of event. we will call the eventService.publishEvent(event) with an
+                                                instance of ExpertHybrisEvent.</p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                <span>//inject </span><span
+                                                    style="color: #1c1c1c; font-variant: normal; font-weight: normal;">eventService in your c</span><span
+                                            >lass </span>
+                                            </p>
+                                            <p>
+                                                <span>@Resource</span>
+                                            </p>
+                                            <p>
+                                                <span>private EventService eventService;</span>
+                                            </p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                <span>// create ExpertHybris instance</span>
+                                            </p>
+                                            <p>
+                                                <span>ExpertHybrisEvent event = new </span><span
+                                                    style="color: #1c1c1c; font-variant: normal; font-weight: normal;">ExpertHybrisEvent </span><span
+                                            >("Experts Hybris Website");</span>
+                                            </p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                <span>// Publish the event</span>
+                                            </p>
+                                            <p>
+                                                <span>eventService.publishEvent(event);</span>
+                                            </p>
+                                            <p><span
+                                                    style="font-variant: normal;"> </span><span
+                                            >When you will execute this program, ExpertHybrisEventListener will receive the  </span><span
+                                                    style="font-variant: normal;">ExpertHybrisEvent </span><span
+                                            >event and display the name  .</span>
+                                            </p>
+                                            <p><span
+                                                    style="color: #1c1c1c;"><strong>Output</strong></span><span
+                                            > :"Hi Experts Hybris Website".</span>
+                                            </p>
+                                            <div id="h.j9iym0vj7mx8" class="CobnVe aP9Z7e"></div>
+                                            <h2 id="h.j9iym0vj7mx8_l" class="CDt4Ke zfr3Q JYVBee"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    After Save Event
+                                                </div>
+                                            </h2>
+                                            <p
+                                                    style="text-align: justify; white-space: normal;"><span
+                                            >Interceptors </span><span
+                                            >can interrupt the lifecycle of a model and execute some logic. </span>Interceptor
+                                                work before save in database. But sometimes, we have requirement to
+                                                perform some business operation after save of any model. After each
+                                                database operation (whether caused by a committed transaction or not),
+                                                Hybris is created one event. This event contains information about the
+                                                item that was added or updated. we can collect those events and perform
+                                                our business logic.</p>
+                                            <p>AfterSaveEvent class that holds the PK of
+                                                a modified item and Type of a database operation. It could be CREATE,
+                                                UPDATE, or REMOVE. we can collect those events and perform our logic
+                                                with help to implement our listener using the AfterSaveListener
+                                                interface. </p>
+                                            <p
+                                                    style="text-align: justify; white-space: normal;">Listener can be
+                                                notified about newly created events in two modes: synchronous and
+                                                asynchronous. The asynchronous mode is enabled by default. we can enable
+                                                <span style="font-variant: normal;">synchronous mode by using below properties</span>.
+                                                We will add this properties in local.properties.</p>
+                                            <p>
+                                                <span style="font-family: 'Source Code Pro'; font-weight: normal;">core.aftersave.async=false</span>
+                                            </p>
+                                            <div id="h.eubjg25c1mnu" class="GV3q8e aP9Z7e"></div>
+                                            <h3 id="h.eubjg25c1mnu_l" class="CDt4Ke zfr3Q OmQG5e"
+                                                tabindex="-1">
+                                                <div class="CjVfdc">
+                                                    Creating Custom Listener for After Save (AfterSaveListener )
+                                                </div>
+                                            </h3>
+                                            <p>All listeners are notified with the same
+                                                collection of events. We need to create a listener to collect specific
+                                                events and handle business logic. For creating custom listener, We need
+                                                to implement the <strong>AfterSaveListener </strong></span>interface
+                                                and override <strong>afterSave </strong></span>method.
+                                                There is no default implementation available. </p>
+                                            <p>
+                                                public class CustomAfterSaveListener implements AfterSaveListener</p>
+                                            <p>
+                                                {</p>
+                                            <p>
+                                                @Resource</p>
+                                            <p>
+                                                private ModelService modelService;</p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                @Override</p>
+                                            <p>
+                                                public void afterSave(final Collection&lt;AfterSaveEvent&gt; events)</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>{</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>for
+                                                (final AfterSaveEvent event : events)</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>{</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>final
+                                                int type = event.getType();</p>
+                                            <p>
+                                                //As per requirement, we can match AfterSaveEvent. it could be CREATE ,
+                                                UPDATE or REMOVE</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>if
+                                                (AfterSaveEvent.UPDATE == type || AfterSaveEvent.CREATE == type)</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>{</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>
+                                                final PK pk = event.getPk();</p>
+                                            <p></p>
+                                            <p>
+                                                <em>//we can find type code from *-item.xml which is assign in
+                                                    deployment code and match from code. </em></p>
+                                            <p>
+                                                <em> //type code value will be unique for each item. CategoryModel type
+                                                    code is 142</em><span class=" Apple-tab-span"
+                                                                          style="white-space: pre;">	</span></p>
+                                            <p>
+                                                if (142 == pk.getTypeCode())</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>{</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>
+                                                final CategoryModel category = (CategoryModel)modelService.get(pk);</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span><span
+                                                    class=" Apple-tab-span"
+                                                    style="white-space: pre;">	</span><strong>//we will add our
+                                                custom business code here</strong></span>
+                                            </p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>}</p>
+                                            <p>
+                                                <br></p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span><em>//Same
+                                                add other item in same listener or create new listener for item.
+                                                ProductModel type code is 1</em></p>
+                                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="white-space: pre;"><em>	</em></span>if (1 ==
+                                                pk.getTypeCode())</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span> {
+                                            </p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>
+                                                final ProductModel product = (ProductModel)modelService.get(pk);</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>
+                                                <strong> //we will add our custom business code here</strong></span>
+                                            </p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>}</p>
+                                            <p>
+                                                <span class=" Apple-tab-span" style="white-space: pre;">	</span>}</p>
+                                            <p>
+                                                }</p>
+                                            <p>
+                                                }</p>
+                                            <p>
+                                                }</p>
+                                            <p>We need to r<span
+                                                    style="font-variant: normal;">egister event listener as spring bean in &lt;extension&gt;core-spring.xml(like trainingcore-spring.xml) file.</span>
+                                            </p>
+                                            <p>
+                                                &lt;bean id="customAfterSaveListener"
+                                                class="com.experts.hybris.listener.CustomAfterSaveListener" &gt;</p>
+                                            <p>
+                                                &lt;/bean&gt;</p>
+                                            <p>After write this code , We can perform any
+                                                logic on after save event. </p>
+                                            <p><br></p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

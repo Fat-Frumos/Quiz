@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>facade</title>
+</head>
+<style>
+    .has-pale-cyan-blue-background-color {
+        background-color: #8ed1fc !important;
+    }
+
+    body {
+        font-family: 'Calibri', sans-serif;
+    }
+</style>
+<body>
+<article>
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">How Facade Flow&nbsp;Works</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p><strong>DTO (Data transfer object)</strong> :- It is a object that used to encapsulate data, and transfer the
+            data between classes and modules of your application. Data Transfer Objects (DTOs) are objects created to
+            only
+            contain values and have no business logic except for getter and setter methods.</p>
+
+
+        <p><strong>Converter</strong> <strong>:-</strong> It creates new instances of Data objects and call Populators
+            to
+            populate data. It contains list of populators and uses populators to convert data from source to target.
+        </p>
+
+
+        <p><strong>Populator :-</strong> It fills the data object by getting the data from the model.</p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="285"
+                                                                  data-permalink="https://hybris.blog/2023/06/23/how-facade-flow-works/populator/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/populator.png"
+                                                                  data-orig-size="902,296" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="populator" data-image-description=""
+                                                                  data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=902"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=902"
+                                                                  alt="" class="wp-image-285" width="450" height="148"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=450 450w, https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=900 900w, https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/populator.png?w=768 768w"
+                                                                  sizes="(max-width: 450px) 100vw, 450px"></figure>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="274"
+                                                       data-permalink="https://hybris.blog/2023/06/23/how-facade-flow-works/facadeflow/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png"
+                                                       data-orig-size="1714,958" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="facadeflow" data-image-description=""
+                                                       data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=1024"
+                                                       width="1024" height="572"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=1024"
+                                                       alt="" class="wp-image-274"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/facadeflow.png 1714w"
+                                                       sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+        <h4 class="wp-block-heading">How flow works?</h4>
+
+
+        <ul class="wp-block-list">
+            <li>Data is fetch from DB and pass model to service layer.</li>
+
+
+            <li>Service layer called by facade layer and pass Model object to facade.</li>
+
+
+            <li>Converters and populators are used in facade layer to convert the model to DTO.</li>
+
+
+            <li>Populators used for get value from source model and set value in target and we call to converter method
+                and
+                Converter internally calls the list of populators.
+            </li>
+
+
+            <li>This should not be done in out of the box, so above you can see we extends (CustomerPopulator) by
+                (FallbackCustomerPopulator).
+            </li>
+        </ul>
+    </div>
+</article>
+
+<article>
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Flexible Search</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p><em><strong>Flexible Search Query</strong>:</em></p>
+
+
+        <p>FlexibleSearch Query is an Built in Query language in Hybris based on SQL Syntax<br>It is used to
+            Search/Retrieve Data from Database <br>FlexibleSearch query executes in 2 phases<br><strong>Preparsing Phase
+                :</strong></p>
+
+
+        <p>In Preparsing Phase given query gets converted into SQL Query<br><strong>Execution Phase :</strong><br>Execution
+            Phase Converted query gets executed by Hybris</p>
+
+
+        <p><strong>Note :</strong><br>Flexible search query search with ItemType not with the Table name defined in
+            items.xml</p>
+
+
+        <p>In Flexible search query we should specify the&nbsp;<strong>types&nbsp;</strong>and&nbsp;<strong>attributes&nbsp;</strong>within&nbsp;<strong>curly
+            braces</strong>.</p>
+
+
+        <p id="857a">A FlexibleSearch query consists of:</p>
+
+
+        <ul class="wp-block-list">
+            <li>The mandatory &lt;selects&gt; parameter for the <strong>SELECT</strong> clause.</li>
+
+
+            <li>The mandatory &lt;types&gt; parameter for the <strong>FROM</strong> clause.</li>
+
+
+            <li>An optional &lt;conditions&gt; field for the <strong>WHERE</strong> clause.</li>
+
+
+            <li>An optional <strong>ORDER BY</strong> clause.</li>
+        </ul>
+
+
+        <p><em>The basic syntax for flexible search query looks like this</em></p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>Select * from {Product}</code></pre>
+
+
+        <p>Above query retrieves all the columns and rows of a Product item type.<br>The item type specified in the
+            curly braces is the exact item type code defined in the items.xml.</p>
+
+
+        <p><em>If we want specific filed of a product lets say by code the below is the syntax</em></p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT {p.code} FROM {Product AS p}</code></pre>
+
+
+        <p><em>To get the total number of products </em></p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT Count(*) from {product}</code></pre>
+
+
+        <p><em>Below is the query using <strong>! </strong>to exclude subtypes in result </em></p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT * from {Product!}</code></pre>
+
+
+        <p><strong>Condition based Queries</strong><br>1. Retrieves result who’s name is “TestUser” from Customer</p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT * from {Customer As a} where {a.name}='TestUser'</code></pre>
+
+
+        <p>2. Retrieves&nbsp;<strong>all the
+            products</strong>&nbsp;whose&nbsp;<strong>code&nbsp;</strong>has&nbsp;<strong>001</strong>&nbsp;</p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT * FROM {Product} WHERE {code} LIKE '%001%'</code></pre>
+
+
+        <p>3. Retrieves&nbsp;<strong>all the products</strong>&nbsp;whose&nbsp;<strong>code does no</strong>t contain&nbsp;<strong>00485&nbsp;</strong>in
+            it.</p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT * FROM {Product} WHERE {code} NOT LIKE '%<strong>00485</strong>%'</code></pre>
+
+
+        <p>4. Retrieves the&nbsp;<strong>result&nbsp;</strong>and&nbsp;<strong>Sorts&nbsp;</strong>the&nbsp;<strong>search
+            results</strong>&nbsp;based on the&nbsp;<strong>code</strong> column in the database in&nbsp;<strong>descending
+            order</strong></p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT {code},{pk} FROM {Product} ORDER BY {code} DESC</code></pre>
+
+
+        <p><em>To retrieve result from 2 Types we have to use <strong>Join</strong></em></p>
+
+
+        <pre class="wp-block-code has-pale-cyan-blue-background-color has-background"><code>SELECT * FROM {Product JOIN Category}</code></pre>
+    </div>
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Difference between B2B
+        and&nbsp;B2C</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>In Hybris B2B accelerator is structured with B2bUnit, B2bCustomer, SalesOrg, B2bOrders to maintain the few
+            functionalities like Pricing, Orders, Promotions etc in a organised way.</p>
+
+        <p>B2b stands for Business to business which refers to type of transaction that takes place between one business
+            to another business and additional features when compared to B2c like early login, credit limit for
+            customers, quotations, sales orgs…</p>
+
+        <p>B2c stands for business to consumer as transaction takes place between a business and individual as end
+            customer.</p>
+
+        <p>B2b unit is an organizational unit representing a company node, department node. it holds relations to almost
+            every B2b type because the visibility restriction is based on a B2b unit. Units can have one parent B2b unit
+            assigned and they can have multiple children assigned. The B2b unit that has no parent B2b unit is the B2b
+            root unit of a B2b organization.</p>
+
+        <p>A B2b unit and its descendants from a branch of the B2b organization. The branch of the B2b root unit is the
+            B2b organization. Orders are assigned to B2b units, so if you move an employee from one B2b unit to another,
+            the order is still assigned to the same B2b unit. B2b units can have an approver group assigned, which is a
+            list of potential approvers of an order with a set of predefined permissions. A B2b unit is a subtype of the
+            SAP Commerce type company.</p>
+
+
+        <p>B2b customers are assigned to B2b unit. They are members of atleast one B2b group. Their visibility and
+            actions are limited to the B2b branch they are assigned to.</p>
+
+
+        <p>B2b customers can be active or inactive. When inactive, they are not able to log in, and therefore cannot
+            approve orders, place orders, or perform any action on the system. Only an admin can reactivate a user. When
+            they have access to items, this right is propagated down the branch, so they can see all items for their B2b
+            unit and descendants.</p>
+
+
+        <p>B2b customers have a set of permissions assigned, A B2b customer with permissions must also be assigned to
+            the appropriate user group that grants the corresponding CRUD rights for the item the customer wants to
+            modify.</p>
+
+
+        <p>You can move a B2b customer from one B2b unit to another within the B2b organization by updating the parent
+            B2b unit. New budgets and cost centers are applied accordingly. However, B2b permission groups are
+            transferred and may need to be adjusted. Order history is maintained both on B2b customer and B2b unit at
+            the time order was placed, so historical data is maintained.</p>
+
+        <p></p>
+    </div>
+</article>
+
+<article>
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">SOLR in Hybris</h2>
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>SOLR:</p>
+
+        <p>Solr in Hybris which is used to store the data in indexed or an arranged way, in solr data stores in the form
+            of json because searching makes easy. it is also help to make the searching faster and efficient so that
+            processing time will be reduced, because it holds the arranged data so while searching the products its
+            helps to reduce the CPU time.</p>
+
+
+        <p>Most of the eCommerce sites provides search functionality on their particular sites and especially for
+            searching product details, As all we know products are the main searching data in any eCommerce site. Since
+            Hybris also using solr for developing eCommerce sites, which is used for making faster search on the
+            products in the site. </p>
+
+
+        <h4 class="wp-block-heading"><strong>How solr is used in Hybris</strong>:</h4>
+
+
+        <ul class="wp-block-list">
+            <li>When User access any data in the storefront, generally it can come from either Hybris Database or from
+                solr based on whether data is indexed or not.
+            </li>
+
+            <li>If data is indexed , it will store separately in solr and can be accessed from there.</li>
+
+
+            <li>if data is not indexed , it will be available in Hybris database and can be accessed from there.</li>
+
+
+            <li>Communication between Solr and Hybris DB is one way because solr will get data from but it will not
+                write anything back to Hybris database.
+            </li>
+
+
+            <li>Accessing data from Hybris DB will take more time than accessing it from Solr because of indexed data in
+                Solr.
+            </li>
+        </ul>
+
+
+        <h4 class="wp-block-heading"><strong>Types of indexing strategies:</strong></h4>
+
+
+        <p>There are three types of indexing strategies, so that we can arrange data in solr:</p>
+
+
+        <ol class="wp-block-list">
+            <li>Full Indexing</li>
+            <li>Update Indexing</li>
+            <li>Delete Indexing</li>
+        </ol>
+
+
+        <h5 class="wp-block-heading"><strong>Full Indexing:</strong></h5>
+
+
+        <p>In this strategy all the arranged documents will be deleting first and then fresh indexing will be done by
+            scratch. It takes some amount of time but not advisable to do it frequently.</p>
+
+
+        <p>There are two modes in Full Indexing:</p>
+
+
+        <ol class="wp-block-list">
+            <li>Direct Mode</li>
+
+
+            <li>Two Phase Mode</li>
+        </ol>
+
+
+        <h5 class="wp-block-heading"><strong>Update Indexing:</strong></h5>
+
+
+        <p>In this strategy, Whatever the documents are modified within some specific time will be indexed and the other
+            indexed documents are remains same.</p>
+
+
+        <p>This can be done very frequently if needed it consume less time when compared to Full Indexing.</p>
+
+
+        <h5 class="wp-block-heading"><strong>Delete Indexing:</strong></h5>
+
+
+        <p>This strategy which is used to Delete complete indexed documents.</p>
+
+
+        <p>This should be done regularly to maintain the flexibility of indexed data as we might have unwanted indexed
+            data in Solr from long time.</p>
+
+
+        <h4 class="wp-block-heading"><strong>Advantages:</strong></h4>
+
+        <ul class="wp-block-list">
+            <li>It is fast powerful, flexible and simple search engine.</li>
+            <li>Helps to make your products and services more accessible.</li>
+            <li>It helps to reduce the amount of time taken to locate information.</li>
+            <li>Increases time customers spend on web applications.</li>
+            <li>Flexible and adaptable with XML configuration.</li>
+            <li>Helps to improve user experience on the web application to increase revenue and profit.</li>
+        </ul>
+
+        <p></p>
+    </div>
+
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Dynamic Attribute</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>Dynamic Attribute:</p>
+
+
+        <p>We all know that any attribute we define in item type will have particular tag called persistent type.
+            Dynamic attribute is something where we get values as dynamic instead of database.</p>
+
+
+        <p>persistent type=”property”</p>
+
+
+        <p>In this case corresponding columns will created in database and the values will stored in database. so we
+            call it as persistent attribute.</p>
+
+
+        <p>persistent type=”dynamic”</p>
+
+
+        <p>In such case no columns will created in the database and hence values will also not stored in database. so we
+            call it as Non persistent or dynamic attribute.</p>
+
+
+        <p>if we define dynamic attribute , we need to mention the attribute handler for dynamic fields otherwise bean
+            id will be generated automatically and we have to use the same bean id while defining spring for Dynamic
+            attributehandlerclass .</p>
+
+
+        <p><strong>Steps to create Dynamic attribute handler:</strong></p>
+
+
+        <ol class="wp-block-list">
+            <li>In items.xml we need to define the persistent type as dynamic for the field you want as Dynamic and also
+                attributehandler in the persistence tag.
+            </li>
+        </ol>
+
+
+        <pre class="wp-block-code"><code>&lt;persistence type="dynamic" attributeHandler="shipmentHandler"/ &gt;</code></pre>
+
+
+        <p> 2. Define class DynamicAttributehandler which extends abstract Dynamic attribute handler or implements
+            attribute handler.</p>
+
+
+        <pre class="wp-block-code"><code>Ex:
+public class CustomShipmentHandler extends AbstractDynamicAttributeHandler&lt;Integer, OrderModel&gt;
+{
+@Override
+public Integer get(final OrderModel model)
+{
+//write your logic</code></pre>
+
+
+        <p> 3. Define the bean for this handler class and bean id should be same as attribute handler which we defined
+            in items.xml.</p>
+
+
+        <pre class="wp-block-code"><code>Ex:
+&lt;bean id ="shipmentHandler" class="org.training.core.attributes.CustomShipmentHandler"/&gt;</code></pre>
+
+
+        <p>Go for build and update the system.</p>
+    </div>
+</article>
+
+<article>
+    <h2>
+        ant all vs ant clean all
+    </h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <h4 class="wp-block-heading">Ant</h4>
+
+
+        <p>Hybris uses Ant as a build framework and it has come with its targets like ant all, ant clean all etc in
+            Hybris.</p>
+
+
+        <p>Ant clean all</p>
+
+
+        <p>It checks the build, if there is no build then it will create a build from scratch. if there is a build it
+            will delete and recreate it.</p>
+
+
+        <p>when we invoke Ant clean all commands from command prompt , it does below things</p>
+
+
+        <ul class="wp-block-list">
+            <li>It first checks the folder structure of Hybris installed directory.</li>
+
+
+            <li>it checks whether config, log, data, temp etc folders are available inside Hybris folders.</li>
+
+
+            <li>If the folder structure is not available then it creates the folder structure.</li>
+
+
+            <li>if the folder structure is available then it do nothing.</li>
+        </ul>
+
+
+        <p>Ant all</p>
+
+
+        <p>If there is no build, it will create build from scratch. if there is any build exist it will modify it
+            instead of recreating it.</p>
+
+
+        <p>It is advisable to use ant all more frequently for building Hybris platform.</p>
+
+
+        <p>Use ant clean all during the first time setup or if some changes are not reflecting even after doing ant all.
+            Otherwise ant all should be fine for building Hybris platform.</p>
+
+
+        <p>Ant all is faster than ant clean all for above reasons.</p>
+
+
+        <p></p>
+    </div>
+</article>
+
+<article>
+    <h2>
+        Addon Concept Hybris
+    </h2>
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <h3 class="wp-block-heading"><strong>Addon </strong></h3>
+
+
+        <p class="has-background-background-color has-background">Addon&nbsp;is also kind of&nbsp;extension&nbsp;<br>It
+            is generally used to enhance the existing functionality<br>Addon is used to extend the Functionality without
+            editing the core code. Technically Addon is a&nbsp;<strong>regular extension</strong>&nbsp;but whenever we
+            build its codebase is copied inside&nbsp;target extension.In short we can say it as plug and play
+            functionality.</p>
+
+
+        <p>Hybris OOTB provides multiple Addons like captcha Addon, asm Addon, secure portal Addon etc.<br></p>
+
+
+        <h4 class="wp-block-heading"><strong>Key Features</strong></h4>
+
+
+        <p><span style="text-decoration: underline"><strong>Modular</strong></span></p>
+
+
+        <ul class="wp-block-list">
+            <li>Addon frontend files are separate from the rest of the frontend lines.</li>
+
+
+            <li>AddOns are self contained.</li>
+        </ul>
+
+
+        <p><strong><span style="text-decoration: underline">Reusable</span></strong></p>
+
+
+        <ul class="wp-block-list">
+            <li>Use any combination of AddOns in different projects.</li>
+
+
+            <li>Essential step for hybris extend.</li>
+
+
+            <li>Upgrading accelerator won’t overwrite your files.</li>
+        </ul>
+
+
+        <p><strong><span style="text-decoration: underline">P</span><span
+                style="text-decoration: underline">luggable</span></strong></p>
+
+
+        <p> Easily remove AddOns.</p>
+
+
+        <h4 class="wp-block-heading"><strong>Creating Addon</strong></h4>
+
+
+        <p>AddOns allow you to extend storefront extensions without having to modify the extensions directly. In
+            addition to simply using the preconfigured AddOns provided by SAP, you can create your own custom AddOns. to
+            do so you create a blank AddOn, install it and then modify its logic.</p>
+
+
+        <p><span style="text-decoration: underline"><strong>To create empty Addon</strong></span></p>
+
+
+        <p>In the command prompt or Terminal</p>
+
+
+        <pre class="wp-block-code"><code>&lt;HYBRIS_HOME&gt;/hybris/bin/platform folder</code></pre>
+
+
+        <p>Run the appropriate command</p>
+
+
+        <ul class="wp-block-list">
+            <li>setantenv.bat for Microsoft Windows system.</li>
+
+
+            <li>. ./setantenv.sh&nbsp;on Linux or MacOs.</li>
+        </ul>
+
+
+        <p>Create new extension named myextension. it will created under &lt;HYBRIS_HOME&gt;/hybris/bin/custom.</p>
+
+
+        <pre class="wp-block-code"><code>ant extgen -Dinput.template=yaddon -Dinput.name=myextension -Dinput.package=com.myapp.myextension</code></pre>
+
+
+        <p>open the &lt;HYBRIS_HOME&gt;/hybris/config/localextensions.xml file and add your new extension.</p>
+
+
+        <pre class="wp-block-code"><code>&lt;extension name="myextension" /&gt;</code></pre>
+
+
+        <p><strong><span style="text-decoration: underline">Lets see an example:</span></strong></p>
+
+
+        <ol class="wp-block-list">
+            <li>include in localextensions.xml</li>
+        </ol>
+
+
+        <pre class="wp-block-code"><code>&lt;extension name="addonsupport" /&gt;
+&lt;extension name="AddOnname" /&gt;</code></pre>
+
+
+        <p> 2 .Add a &lt;requires-extension&gt; tag identifying each AddOn in your storefront’s extensioninfo.xml</p>
+
+
+        <p> 3. Add the following to your AddOn’s project.properties:</p>
+
+
+        <p> &lt;storefrontTemplateName&gt; .additionalWebSpringConfigs.</p>
+
+
+        <p> AddOnName=classpath:/AddOnName/web/spring/AddOnName-web-spring.xml</p>
+
+
+        <p>Using Ant you can do above 2&amp;3 steps:</p>
+
+
+        <pre class="wp-block-code"><code>ant addoninstall -Daddonnames="AddOnName"-DaddonStoreFront.yacceleratorstorefront="storefrontName"</code></pre>
+
+
+        <p>4. Make its controllers visible in AddOnName-web-spring.xml</p>
+
+
+        <pre class="wp-block-code"><code>&lt;context:component-scan
+        base-package="&lt;packagename&gt;.controllers"
+        scope-resolver="de.hybris.platform.spring.
+                             IgnoreTenantsScopeMetadataResolver"/&gt;</code></pre>
+
+    </div>
+</article>
+
+<article>
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Interceptors in Hybris</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>We know that Models in Hybris are the&nbsp;<strong><em>representation of database tables</em></strong>&nbsp;and
+            we often&nbsp;<strong><em>use models to&nbsp;<strong>save data</strong></em></strong>&nbsp;in database and
+            to&nbsp;<strong><strong><em>load data</em></strong></strong>&nbsp;from Database. These models we use in
+            Hybris has its own&nbsp;<strong><em>lifecycle managed by&nbsp;<strong>ModelService</strong></em></strong>.
+        </p>
+
+
+        <p>There are several methods provided by ModelService to represent its lifecycle.<br><strong>Example :</strong>&nbsp;<strong><em>Create,
+            Save, Update, Load, Remove.</em></strong>When we call any of these&nbsp;<strong><em>ModelService&nbsp;</em></strong>method,
+            it just follows its Lifecycle and&nbsp;<strong><em>completes the execution</em></strong>. <strong>Example
+                :</strong>&nbsp;Save method save the model data in Database.<br></p>
+
+
+        <p><strong>The interceptors have the ability to&nbsp;<em>interrupt the&nbsp;lifecycle of a model&nbsp;and
+            execute some code</em>&nbsp;and then allow the model to continue its lifecycle.</strong></p>
+
+
+        <h4 class="wp-block-heading">Life Cycle of a Model</h4>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="126"
+                                                       data-permalink="https://hybris.blog/2023/06/14/interceptors-in-hybris/screenshot-2023-06-14-at-11-49-44-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png"
+                                                       data-orig-size="1392,894" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-14-at-11.49.44-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=1024"
+                                                       width="1024" height="657"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=1024"
+                                                       alt="" class="wp-image-126"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-14-at-11.49.44-pm.png 1392w"
+                                                       sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+        <h4 class="wp-block-heading"><strong>When we use interceptors ?</strong></h4>
+
+
+        <p>We need to use interceptors whenever we want to&nbsp;<strong><em>perform some action&nbsp;<strong>during the
+            life cycle</strong>&nbsp;of a model</em></strong>.<br><strong>Example :</strong>&nbsp;If we need to validate
+            the model data before saving in database</p>
+
+
+        <h5 class="wp-block-heading">We can see the main&nbsp;<strong>use of interceptors</strong>&nbsp;in some
+            scenarios as mentioned below:</h5>
+
+
+        <ul class="wp-block-list">
+            <li><strong><em>Auditing the details while saving the model data</em></strong>.</li>
+
+
+            <li><strong><em>Validating the model data before saving</em></strong>.</li>
+
+
+            <li><strong><em>Restrict data from deleting or modifying based on some conditions</em></strong>.</li>
+
+
+            <li>We can even&nbsp;<strong><em>modify the model before saving</em></strong>&nbsp;it using interceptors.
+            </li>
+        </ul>
+
+
+        <h4 class="wp-block-heading"><strong>Types of interceptors in Hybris</strong>:-</h4>
+
+
+        <h5 class="wp-block-heading"><strong>There are&nbsp;<strong>5 main interceptors</strong>&nbsp;provided by Hybris</strong>:
+        </h5>
+
+
+        <ul class="wp-block-list">
+            <li><strong>Init Defaults interceptor</strong></li>
+
+
+            <li><strong>Prepare interceptor</strong></li>
+
+
+            <li><strong>Validate interceptor</strong></li>
+
+
+            <li><strong>Load interceptor</strong></li>
+
+
+            <li><strong>Remove interceptor</strong></li>
+        </ul>
+
+
+        <h5 class="wp-block-heading"><strong><span
+                style="text-decoration: underline">Init Defaults interceptor</span></strong>:-</h5>
+
+
+        <p><strong>This interceptor is represented by an interface Called “InitDefaultsInterceptor”</strong>.
+            <strong><em>This is called when a model needs to be filled with its default values</em></strong>.</p>
+
+
+        <p><strong>We can use this interceptor to fill the model with additional default values, apart from the values
+            defined in items.xml file</strong></p>
+
+
+        <h5 class="wp-block-heading"><strong><span
+                style="text-decoration: underline">Prepare Interceptor</span></strong>:-</h5>
+
+
+        <p>This interceptor is represented by an interface called&nbsp;<strong>“PrepareInterceptor”</strong>. This
+            interceptor is called before model is saved to the database and before it is validated by the validate
+            interceptor. We can use this to add values to the model or modify existing before they are saved to the
+            database.</p>
+
+
+        <h5 class="wp-block-heading"><strong><span
+                style="text-decoration: underline">Validate Interceptor</span></strong>:-</h5>
+
+
+        <p>This interceptor is represented by an interface called&nbsp;<strong>“ValidateInterceptor”</strong>. This is
+            called before a model is saved to the database after is been prepared by the Prepare interceptors. </p>
+
+
+        <h5 class="wp-block-heading"><strong><span style="text-decoration: underline">Load Interceptor</span></strong>:-
+        </h5>
+
+
+        <p>This interceptor is represented by an interface called&nbsp;<strong>“LoadInterceptor”</strong>. This is
+            called when we&nbsp;<strong><em>retrieve the model</em></strong>&nbsp;from the database.</p>
+
+
+        <h5 class="wp-block-heading"><strong><span style="text-decoration: underline">Remove Interceptor</span></strong>:-
+        </h5>
+
+
+        <p>This interceptor is represented by an interface called&nbsp;<strong>“RemoveInterceptor”</strong>. This is
+            called before a model is&nbsp;<strong><em>removed/deleted</em></strong>&nbsp;from the database.</p>
+    </div>
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Hybris Architecture</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <h4 class="wp-block-heading">What is Hybris ?</h4>
+
+
+        <p>Hybris is an e-commerce product platform that is used to address a family of products involving Customer
+            Experience and Management. It is a technology to build digital commerce and marketing applications for B2C
+            and B2B use cases, it provide ready to used solution just need to do branding and customize as per
+            requirement. Hybris helps in reducing cost of development and speeds up the implementation process.</p>
+
+
+        <h4 class="wp-block-heading">Basic Architecture:</h4>
+
+
+        <p>Hybris product is divided into multiple components according to the following areas:</p>
+
+
+        <ul class="wp-block-list">
+            <li>Platform : It contain set of extentions those provide main functionality of a hybris installation.</li>
+
+
+            <li>Commerce : It provides commerce functionality extentions and manage channel specific business logic and
+                processes.
+            </li>
+
+
+            <li>Content : It is centralized repository of content information, web content, text, template layouts and
+                more.
+            </li>
+
+
+            <li>Orders : It is provide order management and fulfillment logic and processes.</li>
+
+
+            <li>Channel : It provides management of channel specific visualization and interaction.</li>
+        </ul>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="92"
+                                                                  data-permalink="https://hybris.blog/2023/06/13/hybris-architecture/screenshot-2023-06-13-at-7-10-25-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png"
+                                                                  data-orig-size="1482,918" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-13-at-7.10.25-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=1024"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=1024"
+                                                                  alt="" class="wp-image-92" width="523" height="323"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=521 521w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=1043 1043w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.25-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 523px) 100vw, 523px"></figure>
+
+
+        <h5 class="wp-block-heading">These modules are package for specified business functionality. Hybris Platform is
+            base of modules and can run individual, but other modules can not run without platform. The Hybris Commerce
+            Suite manage data like content or product information to be shared for multiple channels in a consistent and
+            efficient way. Business can grow sell on multiple channels like web , Mobile and store etc.</h5>
+
+
+        <h4 class="wp-block-heading">Layer Architecture:</h4>
+
+
+        <h5 class="wp-block-heading">The Hybris Commerce Suite contains multiple layers and each layer has specific
+            functionality.</h5>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="93"
+                                                                  data-permalink="https://hybris.blog/2023/06/13/hybris-architecture/screenshot-2023-06-13-at-7-10-52-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png"
+                                                                  data-orig-size="1670,1166" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-13-at-7.10.52-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=1024"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=1024"
+                                                                  alt="" class="wp-image-93" width="533" height="372"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=533 533w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=1066 1066w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.10.52-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 533px) 100vw, 533px"></figure>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="95"
+                                                       data-permalink="https://hybris.blog/2023/06/13/hybris-architecture/screenshot-2023-06-13-at-7-11-09-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png"
+                                                       data-orig-size="1582,1000" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-13-at-7.11.09-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=1024"
+                                                       width="1024" height="647"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=1024"
+                                                       alt="" class="wp-image-95"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.11.09-pm.png 1582w"
+                                                       sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+    </div>
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">CronJob</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>CronJobs is the most powerful tool in any software development projects. CronJobs is used to create automated
+            tasks responsible for execute code in specific time , regularly at a certain point of time. Basically,
+            CronJobs are used for data backups, update catalog, import or export data file or recalculate prices etc.
+            The key concept of CronJobs, it is to start a long or periodic process in the background and execute all
+            regulars activity in off business hours.</p>
+
+
+        <h6 class="wp-block-heading">For Understand concept of Cronjob, We need to know about of three types that
+            interact with each another: Cronjob, Job, Trigger and JobPerformable :-</h6>
+
+
+        <ul class="wp-block-list">
+            <li><strong>JobPerformable: </strong> It is interface that contain perform method and tightly related to the
+                Job type. Hybris recommend Generics type when implementing JobPerformable interface and perform method.
+            </li>
+
+
+            <li><strong>AbstractJobPerformable: </strong> It provides a basic functionality for a common JobPerformable
+                implementation like request abort handling.
+            </li>
+
+
+            <li><strong>CronJob: </strong>It containsthe configuration for a single run of a Job and other information,
+                like session settings, for a specific execution or logging configuration.
+            </li>
+
+
+            <li><strong>Job: </strong>It describes one kind of execution logic in the system and each CronJob should
+                reference one instance. Although the Job instance does not contain any logic.
+            </li>
+
+
+            <li><strong>ServicelayerJob: </strong>It is extends to Job class and provides the springId attribute that
+                references a Spring bean definition of the execution logic. The Spring bean has to implement the
+                JobPerformableinterface.
+            </li>
+
+
+            <li><strong>Trigger : </strong>It is basically used for Job schedule when Job will run. It could be either
+                on a regular basis or only once.
+            </li>
+        </ul>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="104"
+                                                       data-permalink="https://hybris.blog/2023/06/13/cronjob/screenshot-2023-06-13-at-7-50-08-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png"
+                                                       data-orig-size="2226,1232" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-13-at-7.50.08-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=1024"
+                                                       width="1024" height="566"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=1024"
+                                                       alt="" class="wp-image-104"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=2045 2045w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.50.08-pm.png?w=768 768w"
+                                                       sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+        <h4 class="wp-block-heading">Step to create CronJob :</h4>
+
+
+        <h5 class="wp-block-heading"><strong>First:-</strong> If Job needs some additional configuration parameters
+            apart from CronJob Item Type provided, then we need to define a <strong>Custom CronJob</strong> Item Type in
+            the <strong>*items.xml</strong> by extending the CronJob Item Type.</h5>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="106"
+                                                       data-permalink="https://hybris.blog/2023/06/13/cronjob/screenshot-2023-06-13-at-7-54-58-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png"
+                                                       data-orig-size="1268,450" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-13-at-7.54.58-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=1024"
+                                                       width="1024" height="363"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=1024"
+                                                       alt="" class="wp-image-106"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.54.58-pm.png 1268w"
+                                                       sizes="(max-width: 1024px) 100vw, 1024px"></figure>
+
+
+        <h5 class="wp-block-heading">Second : To define the logic for a job, We will create Java class which will
+            extends AbstractJobPerformable and implement perform method.</h5>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="108"
+                                                                  data-permalink="https://hybris.blog/2023/06/13/cronjob/screenshot-2023-06-13-at-7-58-05-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png"
+                                                                  data-orig-size="1908,1048" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-13-at-7.58.05-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=1024"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=1024"
+                                                                  alt="" class="wp-image-108" width="736" height="404"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=736 736w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=1472 1472w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-7.58.05-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 736px) 100vw, 736px"></figure>
+
+
+        <h5 class="wp-block-heading">Third : Now we will give bean entry for our custom Java class in our custom
+            extention(spring.xml).</h5>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="110"
+                                                                  data-permalink="https://hybris.blog/2023/06/13/cronjob/screenshot-2023-06-13-at-8-04-28-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png"
+                                                                  data-orig-size="1760,108" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-13-at-8.04.28-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=1024"
+                                                                  alt="" class="wp-image-110" width="831" height="51"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=831 831w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=1662 1662w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.04.28-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 831px) 100vw, 831px"></figure>
+
+
+        <h5 class="wp-block-heading">Fourth : To create the Cronjob and the Trigger via impex.</h5>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="111"
+                                                                  data-permalink="https://hybris.blog/2023/06/13/cronjob/screenshot-2023-06-13-at-8-09-39-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png"
+                                                                  data-orig-size="1660,288" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-13-at-8.09.39-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=1024"
+                                                                  alt="" class="wp-image-111" width="785" height="136"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=785 785w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=1570 1570w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-13-at-8.09.39-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 785px) 100vw, 785px"></figure>
+
+    </div>
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Data Modelling in&nbsp;Hybris</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <ul class="wp-block-list">
+            <li>Hybris data modelling helps an organisation in maintaining their database and helps to manage database
+                connections and queries.
+            </li>
+
+
+            <li>Data models in SAP Commerce are defined via items.xml file in each extensions. The core-items.xml
+                contains the basic data models and relations which are used like users, products, orders etc.
+            </li>
+        </ul>
+
+
+        <div class="wp-block-columns is-layout-flex wp-container-core-columns-is-layout-1 wp-block-columns-is-layout-flex">
+            <div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow" style="flex-basis:100%">
+                <h5 class="wp-block-heading">Hybris has following types supported for data modelling:-</h5>
+            </div>
+        </div>
+
+
+        <ul class="wp-block-list">
+            <li>Atomic Types :- Used to create various Atomic Types.</li>
+
+
+            <li>Collection Types :- Used to create various Collection.</li>
+
+
+            <li>Enum Types :- Used to define Enums(means fixed value eg: week days, name of month).</li>
+
+
+            <li>Map Types :- Used to define maps.</li>
+
+
+            <li>Relation Types :- Used to create relation between the tables.</li>
+
+
+            <li>Item Types :- Used to create tables.</li>
+        </ul>
+
+
+        <h6 class="wp-block-heading"><strong>Note :- Above all types are in a order in which they are declared in
+            items.xml.</strong></h6>
+
+
+        <p>Now let discuss all the types briefly. </p>
+
+
+        <h4 class="wp-block-heading"><strong>Item Type:-</strong></h4>
+
+
+        <p>Item types are basic ones which are used to create new tables or to extend existing tables like products,
+            customers to add our own attribute.</p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="50"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-08-at-6-16-56-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png"
+                                                                  data-orig-size="680,339" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-08-at-6.16.56-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png?w=680"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png?w=680"
+                                                                  alt="" class="wp-image-50" width="590" height="294"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png?w=590 590w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.16.56-pm.png 680w"
+                                                                  sizes="(max-width: 590px) 100vw, 590px"></figure>
+
+
+        <ul class="wp-block-list">
+            <li>Define the new item type without extending any existing item type.</li>
+        </ul>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="52"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-08-at-6-26-11-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png"
+                                                                  data-orig-size="1160,618" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-08-at-6.26.11-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=1024"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=1024"
+                                                                  alt="" class="wp-image-52" width="590" height="314"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=590 590w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-08-at-6.26.11-pm.png 1160w"
+                                                                  sizes="(max-width: 590px) 100vw, 590px"></figure>
+
+
+        <ul class="wp-block-list">
+            <li><strong>autocreate=”true”</strong> :- This indicates that ProductTimeCronJob is a new item type and new
+                database entry for this type will be created. We should set it to true for the first definition of item
+                type.
+            </li>
+
+
+            <li><strong>generate=”true”</strong> :- By this Java class files will be generated for the item type. Set
+                the generate modifier to false results in no java class file being generated for this type.
+            </li>
+
+
+            <li><strong>deployment table</strong> :- Items within SAP Commerce are made persistent by writing values
+                into a database. Within the database, the values are stored in tables. Deployment table modifier is to
+                specifies the table where the instances of the item type are stored. This is given for new item type
+                only not for existing item type.
+            </li>
+
+
+            <li><strong>typecode</strong> :- It is used to create item type PKs. Using typecode which already exists
+                will cause failure.
+            </li>
+
+
+            <li><strong>attribute</strong> :- In Hybris the properties of an item type are known as attributes. The
+                attribute itself could be of primitive type (like String or integer) or it could be of type like that of
+                any other item type.
+            </li>
+
+
+            <li><strong>modifiers for attributes</strong> :- read = true – means attribute is readable and getter method
+                will be generated for the attribute. If, false we cannot access it from our java program.
+            </li>
+
+
+            <li><strong>write = true</strong> :- means attribute is writable and setter method will be generated for the
+                attribute. If false, we cannot modify the value.
+            </li>
+
+
+            <li><strong>optional = true</strong> :- if false, it is mandatory to initialize this attribute.</li>
+
+
+            <li><strong>search = true</strong> :- the attribute is searchable through Flexible Search queries.</li>
+        </ul>
+
+
+        <h6 class="wp-block-heading"><strong>Persistent type for attribute:-</strong></h6>
+
+
+        <p>It is one of the property of item type attribute which can be set as ( Dynamic or Property ). </p>
+
+
+        <ul class="wp-block-list">
+            <li>Property:- if it is set as property, it means the value will be stored at DB.</li>
+
+
+            <li>Dynamic:- if it is set as dynamic, it means that the value will not be the part of database table. It is
+                just calculated at run time.
+            </li>
+        </ul>
+
+
+        <ul class="wp-block-list">
+            <li><strong>Define the new attribute to the existing item type:-</strong></li>
+        </ul>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="56"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-1-52-36-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png"
+                                                                  data-orig-size="1656,550" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-1.52.36-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=1024"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=1024"
+                                                                  alt="" class="wp-image-56" width="776" height="257"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=774 774w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=1548 1548w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-1.52.36-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 776px) 100vw, 776px"></figure>
+
+
+        <p>Here autocreate and generate is set as “false” as it’s not new item type. This way we can add new attributes
+            to the existing item type.</p>
+
+
+        <ul class="wp-block-list">
+            <li><strong>Define the new item type by extending it with the existing item type:-</strong></li>
+        </ul>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="58"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-2-08-24-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png"
+                                                                  data-orig-size="1668,412" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-2.08.24-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=1024"
+                                                                  alt="" class="wp-image-58" width="776" height="192"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=776 776w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=1552 1552w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.08.24-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 776px) 100vw, 776px"></figure>
+
+
+        <p><strong>jalo Class:-</strong> It is used to combine both data model and business logic or to write business
+            logic.</p>
+
+
+        <h4 class="wp-block-heading">Atomic Type:-</h4>
+
+
+        <p>These are defined as basic types in Hybris, which include Java number and string objects- java.lang.integer,
+            java.lang.boolean, java.lang.string, java.lang.float etc. The item types which are primitive in Java are
+            called Atomic item type. </p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="60"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-2-21-58-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png"
+                                                                  data-orig-size="1466,794" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-2.21.58-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=1024"
+                                                                  alt="" class="wp-image-60" width="685" height="371"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=685 685w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=1370 1370w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.21.58-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 685px) 100vw, 685px"></figure>
+
+
+        <h4 class="wp-block-heading">Collection Type:-</h4>
+
+
+        <p>Used for creating collections for similar item types.</p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="62"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-2-25-40-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png"
+                                                                  data-orig-size="1600,166" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-2.25.40-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=1024"
+                                                                  alt="" class="wp-image-62" width="767" height="79"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=761 761w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=1523 1523w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.25.40-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 767px) 100vw, 767px"></figure>
+
+
+        <h4 class="wp-block-heading">Enum Types:-</h4>
+
+
+        <p>Used to build enumeration in Java for preparing particular set of values. The group of fixed constants are
+            defined as enums.</p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="65"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-2-34-38-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png"
+                                                                  data-orig-size="1358,452" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-2.34.38-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=1024"
+                                                                  alt="" class="wp-image-65" width="740" height="246"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=740 740w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.34.38-pm.png 1358w"
+                                                                  sizes="(max-width: 740px) 100vw, 740px"></figure>
+
+
+        <h4 class="wp-block-heading">Map Types:-</h4>
+
+
+        <p>Map types are used to store the key value pairs in SAP Commerce (Hybris).</p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="67"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-2-46-43-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png"
+                                                                  data-orig-size="1434,672" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-2.46.43-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=1024"
+                                                                  alt="" class="wp-image-67" width="732" height="343"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=732 732w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png?w=768 768w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.46.43-pm.png 1434w"
+                                                                  sizes="(max-width: 732px) 100vw, 732px"></figure>
+
+
+        <h4 class="wp-block-heading">Relation Types:-</h4>
+
+
+        <p>These are used to define relations between the two tables.</p>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="69"
+                                                                  data-permalink="https://hybris.blog/2023/06/08/data-modelling-in-hybris/screenshot-2023-06-09-at-2-50-20-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png"
+                                                                  data-orig-size="1488,782" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-09-at-2.50.20-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=1024"
+                                                                  alt="" class="wp-image-69" width="722" height="378"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=1439 1439w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-09-at-2.50.20-pm.png?w=300 300w"
+                                                                  sizes="(max-width: 722px) 100vw, 722px"></figure>
+    </div>
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Property files in&nbsp;Hybris</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>Hybris provides a flexible way to manage properties for your project. You can configure as many as properties
+            as you want in your project.</p>
+
+
+        <ul class="wp-block-list">
+            <li class="color=red"><strong>project. properties</strong>&nbsp;: This is actually a extension level
+                property file. The properties defined here are available only for the extension, it belongs to. You
+                should define the properties, &nbsp;which are to be used only in this extension. Hybris provides a
+                property file for each extension by default. The value for a given property is based on the experience
+                and convenience. For example, the URL for HAC.
+            </li>
+
+
+            <li><strong>Local.properties</strong>&nbsp;: We have another file called local.properties. This is available
+                per tenant for the overall application. This file is used to define modify the values given in extension
+                specific project.properties file. So it will basically overrides the project.properties file value. For
+                example, we can give, database connectivity parameters in this file.
+            </li>
+
+
+            <li>We should always use local.property file to customize the behavior of hybris. As any migration or
+                upgrade will not effect, the values to go to default ones.
+            </li>
+
+
+            <li>We also have localization property files, to manage the internationalization of project.</li>
+
+
+            <li>We need to restart the server to make an effect of change in any property value. Build is not
+                necessary.
+            </li>
+
+
+            <li>We can use the properties even in spring managed beans. We can pass them as a property of a bean.</li>
+        </ul>
+
+
+        <pre class="wp-block-code has-small-font-size"><code>&lt;bean&nbsp;class="StockService"&gt;
+
+&nbsp;&lt;property name="defaultStocklevel"&nbsp;value="${default.stock.level}"/&gt;
+
+&lt;/bean&gt;</code></pre>
+    </div>
+</article>
+
+<article>
+
+    <h2 style="line-height:1.2;" class="wp-block-post-title has-xx-large-font-size">Impex in Hybris</h2>
+
+    <div class="entry-content wp-block-post-content has-global-padding is-layout-constrained wp-block-post-content-is-layout-constrained">
+        <p>Impex is an out-of-the box import-export framework. It is integrated text-based import-export extention. You
+            can create, update, export and remove items in hybris platform.</p>
+
+
+        <h4 class="wp-block-heading">Use of Impex:-</h4>
+
+
+        <h5 class="wp-block-heading">In live operation:</h5>
+
+
+        <ul class="wp-block-list">
+            <li>To import customer data into a production system.</li>
+
+
+            <li>To synchronize data with other systems, such as an ERP or LDAP.</li>
+
+
+            <li>To create backups.</li>
+
+
+            <li>To update data at runtime.</li>
+
+
+            <li>Can be run from CronJobs.</li>
+        </ul>
+
+
+        <h5 class="wp-block-heading">In migrations:</h5>
+
+
+        <ul class="wp-block-list">
+            <li>To migrate data from one hybris installation to another.</li>
+        </ul>
+
+
+        <h5 class="wp-block-heading">In development:</h5>
+
+
+        <ul class="wp-block-list">
+            <li>To import sample data (eg: on system initialization).</li>
+
+
+            <li>To import test data into testing system.</li>
+        </ul>
+
+
+        <h4 class="wp-block-heading">Syntax:-</h4>
+
+
+        <ul class="wp-block-list">
+            <li>Operation itemType; attributes(refAttr)[modifiers];…</li>
+        </ul>
+
+
+        <h5 class="wp-block-heading">Example:</h5>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="78"
+                                                       data-permalink="https://hybris.blog/2023/06/12/impex-in-hybris/screenshot-2023-06-12-at-11-46-33-am/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png"
+                                                       data-orig-size="840,238" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-12-at-11.46.33-am"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png?w=840"
+                                                       width="840" height="238"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png?w=840"
+                                                       alt="" class="wp-image-78"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png 840w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.46.33-am.png?w=768 768w"
+                                                       sizes="(max-width: 840px) 100vw, 840px"></figure>
+
+
+        <h5 class="wp-block-heading">Data row syntax:</h5>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="80"
+                                                       data-permalink="https://hybris.blog/2023/06/12/impex-in-hybris/screenshot-2023-06-12-at-11-51-54-am/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png"
+                                                       data-orig-size="346,70" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-12-at-11.51.54-am"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png?w=346"
+                                                       width="346" height="70"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png?w=346"
+                                                       alt="" class="wp-image-80"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png 346w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-11.51.54-am.png?w=300 300w"
+                                                       sizes="(max-width: 346px) 100vw, 346px"></figure>
+
+
+        <h5 class="wp-block-heading">Example:</h5>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="82"
+                                                       data-permalink="https://hybris.blog/2023/06/12/impex-in-hybris/screenshot-2023-06-12-at-12-05-38-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.05.38-pm.png"
+                                                       data-orig-size="234,174" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-12-at-12.05.38-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.05.38-pm.png?w=234"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.05.38-pm.png?w=234"
+                                                       width="234" height="174"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.05.38-pm.png?w=234"
+                                                       alt="" class="wp-image-82"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.05.38-pm.png 234w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.05.38-pm.png?w=150 150w"
+                                                       sizes="(max-width: 234px) 100vw, 234px"></figure>
+
+
+        <h4 class="wp-block-heading">Impex Elements:-</h4>
+
+
+        <h5 class="wp-block-heading">Comments:</h5>
+
+
+        <ul class="wp-block-list">
+            <li>Comments in impex file starts with symbol #. Comments are ignored while importing.</li>
+        </ul>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="84"
+                                                       data-permalink="https://hybris.blog/2023/06/12/impex-in-hybris/screenshot-2023-06-12-at-12-23-13-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png"
+                                                       data-orig-size="898,118" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-12-at-12.23.13-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png?w=300"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png?w=898"
+                                                       loading="lazy" width="898" height="118"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png?w=898"
+                                                       alt="" class="wp-image-84"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png 898w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.23.13-pm.png?w=768 768w"
+                                                       sizes="(max-width: 898px) 100vw, 898px"></figure>
+
+
+        <h4 class="wp-block-heading">Macros:-</h4>
+
+
+        <p>It is used in replace of frequently used statements. When we write impex file, some of value are static and
+            used multiple impex so we can basically used to define the value at one place and use the macro in all the
+            places. It helps to eliminate writing same lines again and again.</p>
+
+
+        <h5 class="wp-block-heading">Syntax: Macros starts with “$”</h5>
+
+
+        <figure class="wp-block-image size-large"><img data-attachment-id="86"
+                                                       data-permalink="https://hybris.blog/2023/06/12/impex-in-hybris/screenshot-2023-06-12-at-12-24-01-pm/"
+                                                       data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.01-pm.png"
+                                                       data-orig-size="190,60" data-comments-opened="1"
+                                                       data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                       data-image-title="screenshot-2023-06-12-at-12.24.01-pm"
+                                                       data-image-description="" data-image-caption=""
+                                                       data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.01-pm.png?w=190"
+                                                       data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.01-pm.png?w=190"
+                                                       loading="lazy" width="190" height="60"
+                                                       src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.01-pm.png?w=190"
+                                                       alt="" class="wp-image-86"
+                                                       srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.01-pm.png 190w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.01-pm.png?w=150 150w"
+                                                       sizes="(max-width: 190px) 100vw, 190px"></figure>
+
+
+        <h5 class="wp-block-heading">Example:</h5>
+
+
+        <figure class="wp-block-image size-large is-resized"><img data-attachment-id="87"
+                                                                  data-permalink="https://hybris.blog/2023/06/12/impex-in-hybris/screenshot-2023-06-12-at-12-24-33-pm/"
+                                                                  data-orig-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png"
+                                                                  data-orig-size="1842,540" data-comments-opened="1"
+                                                                  data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                                                                  data-image-title="screenshot-2023-06-12-at-12.24.33-pm"
+                                                                  data-image-description="" data-image-caption=""
+                                                                  data-medium-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=300"
+                                                                  data-large-file="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=1024"
+                                                                  loading="lazy"
+                                                                  src="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=1024"
+                                                                  alt="" class="wp-image-87" width="864" height="253"
+                                                                  srcset="https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=1024 1024w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=864 864w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=1726 1726w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=150 150w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=300 300w, https://hybris.blog/wp-content/uploads/2023/06/screenshot-2023-06-12-at-12.24.33-pm.png?w=768 768w"
+                                                                  sizes="(max-width: 864px) 100vw, 864px"></figure>
+    </div>
+</article>
+
+<article></article>
+<article></article>
+</body>
+</html>

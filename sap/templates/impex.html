@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SAP</title>
+    <link rel='stylesheet' id='bwp-syntax-css'
+          href='http://javainsimpleway.com/wp-content/plugins/better-wordpress-syntax-based-on-geshi/css/bwp-syntax.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='adsns-css'
+          href='http://javainsimpleway.com/wp-content/plugins/adsense-plugin/css/adsns.css?v=1.40&#038;ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='dashicons-css'
+          href='http://javainsimpleway.com/wp-includes/css/dashicons.min.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='cptch_desktop_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/captcha/css/desktop_style.css?ver=4.2.8' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/category-post-list-widget/css/main.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-code-css'
+          href='http://javainsimpleway.com/wp-content/plugins/code-highlight/css/style.css?ver=4.5.28' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='new_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/responsive-attention-box/css/common.css?ver=1.0.0'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='nb-font-css'
+          href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic%7CMontserrat:400,700%7COpen+Sans:400,600,700,300%7CLibre+Baskerville:400,700%7CPlayfair:400,700%7CDroid+Serif:400,700%7CPT+Serif:400,700%7CNoto+Serif:400,700'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-css-css' href='http://javainsimpleway.com/wp-content/themes/nicebird/style.css'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/bootstrap.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='global-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/global.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-animation-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome-animation.css'
+          type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/nb-style.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='support.css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/support.css' type='text/css'
+          media='all'/>
+    <style>
+        body, input, button, select, textarea, code, kbd, pre, samp {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #000;
+            color: #ccc;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 900;
+        }
+
+        h1 {
+            margin-left: 30px;
+        }
+
+        .bwp-syntax-block.clearfix {
+            width: 75%;
+        }
+    </style>
+</head>
+<body>
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Overview Of Impex</h1>
+    </div>
+    <div class="post-content-body">
+        <h3><strong>Impex stands for Import and export</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p>As the name suggests, <strong>Impex </strong>in hybris is used for <strong>importing data</strong> from
+            <strong>CSV file / impex file</strong> to <b>hybris system</b> and <strong>exporting data </strong>from
+            <strong>hybris system</strong> to <strong>CSV file.</strong></p>
+        <p>Hybris has come up with an <strong>extension </strong>called “<strong>Impex</strong>” inside <strong>platform/ext</strong>
+            folder which helps in <strong>Inserting,updating,deleting</strong> and <strong>exporting data</strong>.
+        </p>
+        <p><strong>Impex import</strong> means always <strong>data flows into Hybris system.</strong></p>
+        <p><b>Impex export</b> means always <b>data flows out of Hybris system</b><b><br>
+        </b></p>
+        <h3><b>Why do we need to import ?</b></h3><b>
+    </b>
+        <p><b></b></p>
+        <p>We need to <strong>import</strong> data <strong>multiple times</strong> into Hybris system.</p>
+        <p>As we all know that <strong>any ecommerce site</strong> will have a data like <strong>products,customer,regions,countries,promotions</strong>
+            etc…</p>
+        <p>All this data has to be <strong>inserted </strong>into<strong> Hybris system</strong> to
+            <strong>display </strong>it on the <strong>site</strong>.</p>
+        <p>So to <strong>insert </strong>this kind of <strong>data </strong>into <strong>hybris system</strong>, we
+            go for <strong>Impex Import</strong>.</p>
+        <p>We can <strong>insert data</strong> either at the <strong>run time</strong> or <strong>during
+            initialization</strong> or<strong> during update</strong> process.</p>
+        <h3><strong>Why do we need to export?</strong></h3>
+        <p>Whenever we need to take the <b>backup of data</b>, we have to <b>export the data</b> into <b>csv
+            files</b> so that later it can be <b>imported</b> into <b>Hybris system</b>.</p>
+        <p>If we are doing <strong>initialization</strong>,it is recommended to take <strong>data backup</strong>
+            using <strong>Impex Export</strong>.</p>
+        <p>Once the <strong>initialization</strong> is done, we can <strong>import the data back</strong> to
+            <strong>hybris system</strong>.<strong><br>
+            </strong></p>
+        <h3><strong>Impex jargons</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p><b>1) Header</b></p>
+        <p><b>2) Value lines</b></p>
+        <p><b>3) Macros</b></p>
+        <p><b>4) Comments</b></p>
+        <h4><strong>Header </strong></h4>
+        <p><strong>Header in impex will have below structure</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">Mode itemType<span class="br0">[</span>modifier<span
+                                    class="sy0">=</span>value<span class="br0">]</span><span class="sy0">;</span>attribute1<span
+                                    class="br0">[</span>modifier<span class="sy0">=</span>value<span
+                                    class="br0">]</span><span class="sy0">;</span>attribute2<span
+                                    class="br0">[</span>modifier<span class="sy0">=</span>value<span
+                                    class="br0">]</span><span class="sy0">;</span>attribute3<span
+                                    class="br0">[</span>modifier<span class="sy0">=</span>value<span
+                                    class="br0">]</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">Mode itemType[modifier=value];attribute1[modifier=value];attribute2[modifier=value];attribute3[modifier=value]</pre>
+            </div>
+        </div>
+
+        <p><b><br>
+        </b></p><h4><b>We can see below things in header</b></h4><b>
+    </b>
+        <p><b></b><b><br>
+        </b></p><h4><b>Mode</b></h4>
+        <p>It specifies what <b>operation </b>we are going to perform on the values<b>(Insert,update,remove)</b></p>
+        <p>There are<strong> 4 mode types</strong> possible in <strong>Header</strong></p>
+        <p><strong>1) INSERT</strong></p>
+        <p><strong>2) UPDATE</strong></p>
+        <p><strong>3) INSERT_UPDATE</strong></p>
+        <p><strong>4) REMOVE</strong></p>
+        <h6>1) INSERT :</h6>
+        <p>This Mode is used to insert a <strong>new record</strong> into <strong>Database</strong>.<br>
+            If the <strong>record already exists</strong> it will <strong>throw an exception</strong>.</p>
+        <h6>2) UPDATE :</h6>
+        <p>This Mode is used to <strong>update the existing record</strong>.<br>
+            If the <strong>record does not exist</strong> then <strong>exception</strong> will be
+            <strong>thrown</strong>.</p>
+        <h6>3) INSERT_UPDATE :</h6>
+        <p>This Mode is the most preferred one for <strong>insertion</strong> or <strong>update</strong>.</p>
+        <p>This header will <strong>insert the record</strong> if its <strong>new one</strong> and <strong>update
+            the record</strong> if it is <strong>already exists</strong>.</p>
+        <p>So there will be <strong>no exception</strong> if we use this mode.</p>
+        <h6>4) REMOVE :</h6>
+        <p>This mode is used to <strong>remove the existing records</strong>.</p>
+        <p>We need to specify <strong>one unique attribute</strong> to remove the record.<strong><br>
+        </strong></p><h4><strong>Type</strong></h4><strong>
+    </strong>
+        <p><strong></strong> specifies the <strong>item type</strong> on which the <strong>Mode</strong> is applied
+            <b>(Example:Product,Category,Customer etc )</b></p>
+        <p>Basically it <strong>impacts </strong>the <strong>table </strong>associated with this
+            <strong>Type</strong>.<strong><br>
+            </strong></p><h4><strong>Attributes</strong></h4><strong>
+    </strong>
+        <p><strong></strong>It defines the <strong>attributes </strong>of the <strong>item type</strong> which are
+            defined in <strong>items.xml</strong> file.</p>
+        <p>Each <strong>attribute specified</strong> will get the <strong>values affected</strong> on <strong>corresponding
+            columns</strong> in <strong>DB</strong>.<b><br>
+        </b></p><h4><b>Modifier</b></h4><b>
+    </b>
+        <p><b></b>It is used to specify the <strong>additional information</strong> for the
+            <strong>attributes</strong> like specifying <b>attribute uniqueness</b> using <b>unique=true</b>.<b><br>
+            </b></p><h6><b>We can specify multiple modifers in 2 ways</b></h6><b>
+    </b>
+        <p><b></b></p>
+        <p><strong>1) Comma <strong>separated modifiers</strong> within <strong>single bracket []</strong> as
+            below</strong>
+        </p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">attribute<span class="br0">[</span>modifier1<span class="sy0">=</span>value1,modifier2<span
+                                    class="sy0">=</span>value2,modifier3<span class="sy0">=</span>value3<span
+                                    class="br0">]</span><span class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">attribute[modifier1=value1,modifier2=value2,modifier3=value3];</pre>
+            </div>
+        </div>
+
+        <p><strong>Single bracket</strong> has all the modifiers separated by comma.</p>
+        <p><strong>2) <strong>each modifier</strong> with <strong>separate bracket []</strong> as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">;</span>attribute<span
+                                    class="br0">[</span>modifier1<span class="sy0">=</span>value1<span
+                                    class="br0">]</span><span class="br0">[</span>modifier2<span
+                                    class="sy0">=</span>value2<span class="br0">]</span><span class="br0">[</span>modifier3<span
+                                    class="sy0">=</span>value3<span class="br0">]</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">;attribute[modifier1=value1][modifier2=value2][modifier3=value3];</pre>
+            </div>
+        </div>
+
+        <p><strong>Separate bracket</strong> for each modifier<strong><br>
+        </strong></p><h5><strong>Example:</strong></h5><strong>
+    </strong>
+        <p><strong></strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE category<span class="sy0">;</span>code<span
+                                    class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span
+                                    class="sy0">;</span>name<span class="br0">[</span>lang<span
+                                    class="sy0">=</span>de<span
+                                    class="br0">]</span><span class="sy0">;</span>name<span
+                                    class="br0">[</span>lang<span
+                                    class="sy0">=</span>en<span class="br0">]</span><span class="sy0">;</span>$supercategories<span
+                                    class="sy0">;</span>$thumbnail<span class="sy0">;</span>description<span
+                                    class="br0">[</span>lang<span class="sy0">=</span>de<span
+                                    class="br0">]</span><span class="sy0">;</span>order
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">INSERT_UPDATE category;code[unique=true];name[lang=de];name[lang=en];$supercategories;$thumbnail;description[lang=de];order</pre>
+            </div>
+        </div>
+
+        <p>In the above header line,</p>
+        <p><strong>INSERT_UPDATE</strong> is the <strong>mode</strong></p>
+        <p><strong>Category</strong> is the <strong>item type</strong></p>
+        <p><strong>Code,name</strong> etc are the attributes</p>
+        <p><strong>[unique=true]</strong> is the <strong>modifier</strong><strong><br>
+        </strong></p><h4><strong>Note:</strong></h4><strong>
+    </strong>
+        <p><strong></strong>This <strong>header </strong>is applicable for <strong>all the value lines</strong> till
+            the <strong>next header</strong> appears in the file.</p>
+        <p><strong>One file</strong> can have <strong>any number of headers</strong>.<strong><br>
+        </strong></p><h4><strong>Value lines in Impex</strong></h4><strong>
+    </strong>
+        <p><strong></strong>There could be <strong>one</strong> or <strong>more</strong> value lines in the
+            <strong>file</strong>.
+        </p>
+        <p>Each value line represents <strong>one row of data</strong> in <strong>table</strong>.</p>
+        <p><strong>Each field</strong> in the value line is <strong>separated by semicolon</strong> and <strong>represents
+            the data</strong> into <strong>one column</strong>.</p>
+        <p><strong>Example:</strong></p>
+        <p><strong>Field1;field2;field3</strong></p>
+        <p><strong>Space </strong>is also considered as <strong>value of the field</strong>.</p>
+        <p><strong>Each line</strong> should have the <strong>same number of fields</strong>.</p>
+        <p>If field contains any <strong>line breaks</strong> or <strong>quotes</strong>, then enclose such fields
+            in <strong>double quotes</strong>.<strong><br>
+            </strong></p><h4><strong>Macros</strong></h4><strong>
+    </strong>
+        <p><strong></strong>Macros are basically used to <strong>define</strong> the value at <strong>one
+            place</strong> and <strong>use</strong> the macro in <strong>all the places</strong>.</p>
+        <p>It helps to <strong>eliminate writing</strong> <strong>same lines</strong> again and again.<br>
+            Macros starts with <strong>“$”</strong> and they are referenced by <strong>$macroName</strong></p>
+        <p><strong>Example:</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">$catalog<span class="sy0">=</span>catalog<span
+                                    class="br0">(</span>id<span class="br0">)</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">$catalog=catalog(id)</pre>
+            </div>
+        </div>
+
+        <p>Defined a macro called <strong>“catalog”</strong> and can be referenced as <strong>$catalog</strong>
+            wherever <strong>required</strong>.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">$catalogVersion<span class="sy0">=</span>catalogVersion<span
+                                    class="br0">(</span>$catalog,version<span class="br0">)</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">$catalogVersion=catalogVersion($catalog,version)</pre>
+            </div>
+        </div>
+
+        <p>Defined a macro called <strong>“catalogVersion”</strong> and can be referenced as
+            <strong>$catalogVersion</strong> wherever <strong>required</strong>.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT Product<span class="sy0">;</span> code<span class="sy0">;</span>
+                                $catalogVersion
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">INSERT Product; code; $catalogVersion</pre>
+            </div>
+        </div>
+
+        <p>Now the macros <strong>$catalogVersion</strong> and <strong>$catalog</strong> are
+            <strong>replaced</strong> by their actual value as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">catalogVersion<span class="br0">(</span>catalog<span
+                                    class="br0">(</span>id<span class="br0">)</span>,version<span
+                                    class="br0">)</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">catalogVersion(catalog(id),version)</pre>
+            </div>
+        </div>
+
+        <p>If we <strong>don’t use macros</strong> then we have to write above line in all the places <strong>wherever
+            required</strong>.<strong><br>
+        </strong></p><h4><strong>Comments</strong></h4><strong>
+    </strong>
+        <p><strong></strong> Comments in impex file <strong>starts </strong>with <strong># symbol</strong>.</p>
+        <p><strong>Example:</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">#Inserting product details</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">INSERT_UPDATE Product<span class="sy0">;</span>code<span
+                                    class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span class="sy0">;</span>
+                                varianttype<span class="br0">(</span>code<span class="br0">)</span><span
+                                        class="sy0">;</span>name<span class="br0">[</span>lang<span
+                                        class="sy0">=</span>en<span class="br0">]</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">#Inserting product details
+INSERT_UPDATE Product;code[unique=true]; varianttype(code);name[lang=en];</pre>
+            </div>
+        </div>
+
+        <p>In the above lines, we have <strong>one comment line</strong> starts with <strong># </strong>which will
+            be <strong>ignored</strong> while importing.</p>
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Impex – Cell Decorator</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p>While importing impex value lines,sometime it is required to <strong class="georgia-orange-class"><em>modify
+            the value based on some business logic</em></strong> rather than directly inserting the value.</p>
+        <h5><strong class="georgia-class">Hybris has provided different ways to handle the same.</strong></h5>
+        <p><strong></strong></p>
+        <h6><strong class="couriernew-class"><strong class="pink-class">1) Using Cell Decorator</strong></strong></h6>
+        <h6><strong class="couriernew-class">2) Using Translator<br>
+            3) Using Special Translator</strong></h6>
+        <p><strong></strong><br>
+            In this article, we will discuss on Cell Decorator</p>
+        <p><strong class="verdana-blue-class">Cell Decorator</strong> is used to obtain the <strong
+                class="georgia-class"><em>specific cell of value line</em></strong> after parsing but before translating
+            it</p>
+        <p>We can then <strong class="georgia-lime-class"><em>decorate the cell value</em></strong> based on business
+            logic.</p>
+        <p>Decorating cell value means <strong class="georgia-orange-class"><em>modifying the cell value</em></strong>
+            based on some business requirement.</p>
+        <pre class=""><h6><strong class="couriernew-class">Requirement</strong></h6><strong class="couriernew-class">Assume we are Updating Customer record through impex
+
+We need to check customer belongs to which country using customer id provided in impex
+
+If customer belongs to US then append _US to customer id before saving
+
+If customer belongs to Canada then append _CA to customer id before saving</strong></pre>
+        <p><strong></strong><br>
+            <strong></strong></p>
+        <h5><strong class="georgia-class">Let’s implement this requirement with the help of Cell Decorator</strong></h5>
+        <p><strong></strong></p>
+        <h6><strong class="verdana-class">Step 1</strong></h6>
+        <p><strong class="georgia-class"><em>We need to <strong class="pink-class">configure cell decorator by adding
+            the modifier cellDecorator</strong> to a header attribute specifying our decorator class</em></strong>.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">#Updating only customer</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE Customer<span class="sy0">;</span>uid<span
+                                    class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span class="br0">[</span>cellDecorator<span
+                                    class="sy0">=</span>com.<span class="me1">kb</span>.<span
+                                    class="me1">decorators</span>.<span class="me1">CustomerIdCellDecorator</span><span
+                                    class="br0">]</span><span class="sy0">;</span>name<span
+                                    class="sy0">;</span>groups<span class="br0">(</span>uid<span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">;</span>dummyuser@dummy.<span class="me1">com</span><span
+                                    class="sy0">;</span>dummy user<span class="sy0">;</span>customergroup
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">#Updating only customer
+
+INSERT_UPDATE Customer;uid[unique=true][cellDecorator=com.kb.decorators.CustomerIdCellDecorator];name;groups(uid);
+;dummyuser@dummy.com;dummy user;customergroup</pre>
+            </div>
+        </div>
+
+        <p><strong></strong></p>
+        <h6><strong class="verdana-class">Step 2</strong></h6>
+        <p><strong class="georgia-class"><em>Create the class which implements <strong class="blue-class"><em>CSVCellDecorator </em></strong>and
+            override the decorate method with our custom logic</em></strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">package</span> <span class="co2">com.kb.decorators</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.core.Registry</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.core.model.user.UserModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.user.UserService</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.util.CSVCellDecorator</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">java.util.Map</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="co3">/**</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="co3">&nbsp;* @author KB</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="co3">&nbsp;*</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="co3">&nbsp;*/</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">class</span>
+                                CustomerIdCellDecorator <span class="kw1">implements</span> CSVCellDecorator
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">private</span> <span
+                                    class="kw1">final</span> <span class="kw3">String</span> USER_SERVICE_BEAN <span
+                                    class="sy0">=</span> <span class="st0">"userService"</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">protected</span> UserService getUserService<span
+                                    class="br0">(</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span
+                                    class="br0">(</span>UserService<span class="br0">)</span> <span
+                                    class="kw3">Registry</span>.<span class="me1">getApplicationContext</span><span
+                                    class="br0">(</span><span class="br0">)</span>.<span class="me1">getBean</span><span
+                                    class="br0">(</span>USER_SERVICE_BEAN<span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="coMULTI">/*</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="coMULTI">&nbsp; &nbsp; &nbsp;* (non-Javadoc)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="coMULTI">&nbsp; &nbsp; &nbsp;*</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="coMULTI">&nbsp; &nbsp; &nbsp;* @see de.hybris.platform.util.CSVCellDecorator#decorate(int, java.util.Map)</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="coMULTI">&nbsp; &nbsp; &nbsp;*/</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw3">String</span> decorate<span class="br0">(</span><span
+                                    class="kw1">final</span> <span class="kw4">int</span> position, <span class="kw1">final</span>
+                                Map<span class="sy0">&lt;</span><span class="kw3">Integer</span>, String<span
+                                        class="sy0">&gt;</span> srcLine<span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> <span
+                                    class="kw3">String</span> csvCell <span class="sy0">=</span> srcLine.<span
+                                    class="me1">get</span><span class="br0">(</span><span
+                                    class="kw3">Integer</span>.<span class="me1">valueOf</span><span
+                                    class="br0">(</span>position<span class="br0">)</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span
+                                    class="br0">(</span>csvCell <span class="sy0">==</span> <span
+                                    class="kw2">null</span> <span class="sy0">||</span> csvCell.<span
+                                    class="me1">length</span><span class="br0">(</span><span class="br0">)</span> <span
+                                    class="sy0">==</span> <span class="nu0">0</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                csvCell<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">else</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span>
+                                UserModel userModel <span class="sy0">=</span> getUserService<span
+                                        class="br0">(</span><span class="br0">)</span>.<span
+                                        class="me1">getUserForUID</span><span class="br0">(</span>csvCell<span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span
+                                    class="br0">(</span>userModel.<span
+                                    class="me1">getDefaultShipmentAddress</span><span class="br0">(</span><span
+                                    class="br0">)</span>.<span class="me1">getCountry</span><span
+                                    class="br0">(</span><span class="br0">)</span>.<span
+                                    class="me1">getIsocode</span><span class="br0">(</span><span
+                                    class="br0">)</span>.<span class="me1">equals</span><span class="br0">(</span><span
+                                    class="st0">"US"</span><span class="br0">)</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                csvCell <span class="sy0">+</span> <span class="st0">"_US"</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">else</span>
+                                <span class="kw1">if</span> <span class="br0">(</span>userModel.<span class="me1">getDefaultShipmentAddress</span><span
+                                        class="br0">(</span><span class="br0">)</span>.<span
+                                        class="me1">getCountry</span><span class="br0">(</span><span
+                                        class="br0">)</span>.<span class="me1">getIsocode</span><span
+                                        class="br0">(</span><span class="br0">)</span>.<span
+                                        class="me1">equals</span><span class="br0">(</span><span class="st0">"CA"</span><span
+                                        class="br0">)</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                csvCell <span class="sy0">+</span> <span class="st0">"_CA"</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">else</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                csvCell<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">package com.kb.decorators;
+
+import de.hybris.platform.core.Registry;
+import de.hybris.platform.core.model.user.UserModel;
+import de.hybris.platform.servicelayer.user.UserService;
+import de.hybris.platform.util.CSVCellDecorator;
+
+import java.util.Map;
+
+
+/**
+ * @author KB
+ *
+ */
+public class CustomerIdCellDecorator implements CSVCellDecorator
+{
+	private final String USER_SERVICE_BEAN = "userService";
+
+	protected UserService getUserService()
+	{
+		return (UserService) Registry.getApplicationContext().getBean(USER_SERVICE_BEAN);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see de.hybris.platform.util.CSVCellDecorator#decorate(int, java.util.Map)
+	 */
+	@Override
+	public String decorate(final int position, final Map&lt;Integer, String&gt; srcLine)
+	{
+		final String csvCell = srcLine.get(Integer.valueOf(position));
+		if (csvCell == null || csvCell.length() == 0)
+		{
+			return csvCell;
+		}
+		else
+		{
+			final UserModel userModel = getUserService().getUserForUID(csvCell);
+
+
+			if (userModel.getDefaultShipmentAddress().getCountry().getIsocode().equals("US"))
+			{
+				return csvCell + "_US";
+			}
+			else if (userModel.getDefaultShipmentAddress().getCountry().getIsocode().equals("CA"))
+			{
+				return csvCell + "_CA";
+			}
+			else
+			{
+				return csvCell;
+			}
+		}
+	}
+
+}</pre>
+            </div>
+        </div>
+
+        <p><strong></strong><br>
+            In the above class, we have written a logic to <strong class="georgia-class"><em>return the customer Id</em></strong>
+            by <strong class="georgia-orange-class"><em>appending “_US”</em></strong> to US customers and <strong
+                    class="georgia-lime-class"><em>“_CA”</em></strong> to Canada customers and <strong
+                    class="georgia-class"><em>return customer Id without appending anything if user is <strong
+                    class="blue-class">different from US and CA</strong></em></strong>.</p>
+        <h6><strong class="verdana-class">Step 3</strong></h6>
+        <p><strong class="georgia-class"><em>Run the impex and check the updated customer record in HMC/BackOffice</em></strong>
+        </p>
+    </div>
+</article>
+
+<article class="post-content">
+    <div class="post-content-header">
+        <h1 class="post-title">Impex – Translator</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p><strong class="verdana-pink-class">Translator </strong>can be used to change the translation logic for a
+            value</p>
+        <p>Translator can be applied on any attribute as below </p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;!--</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">--&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">INSERT MyType<span class="sy0">;</span>...<span class="sy0">;</span>myAttribute<span
+                                    class="br0">[</span>translator<span class="sy0">=</span>de.<span
+                                    class="me1">hybris</span>.<span class="me1">platform</span>.<span
+                                    class="me1">impex</span>.<span class="me1">jalo</span>.<span
+                                    class="me1">translators</span>.<span class="me1">ItemPKTranslator</span><span
+                                    class="br0">]</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;!--             --&gt;
+INSERT MyType;...;myAttribute[translator=de.hybris.platform.impex.jalo.translators.ItemPKTranslator]</pre>
+            </div>
+        </div>
+
+        <p>The above configured translator class has to extend the <strong class="pink-class"><strong
+                class="couriernew-class"><em>AbstractValueTranslator</em></strong></strong></p>
+        <h6><strong class="verdana-class">It defines 2 methods</strong></h6>
+        <p><strong></strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">abstract</span> <span
+                                    class="kw3">Object</span> importValue<span class="br0">(</span> <span class="kw1">final</span>
+                                <span class="kw3">String</span> valueExpr, <span class="kw1">final</span> Item toItem
+                                <span class="br0">)</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">public abstract Object importValue( final String valueExpr, final Item toItem )</pre>
+            </div>
+        </div>
+
+        <p>The <strong class="verdana-blue-class">valueExpr</strong> is the parsed cell value (possible decorators
+            already applied if any), <strong class="verdana-blue-class">toItem</strong> is the resolved item</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">abstract</span> <span
+                                    class="kw3">String</span> exportValue<span class="br0">(</span> <span class="kw1">final</span>
+                                <span class="kw3">Object</span> value <span class="br0">)</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">public abstract String exportValue( final Object value )</pre>
+            </div>
+        </div>
+
+        <p><strong></strong><br>
+            Implement the translation logic for the export case here, The given object has to be translated to a String
+            that has to be returned</p>
+        <pre class=""><h6><strong class="verdana-class">Let's understand with below Requirement</strong></h6>
+Translator for price attribute to prevent importing negative prices</pre>
+        <p><strong></strong></p>
+        <h6><strong class="couriernew-class">Step 1</strong></h6>
+        <p>We need to configure Translator by adding the modifier <strong
+                class="georgia-orange-class"><em>“translator”</em></strong> to a header attribute specifying our
+            Translator class.</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">#Price row update</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">INSERT_UPDATE PriceRow<span class="sy0">;</span>productId<span class="br0">[</span>unique<span
+                                    class="sy0">=</span><span class="kw2">true</span><span class="br0">]</span><span
+                                    class="sy0">;</span>unit<span class="br0">(</span>code<span class="br0">[</span>unique<span
+                                    class="sy0">=</span><span class="kw2">true</span>,<span
+                                    class="kw1">default</span><span class="sy0">=</span>pieces<span class="br0">]</span><span
+                                    class="br0">)</span><span class="sy0">;</span>currency<span class="br0">(</span>isocode<span
+                                    class="br0">)</span><span class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span
+                                    class="sy0">;</span>price<span class="br0">[</span>translator<span
+                                    class="sy0">=</span>de.<span class="me1">hybris</span>.<span
+                                    class="me1">platform</span>.<span class="me1">acceleratorservices</span>.<span
+                                    class="me1">dataimport</span>.<span class="me1">batch</span>.<span class="me1">converter</span>.<span
+                                    class="me1">MyPriceTranslator</span><span class="br0">]</span><span
+                                    class="sy0">;</span>minqtd<span class="sy0">;</span>unitFactor<span
+                                    class="sy0">;</span>net
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">;</span><span class="nu0">300441142</span><span
+                                    class="sy0">;</span>pieces<span class="sy0">;</span>GBP<span
+                                    class="sy0">;</span><span class="nu0">8.46</span><span class="sy0">;</span><span
+                                    class="nu0">1</span><span class="sy0">;</span><span class="nu0">1</span><span
+                                    class="sy0">;</span><span class="kw2">false</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">#Price row update
+INSERT_UPDATE PriceRow;productId[unique=true];unit(code[unique=true,default=pieces]);currency(isocode)[unique=true];price[translator=de.hybris.platform.acceleratorservices.dataimport.batch.converter.MyPriceTranslator];minqtd;unitFactor;net
+;300441142;pieces;GBP;8.46;1;1;false</pre>
+            </div>
+        </div>
+
+        <p><strong></strong></p>
+        <h6><strong class="couriernew-class">Step 2</strong></h6>
+        <p>Create the class which implements <strong
+                class="verdana-blue-class"><em>AbstractValueTranslator</em></strong> and override the <strong
+                class="georgia-orange-class"><em>importValue</em></strong> and <strong class="georgia-lime-class"><em>exportValue</em></strong>
+            methods with our custom logic</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-toolbar" style="display: none;">
+                <div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch"
+                                                   title="View Source Code">Copy this code</a></div>
+            </div>
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">package</span> <span
+                                    class="co2">com.kb.translators</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.impex.jalo.translators.AbstractValueTranslator</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.jalo.Item</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.jalo.JaloInvalidParameterException</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">org.apache.commons.lang.StringUtils</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="co3">/**</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="co3">&nbsp;* @author KB</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="co3">&nbsp;*</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="co3">&nbsp;*/</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">class</span>
+                                MyPriceTranslator <span class="kw1">extends</span> AbstractValueTranslator
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw3">Object</span> importValue<span class="br0">(</span><span class="kw1">final</span>
+                                <span class="kw3">String</span> valueExpr, <span class="kw1">final</span> Item
+                                toItem<span class="br0">)</span> <span class="kw1">throws</span>
+                                JaloInvalidParameterException
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; clearStatus<span class="br0">(</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw3">Double</span> result <span
+                                    class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span
+                                    class="br0">(</span><span class="sy0">!</span>StringUtils.<span
+                                    class="me1">isBlank</span><span class="br0">(</span>valueExpr<span
+                                    class="br0">)</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">try</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; result <span
+                                    class="sy0">=</span> <span class="kw3">Double</span>.<span
+                                    class="me1">valueOf</span><span class="br0">(</span>valueExpr<span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">catch</span>
+                                <span class="br0">(</span><span class="kw1">final</span> <span class="kw3">NumberFormatException</span>
+                                exc<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setError<span
+                                    class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span
+                                    class="br0">(</span>result <span class="sy0">!=</span> <span class="kw2">null</span>
+                                <span class="sy0">&amp;&amp;</span> result.<span class="me1">doubleValue</span><span
+                                        class="br0">(</span><span class="br0">)</span> <span class="sy0">&lt;</span>
+                                <span class="nu0">0.0</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; setError<span
+                                    class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> result<span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw3">String</span> exportValue<span class="br0">(</span><span class="kw1">final</span>
+                                <span class="kw3">Object</span> value<span class="br0">)</span> <span
+                                        class="kw1">throws</span> JaloInvalidParameterException
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> value <span
+                                    class="sy0">==</span> <span class="kw2">null</span> <span class="sy0">?</span> <span
+                                    class="st0">""</span> <span class="sy0">:</span> value.<span
+                                    class="me1">toString</span><span class="br0">(</span><span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">package com.kb.translators;
+import de.hybris.platform.impex.jalo.translators.AbstractValueTranslator;
+import de.hybris.platform.jalo.Item;
+import de.hybris.platform.jalo.JaloInvalidParameterException;
+
+import org.apache.commons.lang.StringUtils;
+/**
+ * @author KB
+ *
+ */
+public class MyPriceTranslator extends AbstractValueTranslator
+{
+
+	@Override
+	public Object importValue(final String valueExpr, final Item toItem) throws JaloInvalidParameterException
+	{
+		clearStatus();
+		Double result = null;
+		if (!StringUtils.isBlank(valueExpr))
+		{
+			try
+			{
+				result = Double.valueOf(valueExpr);
+			}
+			catch (final NumberFormatException exc)
+			{
+				setError();
+			}
+			if (result != null &amp;&amp; result.doubleValue() &lt; 0.0)
+			{
+				setError();
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public String exportValue(final Object value) throws JaloInvalidParameterException
+	{
+		return value == null ? "" : value.toString();
+	}
+}</pre>
+            </div>
+        </div>
+
+        <h6><strong class="couriernew-class">Step 3</strong></h6>
+        <p>Run the impex with price value greater than or equal to Zero, it will run successfully otherwise it will
+            throw an error</p>
+    </div>
+</article>
+</body>
+</html>

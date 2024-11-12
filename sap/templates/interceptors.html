@@ -1,0 +1,108 @@
+<article id="post-680" class="post-680 post type-post status-publish format-standard has-post-thumbnail category-hybris tag-hybris tag-interceptor tag-java clearfix article">
+	<div class="article__content  e-content">
+		<!-- Content -->
+		<h2 class="article__title  p-name">Use Interceptors in SAP Hybris</h2>	
+<p>A <strong>Model</strong> in Hybris has a lifecycle managed by the <code>ModelService</code> (Create, Update, Load, Remove).</p>
+<p>Hybris offers interceptors that provide the possibility to Hook into model lifecycle to be able to act when an event occurs.</p>
+<p><img data-attachment-id="695" data-permalink="https://www.stackextend.com/hybris/use-interceptors-in-sap-hybris/attachment/overview_interceptors_hybris/" data-orig-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2018/04/overview_interceptors_hybris.png?fit=618%2C426&amp;ssl=1" data-orig-size="618,426" data-comments-opened="1" data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}" data-image-title="Overview of interceptors Hybris" data-image-description="<p>Overview of interceptors Hybris</p>
+" data-image-caption="" data-medium-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2018/04/overview_interceptors_hybris.png?fit=300%2C207&amp;ssl=1" data-large-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2018/04/overview_interceptors_hybris.png?fit=618%2C426&amp;ssl=1" decoding="async" class="aligncenter size-full wp-image-695" src="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2018/04/overview_interceptors_hybris.png?resize=618%2C426&amp;ssl=1" alt="Overview of interceptors Hybris" width="618" height="426" srcset="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2018/04/overview_interceptors_hybris.png?w=618&amp;ssl=1 618w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2018/04/overview_interceptors_hybris.png?resize=300%2C207&amp;ssl=1 300w" sizes="(max-width: 618px) 100vw, 618px"></p>
+<p>In this article, I will show you the&nbsp;various types of interceptors in Hybris and how to create them.</p>
+<blockquote><p>In the next section of this article we will create interceptors for <code>UserModel</code>.</p></blockquote>
+<h1>2. Implementation</h1>
+<h2>2.1.&nbsp;Create&nbsp;<code><span class="keyword apiname">InitDefaultsInterceptor</span></code></h2>
+<p>The <code>InitDefaultsInterceptor</code> is called when ever you create a new model using&nbsp;<code>modelService.initDefaults()</code> or&nbsp;<code>modelService.create()</code>.</p>
+<p>1. Create a Java class implements&nbsp;<code>InitDefaultsInterceptor</code> and override&nbsp;<code>onInitDefaults()</code> method.</p>
+<pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>stackextend<span class="token punctuation">.</span>core<span class="token punctuation">.</span>interceptors<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// imports...</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserInitDefaultInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">InitDefaultsInterceptor</span><span class="token operator">&lt;</span>UserModel<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onInitDefaults</span><span class="token punctuation">(</span>UserModel userModel<span class="token punctuation">,</span> InterceptorContext interceptorContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterceptorException <span class="token punctuation">{</span>
+
+        <span class="token comment" spellcheck="true">// do what ever business logic you want here...</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"You are trying to create/init UserModel: "</span> <span class="token operator">+</span> userModel<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2. Register the <code>UserInitDefaultInterceptor</code> as a bean in Spring.</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span class="token comment" spellcheck="true">&lt;!-- ...\hybris\bin\custom\training\trainingcore\resources\trainingcore-spring.xml --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userInitDefaultInterceptor<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.stackextend.core.interceptors.UserInitDefaultInterceptor<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+	<span class="token comment" spellcheck="true">&lt;!--  inject beans here if needed --&gt;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3. Declare and configure your interceptor using <code>InterceptorMapping</code>.</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userInitDefaultInterceptorMapping<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>interceptor<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userInitDefaultInterceptor<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>typeCode<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>User<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4. Create a new instance of <code>UserModel</code> to see your interceptor being executed.</p>
+<pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span class="token comment" spellcheck="true">// 1. This is one way to invoke the InitDefaultInterceptor</span>
+UserModel newUser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UserModel</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+modelService<span class="token punctuation">.</span><span class="token function">initDefaults</span><span class="token punctuation">(</span>newUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 2. This is another way to invoke the InitDefaultInterceptor</span>
+UserModel newUser <span class="token operator">=</span> modelService<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>UserModel<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2>2.2. Create&nbsp;<code>LoadInterceptor</code></h2>
+<p>The&nbsp;<code>LoadInterceptor</code> is invoked just after a model is being retrieved from the database, using <code>modelService.get()</code> for example.</p>
+<p>1. Create a Java class implements&nbsp;<code>LoadInterceptor</code> and override&nbsp;<code>onLoad()</code> method.</p>
+<pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>stackextend<span class="token punctuation">.</span>core<span class="token punctuation">.</span>interceptors<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// imports....</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserLoadInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">LoadInterceptor</span><span class="token operator">&lt;</span>UserModel<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onLoad</span><span class="token punctuation">(</span>UserModel userModel<span class="token punctuation">,</span> InterceptorContext interceptorContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterceptorException <span class="token punctuation">{</span>
+
+        <span class="token comment" spellcheck="true">// do what ever business logic you want here...</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"This UserModel is just being loaded: "</span> <span class="token operator">+</span> userModel<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2. Register the <code>UserLoadInterceptor</code> as a bean in Spring.</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span class="token comment" spellcheck="true">&lt;!-- ...\hybris\bin\custom\training\trainingcore\resources\trainingcore-spring.xml --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userLoadInterceptor<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>com.stackextend.core.interceptors.UserLoadInterceptor<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+	<span class="token comment" spellcheck="true">&lt;!--  inject beans here if needed --&gt;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>3. Declare and configure your interceptor using <code>InterceptorMapping</code>.</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span class="token comment" spellcheck="true">&lt;!-- ...\hybris\bin\custom\training\trainingcore\resources\trainingcore-spring.xml --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userLoadInterceptorMapping<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>interceptor<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>userLoadInterceptor<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>typeCode<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>User<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">&gt;</span></span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>4. The <code>UserLoadInterceptor</code> will be invoked when ever a <code>UserModel</code> is being retrieved from the database.</p>
+<pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span class="token comment" spellcheck="true">// The userLoadInterceptor will be invoked here</span>
+UserModel userModel <span class="token operator">=</span> modelService<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>null<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2>2.3. Create&nbsp;<code>RemoveInterceptor</code></h2>
+<p>The <code>RemoveInterceptor</code> is&nbsp;called before a model is being removed from the database.</p>
+<p>1. Create a Java class implements&nbsp;<code>RemoveInterceptor</code> and override&nbsp;<code>onRemove()</code> method.</p>
+<pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>stackextend<span class="token punctuation">.</span>core<span class="token punctuation">.</span>interceptors<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// imports...</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UseRemoveInterceptor</span> <span class="token keyword">implements</span> <span class="token class-name">RemoveInterceptor</span><span class="token operator">&lt;</span>UserModel<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onRemove</span><span class="token punctuation">(</span>UserModel userModel<span class="token punctuation">,</span> InterceptorContext interceptorContext<span class="token punctuation">)</span> <span class="token keyword">throws</span> InterceptorException <span class="token punctuation">{</span>
+
+        <span class="token comment" spellcheck="true">// do what ever business logic you want here...</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"This UserModel will be removed from the database: "</span> <span class="token operator">+</span> userModel<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2. Register and declare the&nbsp;<code>UseRemoveInterceptor</code> as bean in Spring like the previous examples.</p>
+<p>3. The <code>UserRemoveInterceptor</code> will be invoked when ever you remove a <code>UserModel</code> from the database.</p>
+<pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span class="token comment" spellcheck="true">// The UserRemoveInterceptor will be invoked right here</span>
+modelService<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>userToBeRemove<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2>2.4.&nbsp;Generalization</h2>
+<p>There are also <code>PrepareInterceptor</code> and <code>ValidateInterceptor</code>, they are called just before a model is being saved to the database, for example when <code>modelService.save()</code> is used.</p>
+<p>The&nbsp;<code>ValidateInterceptor</code> is always invoked after <code>PrepareInterceptor</code>.</p>
+
+<p>it’s used to avoid the infinite call of interceptors,
+E.g: let’s suppose we have a PrepareInterceptor on the ProductModel and inside that interceptor, we call modelService.save(product), hence our PrepareInterceptor will be called again and again.</p>
+</article>

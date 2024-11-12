@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SAP</title>
+    <link rel='stylesheet' id='bwp-syntax-css'
+          href='http://javainsimpleway.com/wp-content/plugins/better-wordpress-syntax-based-on-geshi/css/bwp-syntax.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='adsns-css'
+          href='http://javainsimpleway.com/wp-content/plugins/adsense-plugin/css/adsns.css?v=1.40&#038;ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='dashicons-css'
+          href='http://javainsimpleway.com/wp-includes/css/dashicons.min.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='cptch_desktop_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/captcha/css/desktop_style.css?ver=4.2.8' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/category-post-list-widget/css/main.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-code-css'
+          href='http://javainsimpleway.com/wp-content/plugins/code-highlight/css/style.css?ver=4.5.28' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='new_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/responsive-attention-box/css/common.css?ver=1.0.0'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='nb-font-css'
+          href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic%7CMontserrat:400,700%7COpen+Sans:400,600,700,300%7CLibre+Baskerville:400,700%7CPlayfair:400,700%7CDroid+Serif:400,700%7CPT+Serif:400,700%7CNoto+Serif:400,700'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-css-css' href='http://javainsimpleway.com/wp-content/themes/nicebird/style.css'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/bootstrap.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='global-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/global.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-animation-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome-animation.css'
+          type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/nb-style.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='support.css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/support.css' type='text/css'
+          media='all'/>
+    <style>
+        body, input, button, select, textarea, code, kbd, pre, samp {
+            font-family: 'Open Sans', sans-serif;
+		background-color: #000;
+		color: #ccc;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 900;
+        }
+
+        h1 {
+            margin-left: 30px;
+        }
+        .bwp-syntax-block.clearfix{
+            width: 75%;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="post-content-body">
+<h1 class="post-title">Interceptor in Hybris</h1>
+         <p>We know that Models in Hybris are the <strong class="georgia-class"><em>representation of database tables</em></strong> and we often <strong class="georgia-class"><em>use models to <strong class="pink-class">save data</strong></em></strong> in database and to <strong class="georgia-class"><strong class="blue-class"><em>load data</em></strong></strong> from Database.</p>
+<p>Please read all data modeling articles under <a href="http://javainsimpleway.com/overview-of-items-xml-file/"><strong class="verdana-pink-class"><u>overview-of-items-xml-file</u></strong></a>  </p>
+<p>These models we use in Hybris has its own <strong class="georgia-class"><em>lifecycle managed by <strong class="pink-class">ModelService</strong></em></strong>.</p>
+<p>There are several methods provided by ModelService to represent its lifecycle.<br>
+<strong class="verdana-class">Example :</strong> <strong class="georgia-class"><em>Create, Save, Update, Load, Remove.</em></strong></p>
+<p>When we call any of these <strong class="georgia-orange-class"><em>ModelService </em></strong>method, it just follows its Lifecycle and <strong class="georgia-class"><em>completes the execution</em></strong>.<br>
+<strong class="verdana-class">Example :</strong> Save method save the model data in Database.<br>
+<strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">Why we need interceptors ?</strong></h6>
+<p>The interceptors have the ability to <strong class="georgia-class"><em>interrupt the <strong class="light-green-class">lifecycle of a model</strong> and execute some code</em></strong> and then allow the model to continue its lifecycle.<br>
+<strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">When we use interceptors ?</strong></h6>
+<p>We need to use interceptors whenever we want to <strong class="georgia-class"><em>perform some action <strong class="pink-class">during the life cycle</strong> of a model</em></strong>.<br>
+<strong class="verdana-class">Example :</strong> If we need to validate the model data before saving in database</p>
+<p>We can see the main <strong class="verdana-class">use of interceptors</strong> in some scenarios as mentioned below</p>
+<p><strong class="georgia-class"><em>1. Auditing the details while saving the model data<br>
+2. Validating the model data before saving<br>
+3. Restrict data from deleting or modifying based on some conditions</em></strong></p>
+<p>We can even <strong class="georgia-class"><em>modify the model before saving</em></strong> it using interceptors<br>
+<strong></strong><br>
+<strong></strong></p>
+<h5><strong class="verdana-class">Types of interceptors in Hybris</strong></h5>
+<p><strong></strong><br>
+<strong class="verdana-class">There are <strong class="blue-class">5 main interceptors</strong> provided by Hybris</strong><br>
+<strong></strong><br>
+<strong class="georgia-class">1) Init Defaults interceptor<br>
+2) Prepare interceptor<br>
+3) Validate interceptor<br>
+4) Load interceptor<br>
+5) Remove interceptor</strong><br>
+<strong></strong><br>
+<strong></strong></p>
+<h3><strong class="verdana-class">Let’s understand these interceptors</strong></h3>
+<p><strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">1) Init Defaults interceptor</strong></h6>
+<p>This interceptor is represented by an interface called <strong class="verdana-pink-class">“InitDefaultsInterceptor”</strong><br>
+<strong></strong><br>
+<strong class="georgia-class"><em>This is called when a model needs to be filled with its default values</em></strong>. </p>
+<p>This will be called automatically when <strong class="verdana-pink-class">modelService.create</strong> method is called or when the <strong class="verdana-blue-class">modelService.initDefaults</strong> method is called.</p>
+<pre class=""><strong class="georgia-class"><em>We can use this interceptor to <strong class="light-green-class">fill the model</strong> with additional default values, apart from the values defined in <strong class="blue-class">items.xml</strong> file</em></strong></pre>
+<p><strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">2) Prepare interceptor</strong></h6>
+<p>This interceptor is represented by an interface called <strong class="verdana-pink-class">“PrepareInterceptor”</strong></p>
+<p><strong class="georgia-class"><em>This is called before a model is saved to the database and before it is validated by Validate interceptors. </em></strong></p>
+<pre class=""><strong class="georgia-class"><em>We can use this to <strong class="pink-class">add </strong>values to the model or <strong class="blue-class">modify</strong> existing ones before they are saved. </em></strong></pre>
+<p><strong></strong><br>
+If any exception raised during execution, Model will not be saved</p>
+<p><strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">3) Validate interceptor</strong></h6>
+<p>This interceptor is represented by an interface called <strong class="verdana-pink-class">“ValidateInterceptor”<br>
+</strong><br>
+<strong class="georgia-class"><em>This is called before a model is saved to the database after is been prepared by the Prepare interceptors.</em></strong></p>
+<pre class=""><strong class="georgia-class"><em>We can use this Interceptors to validate values of the model and raise an <strong class="georgia-orange-class">InterceptorException </strong>if any values are not valid.</em></strong></pre>
+<p><strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">4) Load interceptor</strong></h6>
+<p>This interceptor is represented by an interface called <strong class="verdana-pink-class">“LoadInterceptor”</strong></p>
+<p>This is called when we <strong class="georgia-class"><em>retrieve the model</em></strong> from the database. </p>
+<pre class=""><strong class="georgia-class"><em>We can use load interceptor if we want to change the values of the model after loading it</em>.</strong> </pre>
+<p><strong></strong><br>
+If any exception raised during execution, Model will not be loaded<br>
+<strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">5) Remove interceptor</strong></h6>
+<p>This interceptor is represented by an interface called <strong class="verdana-pink-class">“RemoveInterceptor”</strong></p>
+<p>This is called before a model is <strong class="georgia-class"><em>removed/deleted</em></strong> from the database. </p>
+<pre class=""><strong class="georgia-class"><em>We can use remove interceptor whenever we need to <strong class="pink-class">remove models</strong> that are related to the model but are not in the
+ model context.</em></strong></pre>
+<p><strong></strong><br>
+We can also use to prevent the <strong class="georgia-class"><em>removal/deletion</em></strong> of the model if it’s always required.</p>
+<blockquote><h6><strong class="pink-class">Note :</strong></h6>
+<p>Each of the above interceptor addresses a particular step of the model life cycle.<br>
+When the life cycle of a model reaches a certain step, a corresponding interceptor will be executed automatically.</p></blockquote>
+
+<section class="col-sm-8 col-lg-8 post-detail-page">
+    <article class="post-content"> 
+<h1 class="post-title">Implementing Interceptor in Hybris</h1>
+         <p>As we learned in <a href="http://javainsimpleway.com/interceptors-in-hybris/"><strong class="verdana-pink-class"><u>Interceptors-in-Hybris</u></strong></a> article, We have <strong class="georgia-class"><em>different types of interceptors</em></strong> in Hybris which will be called automatically during specific step of model life cycle.</p>
+<p>Hybris has provided <strong class="verdana-blue-class">5 interfaces</strong> to intercept at specific step of model lifecycle.</p>
+<p>We need to <strong class="georgia-class"><em>create a new class and implement the suitable interface</em></strong> out of those 5 interfaces as per our requirement</p>
+<p>If we want to intercept model while saving it, we can use <strong class="verdana-pink-class">PrepareInterceptor</strong></p>
+<p>If we want to <strong class="georgia-class"><em>perform some logic before model is being <strong class="georgia-lime-class">removed from DB</strong></em></strong>, we can use <strong class="verdana-blue-class">RemoveInterceptor</strong></p>
+<p>Similarly, other interfaces also can be chosen based on where exactly we need to intercept the model lifecycle.<br>
+<strong></strong><br>
+<strong></strong></p>
+<h5><strong class="verdana-class">Let’s implement PrepareInterceptor</strong></h5>
+<p><strong></strong><br>
+We know that, <strong class="verdana-class"><strong class="light-green-class">Prepare interceptor</strong></strong> will be called while saving the model </p>
+<pre class=""><h6><strong class="verdana-pink-class">Requirement :</strong></h6><strong class="verdana-class">Save consignment carrier code to Consignment model while saving it.
+Carrier code is available in CarrierModel</strong></pre>
+<p><strong></strong><br>
+<strong></strong></p>
+<h6><strong class="verdana-class">Step 1</strong></h6>
+<p><strong class="georgia-class"><em>Create a new Java class which implements PrepareInterceptor and override onPrepare() method.</em></strong></p>
+
+<div class="bwp-syntax-block clearfix">
+<div class="bwp-syntax-toolbar" style="display: none;"><div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch" title="View Source Code">Copy this code</a></div></div>
+<div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced"><div class="java"><ol><li class="li1"><div class="de1"><span class="kw1">package</span> <span class="co2">de.hybris.platform.consignmenttrackingservices.interceptor</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp;</div></li>
+<li class="li1"><div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.consignmenttrackingservices.model.CarrierModel</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.ordersplitting.model.ConsignmentModel</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.interceptor.InterceptorContext</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.interceptor.InterceptorException</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.interceptor.PrepareInterceptor</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp;</div></li>
+<li class="li1"><div class="de1"><span class="kw1">public</span> <span class="kw1">class</span> ConsignmentPrepareInterceptor <span class="kw1">implements</span> PrepareInterceptor<span class="sy0">&lt;</span>ConsignmentModel<span class="sy0">&gt;</span></div></li>
+<li class="li2"><div class="de2"><span class="br0">{</span></div></li>
+<li class="li1"><div class="de1">&nbsp;</div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; @Override</div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span class="kw4">void</span> onPrepare<span class="br0">(</span>ConsignmentModel consignment, InterceptorContext ctx<span class="br0">)</span> <span class="kw1">throws</span> InterceptorException</div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> CarrierModel carrier <span class="sy0">=</span> consignment.<span class="me1">getCarrierDetails</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> <span class="kw3">String</span> carrierCode <span class="sy0">=</span> carrier <span class="sy0">==</span> <span class="kw2">null</span> <span class="sy0">?</span> <span class="kw2">null</span> <span class="sy0">:</span> carrier.<span class="me1">getCode</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; consignment.<span class="me1">setCarrier</span><span class="br0">(</span>carrierCode<span class="br0">)</span><span class="sy0">;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div></li>
+<li class="li1"><div class="de1">&nbsp;</div></li>
+<li class="li2"><div class="de2"><span class="br0">}</span></div></li>
+</ol></div></div>
+<div class="bwp-syntax-source"><pre class="no-parse">package de.hybris.platform.consignmenttrackingservices.interceptor;
+
+import de.hybris.platform.consignmenttrackingservices.model.CarrierModel;
+import de.hybris.platform.ordersplitting.model.ConsignmentModel;
+import de.hybris.platform.servicelayer.interceptor.InterceptorContext;
+import de.hybris.platform.servicelayer.interceptor.InterceptorException;
+import de.hybris.platform.servicelayer.interceptor.PrepareInterceptor;
+
+public class ConsignmentPrepareInterceptor implements PrepareInterceptor&lt;ConsignmentModel&gt;
+{
+
+	@Override
+	public void onPrepare(ConsignmentModel consignment, InterceptorContext ctx) throws InterceptorException
+	{
+		final CarrierModel carrier = consignment.getCarrierDetails();
+		final String carrierCode = carrier == null ? null : carrier.getCode();
+		consignment.setCarrier(carrierCode);
+	}
+
+}</pre></div></div>
+
+<p><strong></strong><br>
+In this class, we have taken <strong class="georgia-class"><em>carrier code from CarrierModel</em></strong> and setting it to <strong class="verdana-pink-class">ConsignmentModel</strong> explicitly.</p>
+<h6><strong class="verdana-class">Step 2</strong></h6>
+<p><strong class="georgia-class"><em>Register and declare the ConsignmentPrepareInterceptor as spring bean<br>
+</em></strong></p>
+
+<div class="bwp-syntax-block clearfix">
+<div class="bwp-syntax-toolbar" style="display: none;"><div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch" title="View Source Code">Copy this code</a></div></div>
+<div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced"><div class="java"><ol><li class="li1"><div class="de1"><span class="sy0">&lt;!--</span> Defining Spring bean <span class="kw1">for</span> Interceptor <span class="sy0">--&gt;</span></div></li>
+<li class="li2"><div class="de2"><span class="sy0">&lt;</span>bean id<span class="sy0">=</span><span class="st0">"consignmentPrepareInterceptor"</span> <span class="kw1">class</span><span class="sy0">=</span><span class="st0">"de.hybris.platform.consignmenttrackingservices.interceptor.ConsignmentPrepareInterceptor"</span><span class="sy0">/&gt;</span></div></li>
+</ol></div></div>
+<div class="bwp-syntax-source"><pre class="no-parse">&lt;!-- Defining Spring bean for Interceptor --&gt;
+&lt;bean id="consignmentPrepareInterceptor" class="de.hybris.platform.consignmenttrackingservices.interceptor.ConsignmentPrepareInterceptor"/&gt;</pre></div></div>
+
+<p><strong></strong></p>
+<h6><strong class="verdana-class">Step 3</strong></h6>
+<p><strong class="georgia-class"><em>Map this interceptor with corresponding model</em></strong></p>
+
+<div class="bwp-syntax-block clearfix">
+<div class="bwp-syntax-toolbar" style="display: none;"><div class="bwp-syntax-control"><a href="javascript:;" class="bwp-syntax-source-switch" title="View Source Code">Copy this code</a></div></div>
+<div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced"><div class="java"><ol><li class="li1"><div class="de1"><span class="sy0">&lt;!--</span> Mapping Interceptor and model class<span class="sy0">--&gt;</span></div></li>
+<li class="li2"><div class="de2"><span class="sy0">&lt;</span>bean id<span class="sy0">=</span><span class="st0">"consignmentPrepareInterceptorMapping"</span> <span class="kw1">class</span><span class="sy0">=</span><span class="st0">"de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"</span><span class="sy0">&gt;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property name<span class="sy0">=</span><span class="st0">"interceptor"</span> ref<span class="sy0">=</span><span class="st0">"consignmentPrepareInterceptor"</span><span class="sy0">/&gt;</span></div></li>
+<li class="li2"><div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property name<span class="sy0">=</span><span class="st0">"typeCode"</span> value<span class="sy0">=</span><span class="st0">"Consignment"</span><span class="sy0">/&gt;</span></div></li>
+<li class="li1"><div class="de1">&nbsp; &nbsp; <span class="sy0">&lt;/</span>bean<span class="sy0">&gt;</span></div></li>
+</ol></div></div>
+<div class="bwp-syntax-source"><pre class="no-parse">&lt;!-- Mapping Interceptor and model class--&gt;
+&lt;bean id="consignmentPrepareInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping"&gt;
+		&lt;property name="interceptor" ref="consignmentPrepareInterceptor"/&gt;
+		&lt;property name="typeCode" value="Consignment"/&gt;
+	&lt;/bean&gt;</pre></div></div>
+
+<p><strong></strong><br>
+This mapping makes sure that, <strong class="georgia-class"><em><strong class="pink-class">mapped interceptor</strong> will be intercepting only the <strong class="blue-class">mapped model’s lifecycle</strong>.</em></strong></p>
+<p>In this case, <strong class="verdana-class"><strong class="light-green-class">consignmentPrepareInterceptor</strong></strong> will be intercepting the lifecycle of <strong class="georgia-class">ConsignmentModel</strong> only</p>
+<h6><strong class="verdana-class">Step 4</strong></h6>
+<p><strong class="georgia-class"><em>We just need to build and start the server</em></strong></p>
+<pre class=""><strong class="verdana-class"><h6><strong class="pink-class">Note :</strong></h6>If we implement ValidateInterceptor also for the same Model then ValidateInterceptor is always invoked 
+after PrepareInterceptor.
+
+All the above steps are same to implement any of the above 5 interceptors provided by Hybris.
+
+We just need to override corresponding method and provide the logic as per the requirement
+</strong></pre>

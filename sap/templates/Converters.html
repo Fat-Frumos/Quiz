@@ -1,0 +1,743 @@
+<div role="main" tabindex="-1" class="UtePc RCETm SwuGbc" dir="ltr" aria-hidden="false">
+    <section id="h.3a46d5c429ecad08_8" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div id="h.3a46d5c429ecad08_5"
+                     class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb JYTMs">
+                    <div class="jXK9ad-SmKAyb">
+                        <div class="tyJCtd mGzaTb Depvyb baZpAe">
+                            <div id="h.sez98nm5k9hs" class="Ap4VC aP9Z7e"></div>
+                            <h1 id="h.sez98nm5k9hs_l" dir="ltr" class="CDt4Ke zfr3Q duRjpb"
+                                style="text-align: center;" tabindex="-1">
+                                <div class="CjVfdc">
+                                    <span style="font-variant: normal;">Converters and Populators</span>
+                                </div>
+                            </h1>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                            >Before start to converters and populators , We need to understand <strong>DTO (Data transfer object). </strong></span><span
+                            > In the field of programming <strong>, </strong></span><span
+                            >we can<strong> </strong></span><span
+                            >describe DTO  like "</span><span
+                            ><em>It is a object that used to encapsulate data, and </em></span><span
+                                    style="color: #202124; font-size: 11pt; vertical-align: baseline;"><em>transfer the data between classes and modules of your application</em></span><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">".  A DTO is helpful whenever you need to group values in ad hoc structures for passing data around. DTOs help to further decouple presentation from the service layer and the domain model. Data Transfer Objects (DTOs) are objects created to only contain values and have no business logic except for getter and setter methods</span>
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">Using Converters, we will trying to create a target DTO by converting a source Model object and using Populators to populate the DTO. It means that Converters create new instances of Data objects and call Populators to populate these data objects.</span>
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">In applications , we need to create a subset of data from a larger data structure. For example , we have customer table(CustomerModel) in the database with 30 fields but we required only 10 field of them to return to Front end(UI) or other API. We will fetch our customer model from the database as source and we will convert source customer model to target Customer DTO data structure which is subset of the customer model and will be passed customer DTO to UI. We will use converters and populators to create a target DTO by converting a source Model object using and  Populators will populate data in DTO.</span>
+                            </p>
+                            <div id="h.aq6q5iel0jjk" class="CobnVe aP9Z7e"></div>
+                            <h2 id="h.aq6q5iel0jjk_l" dir="ltr" class="CDt4Ke zfr3Q JYVBee"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    Converter
+                                </div>
+                            </h2>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">It </span><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">creates new instances of Data objects and call Populators to populate data. It contains list of populators and uses populators to convert data from source to target. The Data object is always created from a prototype-scoped spring bean that is defined in the beans.xml file for the extension. </span>
+                            </p>
+                            <div id="h.55axw5yociau" class="CobnVe aP9Z7e"></div>
+                            <h2 id="h.55axw5yociau_l" dir="ltr" class="CDt4Ke zfr3Q JYVBee"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    Populator
+                                </div>
+                            </h2>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">It </span><span
+                                    style="color: #000000; font-size: 11pt; vertical-align: baseline;">fills the data object by getting the data from the model. It’s not recommended to call populator directly in code. We can , but it is not recommended by hybris. Because, we need to convert our model( ProductModel ) from multiple places. like PDP page, PLP page and order summary page etc. It would be batter to separate class to do this conversion. </span>
+                            </p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="h.3a46d5c429ecad08_12" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div class="hJDwNd-AhqUyc-ibL1re Ft7HRd-AhqUyc-ibL1re JNdkSc SQVYQc L6cTce-purZT L6cTce-pSzOP">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="" jscontroller="sGwD4d" jsaction="zXBUYb:zTPCnb;zQF9Uc:Qxe3nd;"
+                             jsname="F57UId"></div>
+                    </div>
+                </div>
+                <div class="hJDwNd-AhqUyc-EehZO Ft7HRd-AhqUyc-EehZO purZT-AhqUyc-II5mzb ZcASvf-AhqUyc-II5mzb pSzOP-AhqUyc-qWD73c Ktthjf-AhqUyc-qWD73c JNdkSc SQVYQc">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="" jscontroller="sGwD4d" jsaction="zXBUYb:zTPCnb;zQF9Uc:Qxe3nd;" jsname="F57UId">
+                            <div class="oKdM2c ZZyype Kzv0Me">
+                                <div id="h.3a46d5c429ecad08_9"
+                                     class="hJDwNd-AhqUyc-EehZO Ft7HRd-AhqUyc-EehZO jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb">
+                                    <div class="jXK9ad-SmKAyb">
+                                        <div class="tyJCtd baZpAe">
+                                            <div class="t3iYD"><img
+                                                    src="https://lh5.googleusercontent.com/npniT3k13cUxzmsy44LdDjkbqqlr7RYqt03oM_ZlYZZZgXyqeI1bWdZcLDRvv_dp5glGPeOkJaCQFT6BPzvnTa384suxDt-T5RlQOfsWQDHZ3kIa0doFSglaX-4anTqkvQ=w1280"
+                                                    class="CENy8b" role="img" alt="converters and populators | Hybris">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="h.32a86d62d9b8dc1_149" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+
+                <div id="h.32a86d62d9b8dc1_146"
+                     class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb">
+                    <div class="jXK9ad-SmKAyb">
+                        <div class="tyJCtd OWlOyc baZpAe">
+                            <div jscontroller="VYKRW" jsaction="rcuQ6b:rcuQ6b;">
+                                <div class="WIdY2d M1aSXe">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section id="h.3a46d5c429ecad08_20" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+
+                <div id="h.3a46d5c429ecad08_17"
+                     class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb JYTMs">
+                    <div class="jXK9ad-SmKAyb">
+                        <div class="tyJCtd mGzaTb Depvyb baZpAe">
+                            <div id="h.xuuutfhdd0s" class="CobnVe aP9Z7e"></div>
+                            <h2 id="h.xuuutfhdd0s_l" dir="ltr" class="CDt4Ke zfr3Q JYVBee"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    Implementation Flow
+                                </div>
+                            </h2>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">The below diagram present flow of program
+                                execution within SAP Commerce.</p>
+                            <ul class="n8H08c UVNKR"
+                                style="list-style-type: square; margin-left: 0; margin-right: 0; padding: 0;">
+                                <li dir="ltr" class="TYR86d zfr3Q" style="margin-left: 15pt;"><p
+                                        dir="ltr" class="CDt4Ke zfr3Q">
+                                    Application fetch data from DB via Dao and pass model to service
+                                    layer.</p></li>
+                                <li dir="ltr" class="TYR86d zfr3Q" style="margin-left: 15pt;"><p
+                                        dir="ltr" class="CDt4Ke zfr3Q">
+                                    Service layer called by façade layer and pass Model object to
+                                    façade </p></li>
+                                <li dir="ltr" class="TYR86d zfr3Q" style="margin-left: 15pt;"><p
+                                        dir="ltr" class="CDt4Ke zfr3Q">
+                                    Converters and populators are used in façade layer to convert the
+                                    model to DTO.</p></li>
+                                <li dir="ltr" class="TYR86d zfr3Q" style="margin-left: 15pt;"><p
+                                        dir="ltr" class="CDt4Ke zfr3Q">In
+                                    façade layer, we call converter method by injecting the converter
+                                    bean. We call converter methods to convert the model to data.</p>
+                                </li>
+                                <li dir="ltr" class="TYR86d zfr3Q" style="margin-left: 15pt;"><p
+                                        dir="ltr" class="CDt4Ke zfr3Q">
+                                    Converter having list of populators. We can add the list of
+                                    populators.</p></li>
+                                <li dir="ltr" class="TYR86d zfr3Q" style="margin-left: 15pt;"><p
+                                        dir="ltr" class="CDt4Ke zfr3Q">P<span
+                                        style="font-variant: normal;">opulators used for get value f</span>rom
+                                    source model and <span style="font-variant: normal;">set </span>value
+                                    in target and we call to converter method and Converter internally
+                                    calls the list of populators.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="h.3a46d5c429ecad08_24" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div class="hJDwNd-AhqUyc-ibL1re Ft7HRd-AhqUyc-ibL1re JNdkSc SQVYQc L6cTce-purZT L6cTce-pSzOP">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="" jscontroller="sGwD4d" jsaction="zXBUYb:zTPCnb;zQF9Uc:Qxe3nd;"
+                             jsname="F57UId"></div>
+                    </div>
+                </div>
+                <div class="hJDwNd-AhqUyc-OiUrBf Ft7HRd-AhqUyc-OiUrBf purZT-AhqUyc-II5mzb ZcASvf-AhqUyc-II5mzb pSzOP-AhqUyc-qWD73c Ktthjf-AhqUyc-qWD73c JNdkSc SQVYQc">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="" jscontroller="sGwD4d" jsaction="zXBUYb:zTPCnb;zQF9Uc:Qxe3nd;" jsname="F57UId">
+                            <div class="oKdM2c ZZyype Kzv0Me">
+                                <div id="h.3a46d5c429ecad08_21"
+                                     class="hJDwNd-AhqUyc-OiUrBf Ft7HRd-AhqUyc-OiUrBf jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb">
+                                    <div class="jXK9ad-SmKAyb">
+                                        <div class="tyJCtd baZpAe">
+                                            <div class="t3iYD"><img
+                                                    src="https://lh3.googleusercontent.com/wRjBBqcS7PDiMgH9fIbofwIa3b4LUPxJrnFrCIzRlSVi9B1TJ3tuDVAa3CDlt6o9Nu6eJPacr5Cu0cDWDJOzF7u46gWxmF0lvf8GckaTkb1tlyoGhDMkY5lMjVIGud4TMw=w1280"
+                                                    class="CENy8b" role="img"
+                                                    style="width: 100.0000013689%; margin: 0% 0 0% -0.0000006845%">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hJDwNd-AhqUyc-ibL1re Ft7HRd-AhqUyc-ibL1re JNdkSc SQVYQc L6cTce-purZT L6cTce-pSzOP">
+                    <div class="JNdkSc-SmKAyb LkDMRd">
+                        <div class="" jscontroller="sGwD4d" jsaction="zXBUYb:zTPCnb;zQF9Uc:Qxe3nd;"
+                             jsname="F57UId"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="h.3a46d5c429ecad08_37" class="yaqOZd" style="">
+        <div class="IFuOkc"></div>
+        <div class="mYVXT">
+            <div class="LS81yb VICjCf j5pSsc db35Fc" tabindex="-1">
+                <div id="h.3a46d5c429ecad08_34"
+                     class="hJDwNd-AhqUyc-uQSCkd Ft7HRd-AhqUyc-uQSCkd jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb JYTMs">
+                    <div class="jXK9ad-SmKAyb">
+                        <div class="tyJCtd mGzaTb Depvyb baZpAe">
+                            <div id="h.wml15zs0m5k1" class="CobnVe aP9Z7e"></div>
+                            <h2 id="h.wml15zs0m5k1_l" dir="ltr" class="CDt4Ke zfr3Q JYVBee"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    Steps for implement Converters and Populators
+                                </div>
+                            </h2>
+                            <div id="h.ucj3s1uali3l" class="GV3q8e aP9Z7e"></div>
+                            <h3 id="h.ucj3s1uali3l_l" dir="ltr" class="CDt4Ke zfr3Q OmQG5e"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    1) Defining DTO (D<span
+                                        style="font-variant: normal;">ata </span>T<span
+                                        style="font-variant: normal;">ransfer </span>O<span
+                                        style="font-variant: normal;">bject)</span></div>
+                            </h3>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">Hybris provide DTO generation via xml
+                                configuration. you will define bean and properties in &lt;extensions&gt;-beans.xml
+                                for create DTO class and build the hybris system. After successful
+                                build, you can check your DTO(data transfer object) class at the
+                                specified package and DTO class contains your new property. </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                                    style="font-family: 'Arial';"><strong>For Example: </strong></span><span
+                                    style="font-variant: normal;">MyUserData</span> (DTO), we will
+                                define our façade extensions in trainingfacades-beans.xml. Hybris
+                                out-of-box, UserModel have many properties but we have required only
+                                name and id out of all. So, we will define DTO class in <span
+                                        style="font-variant: normal;">&lt;extensions&gt;-</span>bean.xml
+                                file. It will contain only two properties like below.</p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                &lt;bean
+                                class="com.experts.hybris.training.facades.data.MyUserData"&gt;</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>&lt;property
+                                name="id" type="String"/&gt;</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>&lt;property
+                                name="name" type="String"/&gt;</p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                &lt;/bean&gt;</p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                                    style="font-variant: normal;">After successful build </span><span
+                                    style="font-family: 'Arial'; font-variant: normal;"><strong>(ant all)</strong></span><span
+                                    style="font-variant: normal;">, Below MyUserData </span><span
+                                    style="font-variant: normal;">class will </span>generate by hybris
+                                in <span
+                                        style="font-family: 'Arial';"><strong>plateform/bootstrap/gensrc </strong></span>folder<span
+                                        style="font-family: 'Arial';"><strong>.</strong></span></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                package com.experts.hybris.training.facades.data;</p>
+                            <p>
+                                import java.io.Serializable;</p>
+                            <p>
+                                <br></p>
+                            <p>
+                                public class MyUserData implements Serializable </p>
+                            <p>
+                                {</p>
+                            <p>
+                                private static final long serialVersionUID = 1L;</p>
+                            <p>
+                                <span>	</span>private
+                                String id;</p>
+                            <p>
+                                <span>	</span>private
+                                String name;</p>
+                            <p>
+                                <span>	</span></p>
+                            <p>
+                                <span>	</span>public
+                                MyUserData()</p>
+                            <p>
+                                <span>	</span>{</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>//
+                                default constructor</p>
+                            <p>
+                                <span>	</span>}</p>
+                            <p>
+                                <span>	</span>public
+                                void setId(final String id)</p>
+                            <p>
+                                <span>	</span>{</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>this.id
+                                = id;</p>
+                            <p>
+                                <span>	</span>}</p>
+                            <p>
+                                <span>	</span>public
+                                String getId() </p>
+                            <p>
+                                <span>	</span>{</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>return
+                                id;</p>
+                            <p>
+                                <span>	</span>}</p>
+                            <p>
+                                <span>	</span>public
+                                void setName(final String name)</p>
+                            <p>
+                                <span>	</span>{</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>this.name
+                                = name;</p>
+                            <p>
+                                <span>	</span>}</p>
+                            <p>
+                                <span>	</span>public
+                                String getName() </p>
+                            <p>
+                                <span>	</span>{</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>return
+                                name;</p>
+                            <p>
+                                <span>	</span>}</p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                }</p>
+                            <div id="h.6nleq9bw7ng2" class="GV3q8e aP9Z7e"></div>
+                            <h3 id="h.6nleq9bw7ng2_l" dir="ltr" class="CDt4Ke zfr3Q OmQG5e"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    2) Register Converter and Populator in Spring file
+                                </div>
+                            </h3>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">Now, we will define converter in <span
+                                    style="font-variant: normal;">&lt;extensions&gt;-s</span>pring.xml
+                                (trainingfacades-spring.xml) file. We will give convert bean id and
+                                define parent abstract class. A<span style="font-variant: normal;">bstractPopulatingConverter </span>c<span
+                                        style="font-variant: normal;">lass </span>will populate
+                                converter that uses a list of configured populators to populate the
+                                target during conversion. We specify what our target object is (DTO).
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                &lt;!--define Converter and populators in spring xml file --&gt;</p>
+                            <p></p>
+                            <p>
+                                &lt;bean id="myUserConverter"
+                                parent="abstractPopulatingConverter"&gt;</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>&lt;property
+                                name="targetClass"</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span><span
+                            >	</span>value="com.experts.hybris.training.facades.data.MyUserData"
+                                /&gt;</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>&lt;property
+                                name="populators"&gt;</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span><span
+                            >	</span>&lt;list&gt;
+                            </p>
+                            <p>
+                                <span>	</span><span
+                            >	</span><span
+                            >	</span><span
+                            >	</span>&lt;ref
+                                bean="myUserDataPopulator" /&gt;</p>
+                            <p>
+                                <span>	</span><span
+                            >	</span><span
+                            >	</span>&lt;/list&gt;
+                            </p>
+                            <p>
+                                <span>	</span><span
+                            >	</span>&lt;/property&gt;
+                            </p>
+                            <p>
+                                <span>	</span>&lt;/bean&gt;
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                <br></p>
+                            <div id="h.baogu5b570cl" class="GV3q8e aP9Z7e"></div>
+                            <h3 id="h.baogu5b570cl_l" dir="ltr" class="CDt4Ke zfr3Q OmQG5e"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    3. Define Populator
+                                </div>
+                            </h3>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">Now we will create Populator. It implement
+                                the Populator&lt;SOURCE,TARGET&gt; interface and implement (override)
+                                the populate method. The populate method can be as simple as getting and
+                                setting values from the Model object (Source) to the target (DTO) or
+                                calling Services to get additional data.</p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                <span>package com.experts.hybris.training.facades.populators;</span>
+                            </p>
+                            <p>
+                                <br></p>
+                            <p>
+                                <span>import de.hybris.platform.converters.Populator;</span>
+                            </p>
+                            <p>
+                                <span>import de.hybris.platform.core.model.user.UserModel;</span>
+                            </p>
+                            <p>
+                                <span>import de.hybris.platform.servicelayer.dto.converter.ConversionException;</span>
+                            </p>
+                            <p>
+                                <span>import com.experts.hybris.training.facades.data.MyUserData;</span>
+                            </p>
+                            <p>
+                                <span>/**</span></p>
+                            <p>
+                                <span> * @author shamsher.singh</span>
+                            </p>
+                            <p>
+                                <span> */</span></p>
+                            <p>
+                                <span>public class MyUserDataPopulator implements Populator&lt;UserModel, MyUserData&gt;</span>
+                            </p>
+                            <p>
+                                <span>{</span></p>
+                            <p>
+                                <br></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >@Override</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >public void populate(final UserModel source, final MyUserData target) throws ConversionException</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >target.setId(source.getUid());</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >target.setName(source.getName());</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >}</span></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                <span>}</span></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">We will register our populator in spring
+                                file (<span
+                                        style="font-variant: normal;">trainingfacades-spring.xml</span>).
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                <span>&lt;bean id="myUserDataPopulator"</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >class="com.experts.hybris.training.facades.populators.MyUserDataPopulator"&gt;</span>
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >&lt;/bean&gt;</span>
+                            </p>
+                            <div id="h.v2o6on32f8te" class="GV3q8e aP9Z7e"></div>
+                            <h3 id="h.v2o6on32f8te_l" dir="ltr" class="CDt4Ke zfr3Q OmQG5e"
+                                tabindex="-1">
+                                <div
+                                        class="CjVfdc">
+                                    4<span style="font-variant: normal;">. </span><span
+                                        style="font-variant: normal;">Calling the </span>C<span
+                                        style="font-variant: normal;">onvertor</span></div>
+                            </h3>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">We can call the converter’s covert method
+                                or the convertAll which invokes all the populators defined for that
+                                convertor in sequence. Below class , We simple created <span
+                                        style="font-variant: normal;">DefaultMyTestFacade class and call </span>convertor
+                                in <span
+                                        style="font-variant: normal;">testMethod() which is return to final </span><span
+                                        style="font-variant: normal;">MyUserData</span><span
+                                        style="font-family: 'Arial';"><strong>.</strong></span> Now, we
+                                can use this DTO and send to third party or UI.</p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                <span>package com.experts.hybris.training.facades.suggestion.impl;</span>
+                            </p>
+                            <p>
+                                <br></p>
+                            <p>
+                                <span>import de.hybris.platform.core.model.user.UserModel;</span>
+                            </p>
+                            <p>
+                                <span>import de.hybris.platform.servicelayer.dto.converter.Converter;</span>
+                            </p>
+                            <p>
+                                <span>import de.hybris.platform.servicelayer.user.UserService;</span>
+                            </p>
+                            <p>
+                                <br></p>
+                            <p>
+                                <span>import org.springframework.beans.factory.annotation.Required;</span>
+                            </p>
+                            <p>
+                                <br></p>
+                            <p>
+                                <span>import com.experts.hybris.training.facades.data.MyUserData;</span>
+                            </p>
+                            <p>
+                                <br></p>
+                            <p>
+                                <span>public class DefaultMyTestFacade</span>
+                            </p>
+                            <p>
+                                <span>{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >private UserService userService;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >private Converter&lt;UserModel, MyUserData&gt; myUserConverter;</span>
+                            </p>
+                            <p>
+                                <br></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >public UserService getUserService()</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >return userService;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >}</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >@Required</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >public void setUserService(final UserService userService)</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >this.userService = userService;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >}</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >public Converter&lt;UserModel, MyUserData&gt; getMyUserConverter()</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >return myUserConverter;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >}</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >@Required</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >public void setMyUserConverter(final Converter&lt;UserModel, MyUserData&gt; myUserConverter)</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >this.myUserConverter = myUserConverter;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >}</span></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                               style="background-clip: padding-box; background-color: rgba(0,0,0,0.059); border-bottom: none; border-left: 0.75pt solid rgba(255,255,255,0.122); border-right: 0.75pt solid rgba(255,255,255,0.122); border-top: none; margin-bottom: 0; margin-left: 0; margin-top: 0; padding-bottom: 0; padding-left: 4pt; padding-right: 4pt; padding-top: 0; text-indent: 15pt;">
+                                                <span> <span
+                                                        class=" Apple-tab-span"
+                                                        style="white-space: pre;">	</span></span></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                               style="background-clip: padding-box; background-color: rgba(0,0,0,0.059); border-bottom: none; border-left: 0.75pt solid rgba(255,255,255,0.122); border-right: 0.75pt solid rgba(255,255,255,0.122); border-top: none; margin-bottom: 0; margin-left: 0; margin-top: 0; padding-bottom: 0; padding-left: 4pt; padding-right: 4pt; padding-top: 0; text-indent: 15pt;">
+                                <span>public void testMethod()</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >{</span></p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >final UserModel user = getUserService().getCurrentUser();</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	<strong>final MyUserData myUserData = myUserConverter.convert(user);</strong></span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >System.out.println("Name :" + myUserData.getName() + ",Uid :" + myUserData.getId());</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >}</span></p>
+                            <p>
+                                <span>}</span></p>
+                            <p>
+                                <br></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                <br></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span style="font-variant: normal;">We will register our  main class </span><span
+                                    style="font-size: 11pt; font-variant: normal; vertical-align: baseline;">defaultMyTestFacade</span><span
+                                    style="font-variant: normal;"> in spring file (trainingfacades-spring.xml)</span>.
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"
+                            >
+                                <span>&lt;bean id="defaultMyTestFacade"</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >class="com.experts.hybris.training.facades.suggestion.impl.DefaultMyTestFacade"&gt;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >&lt;property name="userService" ref="userService" /&gt;</span>
+                            </p>
+                            <p>
+                                                <span class=" Apple-tab-span"
+                                                      style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                                    class=" Apple-tab-span"
+                                    style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
+                            >&lt;property name="myUserConverter" ref="myUserConverter" /&gt;</span>
+                            </p>
+                            <p>
+                                <span>&lt;/bean&gt;</span>
+                            </p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                <br></p>
+                            <p dir="ltr" class="CDt4Ke zfr3Q"><span
+                            >In this example , the UserModel has been successfully converted into MyUserData DTO </span>
+                            </p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

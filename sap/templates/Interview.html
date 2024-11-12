@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<article>
+
+    <div class="entry-content">
+        <div style="margin-bottom: 15px;"><img width="1024" height="512"
+                                               src="https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml.png"
+                                               class="attachment-full size-full wp-post-image"
+                                               alt="Hybris: How to Override a Bean in backoffice-web-spring.xml"
+                                               decoding="async" fetchpriority="high"
+                                               srcset="https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml.png 1024w, https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml-150x75.png 150w, https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml-300x150.png 300w, https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml-768x384.png 768w, https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml-640x320.png 640w, https://www.daharveyjr.com/wp-content/uploads/featuredimage-hybris-how-to-override-a-bean-in-backoffice-web-spring-xml-600x300.png 600w"
+                                               sizes="(max-width: 1024px) 100vw, 1024px"></div>
+        <p>While working on a recent Hybris project for a client, I came across the need to override a Backoffice web
+            context bean found in the backoffice-web-spring.xml application context file. As Backoffice based extension
+            projects don’t provide access to the Backoffice web application context, I needed to find a way to override
+            the bean and make it work. This tutorial describes the steps I took, and the way in which I accomplished
+            it.</p>
+        <p>This solution leverages the <em>customize</em> process. From the <a
+                href="https://help.hybris.com/6.2.0/hcd/8b6ded0d86691014a6fab18e171c1f91.html">Build Framework</a>
+            article found on Hybris Help:</p>
+        <blockquote><p>SAP Hybris Commerce contains a process to include custom files in the ${HYBRIS_BIN_DIR}
+            directory. This process copies the content of the ${HYBRIS_CONFIG_DIR}/customize directory to the
+            ${HYBRIS_BIN_DIR} directory.</p></blockquote>
+        <p>For your information, here are a few important things about this tutorial:</p>
+        <p>1. This tutorial was put together using Hybris 6.2.0.</p>
+        <p>1. It is assumed that a Hybris Backoffice based extension has been already been generated and added to the
+            list of required extensions. If you need help generating a Hybris Backoffice based extension, please refer
+            to the Hybris Help tutorial <a
+                    href="https://help.hybris.com/6.2.0/hcd/8bd2f59e86691014859ba68181c14710.html">Creating a Custom
+                Backoffice Extension</a>.</p>
+        <p>2. The Backoffice based extension’s project name used in this tutorial is <em>extbackoffice</em>.</p>
+        <p>3. I will be overriding a method within the <em>com.hybris.backoffice.cockpitng.dataaccess.facades.type.DefaultPlatformTypeFacadeStrategy</em>
+            class as part of the tutorial.</p>
+        <p><strong>Now, let’s begin!</strong></p>
+        <h2>Step 1. Create an Extension Class</h2>
+        <p>Create a new class by extending the DefaultPlatformTypeFacadeStrategy within the extbackoffice project. Place
+            this new class in the <em>backoffice/src</em> source path.</p>
+        <p>For this tutorial, I am going to override the <em>public DataType convertType(TypeModel platformType, boolean
+            lightWeight, Context context)</em> method, placing some logging statements within and around a super call so
+            that I can see when its being called, as well as debug the return object. Some sample code for this new
+            class is shown below.</p>
+        <div>
+            <div id="highlighter_184758" class="syntaxhighlighter daharveyjr-syntaxhighlighter java">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <td class="code">
+                        <div class="container">
+                            <div class="line number1 index0 alt2"><code class="java keyword">package</code> <code
+                                    class="java plain">com.extbackoffice.backoffice.cockpitng.dataaccess.facades.type;</code>
+                            </div>
+                            <div class="line number2 index1 alt1">&nbsp;</div>
+                            <div class="line number3 index2 alt2"><code class="java keyword">import</code> <code
+                                    class="java plain">de.hybris.platform.core.model.type.TypeModel;</code></div>
+                            <div class="line number4 index3 alt1">&nbsp;</div>
+                            <div class="line number5 index4 alt2"><code class="java keyword">import</code> <code
+                                    class="java plain">org.slf4j.Logger;</code></div>
+                            <div class="line number6 index5 alt1"><code class="java keyword">import</code> <code
+                                    class="java plain">org.slf4j.LoggerFactory;</code></div>
+                            <div class="line number7 index6 alt2">&nbsp;</div>
+                            <div class="line number8 index7 alt1"><code class="java keyword">import</code> <code
+                                    class="java plain">com.hybris.backoffice.cockpitng.dataaccess.facades.type.DefaultPlatformTypeFacadeStrategy;</code>
+                            </div>
+                            <div class="line number9 index8 alt2"><code class="java keyword">import</code> <code
+                                    class="java plain">com.hybris.cockpitng.dataaccess.context.Context;</code></div>
+                            <div class="line number10 index9 alt1"><code class="java keyword">import</code> <code
+                                    class="java plain">com.hybris.cockpitng.dataaccess.facades.type.DataType;</code>
+                            </div>
+                            <div class="line number11 index10 alt2">&nbsp;</div>
+                            <div class="line number12 index11 alt1">&nbsp;</div>
+                            <div class="line number13 index12 alt2"><code class="java preprocessor">/**</code></div>
+                            <div class="line number14 index13 alt1"><code class="java spaces">&nbsp;</code><code
+                                    class="java preprocessor">* @author daharveyjr</code></div>
+                            <div class="line number15 index14 alt2"><code class="java spaces">&nbsp;</code><code
+                                    class="java preprocessor">*/</code></div>
+                            <div class="line number16 index15 alt1"><code class="java keyword">public</code> <code
+                                    class="java keyword">class</code> <code class="java plain">ExtDefaultPlatformTypeFacadeStrategy </code><code
+                                    class="java keyword">extends</code> <code class="java plain">DefaultPlatformTypeFacadeStrategy</code>
+                            </div>
+                            <div class="line number17 index16 alt2"><code class="java plain">{</code></div>
+                            <div class="line number18 index17 alt1">&nbsp;</div>
+                            <div class="line number19 index18 alt2"><code
+                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java keyword">private</code> <code class="java keyword">static</code>
+                                <code class="java plain">Logger LOG =
+                                    LoggerFactory.getLogger(ExtDefaultPlatformTypeFacadeStrategy.</code><code
+                                        class="java keyword">class</code><code class="java plain">);</code></div>
+                            <div class="line number20 index19 alt1">&nbsp;</div>
+                            <div class="line number21 index20 alt2"><code
+                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java color1">@Override</code></div>
+                            <div class="line number22 index21 alt1"><code
+                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java keyword">public</code> <code class="java plain">DataType
+                                convertType(</code><code class="java keyword">final</code> <code class="java plain">TypeModel
+                                platformType, </code><code class="java keyword">final</code> <code
+                                    class="java keyword">boolean</code> <code
+                                    class="java plain">lightWeight, </code><code class="java keyword">final</code>
+                                <code class="java plain">Context context)</code></div>
+                            <div class="line number23 index22 alt2"><code
+                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java plain">{</code></div>
+                            <div class="line number24 index23 alt1">&nbsp;</div>
+                            <div class="line number25 index24 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java plain">LOG.trace(</code><code
+                                    class="java string">"Entry"</code><code class="java plain">);</code></div>
+                            <div class="line number26 index25 alt1">&nbsp;</div>
+                            <div class="line number27 index26 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java keyword">final</code> <code class="java plain">DataType returnObj
+                                = </code><code class="java keyword">super</code><code class="java plain">.convertType(platformType,
+                                lightWeight, context);</code></div>
+                            <div class="line number28 index27 alt1">&nbsp;</div>
+                            <div class="line number29 index28 alt2"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java plain">LOG.debug(</code><code
+                                    class="java string">"return[returnObj|{}]"</code><code
+                                    class="java plain">, returnObj);</code></div>
+                            <div class="line number30 index29 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java plain">LOG.trace(</code><code class="java string">"Exit"</code><code
+                                    class="java plain">);</code></div>
+                            <div class="line number31 index30 alt2">&nbsp;</div>
+                            <div class="line number32 index31 alt1"><code class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java keyword">return</code> <code class="java plain">returnObj;</code>
+                            </div>
+                            <div class="line number33 index32 alt2">&nbsp;</div>
+                            <div class="line number34 index33 alt1"><code
+                                    class="java spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                    class="java plain">}</code></div>
+                            <div class="line number35 index34 alt2">&nbsp;</div>
+                            <div class="line number36 index35 alt1"><code class="java plain">}</code></div>
+                        </div>
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Step 2. Create a New Web Application Context</h2>
+        <p>Out of the box, the Backoffice project loads the backoffice-web-spring.xml application context file when
+            starting up the Backoffice application. A new web application context file needs to be created that can be
+            loaded in combination with the backoffice-web-spring.xml application context file during application
+            startup, allowing your new extension class, <em>ExtDefaultPlatformTypeFacadeStrategy</em>, to be loaded.</p>
+        <p>Create a new application context file named extbackoffice-web-spring.xml. Place the
+            extbackoffice-web-spring.xml application context file within the backoffice/resources/web/webroot/WEB-INF
+            folder. As this folder structure doesn’t exist, the folder structure will need to be created before creating
+            the extbackoffice-web-spring.xml application context file.</p>
+        <p>Within the extbackoffice-web-spring.xml application context file, create an override bean definition that
+            references back the ExtDefaultPlatformTypeFacadeStrategy class created in the previous step, when the
+            DefaultPlatformTypeFacadeStrategy class was extended.</p>
+        <p>An example Spring bean definition can be found below.</p>
+        <div>
+            <div id="highlighter_311225" class="syntaxhighlighter daharveyjr-syntaxhighlighter xml">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+
+                        <td class="code">
+                            <div class="container">
+                                <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">alias</code> <code class="xml color1">alias</code><code
+                                        class="xml plain">=</code><code
+                                        class="xml string">"platformTypeFacadeStrategy"</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"extDefaultPlatformTypeFacadeStrategy"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">bean</code> <code class="xml color1">id</code><code
+                                        class="xml plain">=</code><code class="xml string">"extDefaultPlatformTypeFacadeStrategy"</code>
+                                    <code class="xml color1">parent</code><code class="xml plain">=</code><code
+                                            class="xml string">"defaultPlatformTypeFacadeStrategy"</code></div>
+                                <div class="line number3 index2 alt2"><code
+                                        class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml color1">class</code><code class="xml plain">=</code><code
+                                        class="xml string">"com.extbackoffice.backoffice.cockpitng.dataaccess.facades.type.ExtDefaultPlatformTypeFacadeStrategy"</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number4 index3 alt1"><code class="xml plain">&lt;/</code><code
+                                        class="xml keyword">bean</code><code class="xml plain">&gt;</code></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Step 3. Copy and Modify the Backoffice web.xml File</h2>
+        <p>Now, I’ll register the newly created extbackoffice-web-spring.xml application context file with the web
+            application so that it loads when the web application starts up.</p>
+        <p>To begin copy the web.xml file found at backoffice/web/webroot/WEB-INF/web.xml, and place it within the
+            backoffice/resources/web/webroot/WEB-INF folder that was previously created.</p>
+        <p>At this point, I’d recommend backing up the original file, by copying the file again, and renaming it
+            web.bak. This way if something goes wrong, there is a reliable backup that can be referenced or reverted
+            back to.</p>
+        <p>Modify the web.xml file previously copied and modify the contextConfigLocation context-param, to include the
+            newly created extbackoffice-web-spring.xml file as shown below.</p>
+        <div>
+            <div id="highlighter_565731" class="syntaxhighlighter daharveyjr-syntaxhighlighter xml">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td class="code">
+                            <div class="container">
+                                <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">context-param</code><code class="xml plain">&gt;</code>
+                                </div>
+                                <div class="line number2 index1 alt1"><code
+                                        class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">param-name</code><code
+                                        class="xml plain">&gt;contextConfigLocation&lt;/</code><code
+                                        class="xml keyword">param-name</code><code class="xml plain">&gt;</code></div>
+                                <div class="line number3 index2 alt2"><code
+                                        class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">param-value</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number4 index3 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">WEB-INF/backoffice-web-spring.xml</code></div>
+                                <div class="line number5 index4 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">WEB-INF/extbackoffice-web-spring.xml</code></div>
+                                <div class="line number6 index5 alt1"><code
+                                        class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">param-value</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number7 index6 alt2"><code class="xml plain">&lt;/</code><code
+                                        class="xml keyword">context-param</code><code class="xml plain">&gt;</code>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Step 4. Setup the buildcallbacks.xml File</h2>
+        <p>Setup the buildcallbacks.xml file in the extbackoffice extension project to include some new macro
+            definitions that will move the files previously created into place in the core Backoffice project, allowing
+            the new logic and files created to take effect.</p>
+        <p>I’ve included below the macro definitions and the source code of a sample buildcallbacks.xml file for
+            reference. It may be customized, and I have generalized it for this tutorial.</p>
+        <p>A few things to note about this specific buildcallbacks.xml file.</p>
+        <p>1. There are two newly defined macro defintions: <em>extbackoffice_prepare_customize_class_files</em> and
+            <em>extbackoffice_prepare_customize_static_files</em>.</p>
+        <p>2. The <em>extbackoffice_prepare_customize_class_files</em> will move the compiled class files specified into
+            the appropriate location within config folder so that they can then be moved into the Hybris core at the
+            appropriate time.</p>
+        <p>3. The <em>extbackoffice_prepare_customize_static_files</em> will move the static files specified into the
+            appropriate location within config folder so that they can then be moved into the Hybris core at the
+            appropriate time.</p>
+        <p>4. The <em>class.files.list</em> property used within the
+            <em>extbackoffice_prepare_customize_class_files</em> macro definition is composed of individual file names,
+            concatenated together, to create an iterative array. The file names referenced in these properties, need to
+            correspond to a <strong><em>compiled</em></strong> class file. For this tutorial, the class file for the
+            ExtDefaultPlatformTypeFacadeStrategy, with its full canonical path is referred to.</p>
+        <p>5. The <em>static.files.list</em> property is composed of individual file names, concatenated together, to
+            create an iterative array. The file names referenced in these properties refer to static files that don’t
+            require compilation.</p>
+        <p>6. These two newly created macro definitions are added into the <em>extbackoffice_after_build</em> macro.
+            After a build has been completed, the two newly created macro definitions are called and the assets are
+            moved into the config folder.</p>
+        <div>
+            <div id="highlighter_813736" class="syntaxhighlighter daharveyjr-syntaxhighlighter xml">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+
+                        <td class="code">
+                            <div class="container">
+                                <div class="line number1 index0 alt2"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">property</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"class.files.0"</code> <code
+                                        class="xml color1">value</code><code class="xml plain">=</code><code
+                                        class="xml string">"com/extbackoffice/backoffice/cockpitng/dataaccess/facades/type/ExtDefaultPlatformTypeFacadeStrategy.class"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number2 index1 alt1"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">property</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"class.files.list"</code>
+                                    <code class="xml color1">value</code><code class="xml plain">=</code><code
+                                            class="xml string">"${class.files.0}"</code> <code
+                                            class="xml plain">/&gt;</code></div>
+                                <div class="line number3 index2 alt2"><code
+                                        class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code>&nbsp;
+                                </div>
+                                <div class="line number4 index3 alt1"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">macrodef</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"extbackoffice_prepare_customize_class_files"</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number5 index4 alt2"><code
+                                        class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number6 index5 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">for</code> <code
+                                        class="xml color1">param</code><code class="xml plain">=</code><code
+                                        class="xml string">"file.item"</code> <code class="xml color1">list</code><code
+                                        class="xml plain">=</code><code
+                                        class="xml string">"${class.files.list}"</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number7 index6 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number8 index7 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">if</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number9 index8 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">available</code> <code
+                                        class="xml color1">file</code><code class="xml plain">=</code><code
+                                        class="xml string">"${ext.extbackoffice.path}/backoffice/classes/@{file.item}"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number10 index9 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">then</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number11 index10 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">copy</code> <code
+                                        class="xml color1">file</code><code class="xml plain">=</code><code
+                                        class="xml string">"${ext.extbackoffice.path}/backoffice/classes/@{file.item}"</code>
+                                    <code class="xml color1">tofile</code><code class="xml plain">=</code><code
+                                            class="xml string">"${HYBRIS_CONFIG_DIR}/customize/ext-backoffice/backoffice/web/webroot/WEB-INF/classes/@{file.item}"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number12 index11 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">then</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number13 index12 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">if</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number14 index13 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number15 index14 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">for</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number16 index15 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number17 index16 alt2"><code class="xml plain">&lt;/</code><code
+                                        class="xml keyword">macrodef</code><code class="xml plain">&gt;</code></div>
+                                <div class="line number18 index17 alt1">&nbsp;</div>
+                                <div class="line number19 index18 alt2"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">property</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"static.files.0"</code> <code
+                                        class="xml color1">value</code><code class="xml plain">=</code><code
+                                        class="xml string">"web/webroot/WEB-INF/web.bak"</code> <code class="xml plain">/&gt;</code>
+                                </div>
+                                <div class="line number20 index19 alt1"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">property</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"static.files.1"</code> <code
+                                        class="xml color1">value</code><code class="xml plain">=</code><code
+                                        class="xml string">"web/webroot/WEB-INF/web.xml"</code> <code class="xml plain">/&gt;</code>
+                                </div>
+                                <div class="line number21 index20 alt2"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">property</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"static.files.2"</code> <code
+                                        class="xml color1">value</code><code class="xml plain">=</code><code
+                                        class="xml string">"web/webroot/WEB-INF/extbackoffice-web-spring.xml"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number22 index21 alt1"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">property</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"static.files.list"</code>
+                                    <code class="xml color1">value</code><code class="xml plain">=</code><code
+                                            class="xml string">"${static.files.0},${static.files.1},${static.files.2}"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number23 index22 alt2">&nbsp;</div>
+                                <div class="line number24 index23 alt1"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">macrodef</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code class="xml string">"extbackoffice_prepare_customize_static_files"</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number25 index24 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number26 index25 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">for</code> <code
+                                        class="xml color1">param</code><code class="xml plain">=</code><code
+                                        class="xml string">"file.item"</code> <code class="xml color1">list</code><code
+                                        class="xml plain">=</code><code class="xml string">"${static.files.list}"</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number27 index26 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number28 index27 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">if</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number29 index28 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">available</code> <code
+                                        class="xml color1">file</code><code class="xml plain">=</code><code
+                                        class="xml string">"${ext.extbackoffice.path}/backoffice/resources/@{file.item}"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number30 index29 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">then</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number31 index30 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">copy</code> <code
+                                        class="xml color1">file</code><code class="xml plain">=</code><code
+                                        class="xml string">"${ext.extbackoffice.path}/backoffice/resources/@{file.item}"</code>
+                                    <code class="xml color1">tofile</code><code class="xml plain">=</code><code
+                                            class="xml string">"${HYBRIS_CONFIG_DIR}/customize/ext-backoffice/backoffice/@{file.item}"</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number32 index31 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">then</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number33 index32 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">if</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number34 index33 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number35 index34 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">for</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number36 index35 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number37 index36 alt2"><code class="xml plain">&lt;/</code><code
+                                        class="xml keyword">macrodef</code><code class="xml plain">&gt;</code></div>
+                                <div class="line number38 index37 alt1">&nbsp;</div>
+                                <div class="line number39 index38 alt2"><code class="xml plain">&lt;</code><code
+                                        class="xml keyword">macrodef</code> <code class="xml color1">name</code><code
+                                        class="xml plain">=</code><code
+                                        class="xml string">"extbackoffice_after_build"</code><code class="xml plain">&gt;</code>
+                                </div>
+                                <div class="line number40 index39 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number41 index40 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">extbackoffice_prepare_customize_class_files</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number42 index41 alt1"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;</code><code class="xml keyword">extbackoffice_prepare_customize_static_files</code>
+                                    <code class="xml plain">/&gt;</code></div>
+                                <div class="line number43 index42 alt2"><code class="xml spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code
+                                        class="xml plain">&lt;/</code><code class="xml keyword">sequential</code><code
+                                        class="xml plain">&gt;</code></div>
+                                <div class="line number44 index43 alt1"><code class="xml plain">&lt;/</code><code
+                                        class="xml keyword">macrodef</code><code class="xml plain">&gt;</code></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <h2>Step 5. Clean, Compile, and Customize</h2>
+        <p>At this point, all logic and assets will have been put into place and the new assets need to be compiled,
+            executed, and put into place within the Hybris core. The following command, familiar to all Hybris
+            developers, can now be used to accomplish that.</p>
+        <p>The buildcallbacks.xml file setup earlier will be triggered by the <em>all</em> target which will compile and
+            move both the class and static files to the ‘/config/customize’ folder; however, to actually move those
+            assets to the ‘/bin’ directory, the <em>customize</em> target must be called.</p>
+        <p>The customize target, per the target definition, “Copies all files from ‘/config/customize/’ folder to ‘/bin’
+            recursively. This will move the newly created class and static files into the Hybris core ‘/bin’ directory.
+            The <em>customize</em> target is not triggered as part of another ant target, so it requires an explicit
+            call.</p>
+        <div>
+            <div id="highlighter_159763" class="syntaxhighlighter daharveyjr-syntaxhighlighter bash">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td class="gutter">
+                            <div class="line number1 index0 alt2">01</div>
+                        </td>
+                        <td class="code">
+                            <div class="container">
+                                <div class="line number1 index0 alt2"><code class="bash plain">ant clean all
+                                    customize</code></div>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p><strong>NOTE:</strong> This solution can be adapted to override any web context bean definition found in any
+            <project_name>-web-spring.xml file within Hybris when you don’t have direct access to the web application
+                context.
+            </project_name>
+        </p>
+    </div>
+</article>
+
+<article class="blog-post-page-font">
+    <div class="post-content__body stSKMK">
+        <div class="moHCnT">
+            <div class="moHCnT">
+                <div class="fTEXDR" data-rce-version="10.103.1"
+                     style="--rce-text-color: rgb(48, 48, 48); --rce-opaque-background-color: rgb(255, 255, 255); --rce-divider-color: rgba(48, 48, 48, 0.2); --rce-active-divider-color: rgba(48, 48, 48, 0.5); --rce-highlighted-color: rgb(164, 171, 182); --rce-link-hashtag-color: rgb(164, 171, 182); --rce-mobile-font-size: 12px; --rce-header-two-font-size: 28px; --rce-header-three-font-size: 22px; --rce-header-four-font-size: 20px; --rce-header-five-font-size: 18px; --rce-header-six-font-size: 16px; --rce-mobile-header-two-font-size: 23px; --rce-mobile-header-three-font-size: 20px; --rce-mobile-header-four-font-size: 20px; --rce-mobile-header-five-font-size: 20px; --rce-mobile-header-six-font-size: 20px; --rce-mobile-quotes-font-size: 15px;">
+                    <div class="hJSlc" dir="ltr" data-id="content-viewer"
+                         style="--ricos-text-color: #303030; --ricos-text-color-tuple: 48, 48, 48; --ricos-action-color: #a4abb6; --ricos-action-color-tuple: 164, 171, 182; --ricos-background-color: #ffffff; --ricos-background-color-tuple: 255, 255, 255; --ricos-fallback-color: #000000; --ricos-fallback-color-tuple: 0, 0, 0; --ricos-settings-action-color: #000000; --ricos-settings-action-color-tuple: 0, 0, 0; --ricos-action-color-fallback: #000000; --ricos-action-color-fallback-tuple: 0, 0, 0; --ricos-custom-p-font-weight: normal; --ricos-custom-p-font-style: normal; --ricos-custom-p-line-height: 1.5; --ricos-custom-p-font-size: 18px; --ricos-custom-p-font-family: open sans,sans-serif; --ricos-custom-p-text-decoration: none; --ricos-custom-p-color: rgba(48,48,48,1); --ricos-custom-h1-font-weight: normal; --ricos-custom-h1-font-style: normal; --ricos-custom-h1-line-height: 1.5; --ricos-custom-h1-font-size: 40px; --ricos-custom-h1-font-family: pacifica-w00-condensed,fantasy; --ricos-custom-h1-color: rgba(48,48,48,1); --ricos-custom-h2-font-weight: normal; --ricos-custom-h2-font-style: normal; --ricos-custom-h2-line-height: 1.5; --ricos-custom-h2-font-size: 28px; --ricos-custom-h2-font-family: pacifica-w00-condensed,fantasy; --ricos-custom-h2-color: rgba(0,0,0,1); --ricos-custom-h3-font-weight: normal; --ricos-custom-h3-font-style: normal; --ricos-custom-h3-line-height: 1.5; --ricos-custom-h3-font-size: 22px; --ricos-custom-h3-font-family: pacifica-w00-condensed,fantasy; --ricos-custom-h3-color: rgba(0,0,0,1); --ricos-custom-h4-font-weight: normal; --ricos-custom-h4-font-style: normal; --ricos-custom-h4-line-height: 1.5; --ricos-custom-h4-font-size: 40px; --ricos-custom-h4-font-family: open sans,sans-serif; --ricos-custom-h4-color: #303030; --ricos-custom-h5-font-weight: normal; --ricos-custom-h5-font-style: normal; --ricos-custom-h5-line-height: 1.5; --ricos-custom-h5-font-size: 20px; --ricos-custom-h5-font-family: avenir-lt-w01_35-light1475496,avenir-lt-w05_35-light,sans-serif; --ricos-custom-h5-color: #303030; --ricos-custom-h6-font-weight: normal; --ricos-custom-h6-font-style: normal; --ricos-custom-h6-line-height: 1.5; --ricos-custom-h6-font-size: 18px; --ricos-custom-h6-font-family: open sans,sans-serif; --ricos-custom-h6-color: #303030; --ricos-custom-quote-line-height: 1.5; --ricos-custom-quote-font-size: 24px; --ricos-custom-quote-font-family: open sans,sans-serif; --ricos-custom-quote-color: rgba(0,0,0,1); --ricos-custom-quote-border-color: rgb(164, 171, 182); --ricos-custom-quote-margin-inline-start: var(--ricosQuoteMarginInlineStart); --ricos-custom-code-block-line-height: 1.5; --ricos-custom-link-text-decoration: inherit; --ricos-custom-link-color: rgba(164,171,182,1); --ricos-custom-link-font-style: inherit; --ricos-custom-link-font-weight: inherit; --ricos-custom-hashtag-text-decoration: inherit; --ricos-custom-hashtag-color: rgba(164,171,182,1); --ricos-custom-hashtag-font-style: inherit; --ricos-custom-hashtag-font-weight: inherit; --ricos-custom-footer-toolbar-padding-inline-start: var(--ricosFooterPadding); --ricos-custom-footer-toolbar-padding-inline-end: var(--ricosFooterPadding); --ricos-custom-editor-add-plugin-button-position-inline-start: var(--ricosAddPluginButtonStart); --ricos-breakout-normal-padding-start: var(--ricosNormalPadding); --ricos-breakout-normal-padding-end: var(--ricosNormalPadding); --ricos-breakout-full-width-padding-start: var(--ricosFullWidthPadding); --ricos-breakout-full-width-padding-end: var(--ricosFullWidthPadding);">
+                        <div class="wBmYp">
+                            <div type="first" data-hook="rcv-block-first"></div>
+                            <div class="_5DQNQ">
+                                <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                               id="viewer-v6vt"><span class="wnQOX"><strong
+                                        style="font-weight: 700;"><span>Interview Question and Answer</span></strong></span>
+                                </p></div>
+                                <div data-breakout="fullWidth">
+                                    <div class="uih3A" id="viewer-e3i56">
+                                        <div class="DttGU nbvZ5" style="width: min(100%, 100%);">
+                                            <figure role="button" data-hook="imageViewer" tabindex="0" class="JFACH"
+                                                    aria-haspopup="true">
+                                                <div id="e3i56" class="xiu1o _8dkdj JU00H"
+                                                     style="--dim-height: 987; --dim-width: 1836;">
+                                                    <wow-image id="72ba1a_514642f236f1488e82fb6885d5dab982~mv2.jpeg"
+                                                               class="undefined sbGLV"
+                                                               data-image-info="{&quot;containerId&quot;:&quot;e3i56&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:1836,&quot;height&quot;:987,&quot;uri&quot;:&quot;72ba1a_514642f236f1488e82fb6885d5dab982~mv2.jpeg&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                               data-bg-effect-name="" data-has-ssr-src=""
+                                                               data-animate-blur="" data-transitioned=""><img
+                                                            src="https://static.wixstatic.com/media/72ba1a_514642f236f1488e82fb6885d5dab982~mv2.jpeg/v1/fill/w_938,h_504,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_514642f236f1488e82fb6885d5dab982~mv2.jpeg"
+                                                            alt=""
+                                                            data-pin-url="https://www.hikex.com/post/hybris-sap-cx-occ-omni-commerce-connect"
+                                                            data-pin-media="https://static.wixstatic.com/media/72ba1a_514642f236f1488e82fb6885d5dab982~mv2.jpeg/v1/fill/w_1836,h_987,al_c,q_85/72ba1a_514642f236f1488e82fb6885d5dab982~mv2.jpeg"
+                                                            style="width: 938px; height: 504px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                            fetchpriority="high" data-load-done=""></wow-image>
+                                                </div>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h2>What are the major changes in V1 and V2?</h2>
+
+                                V2 is the default version after hybris 5.4.
+
+                                Calls in V2 are stateless whereas in V1 calls are stateful.
+
+                                In V1, Customer and cart data is stored in the session, and are preserved between
+                                subsequent request . Where as in V2 session scope is per request and session is set
+                                using service layer Session filter.
+
+                                In V2 data mapper (level mapper) are used which maps data in WsDto.
+
+                                Both V1 and V2 have different servlet defined in web.xml.
+                                <hr>
+                                What is token? How do you register your own client in the token store?
+
+                                Token- In the traditional client-server authentication model, the client requests an
+                                access-restricted resource (in other words, protected resource) on the server by
+                                authenticating with the server using the resource owner’s credentials. In order to
+                                provide third-party applications access to the restricted resources, the resource owner
+                                shares its credentials with the third-party application. This creates several issues and
+                                limitations:
+                                Third-party applications are required to store the resource owner’s credentials for
+                                future use, typically a password in clear text form.
+
+                                Servers are required to support password authentication, despite the security weaknesses
+                                inherent in passwords.
+
+                                Third-party applications gain overly broad access to the owner’s protected resources,
+                                leaving resource owners without any ability to restrict duration or access to a limited
+                                subset of resources.
+
+                                Resource owners cannot revoke access to an individual third-party without revoking
+                                access to all third-parties, and must do so by changing their password.
+
+                                Compromise of any third-party application results in compromise of the end-user’s
+                                password and all of the data protected by it. OAuth 2.0 addresses these issues by
+                                introducing an authorization layer and separating the role of the client from that
+                                layer. The OAuth 2.0 authorization framework is the default authorization framework for
+                                the commerce driven OCC (Omni Commerce Connect) Web Services under the
+                                ycommercewebservices extension. The key benefit of using OAuth 2.0 (compared to basic
+                                authentication, even over HTTPS) is that the API client does not have to save or, in
+                                some cases, even obtain the user’s credentials. Instead, access token s are returned to
+                                the client that can use refresh tokens to obtain new access token s once they have
+                                expired.
+
+                                Registering in the security spring file your need to register your own client as below
+
+                                <hr>
+
+                                <h2>Explain session in terms of OCC?</h2>
+
+                                In V1 session is maintained. Customer and cart data is stored in the session. This way
+                                V1 request are stateful. This session work similar to that of storefront session. As a
+                                assumption JSESSION id is stored.
+
+                                In V2 there is a session per request which is set using the service layer Session
+                                filter. For every request new session is created. Cart,user and other information are
+                                kept stored in this session. Hence we can say that in V2 scope of session is per
+                                request.
+
+                                <hr>
+
+                                You are getting huge amount of response which is not optimized. Due to which your API is
+                                taking too long to respond and processing large amount of data is also crashing your
+                                app. How will you optimize the data returned by OCC V2.
+
+
+                                Limit Data — Sometime we don’t require the whole amount of data responded by API. We
+                                should get only the required amount of data. We can achieve that by Field Set level
+                                mappings and we can request required data by specifying that in URL as
+                                fields=User(BASIC),cart(name,code). The response will return BASIC level data from User
+                                and only name , code for cart.
+
+
+                                Compression- We can compress response over network. To achieve this you can define
+                                compressing servlet filter in web.xml.
+
+
+                                Network Calls- Limiting network calls also improves apps performance. Caching and Config
+                                file- Using caching for data that changes rarely like images/banner. Also some
+                                background call can be made at regular interval to fetch data which has changed in the
+                                background as CMS data.
+
+                                <hr>
+
+                                Your App is live with V2 but you wants to create Another service endpoint similar to V2
+                                but and both should work simultaneously. What is the process to achieve this?
+
+                                1. Create new servlet for newer version V2_1 in web.xml and different servlet mapping.
+
+                                2. For V2_1 define contextConfigLocation which specifies the location where your
+                                configuration files are located. The HybrisContextLoaderListener extends the usual
+                                SpringContextLoaderListener (which loads the context from specified location) by adding
+                                the global application context of the platform as parent context. With having the global
+                                context set as parent you can access or override beans of the global context and get the
+                                ‘tenant’ scope.
+
+                                3. Create separate error-config, filter-config, validator, security and mvc servlet xml
+                                in WEB_INF/config/V2_1.
+
+                                <hr>
+                                <h2>How do you validate fields received in Request Body and request Parameter in
+                                    OCC?</h2>
+
+                                To validate we uses validators defined in validator spring xml file. For validating
+                                number, string, null, regex use single validator or composite validator (collection of
+                                validators) in the xml file. Also error message can be configured from xml itself.
+
+                                <hr>
+
+                                <h2>What is the data carrier in OCC layer returned as response?</h2>
+
+
+                                In V1 Data is returned as response to any request whereas in case of V2 WSDTO is
+                                returned as response. Data mapper is used to map data to WSDTO.
+
+                                <hr>
+                                <h2>What are the filters a new V2 request passes through?</h2>
+
+
+                                Session Filter
+
+                                Site Matching Filter
+
+                                Spring security filter chain
+
+                                User matching Filter
+
+                                Cart matching Filter
+
+
+                                What is Field Set Level Mapping. What are the major level mapping? Can we have our own
+                                level mapping?
+
+                                Field Set Level mapping is the bean consisting of two properties dtoClass and level
+                                mapping for that dtoClass. Level mapping is the map of entries. Key is the field
+                                identifier and value is the comma separated fields of dtoClass. By this we can limit
+                                entries in the response.
+
+
+                                < entry key=”BASIC” value=”membersCount,subGroups,uid,name,cart(code,guid)” />
+
+
+                                Major Level Mapping- There are 3 major level mapping defined by hybris
+
+                                BASIC
+
+                                DEFAULT
+
+                                FULL
+
+                                Custom Level Mapping- in order to create your own level mapping you need to give unique
+                                key to it. And while referring give the key name in the field parameter of request.
+
+
+                                < entry key=”MY_KEY” value =”user(name,uid),cart(code,guid)” />
+
+                                <div type="empty-line" data-hook="rcv-block45"></div>
+                            </div>
+                            <div type="last" data-hook="rcv-block-last"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="j3D9DG blog-post-page-font blog-card-background-color blog-card-border-color blog-text-color"
+         data-hook="post" style="border-width: 1px;">
+    <div class="BL3dva">
+        <div class="OSxNQL">
+            <div class="OFA52E">
+                <div tabindex="-1" class="cD_92h UitnHM" data-hook="post-title"><h1
+                        class="UbhFJ7 nkqC0Q blog-post-title-font blog-post-title-color blog-text-color post-title blog-hover-container-element-color FG3qXk blog-post-page-title-font"
+                        data-hook="post-title"><span
+                        class="post-title__text blog-post-title-font blog-post-title-color"><span
+                        class="blog-post-title-font blog-post-title-color">SAP Hybris Flexible search Example, question, and answer</span></span>
+                </h1></div>
+            </div>
+        </div>
+    </div>
+    <div class="nLG8d5 F_3u4N" data-hook="post-description">
+        <article class="blog-post-page-font">
+            <div class="post-content__body stSKMK">
+                <div class="moHCnT">
+                    <div class="moHCnT">
+                        <div class="fTEXDR" data-rce-version="10.103.1"
+                             style="--rce-text-color: rgb(48, 48, 48); --rce-opaque-background-color: rgb(255, 255, 255); --rce-divider-color: rgba(48, 48, 48, 0.2); --rce-active-divider-color: rgba(48, 48, 48, 0.5); --rce-highlighted-color: rgb(164, 171, 182); --rce-link-hashtag-color: rgb(164, 171, 182); --rce-mobile-font-size: 12px; --rce-header-two-font-size: 28px; --rce-header-three-font-size: 22px; --rce-header-four-font-size: 20px; --rce-header-five-font-size: 18px; --rce-header-six-font-size: 16px; --rce-mobile-header-two-font-size: 23px; --rce-mobile-header-three-font-size: 20px; --rce-mobile-header-four-font-size: 20px; --rce-mobile-header-five-font-size: 20px; --rce-mobile-header-six-font-size: 20px; --rce-mobile-quotes-font-size: 15px;">
+                            <div class="hJSlc" dir="ltr" data-id="content-viewer"
+                                 style="--ricos-text-color: #303030; --ricos-text-color-tuple: 48, 48, 48; --ricos-action-color: #a4abb6; --ricos-action-color-tuple: 164, 171, 182; --ricos-background-color: #ffffff; --ricos-background-color-tuple: 255, 255, 255; --ricos-fallback-color: #000000; --ricos-fallback-color-tuple: 0, 0, 0; --ricos-settings-action-color: #000000; --ricos-settings-action-color-tuple: 0, 0, 0; --ricos-action-color-fallback: #000000; --ricos-action-color-fallback-tuple: 0, 0, 0; --ricos-custom-p-font-weight: normal; --ricos-custom-p-font-style: normal; --ricos-custom-p-line-height: 1.5; --ricos-custom-p-font-size: 18px; --ricos-custom-p-font-family: open sans,sans-serif; --ricos-custom-p-text-decoration: none; --ricos-custom-p-color: rgba(48,48,48,1); --ricos-custom-h1-font-weight: normal; --ricos-custom-h1-font-style: normal; --ricos-custom-h1-line-height: 1.5; --ricos-custom-h1-font-size: 40px; --ricos-custom-h1-font-family: pacifica-w00-condensed,fantasy; --ricos-custom-h1-color: rgba(48,48,48,1); --ricos-custom-h2-font-weight: normal; --ricos-custom-h2-font-style: normal; --ricos-custom-h2-line-height: 1.5; --ricos-custom-h2-font-size: 28px; --ricos-custom-h2-font-family: pacifica-w00-condensed,fantasy; --ricos-custom-h2-color: rgba(0,0,0,1); --ricos-custom-h3-font-weight: normal; --ricos-custom-h3-font-style: normal; --ricos-custom-h3-line-height: 1.5; --ricos-custom-h3-font-size: 22px; --ricos-custom-h3-font-family: pacifica-w00-condensed,fantasy; --ricos-custom-h3-color: rgba(0,0,0,1); --ricos-custom-h4-font-weight: normal; --ricos-custom-h4-font-style: normal; --ricos-custom-h4-line-height: 1.5; --ricos-custom-h4-font-size: 40px; --ricos-custom-h4-font-family: open sans,sans-serif; --ricos-custom-h4-color: #303030; --ricos-custom-h5-font-weight: normal; --ricos-custom-h5-font-style: normal; --ricos-custom-h5-line-height: 1.5; --ricos-custom-h5-font-size: 20px; --ricos-custom-h5-font-family: avenir-lt-w01_35-light1475496,avenir-lt-w05_35-light,sans-serif; --ricos-custom-h5-color: #303030; --ricos-custom-h6-font-weight: normal; --ricos-custom-h6-font-style: normal; --ricos-custom-h6-line-height: 1.5; --ricos-custom-h6-font-size: 18px; --ricos-custom-h6-font-family: open sans,sans-serif; --ricos-custom-h6-color: #303030; --ricos-custom-quote-line-height: 1.5; --ricos-custom-quote-font-size: 24px; --ricos-custom-quote-font-family: open sans,sans-serif; --ricos-custom-quote-color: rgba(0,0,0,1); --ricos-custom-quote-border-color: rgb(164, 171, 182); --ricos-custom-quote-margin-inline-start: var(--ricosQuoteMarginInlineStart); --ricos-custom-code-block-line-height: 1.5; --ricos-custom-link-text-decoration: inherit; --ricos-custom-link-color: rgba(164,171,182,1); --ricos-custom-link-font-style: inherit; --ricos-custom-link-font-weight: inherit; --ricos-custom-hashtag-text-decoration: inherit; --ricos-custom-hashtag-color: rgba(164,171,182,1); --ricos-custom-hashtag-font-style: inherit; --ricos-custom-hashtag-font-weight: inherit; --ricos-custom-footer-toolbar-padding-inline-start: var(--ricosFooterPadding); --ricos-custom-footer-toolbar-padding-inline-end: var(--ricosFooterPadding); --ricos-custom-editor-add-plugin-button-position-inline-start: var(--ricosAddPluginButtonStart); --ricos-breakout-normal-padding-start: var(--ricosNormalPadding); --ricos-breakout-normal-padding-end: var(--ricosNormalPadding); --ricos-breakout-full-width-padding-start: var(--ricosFullWidthPadding); --ricos-breakout-full-width-padding-end: var(--ricosFullWidthPadding);">
+                                <div class="wBmYp">
+                                    <div type="first" data-hook="rcv-block-first"></div>
+                                    <div class="_5DQNQ">
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-foo"><span class="wnQOX"><span>In order to interact with the database, hybris provides a flexible search module which makes it easy to write queries on the hybris data type instead of a database table directly.  </span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block1"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-53qev"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block2"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-746d"><span class="wnQOX"><strong
+                                                style="font-weight: 700;"><span
+                                                style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>How to write flexible search queries for collection type as an attribute in the item types?</span></span></strong><span>
+</span><strong style="font-weight: 700;"><span style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>Case-1 </span></span></strong><span>Select all the approved </span><span
+                                                style="color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); text-decoration: inherit;"><span>(article approval status) </span></span><span>products but restricted (restricted sales application) in 'mobile' sales applications.</span><span>
+</span><strong style="font-weight: 700;"><span style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>Answer- </span></span></strong><span>Before jumping into writing a flexible query let's first see the structure of the product, sales application, restricted sales application, and article approval status. </span><span>
+</span><u style="text-decoration: underline;"><span>1. SalesApplication:</span></u><span> Is an Enum Type </span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block3"></div>
+                                        <div data-breakout="normal">
+                                            <div class="uih3A" id="viewer-9slp3">
+                                                <div class="DttGU iNRNG" style="width: min(100%, 100%);">
+                                                    <figure role="button" data-hook="imageViewer" tabindex="0"
+                                                            class="JFACH" aria-haspopup="true">
+                                                        <div id="9slp3" class="xiu1o _8dkdj JU00H"
+                                                             style="--dim-height: 175; --dim-width: 1070;">
+                                                            <wow-image
+                                                                    id="72ba1a_ad510fae3bda44a094be5809ab381c64~mv2.png"
+                                                                    class="undefined sbGLV"
+                                                                    data-image-info="{&quot;containerId&quot;:&quot;9slp3&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:1070,&quot;height&quot;:175,&quot;uri&quot;:&quot;72ba1a_ad510fae3bda44a094be5809ab381c64~mv2.png&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                                    data-bg-effect-name="" data-has-ssr-src=""
+                                                                    data-animate-blur="" data-transitioned=""><img
+                                                                    src="https://static.wixstatic.com/media/72ba1a_ad510fae3bda44a094be5809ab381c64~mv2.png/v1/fill/w_740,h_121,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_ad510fae3bda44a094be5809ab381c64~mv2.png"
+                                                                    alt=""
+                                                                    data-pin-url="https://www.hikex.com/post/flexible-search-question-and-answer"
+                                                                    data-pin-media="https://static.wixstatic.com/media/72ba1a_ad510fae3bda44a094be5809ab381c64~mv2.png/v1/fill/w_1284,h_210,al_c,lg_1,q_85/72ba1a_ad510fae3bda44a094be5809ab381c64~mv2.png"
+                                                                    style="width: 740px; height: 121px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                                    fetchpriority="high" data-load-done=""></wow-image>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div type="image" data-hook="rcv-block4"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-3r89a"><span class="wnQOX"><u
+                                                style="text-decoration: underline;"><span>2. Restricted Sales Application Collection:</span></u><span> This is a Collection type of Sales Application Enum Type.</span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block5"></div>
+                                        <div data-breakout="normal">
+                                            <div class="uih3A" id="viewer-cif2b">
+                                                <div class="DttGU iNRNG" style="width: min(100%, 100%);">
+                                                    <figure role="button" data-hook="imageViewer" tabindex="0"
+                                                            class="JFACH" aria-haspopup="true">
+                                                        <div id="cif2b" class="xiu1o _8dkdj JU00H"
+                                                             style="--dim-height: 192; --dim-width: 974;">
+                                                            <wow-image
+                                                                    id="72ba1a_ed2ec40ac98742ed87b038ad0a11c423~mv2.png"
+                                                                    class="undefined sbGLV"
+                                                                    data-image-info="{&quot;containerId&quot;:&quot;cif2b&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:974,&quot;height&quot;:192,&quot;uri&quot;:&quot;72ba1a_ed2ec40ac98742ed87b038ad0a11c423~mv2.png&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                                    data-bg-effect-name="" data-has-ssr-src=""
+                                                                    data-animate-blur="" data-transitioned=""><img
+                                                                    src="https://static.wixstatic.com/media/72ba1a_ed2ec40ac98742ed87b038ad0a11c423~mv2.png/v1/fill/w_740,h_146,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_ed2ec40ac98742ed87b038ad0a11c423~mv2.png"
+                                                                    alt=""
+                                                                    data-pin-url="https://www.hikex.com/post/flexible-search-question-and-answer"
+                                                                    data-pin-media="https://static.wixstatic.com/media/72ba1a_ed2ec40ac98742ed87b038ad0a11c423~mv2.png/v1/fill/w_1169,h_230,al_c,lg_1,q_85/72ba1a_ed2ec40ac98742ed87b038ad0a11c423~mv2.png"
+                                                                    style="width: 740px; height: 146px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                                    fetchpriority="high" data-load-done=""></wow-image>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div type="image" data-hook="rcv-block6"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-2563g"><span class="wnQOX"><u
+                                                style="text-decoration: underline;"><span>3. Restricted Sales Application attribute:</span></u><span> Product item type has an attribute of collection type restrictedSalesApplication described in step 2.</span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block7"></div>
+                                        <div data-breakout="normal">
+                                            <div class="uih3A" id="viewer-ahtoj">
+                                                <div class="DttGU iNRNG" style="width: min(100%, 100%);">
+                                                    <figure role="button" data-hook="imageViewer" tabindex="0"
+                                                            class="JFACH" aria-haspopup="true">
+                                                        <div id="ahtoj" class="xiu1o _8dkdj JU00H"
+                                                             style="--dim-height: 269; --dim-width: 1052;">
+                                                            <wow-image
+                                                                    id="72ba1a_59d657bf1adb4f64bb952bb1e3405295~mv2.png"
+                                                                    class="undefined sbGLV"
+                                                                    data-image-info="{&quot;containerId&quot;:&quot;ahtoj&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:1052,&quot;height&quot;:269,&quot;uri&quot;:&quot;72ba1a_59d657bf1adb4f64bb952bb1e3405295~mv2.png&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                                    data-bg-effect-name="" data-has-ssr-src=""
+                                                                    data-animate-blur="" data-transitioned=""><img
+                                                                    src="https://static.wixstatic.com/media/72ba1a_59d657bf1adb4f64bb952bb1e3405295~mv2.png/v1/fill/w_740,h_189,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_59d657bf1adb4f64bb952bb1e3405295~mv2.png"
+                                                                    alt=""
+                                                                    data-pin-url="https://www.hikex.com/post/flexible-search-question-and-answer"
+                                                                    data-pin-media="https://static.wixstatic.com/media/72ba1a_59d657bf1adb4f64bb952bb1e3405295~mv2.png/v1/fill/w_1262,h_323,al_c,lg_1,q_90/72ba1a_59d657bf1adb4f64bb952bb1e3405295~mv2.png"
+                                                                    style="width: 740px; height: 189px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                                    fetchpriority="high" data-load-done=""></wow-image>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div type="image" data-hook="rcv-block8"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-9l6fd"><span class="wnQOX"><u
+                                                style="text-decoration: underline;"><span>4. Article Approval Status: </span></u><span>This is an enum type and used as an attribute in Product Item type directly. </span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block9"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-bk6er"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block10"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-3c60k"><span class="wnQOX"><span>Now let's see how collection attribute values are stored in the database. it's a comma-separated list of PKs. (This is why relation works better where data size is huge as the collection comes with the data truncation drawback.) Run the below query on HAC. </span><span>
+</span><span> </span></span></p></div>
+                                        <div type="paragraph" data-hook="rcv-block11"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-a1cb1"><span class="wnQOX"><em
+                                                style="font-style: italic;"><span
+                                                style="text-decoration: inherit;"><span>select {p.restrictedSalesApplication} from {Product as p}</span></span></em></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block12"></div>
+                                        <div data-breakout="normal">
+                                            <div class="uih3A" id="viewer-cpedd">
+                                                <div class="DttGU iNRNG" style="width: min(100%, 100%);">
+                                                    <figure role="button" data-hook="imageViewer" tabindex="0"
+                                                            class="JFACH" aria-haspopup="true">
+                                                        <div id="cpedd" class="xiu1o _8dkdj JU00H"
+                                                             style="--dim-height: 350; --dim-width: 900;">
+                                                            <wow-image
+                                                                    id="72ba1a_7063213119934ce0ab43de127c50c531~mv2.png"
+                                                                    class="undefined sbGLV"
+                                                                    data-image-info="{&quot;containerId&quot;:&quot;cpedd&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:900,&quot;height&quot;:350,&quot;uri&quot;:&quot;72ba1a_7063213119934ce0ab43de127c50c531~mv2.png&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                                    data-bg-effect-name="" data-has-ssr-src=""
+                                                                    data-animate-blur="" data-transitioned=""><img
+                                                                    src="https://static.wixstatic.com/media/72ba1a_7063213119934ce0ab43de127c50c531~mv2.png/v1/fill/w_740,h_288,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_7063213119934ce0ab43de127c50c531~mv2.png"
+                                                                    alt=""
+                                                                    data-pin-url="https://www.hikex.com/post/flexible-search-question-and-answer"
+                                                                    data-pin-media="https://static.wixstatic.com/media/72ba1a_7063213119934ce0ab43de127c50c531~mv2.png/v1/fill/w_1080,h_420,al_c,lg_1,q_90/72ba1a_7063213119934ce0ab43de127c50c531~mv2.png"
+                                                                    style="width: 740px; height: 288px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                                    fetchpriority="high" data-load-done=""></wow-image>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div type="image" data-hook="rcv-block13"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-92lj9"><span class="wnQOX"><span>As you have understood it now you can easily write flexible search queries using like and contact operators as below. When we Join the two table we will have to use LIKE operator for string matching.  </span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block14"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-2skm5"><span class="wnQOX"><em
+                                                style="font-style: italic;"><span
+                                                style="text-decoration: inherit;"><span>select * from {</span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>Product </span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="text-decoration: inherit;"><span>as p JOIN </span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>SalesApplication </span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="text-decoration: inherit;"><span>as sa ON {p.restrictedSalesApplication} </span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="color: rgb(164, 171, 182); text-decoration: inherit;"><span>LIKE CONCAT( '%', CONCAT( {sa.PK} , '%' ) )</span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="text-decoration: inherit;"><span> JOIN </span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>ArticleApprovalStatus </span></span></em><em
+                                                style="font-style: italic;"><span
+                                                style="text-decoration: inherit;"><span>as aps on {p.approvalStatus}={aps.pk}} where {sa.code} in  ('Web') and {aps.code}='approved'</span></span></em></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block15"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-5mdpd"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block16"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-bccpo"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block17"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-f6skm"><span class="wnQOX"><strong
+                                                style="font-weight: 700;"><span
+                                                style="color: rgb(207, 207, 132); text-decoration: inherit;"><span>How to use Union and nested queries in Flexible search?</span></span></strong></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block18"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-985bc"><span class="wnQOX"><span
+                                                style="color: rgb(48, 48, 48); text-decoration: inherit;"><span>there are different scenarios where you may have to UNION result of two different </span></span><span>conditions</span><span
+                                                style="color: rgb(48, 48, 48); text-decoration: inherit;"><span>. For this, you will have to use 'UNION' or 'UNION ALL' keyword as below. here table name is </span></span><span>a </span><span
+                                                style="color: rgb(48, 48, 48); text-decoration: inherit;"><span>must because </span></span><span>the </span><span
+                                                style="color: rgb(48, 48, 48); text-decoration: inherit;"><span>union will make a derived table and it should have </span></span><span>its</span><span
+                                                style="color: rgb(48, 48, 48); text-decoration: inherit;"><span> own alias. </span></span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block19"></div>
+                                        <div data-breakout="normal">
+                                            <div class="uih3A" id="viewer-bfes6">
+                                                <div class="DttGU iNRNG" style="width: min(100%, 100%);">
+                                                    <figure role="button" data-hook="imageViewer" tabindex="0"
+                                                            class="JFACH" aria-haspopup="true">
+                                                        <div id="bfes6" class="xiu1o _8dkdj JU00H"
+                                                             style="--dim-height: 232; --dim-width: 852;">
+                                                            <wow-image
+                                                                    id="72ba1a_50dd96fc7f124225841e9185fd0a90d3~mv2.png"
+                                                                    class="undefined sbGLV"
+                                                                    data-image-info="{&quot;containerId&quot;:&quot;bfes6&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:852,&quot;height&quot;:232,&quot;uri&quot;:&quot;72ba1a_50dd96fc7f124225841e9185fd0a90d3~mv2.png&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                                    data-bg-effect-name="" data-has-ssr-src=""
+                                                                    data-animate-blur="" data-transitioned=""><img
+                                                                    src="https://static.wixstatic.com/media/72ba1a_50dd96fc7f124225841e9185fd0a90d3~mv2.png/v1/fill/w_740,h_202,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_50dd96fc7f124225841e9185fd0a90d3~mv2.png"
+                                                                    alt=""
+                                                                    data-pin-url="https://www.hikex.com/post/flexible-search-question-and-answer"
+                                                                    data-pin-media="https://static.wixstatic.com/media/72ba1a_50dd96fc7f124225841e9185fd0a90d3~mv2.png/v1/fill/w_1022,h_278,al_c,lg_1,q_85/72ba1a_50dd96fc7f124225841e9185fd0a90d3~mv2.png"
+                                                                    style="width: 740px; height: 202px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                                    fetchpriority="high" data-load-done=""></wow-image>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div type="image" data-hook="rcv-block20"></div>
+                                        <div data-breakout="normal"><p class="thtTy -PN3w mcSBi iCJIo" dir="auto"
+                                                                       id="viewer-2e3nj"><span class="wnQOX"><strong
+                                                style="font-weight: 700;"><span>Example- </span></strong><span>Select all the employees whose '</span><span
+                                                style="text-decoration: inherit;"><span>employeeNo</span></span><span>' starts with HXE or all the customers who are active.</span></span>
+                                        </p></div>
+                                        <div type="paragraph" data-hook="rcv-block21"></div>
+                                        <div data-breakout="normal">
+                                            <div class="uih3A" id="viewer-4i37n">
+                                                <div class="DttGU iNRNG" style="width: min(100%, 100%);">
+                                                    <figure role="button" data-hook="imageViewer" tabindex="0"
+                                                            class="JFACH" aria-haspopup="true">
+                                                        <div id="4i37n" class="xiu1o _8dkdj JU00H"
+                                                             style="--dim-height: 224; --dim-width: 1073;">
+                                                            <wow-image
+                                                                    id="72ba1a_8cfa0c6bbe6e4788a439714f8e8c3e66~mv2.png"
+                                                                    class="undefined sbGLV"
+                                                                    data-image-info="{&quot;containerId&quot;:&quot;4i37n&quot;,&quot;displayMode&quot;:&quot;fill&quot;,&quot;isLQIP&quot;:true,&quot;isSEOBot&quot;:false,&quot;lqipTransition&quot;:&quot;blur&quot;,&quot;imageData&quot;:{&quot;width&quot;:1073,&quot;height&quot;:224,&quot;uri&quot;:&quot;72ba1a_8cfa0c6bbe6e4788a439714f8e8c3e66~mv2.png&quot;,&quot;name&quot;:&quot;&quot;,&quot;displayMode&quot;:&quot;fill&quot;}}"
+                                                                    data-bg-effect-name="" data-has-ssr-src=""
+                                                                    data-animate-blur="" data-transitioned=""><img
+                                                                    src="https://static.wixstatic.com/media/72ba1a_8cfa0c6bbe6e4788a439714f8e8c3e66~mv2.png/v1/fill/w_740,h_154,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/72ba1a_8cfa0c6bbe6e4788a439714f8e8c3e66~mv2.png"
+                                                                    alt=""
+                                                                    data-pin-url="https://www.hikex.com/post/flexible-search-question-and-answer"
+                                                                    data-pin-media="https://static.wixstatic.com/media/72ba1a_8cfa0c6bbe6e4788a439714f8e8c3e66~mv2.png/v1/fill/w_1288,h_269,al_c,lg_1,q_85/72ba1a_8cfa0c6bbe6e4788a439714f8e8c3e66~mv2.png"
+                                                                    style="width: 740px; height: 154px; object-fit: cover; object-position: 50% 50%; max-width: 100%;"
+                                                                    fetchpriority="high" data-load-done=""></wow-image>
+                                                        </div>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div type="image" data-hook="rcv-block22"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-d61sh"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block23"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-d1leq"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block24"></div>
+                                        <div data-breakout="normal">
+                                            <div class="thtTy -PN3w mcSBi iCJIo" dir="auto" id="viewer-7q967"><span
+                                                    class="wnQOX"><br role="presentation"></span></div>
+                                        </div>
+                                        <div type="empty-line" data-hook="rcv-block25"></div>
+                                    </div>
+                                    <div type="last" data-hook="rcv-block-last"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</article>
+</body>
+</html>
