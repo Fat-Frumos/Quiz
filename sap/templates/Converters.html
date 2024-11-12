@@ -76,9 +76,10 @@
                                      class="hJDwNd-AhqUyc-EehZO Ft7HRd-AhqUyc-EehZO jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb">
                                     <div class="jXK9ad-SmKAyb">
                                         <div class="tyJCtd baZpAe">
-                                            <div class="t3iYD"><img
-                                                    src="https://lh5.googleusercontent.com/npniT3k13cUxzmsy44LdDjkbqqlr7RYqt03oM_ZlYZZZgXyqeI1bWdZcLDRvv_dp5glGPeOkJaCQFT6BPzvnTa384suxDt-T5RlQOfsWQDHZ3kIa0doFSglaX-4anTqkvQ=w1280"
-                                                    class="CENy8b" role="img" alt="converters and populators | Hybris">
+                                            <div class="t3iYD">
+                                                <img src="https://lh5.googleusercontent.com/8KNWyzf87f9MXWWm9qXD1Y_E8U6YbjeaSfBDa1moG-c0pD8A4CVQYypqL5PmZRSTJpLRvgGaPo9wxxySwC4jyNzADN1vnOG5PNIe2chTASeJdnztjR8NlWgBo9DCBk92Mg=w1280"
+                                                     class="CENy8b" role="img" alt="converters and populators | Hybris">
+
                                             </div>
                                         </div>
                                     </div>
@@ -183,10 +184,10 @@
                                      class="hJDwNd-AhqUyc-OiUrBf Ft7HRd-AhqUyc-OiUrBf jXK9ad D2fZ2 zu5uec OjCsFc dmUFtb wHaque g5GTcb">
                                     <div class="jXK9ad-SmKAyb">
                                         <div class="tyJCtd baZpAe">
-                                            <div class="t3iYD"><img
-                                                    src="https://lh3.googleusercontent.com/wRjBBqcS7PDiMgH9fIbofwIa3b4LUPxJrnFrCIzRlSVi9B1TJ3tuDVAa3CDlt6o9Nu6eJPacr5Cu0cDWDJOzF7u46gWxmF0lvf8GckaTkb1tlyoGhDMkY5lMjVIGud4TMw=w1280"
-                                                    class="CENy8b" role="img"
-                                                    style="width: 100.0000013689%; margin: 0% 0 0% -0.0000006845%">
+                                            <div class="t3iYD">
+                                                <img src="https://lh3.googleusercontent.com/bbah_iTUIV7Ij42rZZPymIJCmrGj-ZzrOdftuZ57R3SJEOYgZoccMuZVlbULVK6vyxsSBafK7TbFzVEq63KT3ZOMzxYpr-h7y_kO3GHG28yN--GLuXjAGbQ3ONuPRfRHxw=w1280"
+                                                     class="CENy8b" role="img"
+                                                     style="width: 40.0000013689%; margin: 0% 0 0% -0.0000006845%">
                                             </div>
                                         </div>
                                     </div>
@@ -243,20 +244,16 @@
                                 name and id out of all. So, we will define DTO class in <span
                                         style="font-variant: normal;">&lt;extensions&gt;-</span>bean.xml
                                 file. It will contain only two properties like below.</p>
+
+                            <pre>
                             <p dir="ltr" class="CDt4Ke zfr3Q"
                             >
                                 &lt;bean
-                                class="com.experts.hybris.training.facades.data.MyUserData"&gt;</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>&lt;property
-                                name="id" type="String"/&gt;</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>&lt;property
-                                name="name" type="String"/&gt;</p>
-                            <p dir="ltr" class="CDt4Ke zfr3Q">
+                                class="com.experts.hybris.training.facades.data.MyUserData"&gt;&lt;property
+                                name="id" type="String"/&gt;&lt;property
+                                name="name" type="String"/&gt;
                                 &lt;/bean&gt;</p>
+                                </pre>
                             <p dir="ltr" class="CDt4Ke zfr3Q"><span
                                     style="font-variant: normal;">After successful build </span><span
                                     style="font-family: 'Arial'; font-variant: normal;"><strong>(ant all)</strong></span><span
@@ -265,89 +262,31 @@
                                 in <span
                                         style="font-family: 'Arial';"><strong>plateform/bootstrap/gensrc </strong></span>folder<span
                                         style="font-family: 'Arial';"><strong>.</strong></span></p>
+                            <pre>
                             <p dir="ltr" class="CDt4Ke zfr3Q"
                             >
-                                package com.experts.hybris.training.facades.data;</p>
-                            <p>
-                                import java.io.Serializable;</p>
-                            <p>
-                                <br></p>
-                            <p>
-                                public class MyUserData implements Serializable </p>
-                            <p>
-                                {</p>
-                            <p>
-                                private static final long serialVersionUID = 1L;</p>
-                            <p>
-                                <span>	</span>private
-                                String id;</p>
-                            <p>
-                                <span>	</span>private
-                                String name;</p>
-                            <p>
-                                <span>	</span></p>
-                            <p>
-                                <span>	</span>public
-                                MyUserData()</p>
-                            <p>
-                                <span>	</span>{</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>//
-                                default constructor</p>
-                            <p>
-                                <span>	</span>}</p>
-                            <p>
-                                <span>	</span>public
-                                void setId(final String id)</p>
-                            <p>
-                                <span>	</span>{</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>this.id
-                                = id;</p>
-                            <p>
-                                <span>	</span>}</p>
-                            <p>
-                                <span>	</span>public
-                                String getId() </p>
-                            <p>
-                                <span>	</span>{</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>return
-                                id;</p>
-                            <p>
-                                <span>	</span>}</p>
-                            <p>
-                                <span>	</span>public
-                                void setName(final String name)</p>
-                            <p>
-                                <span>	</span>{</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>this.name
-                                = name;</p>
-                            <p>
-                                <span>	</span>}</p>
-                            <p>
-                                <span>	</span>public
-                                String getName() </p>
-                            <p>
-                                <span>	</span>{</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>return
-                                name;</p>
-                            <p>
-                                <span>	</span>}</p>
-                            <p dir="ltr" class="CDt4Ke zfr3Q">
-                                }</p>
+                                package com.experts.hybris.training.facades.data;
+                                import java.io.Serializable;
+                                <br>
+                                public class MyUserData implements Serializable {
+                                  private static final long serialVersionUID = 1L;
+                                  private String id;
+                                  private String name;
+                                  public MyUserData() {//default constructor }
+                                  public void setId(final String id)
+                                    {this.id = id;}
+                                  public String getId()
+                                    {return id;}
+                                  public void setName(final String name)
+                                    {this.name = name;}
+                                  public String getName()
+                                    {return name;}
+                                }
+								</pre>
                             <div id="h.6nleq9bw7ng2" class="GV3q8e aP9Z7e"></div>
                             <h3 id="h.6nleq9bw7ng2_l" dir="ltr" class="CDt4Ke zfr3Q OmQG5e"
                                 tabindex="-1">
-                                <div
-                                        class="CjVfdc">
+                                <div class="CjVfdc">
                                     2) Register Converter and Populator in Spring file
                                 </div>
                             </h3>
@@ -366,41 +305,26 @@
                             <p>
                                 &lt;bean id="myUserConverter"
                                 parent="abstractPopulatingConverter"&gt;</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>&lt;property
-                                name="targetClass"</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span><span
+                            <p>&lt;property name="targetClass"</p>
+                            <p><span
                             >	</span>value="com.experts.hybris.training.facades.data.MyUserData"
                                 /&gt;</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>&lt;property
+                            <p>&lt;property
                                 name="populators"&gt;</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span><span
+                            <p><span
                             >	</span>&lt;list&gt;
                             </p>
-                            <p>
-                                <span>	</span><span
-                            >	</span><span
+                            <p><span
                             >	</span><span
                             >	</span>&lt;ref
                                 bean="myUserDataPopulator" /&gt;</p>
-                            <p>
-                                <span>	</span><span
-                            >	</span><span
+                            <p><span
                             >	</span>&lt;/list&gt;
                             </p>
-                            <p>
-                                <span>	</span><span
-                            >	</span>&lt;/property&gt;
+                            <p>&lt;/property&gt;
                             </p>
                             <p>
-                                <span>	</span>&lt;/bean&gt;
+                                &lt;/bean&gt;
                             </p>
                             <p dir="ltr" class="CDt4Ke zfr3Q">
                                 <br></p>
@@ -694,8 +618,7 @@
                             >}</span></p>
                             <p>
                                 <span>}</span></p>
-                            <p>
-                                <br></p>
+                            <p><br></p>
                             <p dir="ltr" class="CDt4Ke zfr3Q">
                                 <br></p>
                             <p dir="ltr" class="CDt4Ke zfr3Q"><span style="font-variant: normal;">We will register our  main class </span><span
@@ -726,8 +649,7 @@
                                     class=" Apple-tab-span"
                                     style="font-size: 11pt; vertical-align: baseline; white-space: pre;">	</span><span
                             >&lt;property name="myUserConverter" ref="myUserConverter" /&gt;</span>
-                            </p>
-                            <p>
+                            </p><p>
                                 <span>&lt;/bean&gt;</span>
                             </p>
                             <p dir="ltr" class="CDt4Ke zfr3Q">
