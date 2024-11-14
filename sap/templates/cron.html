@@ -1,0 +1,2590 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SAP</title>
+    <link rel='stylesheet' id='bwp-syntax-css'
+          href='http://javainsimpleway.com/wp-content/plugins/better-wordpress-syntax-based-on-geshi/css/bwp-syntax.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='adsns-css'
+          href='http://javainsimpleway.com/wp-content/plugins/adsense-plugin/css/adsns.css?v=1.40&#038;ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='dashicons-css'
+          href='http://javainsimpleway.com/wp-includes/css/dashicons.min.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='cptch_desktop_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/captcha/css/desktop_style.css?ver=4.2.8' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/category-post-list-widget/css/main.css?ver=4.5.28'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-code-css'
+          href='http://javainsimpleway.com/wp-content/plugins/code-highlight/css/style.css?ver=4.5.28' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='new_style-css'
+          href='http://javainsimpleway.com/wp-content/plugins/responsive-attention-box/css/common.css?ver=1.0.0'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='nb-font-css'
+          href='http://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic%7CMontserrat:400,700%7COpen+Sans:400,600,700,300%7CLibre+Baskerville:400,700%7CPlayfair:400,700%7CDroid+Serif:400,700%7CPT+Serif:400,700%7CNoto+Serif:400,700'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='style-css-css' href='http://javainsimpleway.com/wp-content/themes/nicebird/style.css'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='bootstrap-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/bootstrap.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='global-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/global.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='font-awesome-animation-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/font-awesome-animation.css'
+          type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='main-css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/nb-style.css' type='text/css'
+          media='all'/>
+    <link rel='stylesheet' id='support.css-css'
+          href='http://javainsimpleway.com/wp-content/themes/nicebird/assets/css/support.css' type='text/css'
+          media='all'/>
+    <style>
+        body, input, button, select, textarea, code, kbd, pre, samp {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #000;
+            color: #ccc;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 900;
+        }
+
+        h1 {
+            margin-left: 30px;
+        }
+
+        .bwp-syntax-block.clearfix {
+            width: 75%;
+        }
+
+        img {
+            background: white;
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div class="post-content-header">
+        <h1 class="post-title">Cron Jobs Overview</h1>
+    </div>
+    <div class="post-content-body">
+
+        <p><strong>Cron job</strong> functionality is used whenever we want to execute some <strong>tasks</strong>
+            at some point of time.</p>
+        <p>It’s like an <strong>Alarm</strong> we set before we sleep 🙂 .</p>
+        <p>We set Alarm at <strong>5AM</strong>,<strong> 6AM</strong>, <strong>7AM</strong> and so on, so at that
+            point of time, Alarm gets executed.<br>
+            We can set the alarm for daily, alternate days, or any specific day as well.</p>
+        <p>Similarly, <strong>Cron jobs</strong> can be set up to run only on one specific day or every day or every
+            month, or every hour etc.</p>
+        <p>Now the main point here is <strong>Cron job</strong> basically do some work at specified time.</p>
+        <p>In Hybris, <strong>Cron job</strong> executes some business logic at specified time.</p>
+        <p>The business logic which gets executed by the cron job is called as <strong>Job</strong>.</p>
+        <p><strong>What time</strong> it executes is defined by the <strong>Trigger</strong>.</p>
+        <p>What <strong>parameters</strong> and <strong>configuration</strong> required for job to execute is
+            defined by the <strong>CronJob</strong>.</p>
+        <p><strong><br>
+        </strong></p>
+        <h2><strong>Let’s understand each of these terms in detail</strong></h2><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/08/Cron_Job_Overview.png"
+                alt="Cron Job Overview"></p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Cron Job :</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            It's an Item Type we define in the <strong>Items.xml</strong> with all the attributes required for the
+            Job to be executed.<br>
+            So we can say that <strong>CronJob</strong> provides the configuration details for the
+            <strong>Job</strong>.</p>
+        <p>Hybris Out of the Box(OOTB) provides <strong>CronJob</strong> item Type which already has many attributes
+            defined inside it like<br>
+            <strong>Code,active,status.logText,startTime,endTime etc.</strong></p>
+        <p>Check CronJob itemtype under below file for more details<br>
+            <strong>/platform/ext/processing/resources/processing-items.xml</strong></p>
+        <p>All these attributes are considered as a configuration for the <strong>Job</strong>.</p>
+        <p>In case our Job needs some <strong>additional</strong> configuration parameters other than what is
+            provided with <strong>CronJob</strong> Item Type, then we should define a <strong>new CronJob</strong>
+            Item Type in the <strong>*items.xml</strong> by extending the <strong>CronJob</strong> Item Type.</p>
+        <p><strong>Example:</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>itemtype
+                                code<span class="sy0">=</span><span class="st0">"SampleCronJob"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"true"</span> autocreate<span
+                                        class="sy0">=</span><span class="st0">"true"</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;jaloclass<span
+                                    class="sy0">=</span><span
+                                    class="st0">"de.hybris.cronjob.jalo.SampleCronJob"</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span
+                                    class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"CronJob"</span><span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">&lt;</span>attributes<span class="sy0">&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute type<span class="sy0">=</span><span
+                                    class="st0">"java.lang.String"</span> qualifier<span class="sy0">=</span><span
+                                    class="st0">"sampleValue"</span><span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;</span>persistence type<span class="sy0">=</span><span
+                                        class="st0">"property"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;</span>modifiers optional<span class="sy0">=</span><span
+                                        class="st0">"false"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attributes<span class="sy0">&gt;</span> &nbsp; &nbsp;
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>itemtype<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">        &lt;itemtype code="SampleCronJob" generate="true" autocreate="true"
+           jaloclass="de.hybris.cronjob.jalo.SampleCronJob"
+           extends="CronJob"&gt;
+&lt;attributes&gt;
+                &lt;attribute type="java.lang.String" qualifier="sampleValue"&gt;
+                    &lt;persistence type="property"/&gt;
+                    &lt;modifiers optional="false"/&gt;
+                &lt;/attribute&gt;
+            &lt;/attributes&gt;     
+        &lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Job:</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            <strong>Job</strong> defines the <strong>logic</strong> to be executed.<br>
+            We create a new class and extend <strong>AbstractJobPerformable</strong> class or implement <strong>JobPerformable</strong>
+            interface.</p>
+        <p>Inside this newly created class, we provide the definition for <strong>perform(CronJobModel
+            cronJobModel)</strong> method.<br>
+            What we define inside this method is called as <strong>Business logic</strong> of the <strong>cron
+                job</strong>.</p>
+        <p>And this class which contains the business logic is called as <strong>Job</strong>.</p>
+        <p><strong>Note:</strong> This class should be defined as a <strong>Spring bean</strong> in order to
+            consider this as a Job.</p>
+        <p><strong>Example:</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">class</span>
+                                SampleJob <span class="kw1">extends</span> AbstractJobPerformable<span
+                                        class="sy0">&lt;</span>SampleCronJobModel<span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> PerformResult
+                                perform<span class="br0">(</span><span class="kw1">final</span>
+                                CartRemovalCronJobModel job<span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="co1">//Logic goes here</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">public class SampleJob extends AbstractJobPerformable&lt;SampleCronJobModel&gt;
+{
+	@Override
+    public PerformResult perform(final CartRemovalCronJobModel job)
+	{
+//Logic goes here
+	}
+}</pre>
+            </div>
+        </div>
+
+        <p><strong>Job</strong> will have <strong>2</strong> main things,</p>
+        <p><strong>1) Status:</strong> it is of type <strong>CronJobStatus</strong> enum<br>
+            It gives the status of a Running cron Job which indicates whether it’s in <strong>Progress</strong>,or
+            <strong>completed</strong> the execution.</p>
+        <p>possible values for the same can be checked in the <strong>CronJobStatus.java</strong> enum.</p>
+        <p><strong>2) Result:</strong> it is of type <strong>CronJobResult</strong> enum<br>
+            It gives the information about the last execution of the cron job<br>
+            Like whether cron job has ended with <strong>Success</strong> or <strong>Failure</strong></p>
+        <p>possible values for the same can be checked in the <strong>CronJobResult.java</strong> enum.</p>
+        <p>We can say that Cron Job is completed successfully with the below combination of CronJobStatus and
+            CronJobResult<br>
+            <strong>CronJobStatus.FINISHED</strong> and <strong>CronJobResult.SUCCESS</strong></p>
+        <p>So <strong>PerformResult</strong> is returned by <strong>perform()</strong> method after the Job
+            completes Business logic execution, which then can be used to determine the <strong>overall result and
+                status</strong> of the Job.</p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Trigger:</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            It defines the <strong>scheduling</strong> of a Job which helps to decide when the Job has to be
+            executed.<br>
+            It defines <strong>scheduling</strong> using the attributes like <strong>seconds,minutes,hours
+                etc.</strong> or it can define it using <strong>Cron Expression</strong>.</p>
+        <p>see below link for details on how to define the Cron Expression<br>
+            <strong><a href="https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm">Cron
+                Expression Guide</a></strong></p>
+        <p><strong>Trigger</strong> is actually <strong>linked</strong> to the <strong>Job indirectly</strong> which
+            means <strong>Trigger</strong> will always be defined for <strong>CronJob</strong> and
+            <strong>CronJob</strong> holds the actual <strong>Job</strong> to be executed.</p>
+        <p>So whenever we define <strong>Trigger</strong>, we define it for <strong>CronJob</strong> not for
+            <strong>Job</strong>.<br>
+            <strong>CronJob</strong> in turn identify the corresponding <strong>Job</strong> and makes sure it gets
+            executed.</p>
+        <p>We will get more clarity on this with code in the next Article.</p>
+        <p>In Simple words,<br>
+            <strong>Job defines what should be done, a Trigger says when it has to be done, and a CronJob defines
+                the setup/configuration required for a Job.</strong></p>
+    </div>
+</section>
+
+<section class="post-detail-page">
+    <div class="post-content-header">
+        <h1 class="post-title">CronJob Real time example</h1>
+
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Requirement:</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p>We need to run some <strong>task</strong> which should remove the products whose <strong>price is not
+            defined</strong>, and it is <strong>X days old</strong> in the system.</p>
+        <p>Now our business logic is to remove the products if its price is not defined, and it is <strong>X</strong>
+            no of days old.<br>
+            <strong><br>
+            </strong></p>
+        <h3><strong>Steps for the business logic</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            Load the Products which are <strong>X</strong> days old<br>
+            Check if the product has price from the above product list<br>
+            If the price is not defined , delete the product<br>
+            <strong><br>
+            </strong></p>
+        <h3><strong>Step 1</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            Since we need to add new configuration property called <strong>X days</strong> as dynamic value to the
+            Cron Job, we need to define a new CronJob Item type</p>
+        <p>Define new Cron Job item type in <strong>items.xml</strong> as below<br>
+            hybris\bin\custom\training\trainingcore\resources\trainingcore-items.xml</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>itemtype code<span
+                                    class="sy0">=</span><span class="st0">"ProductsRemovalCronJob"</span> <span
+                                    class="kw1">extends</span><span class="sy0">=</span><span
+                                    class="st0">"CronJob"</span> jaloclass<span class="sy0">=</span><span
+                                    class="st0">"de.hybris.platform.cronjob.jalo.ProductsRemovalCronJob"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                autocreate<span class="sy0">=</span><span class="st0">"true"</span> generate<span
+                                        class="sy0">=</span><span class="st0">"true"</span><span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>attributes<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;</span>attribute qualifier<span class="sy0">=</span><span
+                                    class="st0">"xDaysOld"</span> type<span class="sy0">=</span><span
+                                    class="st0">"int"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;</span>modifiers read<span class="sy0">=</span><span
+                                        class="st0">"true"</span> write<span class="sy0">=</span><span class="st0">"true"</span>
+                                optional<span class="sy0">=</span><span class="st0">"false"</span><span class="sy0">/&gt;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;</span>defaultvalue<span class="sy0">&gt;</span><span
+                                        class="kw3">Integer</span>.<span class="me1">valueOf</span><span
+                                        class="br0">(</span><span class="nu0">10</span><span
+                                        class="br0">)</span><span class="sy0">&lt;/</span>defaultvalue<span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;</span>description<span class="sy0">&gt;</span>All Products
+                                older than <span class="kw1">this</span> value in days and whose price is not
+                                defined will be removed
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;/</span>description<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                <span class="sy0">&lt;</span>persistence type<span class="sy0">=</span><span
+                                        class="st0">"property"</span><span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attribute<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="sy0">&lt;/</span>attributes<span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;/</span>itemtype<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;itemtype code="ProductsRemovalCronJob" extends="CronJob" jaloclass="de.hybris.platform.cronjob.jalo.ProductsRemovalCronJob"
+                  autocreate="true" generate="true"&gt;
+            &lt;attributes&gt;
+                &lt;attribute qualifier="xDaysOld" type="int"&gt;
+                    &lt;modifiers read="true" write="true" optional="false"/&gt;
+                    &lt;defaultvalue&gt;Integer.valueOf(10)&lt;/defaultvalue&gt;
+                    &lt;description&gt;All Products older than this value in days and whose price is not defined will be removed
+                    &lt;/description&gt;
+                    &lt;persistence type="property"/&gt;
+                &lt;/attribute&gt;
+            &lt;/attributes&gt;
+        &lt;/itemtype&gt;</pre>
+            </div>
+        </div>
+
+        <p>Defined a new Cron Job item type <strong>ProductsRemovalCronJob </strong> which extends
+            <strong>CronJob</strong> item type<br>
+            So all the attributes of <strong>CronJob</strong> item type are also inherited to this new Cron Job item
+            type.</p>
+        <p>Do <strong>ant all</strong> and <strong>refresh</strong> the <strong>platform</strong> folder to check
+            <strong>ProductsRemovalCronJobModel.java</strong> is generated<br>
+            <strong><br>
+            </strong></p>
+        <h3><strong>Step 2</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            Create a class which acts as a <strong>Job</strong> by extending <strong>AbstractJobPerformable</strong>
+            class and override the <strong>perform()</strong> method to have our business logic
+        </p>
+        <p>
+            Created the class inside our custom core extension as below
+        </p>
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">Created the <span class="kw1">class</span> inside our custom core
+                                extension as below
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">package</span> <span
+                                    class="co2">org.training.core.jobs</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.cronjob.enums.CronJobResult</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.cronjob.enums.CronJobStatus</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.cronjob.model.ProductsRemovalCronJobModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.cronjob.PerformResult</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">public</span> <span class="kw1">class</span>
+                                ProductsRemovalJob <span class="kw1">extends</span> AbstractJobPerformable<span
+                                        class="sy0">&lt;</span>ProductsRemovalCronJobModel<span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> PerformResult
+                                perform<span class="br0">(</span><span class="kw1">final</span>
+                                ProductsRemovalCronJobModel productsRemovalCronJobModel<span class="br0">)</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span
+                                    class="kw1">new</span> PerformResult<span
+                                    class="br0">(</span>CronJobResult.<span class="me1">SUCCESS</span>,
+                                CronJobStatus.<span class="me1">FINISHED</span><span class="br0">)</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">
+
+package org.training.core.jobs;
+
+import de.hybris.platform.cronjob.enums.CronJobResult;
+import de.hybris.platform.cronjob.enums.CronJobStatus;
+import de.hybris.platform.cronjob.model.ProductsRemovalCronJobModel;
+import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
+import de.hybris.platform.servicelayer.cronjob.PerformResult;
+
+
+public class ProductsRemovalJob extends AbstractJobPerformable&lt;ProductsRemovalCronJobModel&gt;
+{
+	@Override
+	public PerformResult perform(final ProductsRemovalCronJobModel productsRemovalCronJobModel)
+	{
+
+		return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
+	}
+
+}</pre>
+            </div>
+        </div>
+
+        <p>This is a class which does not have any business logic written for the Job to perform.</p>
+        <p><strong>Let’s define the Business logic for the same as below</strong><br>
+            hybris\hybris\bin\custom\training\trainingcore\src\org\training\core\jobs\ProductsRemovalJob.java</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">package</span> <span
+                                    class="co2">org.training.core.jobs</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.core.model.product.ProductModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.cronjob.enums.CronJobResult</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.cronjob.enums.CronJobStatus</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.cronjob.model.ProductsRemovalCronJobModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.cronjob.PerformResult</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.exceptions.ModelRemovalException</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.model.ModelService</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.site.BaseSiteService</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.solrfacetsearch.config.FacetSearchConfig</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.solrfacetsearch.config.FacetSearchConfigService</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.solrfacetsearch.config.exceptions.FacetConfigServiceException</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.solrfacetsearch.indexer.IndexerService</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.solrfacetsearch.indexer.exceptions.IndexerException</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.solrfacetsearch.model.config.SolrFacetSearchConfigModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.tx.Transaction</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span
+                                    class="co2">java.util.ArrayList</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">java.util.Calendar</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span
+                                    class="co2">java.util.Date</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">java.util.List</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">org.apache.log4j.Logger</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">org.springframework.util.CollectionUtils</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">org.training.core.dao.CustomProductsDAO</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">public</span> <span class="kw1">class</span>
+                                ProductsRemovalJob <span class="kw1">extends</span> AbstractJobPerformable<span
+                                        class="sy0">&lt;</span>ProductsRemovalCronJobModel<span
+                                        class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw1">static</span> <span class="kw1">final</span> <span
+                                    class="kw3">String</span>
+                                SITE_UID <span class="sy0">=</span> <span class="st0">"apparel-uk"</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">private</span> CustomProductsDAO
+                                customProductsDao<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">private</span> ModelService
+                                modelService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">private</span> IndexerService
+                                indexerService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">private</span> FacetSearchConfigService
+                                facetSearchConfigService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">private</span> BaseSiteService
+                                baseSiteService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">private</span> <span
+                                    class="kw1">final</span> <span class="kw1">static</span> Logger LOG <span
+                                    class="sy0">=</span> Logger.<span class="me1">getLogger</span><span
+                                    class="br0">(</span>ProductsRemovalJob.<span
+                                    class="kw1">class</span>.<span class="me1">getName</span><span
+                                    class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> PerformResult
+                                perform<span class="br0">(</span><span class="kw1">final</span>
+                                ProductsRemovalCronJobModel productsRemovalCronJobModel<span class="br0">)</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> <span
+                                    class="kw4">int</span> noOfDaysOldToRemove <span class="sy0">=</span>
+                                productsRemovalCronJobModel.<span class="me1">getXDaysOld</span><span
+                                        class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> <span
+                                    class="kw3">Calendar</span> cal <span class="sy0">=</span> <span class="kw3">Calendar</span>.<span
+                                    class="me1">getInstance</span><span class="br0">(</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; cal.<span class="me1">add</span><span
+                                    class="br0">(</span><span class="kw3">Calendar</span>.<span
+                                    class="me1">DAY_OF_MONTH</span>,
+                                <span class="sy0">-</span>noOfDaysOldToRemove<span class="br0">)</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> <span
+                                    class="kw3">Date</span> oldDate <span class="sy0">=</span> cal.<span
+                                    class="me1">getTime</span><span class="br0">(</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> List<span
+                                    class="sy0">&lt;</span>ProductModel<span class="sy0">&gt;</span>
+                                productModelListToBeDeleted <span class="sy0">=</span> <span class="kw1">new</span>
+                                ArrayList<span class="sy0">&lt;&gt;</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> List<span
+                                    class="sy0">&lt;</span>ProductModel<span class="sy0">&gt;</span>
+                                productModelList <span class="sy0">=</span> customProductsDao.<span class="me1">findAllProductsOlderThanSpecifiedDays</span><span
+                                        class="br0">(</span>oldDate<span class="br0">)</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; LOG.<span class="me1">debug</span><span
+                                    class="br0">(</span><span
+                                    class="st0">"Products older than specified days size:"</span> <span
+                                    class="sy0">+</span>
+                                productModelList.<span class="me1">size</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">for</span> <span
+                                    class="br0">(</span><span class="kw1">final</span> ProductModel productModel
+                                <span class="sy0">:</span> productModelList<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span>
+                                <span class="br0">(</span>CollectionUtils.<span class="me1">isEmpty</span><span
+                                        class="br0">(</span>productModel.<span
+                                        class="me1">getEurope1Prices</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="br0">)</span><span class="br0">)</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                productModelListToBeDeleted.<span class="me1">add</span><span class="br0">(</span>productModel<span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span
+                                    class="br0">(</span><span class="sy0">!</span>CollectionUtils.<span class="me1">isEmpty</span><span
+                                    class="br0">(</span>productModelListToBeDeleted<span class="br0">)</span><span
+                                    class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Transaction tx <span
+                                    class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">try</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx <span
+                                    class="sy0">=</span> Transaction.<span class="me1">current</span><span
+                                    class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.<span
+                                    class="me1">begin</span><span class="br0">(</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                getModelService<span
+                                        class="br0">(</span><span class="br0">)</span>.<span
+                                        class="me1">removeAll</span><span class="br0">(</span>productModelListToBeDeleted<span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tx.<span
+                                    class="me1">commit</span><span class="br0">(</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">catch</span> <span class="br0">(</span><span
+                                    class="kw1">final</span> ModelRemovalException e<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">if</span> <span class="br0">(</span><span class="kw2">null</span>
+                                <span class="sy0">!=</span> tx<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                tx.<span class="me1">rollback</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LOG.<span
+                                    class="me1">error</span><span class="br0">(</span><span class="st0">"Could not remove the product list --&gt;"</span>
+                                <span class="sy0">+</span> e<span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">try</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">final</span> SolrFacetSearchConfigModel facetSearchConfigModel <span
+                                    class="sy0">=</span> baseSiteService.<span
+                                    class="me1">getBaseSiteForUID</span><span class="br0">(</span>SITE_UID<span
+                                    class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                .<span
+                                        class="me1">getSolrFacetSearchConfiguration</span><span
+                                        class="br0">(</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span
+                                    class="kw1">final</span> FacetSearchConfig facetSearchConfig <span
+                                    class="sy0">=</span> facetSearchConfigService.<span
+                                    class="me1">getConfiguration</span><span class="br0">(</span>facetSearchConfigModel.<span
+                                    class="me1">getName</span><span class="br0">(</span><span
+                                    class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; indexerService.<span
+                                    class="me1">performFullIndex</span><span
+                                    class="br0">(</span>facetSearchConfig<span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">catch</span> <span
+                                    class="br0">(</span><span class="kw1">final</span> FacetConfigServiceException
+                                <span class="sy0">|</span> IndexerException e<span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; LOG.<span
+                                    class="me1">error</span><span class="br0">(</span><span class="st0">"Could not index the products --&gt;"</span>
+                                <span class="sy0">+</span> e<span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span> <span
+                                    class="kw1">new</span> PerformResult<span
+                                    class="br0">(</span>CronJobResult.<span class="me1">SUCCESS</span>,
+                                CronJobStatus.<span class="me1">FINISHED</span><span class="br0">)</span><span
+                                        class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> CustomProductsDAO
+                                getCustomProductsDao<span class="br0">(</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                customProductsDao<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw4">void</span> setCustomProductsDao<span class="br0">(</span><span
+                                    class="kw1">final</span> CustomProductsDAO customProductsDao<span
+                                    class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">this</span>.<span
+                                    class="me1">customProductsDao</span> <span class="sy0">=</span>
+                                customProductsDao<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> ModelService
+                                getModelService<span class="br0">(</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                modelService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw4">void</span> setModelService<span class="br0">(</span><span
+                                    class="kw1">final</span> ModelService modelService<span class="br0">)</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">this</span>.<span
+                                    class="me1">modelService</span> <span class="sy0">=</span> modelService<span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> IndexerService
+                                getIndexerService<span class="br0">(</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                indexerService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw4">void</span> setIndexerService<span class="br0">(</span><span
+                                    class="kw1">final</span> IndexerService indexerService<span class="br0">)</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">this</span>.<span
+                                    class="me1">indexerService</span> <span class="sy0">=</span> indexerService<span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> FacetSearchConfigService
+                                getFacetSearchConfigService<span class="br0">(</span><span class="br0">)</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                facetSearchConfigService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw4">void</span> setFacetSearchConfigService<span
+                                    class="br0">(</span><span class="kw1">final</span> FacetSearchConfigService
+                                facetSearchConfigService<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">this</span>.<span
+                                    class="me1">facetSearchConfigService</span> <span class="sy0">=</span>
+                                facetSearchConfigService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">public</span> BaseSiteService
+                                getBaseSiteService<span class="br0">(</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                baseSiteService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw4">void</span> setBaseSiteService<span class="br0">(</span><span
+                                    class="kw1">final</span> BaseSiteService baseSiteService<span
+                                    class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">this</span>.<span
+                                    class="me1">baseSiteService</span> <span class="sy0">=</span>
+                                baseSiteService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">package org.training.core.jobs;
+
+import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.cronjob.enums.CronJobResult;
+import de.hybris.platform.cronjob.enums.CronJobStatus;
+import de.hybris.platform.cronjob.model.ProductsRemovalCronJobModel;
+import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
+import de.hybris.platform.servicelayer.cronjob.PerformResult;
+import de.hybris.platform.servicelayer.exceptions.ModelRemovalException;
+import de.hybris.platform.servicelayer.model.ModelService;
+import de.hybris.platform.site.BaseSiteService;
+import de.hybris.platform.solrfacetsearch.config.FacetSearchConfig;
+import de.hybris.platform.solrfacetsearch.config.FacetSearchConfigService;
+import de.hybris.platform.solrfacetsearch.config.exceptions.FacetConfigServiceException;
+import de.hybris.platform.solrfacetsearch.indexer.IndexerService;
+import de.hybris.platform.solrfacetsearch.indexer.exceptions.IndexerException;
+import de.hybris.platform.solrfacetsearch.model.config.SolrFacetSearchConfigModel;
+import de.hybris.platform.tx.Transaction;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.springframework.util.CollectionUtils;
+import org.training.core.dao.CustomProductsDAO;
+
+
+public class ProductsRemovalJob extends AbstractJobPerformable&lt;ProductsRemovalCronJobModel&gt;
+{
+	public static final String SITE_UID = "apparel-uk";
+	private CustomProductsDAO customProductsDao;
+	private ModelService modelService;
+	private IndexerService indexerService;
+	private FacetSearchConfigService facetSearchConfigService;
+	private BaseSiteService baseSiteService;
+
+	private final static Logger LOG = Logger.getLogger(ProductsRemovalJob.class.getName());
+
+	@Override
+	public PerformResult perform(final ProductsRemovalCronJobModel productsRemovalCronJobModel)
+	{
+		final int noOfDaysOldToRemove = productsRemovalCronJobModel.getXDaysOld();
+		final Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, -noOfDaysOldToRemove);
+		final Date oldDate = cal.getTime();
+		final List&lt;ProductModel&gt; productModelListToBeDeleted = new ArrayList&lt;&gt;();
+		final List&lt;ProductModel&gt; productModelList = customProductsDao.findAllProductsOlderThanSpecifiedDays(oldDate);
+		LOG.debug("Products older than specified days size:" + productModelList.size());
+		for (final ProductModel productModel : productModelList)
+		{
+			if (CollectionUtils.isEmpty(productModel.getEurope1Prices()))
+			{
+				productModelListToBeDeleted.add(productModel);
+			}
+		}
+
+		if (!CollectionUtils.isEmpty(productModelListToBeDeleted))
+		{
+			Transaction tx = null;
+			try
+			{
+				tx = Transaction.current();
+				tx.begin();
+				getModelService().removeAll(productModelListToBeDeleted);
+				tx.commit();
+			}
+			catch (final ModelRemovalException e)
+			{
+				if (null != tx)
+				{
+					tx.rollback();
+				}
+				LOG.error("Could not remove the product list --&gt;" + e);
+			}
+		}
+
+		try
+		{
+			final SolrFacetSearchConfigModel facetSearchConfigModel = baseSiteService.getBaseSiteForUID(SITE_UID)
+					.getSolrFacetSearchConfiguration();
+			final FacetSearchConfig facetSearchConfig = facetSearchConfigService.getConfiguration(facetSearchConfigModel.getName());
+			indexerService.performFullIndex(facetSearchConfig);
+		}
+		catch (final FacetConfigServiceException | IndexerException e)
+		{
+			LOG.error("Could not index the products --&gt;" + e);
+		}
+
+		return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
+	}
+
+	public CustomProductsDAO getCustomProductsDao()
+	{
+		return customProductsDao;
+	}
+
+	public void setCustomProductsDao(final CustomProductsDAO customProductsDao)
+	{
+		this.customProductsDao = customProductsDao;
+	}
+
+	public ModelService getModelService()
+	{
+		return modelService;
+	}
+
+	@Override
+	public void setModelService(final ModelService modelService)
+	{
+
+		this.modelService = modelService;
+	}
+
+	
+	public IndexerService getIndexerService()
+	{
+		return indexerService;
+	}
+
+	
+	public void setIndexerService(final IndexerService indexerService)
+	{
+		this.indexerService = indexerService;
+	}
+
+	
+	public FacetSearchConfigService getFacetSearchConfigService()
+	{
+		return facetSearchConfigService;
+	}
+
+	
+	public void setFacetSearchConfigService(final FacetSearchConfigService facetSearchConfigService)
+	{
+		this.facetSearchConfigService = facetSearchConfigService;
+	}
+
+	public BaseSiteService getBaseSiteService()
+	{
+		return baseSiteService;
+	}
+
+	public void setBaseSiteService(final BaseSiteService baseSiteService)
+	{
+		this.baseSiteService = baseSiteService;
+	}
+
+}</pre>
+            </div>
+        </div>
+
+        <p>We have written the business logic which gets all the products <strong>older</strong> than
+            <strong>specified</strong>
+            days</p>
+        <p>Then we are iterating the product List and checking each product whether they have <strong>price row or
+            not</strong>, If price row is not defined then we are adding such products to a <strong>list of deleting
+            products</strong>.<br>
+            then we are <strong>removing</strong> all such products.</p>
+        <p>After that we are calling the <strong>Solr full indexing</strong> to index only those products which have
+            the price.</p>
+        <p>Since we need to define the query to get all the products older than specified days, we will create a new
+            DAO Implementation class and interface as below</p>
+        <p><strong>CustomProductsDAO.java</strong><br>
+            hybris\hybris\bin\custom\training\trainingcore\src\org\training\core\dao\CustomProductsDAO.java</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">package</span> <span
+                                    class="co2">org.training.core.dao</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.core.model.product.ProductModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span
+                                    class="co2">java.util.Date</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">java.util.List</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">interface</span>
+                                CustomProductsDAO
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> List<span
+                                    class="sy0">&lt;</span>ProductModel<span
+                                    class="sy0">&gt;</span> findAllProductsOlderThanSpecifiedDays<span
+                                    class="br0">(</span><span class="kw1">final</span> <span class="kw3">Date</span>
+                                oldDate<span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">package org.training.core.dao;
+
+import de.hybris.platform.core.model.product.ProductModel;
+import java.util.Date;
+import java.util.List;
+
+public interface CustomProductsDAO
+{
+	public List&lt;ProductModel&gt; findAllProductsOlderThanSpecifiedDays(final Date oldDate);
+}</pre>
+            </div>
+        </div>
+
+        <p><strong>CustomProductsDAOImpl.java</strong><br>
+            hybris\hybris\bin\custom\training\trainingcore\src\org\training\core\dao\impl\CustomProductsDAOImpl.java
+        </p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">package</span> <span class="co2">org.training.core.dao.impl</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.core.model.product.ProductModel</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.search.FlexibleSearchQuery</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.search.FlexibleSearchService</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">de.hybris.platform.servicelayer.search.SearchResult</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">java.util.Collections</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span
+                                    class="co2">java.util.Date</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">java.util.HashMap</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span
+                                    class="co2">java.util.List</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">import</span> <span
+                                    class="co2">java.util.Map</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="kw1">import</span> <span class="co2">org.training.core.dao.CustomProductsDAO</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="kw1">public</span> <span class="kw1">class</span>
+                                CustomProductsDAOImpl <span class="kw1">implements</span> CustomProductsDAO
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">private</span> FlexibleSearchService
+                                flexibleSearchService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; @Override</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> List<span
+                                    class="sy0">&lt;</span>ProductModel<span
+                                    class="sy0">&gt;</span> findAllProductsOlderThanSpecifiedDays<span
+                                    class="br0">(</span><span class="kw1">final</span> <span class="kw3">Date</span>
+                                oldDate<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span>
+                                StringBuilder query <span class="sy0">=</span> <span class="kw1">new</span>
+                                StringBuilder<span class="br0">(</span><span class="st0">"SELECT {pk} FROM {Product} WHERE {creationtime}&lt;=?oldDate"</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="kw1">final</span> Map<span
+                                    class="sy0">&lt;</span><span class="kw3">String</span>, Object<span
+                                    class="sy0">&gt;</span>
+                                params <span class="sy0">=</span> <span class="kw1">new</span> HashMap<span
+                                        class="sy0">&lt;</span><span class="kw3">String</span>, Object<span
+                                        class="sy0">&gt;</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; params.<span class="me1">put</span><span
+                                    class="br0">(</span><span class="st0">"oldDate"</span>, oldDate<span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span>
+                                FlexibleSearchQuery searchQuery <span class="sy0">=</span> <span
+                                        class="kw1">new</span> FlexibleSearchQuery<span
+                                        class="br0">(</span>query.<span class="me1">toString</span><span
+                                        class="br0">(</span><span class="br0">)</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; searchQuery.<span class="me1">addQueryParameters</span><span
+                                    class="br0">(</span>params<span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; searchQuery.<span class="me1">setResultClassList</span><span
+                                    class="br0">(</span><span class="kw3">Collections</span>.<span class="me1">singletonList</span><span
+                                    class="br0">(</span>ProductModel.<span class="kw1">class</span><span
+                                    class="br0">)</span><span class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">final</span> <span
+                                    class="kw3">SearchResult</span> searchResult <span class="sy0">=</span>
+                                getFlexibleSearchService<span class="br0">(</span><span class="br0">)</span>.<span
+                                        class="me1">search</span><span class="br0">(</span>searchQuery<span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                searchResult.<span class="me1">getResult</span><span class="br0">(</span><span
+                                        class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> FlexibleSearchService
+                                getFlexibleSearchService<span class="br0">(</span><span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">return</span>
+                                flexibleSearchService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="kw1">public</span> <span
+                                    class="kw4">void</span> setFlexibleSearchService<span class="br0">(</span><span
+                                    class="kw1">final</span> FlexibleSearchService flexibleSearchService<span
+                                    class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">{</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">this</span>.<span
+                                    class="me1">flexibleSearchService</span> <span class="sy0">=</span>
+                                flexibleSearchService<span class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="br0">}</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp;</div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="br0">}</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">package org.training.core.dao.impl;
+
+import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.training.core.dao.CustomProductsDAO;
+
+
+public class CustomProductsDAOImpl implements CustomProductsDAO
+{
+
+	private FlexibleSearchService flexibleSearchService;
+
+	@Override
+	public List&lt;ProductModel&gt; findAllProductsOlderThanSpecifiedDays(final Date oldDate)
+	{
+		final StringBuilder query = new StringBuilder("SELECT {pk} FROM {Product} WHERE {creationtime}&lt;=?oldDate");
+	final Map&lt;String, Object&gt; params = new HashMap&lt;String, Object&gt;();
+		params.put("oldDate", oldDate);
+
+		final FlexibleSearchQuery searchQuery = new FlexibleSearchQuery(query.toString());
+		searchQuery.addQueryParameters(params);
+		searchQuery.setResultClassList(Collections.singletonList(ProductModel.class));
+		final SearchResult searchResult = getFlexibleSearchService().search(searchQuery);
+		return searchResult.getResult();
+	}
+
+	
+	public FlexibleSearchService getFlexibleSearchService()
+	{
+		return flexibleSearchService;
+	}
+
+	
+	public void setFlexibleSearchService(final FlexibleSearchService flexibleSearchService)
+	{
+		this.flexibleSearchService = flexibleSearchService;
+	}
+
+}</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Step 3</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p>Define the above classes as <strong>spring beans</strong> in the <strong>*-spring.xml</strong> file as
+            below<br>
+            hybris\bin\custom\training\trainingcore\resources\trainingcore-spring.xml</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">&lt;</span>bean id<span class="sy0">=</span><span
+                                    class="st0">"customProductsDao"</span> <span class="kw1">class</span><span
+                                    class="sy0">=</span><span class="st0">"org.training.core.dao.impl.CustomProductsDAOImpl"</span><span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"flexibleSearchService"</span>
+                                ref<span class="sy0">=</span><span class="st0">"flexibleSearchService"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="sy0">&lt;/</span>bean<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; <span class="sy0">&lt;</span>bean id<span
+                                    class="sy0">=</span><span class="st0">"productsRemovalJob"</span> <span
+                                    class="kw1">class</span><span class="sy0">=</span><span class="st0">"org.training.core.jobs.ProductsRemovalJob"</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; parent<span class="sy0">=</span><span
+                                    class="st0">"abstractJobPerformable"</span><span class="sy0">&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"customProductsDao"</span> ref<span
+                                        class="sy0">=</span><span class="st0">"customProductsDao"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"modelService"</span> ref<span
+                                        class="sy0">=</span><span class="st0">"modelService"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"indexerService"</span> ref<span
+                                        class="sy0">=</span><span class="st0">"indexerService"</span> <span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"facetSearchConfigService"</span>
+                                ref<span class="sy0">=</span><span class="st0">"facetSearchConfigService"</span>
+                                <span class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">&nbsp; &nbsp; &nbsp; &nbsp; <span class="sy0">&lt;</span>property
+                                name<span class="sy0">=</span><span class="st0">"baseSiteService"</span> ref<span
+                                        class="sy0">=</span><span class="st0">"baseSiteService"</span><span
+                                        class="sy0">/&gt;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp; &nbsp; <span class="sy0">&lt;/</span>bean<span
+                                    class="sy0">&gt;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">&lt;bean id="customProductsDao" class="org.training.core.dao.impl.CustomProductsDAOImpl"&gt;
+		&lt;property name="flexibleSearchService" ref="flexibleSearchService"/&gt;
+	&lt;/bean&gt;
+	
+	&lt;bean id="productsRemovalJob" class="org.training.core.jobs.ProductsRemovalJob"
+		parent="abstractJobPerformable"&gt;
+		&lt;property name="customProductsDao" ref="customProductsDao" /&gt;
+		&lt;property name="modelService" ref="modelService" /&gt;
+		&lt;property name="indexerService" ref="indexerService" /&gt;
+		&lt;property name="facetSearchConfigService" ref="facetSearchConfigService" /&gt;
+		&lt;property name="baseSiteService" ref="baseSiteService"/&gt;
+	&lt;/bean&gt;</pre>
+            </div>
+        </div>
+
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Step 4</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p><strong>Write an impex to create a cron job instance as below</strong><br>
+            hybris\bin\custom\training\trainingcore\resources\impex\essentialdataJobs.impex</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">$siteUid<span class="sy0">=</span>apparel<span class="sy0">-</span>uk
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">INSERT_UPDATE ProductsRemovalCronJob<span class="sy0">;</span>
+                                code<span class="br0">[</span>unique<span class="sy0">=</span><span
+                                        class="kw2">true</span><span class="br0">]</span><span
+                                        class="sy0">;</span>job<span
+                                        class="br0">(</span>code<span class="br0">)</span><span class="sy0">;</span>xDaysOld<span
+                                        class="sy0">;</span>sessionLanguage<span class="br0">(</span>isocode<span
+                                        class="br0">)</span><span class="sy0">;</span>sessionCurrency<span
+                                        class="br0">(</span>isocode<span class="br0">)</span><span
+                                        class="sy0">;</span>sites<span class="br0">(</span>uid<span
+                                        class="br0">)</span><span class="br0">[</span><span
+                                        class="kw1">default</span><span class="sy0">=</span>$siteUid<span
+                                        class="br0">]</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">;</span>productsRemovalCronJob<span
+                                    class="sy0">;</span>productsRemovalJob<span class="sy0">;</span><span
+                                    class="nu0">5</span><span class="sy0">;</span>en<span class="sy0">;</span>EUR
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">$siteUid=apparel-uk
+INSERT_UPDATE ProductsRemovalCronJob; code[unique=true];job(code);xDaysOld;sessionLanguage(isocode);sessionCurrency(isocode);sites(uid)[default=$siteUid]
+;productsRemovalCronJob;productsRemovalJob;5;en;EUR</pre>
+            </div>
+        </div>
+
+        <p>We are specifying old days as <strong>5</strong> so that <strong>5 days older products</strong> will be
+            considered.</p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Step 5</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p><strong>Write an impex into the same file to create a Trigger instance as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE Trigger<span class="sy0">;</span>cronjob<span
+                                    class="br0">(</span>code<span class="br0">)</span><span
+                                    class="br0">[</span>unique<span
+                                    class="sy0">=</span><span class="kw2">true</span><span class="br0">]</span><span
+                                    class="sy0">;</span>active<span class="sy0">;</span>cronExpression
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">#Fires at <span class="nu0">10</span><span class="sy0">:</span><span
+                                    class="nu0">15</span> AM everyday
+                            </div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="sy0">;</span>productsRemovalCronJob<span
+                                    class="sy0">;</span><span class="kw2">true</span><span class="sy0">;</span><span
+                                    class="nu0">0</span> <span class="nu0">15</span> <span class="nu0">10</span>
+                                <span class="sy0">*</span> <span class="sy0">*</span> <span class="sy0">?</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">INSERT_UPDATE Trigger;cronjob(code)[unique=true];active;cronExpression
+#Fires at 10:15 AM everyday
+;productsRemovalCronJob;true;0 15 10 * * ?</pre>
+            </div>
+        </div>
+
+        <p>Look at the relation between CronJob,Job and Trigger here.</p>
+        <p>While inserting <strong>ProductsRemovalCronJob </strong> Cron Job we are giving the <strong>reference of
+            Job</strong> which should be same as <strong>spring bean id</strong> of the Job.</p>
+        <p>While inserting <strong>Trigger</strong>, we are giving the <strong>reference of
+            ProductsRemovalCronJob</strong> which should be same as <strong>code</strong> defined while inserting
+            <strong>ProductsRemovalCronJob</strong></p>
+        <p>Also, we have used <strong>Cron Expression</strong> in the <strong>Trigger</strong> which schedules it to
+            run <strong>every day at 10:15 AM</strong></p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Step 6</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p>Do <strong>Update System</strong> by selecting the extension where we defined our job<br>
+            Now <strong>Cron Job</strong> will be executed at the scheduled time automatically.</p>
+        <p><strong>Note:</strong><br>
+            After Updating the system,we can run the below query to check the <strong>ServiceLayerJob</strong>
+            created for the Job that we defined as a spring bean</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">select <span class="sy0">*</span> from <span class="br0">{</span>servicelayerjob<span
+                                    class="br0">}</span> where <span class="br0">{</span>code<span
+                                    class="br0">}</span> <span class="sy0">=</span> <span class="st0">'productsRemovalJob'</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source">
+                <pre class="no-parse">select * from {servicelayerjob} where {code} = 'productsRemovalJob'</pre>
+            </div>
+        </div>
+
+        <p>We should be able to see the Job details if everything is fine.</p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>Step 7</strong></h3><strong>
+    </strong>
+        <p><strong></strong><br>
+            Check the Products in <strong>HMC</strong> whose price not defined, and they are <strong>X</strong> days
+            old before Job runs</p>
+        <p>Search the same products after the Job runs successfully</p>
+        <p>We should not be able to see those products now.</p>
+        <p>See below screenshot which shows products only those which have prices and all other products have been
+            deleted.</p>
+        <p><img src="http://javainsimpleway.com/wp-content/uploads/2016/08/Products_after_cron_job_removal.png"
+                alt="Products after cron job removal"></p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>How to Configure the CronJob manually ?</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p>We can configure and run the cron job through HMC whenever we want to do it manually.</p>
+        <p>Steps for the same are as below</p>
+        <p>1)Log in to HMC<br>
+            2)Go to System -&gt; CronJobs<br>
+            3)Type productsRemovalCronJob in Value Text Box for code then click on search<br>
+            4)open productsRemovalCronJob<br>
+            5) Go to Time Schedule tab -&gt;set time in (Trigger text box) then save it.</p>
+        <p>If we want to start it immediately then Click <strong>Start CronJob now</strong> then our job will
+            perform and display popup box with <strong>CronJob</strong> performed Result</p>
+        <p><strong><br>
+        </strong></p>
+        <h3><strong>How to execute the CronJob through Code rather than through Trigger ?</strong></h3><strong>
+    </strong>
+        <p><strong></strong></p>
+        <p>We can also execute the <strong>Cron Job</strong> through <strong>code</strong> rather than running it
+            through <strong>Triggers</strong> as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">ProductsRemovalCronJobModel &nbsp;productsRemovalCronJobModel <span
+                                    class="sy0">=</span>modelService.<span class="me1">create</span><span
+                                    class="br0">(</span>ProductsRemovalCronJobModel.<span
+                                    class="kw1">class</span><span class="br0">)</span><span class="sy0">;</span>
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">&nbsp;</div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1"><span class="co1">// assign Job to CronJob</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">ServicelayerJobModel &nbsp;servicelayerJobModel <span
+                                    class="sy0">=</span> modelService.<span class="me1">create</span><span
+                                    class="br0">(</span>ServicelayerJobModel.<span class="kw1">class</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">servicelayerJobModel.<span class="me1">setActive</span><span
+                                    class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">servicelayerJobModel.<span class="me1">setSpringId</span><span
+                                    class="br0">(</span><span class="st0">"productsRemovalJob"</span><span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">productsRemovalCronJobModel.<span class="me1">setJob</span><span
+                                    class="br0">(</span>servicelayerJobModel<span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">modelService.<span class="me1">save</span><span class="br0">(</span>productsRemovalCronJobModel<span
+                                    class="br0">)</span><span class="sy0">;</span></div>
+                        </li>
+                        <li class="li1">
+                            <div class="de1">cronJobService.<span class="me1">performCronJob</span><span
+                                    class="br0">(</span>productsRemovalCronJobModel<span class="br0">)</span><span
+                                    class="sy0">;</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">ProductsRemovalCronJobModel  productsRemovalCronJobModel =modelService.create(ProductsRemovalCronJobModel.class);
+
+// assign Job to CronJob
+ServicelayerJobModel  servicelayerJobModel = modelService.create(ServicelayerJobModel.class);
+servicelayerJobModel.setActive(true);
+servicelayerJobModel.setSpringId("productsRemovalJob");
+productsRemovalCronJobModel.setJob(servicelayerJobModel);
+modelService.save(productsRemovalCronJobModel);
+cronJobService.performCronJob(productsRemovalCronJobModel);</pre>
+            </div>
+        </div>
+
+        <p>In the above code, we have written a code to call the Cron job through <strong>CronJobService’s
+            performCronJob()</strong> method</p>
+    </div>
+
+</section>
+
+<section class="post-detail-page">
+    <h1 class="post-title">Cron Jobs Subsidiary Information</h1>
+
+    <p><strong><br>
+    </strong></p>
+    <h3><strong>How Trigger gets Triggered ?</strong></h3><strong>
+</strong>
+    <p><strong></strong><br>
+        The execution of a <strong>CronJob</strong> is taken care by the <strong>Trigger</strong> as per the
+        scheduling we define in that <strong>Trigger</strong> using <strong>Cron Expression</strong>.</p>
+    <p>So Who will be responsible for <strong>invoking</strong> the <strong>Trigger</strong> ?</p>
+    <p>Who evaluates the <strong>Cron expression</strong> ?</p>
+    <p><strong>TaskEngine:</strong> For every trigger there is always one Task item gets created in Hybris.</p>
+    <p><strong>TaskEngine</strong> will keep on polling the <strong>Tasks</strong> for every <strong>X</strong>
+        seconds which we configure in the <strong>local.properties</strong> file as below</p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1">cronjob.<span class="me1">trigger</span>.<span
+                                class="me1">interval</span><span class="sy0">=</span><span class="nu0">30</span>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source">
+            <pre class="no-parse">cronjob.trigger.interval=30</pre>
+        </div>
+    </div>
+
+    <p>By default the timer is set to <strong>30</strong> seconds, so if we want to change this value we can
+        define it with new value in the <strong>local.properties</strong> file as mentioned above.</p>
+    <p>Here <strong>X</strong> is <strong>30</strong> seconds, so for every <strong>30</strong> seconds <strong>Timer
+        task</strong> fires a <strong>DB query</strong> to check for any <strong>triggers</strong> to be fired ,
+        if any <strong>triggers</strong> matches the current time or its overdue then <strong>Trigger</strong>
+        is fired immediately.</p>
+    <p>Since <strong>Timer Task</strong> polls a <strong>DB</strong> every <strong>X</strong> seconds as we
+        specify in the <strong>local.properties</strong> file, we should <strong>not give</strong> its value
+        <strong>too less</strong> unless and until its very much essential otherwise <strong>more DB
+            calls</strong> will be made unnecessarily.</p>
+    <p>So this <strong>Task</strong> polled by <strong>TaskEngine</strong> will check the <strong>cron
+        expression</strong> whether it matches or exceeded the current time, if so it will immediately execute
+        the Cron job.</p>
+    <p><strong><br>
+    </strong></p>
+    <h3><strong>Aborting a cron job</strong></h3><strong>
+</strong>
+    <p><strong></strong></p>
+    <p><strong>How to abort or terminate a running cron job ?</strong></p>
+    <p>Assume that our <strong>cron job</strong> has been running from the past one hour, now I want to
+        <strong>abort</strong>
+        it, then we can do that in Hyrbis</p>
+    <p><strong>Job is abortable only if it satisfies one of the below conditions</strong></p>
+    <p><strong>1) isAbortable()</strong> method in cronjob performable class should be
+        <strong>overridden</strong> to return <strong>true</strong></p>
+    <p><strong>2)</strong> Define a new property in the <strong>*-spring.xml</strong> file where we defined our
+        Job’s bean definition</p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1"><span class="sy0">&lt;</span>property name<span
+                                class="sy0">=</span><span class="st0">"abortable"</span> value<span
+                                class="sy0">=</span><span
+                                class="st0">"true"</span><span class="sy0">/&gt;</span></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source">
+            <pre class="no-parse">&lt;property name="abortable" value="true"/&gt;</pre>
+        </div>
+    </div>
+
+    <p>Now <strong>Job</strong> is <strong>abortable</strong> and can be done using below code</p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1">cronJobService.<span class="me1">requestAbortCronJob</span><span
+                                class="br0">(</span>running_cronjob_code<span class="br0">)</span><span
+                                class="sy0">;</span></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source">
+            <pre class="no-parse">cronJobService.requestAbortCronJob(running_cronjob_code);</pre>
+        </div>
+    </div>
+
+    <p>After aborting the cron job,the cron job results should be with <strong>result as ERROR</strong> and
+        <strong>status as ABORTED</strong><strong><br>
+        </strong></p>
+    <h3><strong>Setting session related attributes to the cron job</strong></h3><strong>
+</strong>
+    <p><strong></strong><br>
+        Some time we write a cron job whose logic requires some <strong>session attributes</strong> like
+        <strong>user</strong>,<strong>sessionLanguage</strong> and <strong>sessionCurrency</strong> etc.</p>
+    <p>So how do we set these attributes to the cron job so that we can access them while writing the logic of
+        the cron job ?</p>
+    <p><strong>It can be done in any one of the 2 ways listed below</strong></p>
+    <p><strong>1)</strong> Set the session attributes through <strong>impex</strong></p>
+    <p><strong>2)</strong> Set the session attributes through <strong>code</strong></p>
+    <p><strong>lets see the code for the same</strong></p>
+    <p><strong>1)</strong> Session attributes through <strong>impex</strong></p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1">INSERT_UPDATE CronJob<span class="sy0">;</span>code<span
+                                class="br0">[</span>unique<span class="sy0">=</span><span
+                                class="kw2">true</span><span class="br0">]</span><span
+                                class="sy0">;</span>job<span class="br0">(</span>code<span
+                                class="br0">)</span><span class="sy0">;</span>sessionUser<span
+                                class="br0">(</span>uid<span class="br0">)</span><span class="sy0">;</span>sessionLanguage<span
+                                class="br0">(</span>isocode<span class="br0">)</span><span class="sy0">;</span>sessionCurrency<span
+                                class="br0">(</span>isocode<span class="br0">)</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1"><span class="sy0">;</span>myCronJob<span class="sy0">;</span>myJob<span
+                                class="sy0">;</span>user1<span class="sy0">;</span>en<span class="sy0">;</span>EUR
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source"><pre class="no-parse">INSERT_UPDATE CronJob;code[unique=true];job(code);sessionUser(uid);sessionLanguage(isocode);sessionCurrency(isocode)
+
+;myCronJob;myJob;user1;en;EUR</pre>
+        </div>
+    </div>
+
+    <p>Here when we define the <strong>instance of Cron Job</strong> , we also specify the session attributes
+        like <strong>user</strong>,<strong>currency</strong> and <strong>language</strong></p>
+    <p>Above session values can be used while writing the logic inside <strong>Perform()</strong> method of
+        <strong>Job</strong></p>
+    <p><strong>2)</strong> Session attributes through <strong>Code</strong></p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1">CronJobModel myCronJob<span class="sy0">=</span>modelService.<span
+                                class="me1">create</span><span class="br0">(</span>CronJobModel.<span
+                                class="kw1">class</span><span class="br0">)</span><span class="sy0">;</span>
+                        </div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1"><span class="co1">// set JobModel to CronJobModel</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">myCronJob.<span class="me1">setSessionUser</span><span
+                                class="br0">(</span>mySessionUserModel<span class="br0">)</span><span
+                                class="sy0">;</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">myCronJob.<span class="me1">setSessionLanguage</span><span
+                                class="br0">(</span>mySessionLanguage<span
+                                class="br0">)</span><span class="sy0">;</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">myCronJob.<span class="me1">setSessionCurrency</span><span
+                                class="br0">(</span>mySessionCurrency<span
+                                class="br0">)</span><span class="sy0">;</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">modelService.<span class="me1">save</span><span
+                                class="br0">(</span>myCronjob<span
+                                class="br0">)</span><span class="sy0">;</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">cronJobService.<span class="me1">performCronJob</span><span
+                                class="br0">(</span>myCronJob<span class="br0">)</span><span
+                                class="sy0">;</span></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source"><pre class="no-parse">CronJobModel myCronJob=modelService.create(CronJobModel.class);
+
+// set JobModel to CronJobModel
+
+myCronJob.setSessionUser(mySessionUserModel);
+
+myCronJob.setSessionLanguage(mySessionLanguage);
+
+myCronJob.setSessionCurrency(mySessionCurrency); 
+
+modelService.save(myCronjob);
+
+cronJobService.performCronJob(myCronJob);</pre>
+        </div>
+    </div>
+
+    <p>Here we have created the <strong>instance of CronJobModel</strong> and set all the <strong>session
+        attributes</strong> then saved the Cron job model to <strong>DB</strong>.</p>
+    <p>Then we are calling <strong>performCronJob()</strong> method by passing the Cron job code.</p>
+    <p><strong><br>
+    </strong></p>
+    <h3><strong>Cron Jobs in Clustered system</strong></h3><strong>
+</strong>
+    <p><strong></strong></p>
+    <p><strong>How cron jobs run in a clustered hybris suite, will it run in all the nodes or only on single
+        node ?</strong></p>
+    <p>Remember Cron jobs always executes on a <strong>single node</strong> only.</p>
+    <p>we can specify the <strong>Node Identifier</strong> for the cron job to indicate on which Node it has to
+        run using the below code</p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1">CronJobModel myCronJob<span class="sy0">=</span>modelService.<span
+                                class="me1">create</span><span class="br0">(</span>CronJobModel.<span
+                                class="kw1">class</span><span class="br0">)</span><span class="sy0">;</span>
+                        </div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1"><span class="co1">// set JobModel to CronJobModel</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1"><span class="co1">//set session attributes if required</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">&nbsp;myCronJob.<span class="me1">setNodeID</span><span
+                                class="br0">(</span><span class="nu0">3</span><span class="br0">)</span><span
+                                class="sy0">;</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">modelService.<span class="me1">save</span><span
+                                class="br0">(</span>myCronjob<span
+                                class="br0">)</span><span class="sy0">;</span></div>
+                    </li>
+                    <li class="li2">
+                        <div class="de2">&nbsp;</div>
+                    </li>
+                    <li class="li1">
+                        <div class="de1">cronJobService.<span class="me1">performCronJob</span><span
+                                class="br0">(</span>myCronJob<span class="br0">)</span><span
+                                class="sy0">;</span></div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source"><pre class="no-parse">CronJobModel myCronJob=modelService.create(CronJobModel.class);
+
+// set JobModel to CronJobModel
+
+//set session attributes if required
+
+ myCronJob.setNodeID(3);
+
+modelService.save(myCronjob);
+
+cronJobService.performCronJob(myCronJob);</pre>
+        </div>
+    </div>
+
+    <p>Now above cron job runs only in the <strong>Node 3</strong> of the clustered environment.</p>
+    <p>If we <strong>don’t set</strong> any <strong>NodeId</strong> for the Cron Job then Cron job can be
+        executed by <strong>any Node</strong> within the cluster but <strong>only one Node at a time</strong>.
+    </p>
+    <p><strong><br>
+    </strong></p>
+    <h3><strong>Running Cron Job through Ant</strong></h3><strong>
+</strong>
+    <p><strong></strong></p>
+    <p><strong>We can also run the cron job using Ant command as below<br>
+    </strong></p>
+
+    <div class="bwp-syntax-block clearfix">
+        <div class="bwp-syntax-toolbar" style="display: none;">
+            <div class="bwp-syntax-control"><a href="javascript:" class="bwp-syntax-source-switch"
+                                               title="View Source Code">Copy this code</a></div>
+        </div>
+        <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+            <div class="java">
+                <ol>
+                    <li class="li1">
+                        <div class="de1">ant runcronjob <span class="sy0">-</span>Dcronjob<span
+                                class="sy0">=</span>myCronJob <span class="sy0">-</span>Dtenant<span
+                                class="sy0">=</span>master
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="bwp-syntax-source">
+            <pre class="no-parse">ant runcronjob -Dcronjob=myCronJob -Dtenant=master</pre>
+        </div>
+    </div>
+
+    <p>Above command runs the cron job called <strong>myCronJob</strong> in a master tenant</p>
+    <p><strong><br>
+    </strong></p>
+    <h3><strong>Cron Job execution during the Server startup</strong></h3><strong>
+</strong>
+    <p><strong></strong><br>
+        Whenever we start the Hybris server, <strong>each trigger</strong> will be <strong>evaluated</strong>
+        first , if the trigger evaluated time is <strong>overdue</strong> or <strong>matches</strong> the
+        <strong>current time</strong> then <strong>Trigger</strong> will be <strong>fired</strong> which means
+        Cron jobs will be executed immediately.</p>
+    <p><strong>How much overdue time we can allow for the triggers to get fired during the server startup
+        ?</strong><br>
+        This can be done by setting <strong>maxAcceptableDelay</strong> attribute to the
+        <strong>Trigger</strong>.<br>
+        This attribute should have the <strong>value</strong> in <strong>seconds</strong></p>
+    <p>If its value is set as <strong>300</strong>, then <strong>delay</strong> of <strong>5 minutes</strong> is
+        allowed for the <strong>overdue triggers</strong> to be fired at the server startup.</p>
+    <p>So if the <strong>trigger</strong> defines the <strong>cron expression</strong> to run the job at
+        <strong>5 PM</strong> , server started at <strong>5:05 PM</strong> then above <strong>trigger</strong>
+        will be <strong>fired</strong>(as <strong>5</strong> minutes of delay is accepted).</p>
+    <p>If the server started at <strong>5:06 PM</strong> then trigger will <strong>not be fired</strong> as it
+        does not allow the delay of <strong>more than 5 minutes</strong>.</p>
+</section>
+
+<section class="post-detail-page">
+    <div class="post-content-header">
+        <h1 class="post-title">Dynamic Cron Job / Cron job scripting</h1>
+    </div>
+    <div class="post-content-body">
+        <p>If you need basic idea of Cron job, Please go through below link<br>
+            <strong class="verdana-pink-class"><u><a href="http://javainsimpleway.com/cron-jobs-overview/">Cron job
+                overview</a></u></strong></p>
+        <p>We all know that creating cron job is time-consuming as it involves multiple steps</p>
+        <p><strong class="georgia-orange-class">Example :</strong> We need to create java class, define spring
+            bean,build and restart server etc.</p>
+        <p>But through <strong class="georgia-lime-class">dynamic scripting</strong>, Cron jobs can be created with
+            very minimal steps and more importantly we don’t need to build and restart server.</p>
+        <p>Yes It allows the creation of cronjobs dynamically at run time.</p>
+        <p><strong class="verdana-class">Before jumping on how it can be achieved, lets understand below
+            jargons </strong></p>
+        <p><strong class="georgia-orange-class">Script : </strong>It is an item type(corresponding table) called
+            Script created by Hybris to store the <strong class="georgia-lime-class">script content</strong><br>
+            Script content can be written in any of the supported dynamic languages like <strong class="pink-class">“Groovy”</strong>
+        </p>
+        <p><strong class="georgia-orange-class">Scripting Job :</strong> It is also an item type called ScriptingJob
+            created by Hybris to store <strong class="georgia-lime-class">new Service layer Job item</strong>,<br>
+            This contains the reference to defined Script using <strong class="pink-class">ScriptURI</strong></p>
+        <p><strong class="georgia-orange-class">ScriptingJobPerformable :</strong> This is the actual Java class
+            created by Hybris which contains the Perform method<br>
+            This java class is responsible for executing <strong class="georgia-lime-class">scripted cronjob
+                logic</strong></p>
+        <p>Whenever the cronjob is triggered,The execution will be delegated to the <strong
+                class="verdana-pink-class">ScriptingJobPerfomable</strong> class.<br>
+            <strong class="verdana-class"><br>
+            </strong></p><h5><strong class="verdana-class">Lets see how we define Dynamic Scripting Jobs</strong>
+    </h5><strong class="verdana-class">
+    </strong>
+        <p><strong class="verdana-class"></strong></p>
+        <h6><strong class="verdana-class">Step 1</strong></h6>
+        <p><strong class="verdana-class">Define the Script as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE Script<span class="sy0">;</span> code<span
+                                    class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span class="sy0">;</span>content
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">;</span>myFirstDynamicScript<span
+                                    class="sy0">;</span>println <span
+                                    class="st0">'Welcome to Dynamic Scripting Job! '</span><span
+                                    class="sy0">+</span> <span class="kw1">new</span> <span
+                                    class="kw3">Date</span><span class="br0">(</span><span class="br0">)</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">INSERT_UPDATE Script; code[unique=true];content
+;myFirstDynamicScript;println 'Welcome to Dynamic Scripting Job! '+ new Date()</pre>
+            </div>
+        </div>
+
+        <p><strong class="verdana-pink-class">code:</strong> Represents the unique code within that type</p>
+        <p><strong class="verdana-pink-class">Content :</strong> Content above is a <strong
+                class="georgia-lime-class">groovy script</strong> to just print Welcome message with Today’s
+            date<br>
+            This can be a complex logic based on the requirement<br>
+            <strong class="verdana-class">Example :</strong> Deletion of few rows in some table.<br>
+            <strong class="georgia-class"><em>Run the above impex in HAC, this will store the script in
+                DB</em></strong></p>
+        <h6><strong class="verdana-class">Step 2</strong></h6>
+        <p><strong class="verdana-class">Define the Scripting Job as below</strong></p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE ScriptingJob<span class="sy0">;</span> code<span
+                                    class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span class="sy0">;</span>scriptURI
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">;</span>myFirstDynamicScriptJob<span
+                                    class="sy0">;</span>model<span class="sy0">:</span><span class="co1">//myFirstDynamicScript</span>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">INSERT_UPDATE ScriptingJob; code[unique=true];scriptURI
+;myFirstDynamicScriptJob;model://myFirstDynamicScript</pre>
+            </div>
+        </div>
+
+        <p><strong class="verdana-pink-class">code :</strong> Represents the unique code within that type<br>
+            <strong class="verdana-pink-class">scriptURI :</strong> This will point to the location of Script<br>
+            In our case, we stored Script in DB, we refer it using <strong class="georgia-lime-class"><em>model://referenceToScript</em></strong>
+        </p>
+        <p><strong class="georgia-class"><em>Run the above impex in HAC, this will store the Scripting Job along
+            with reference to Script in DB</em></strong></p>
+        <h6><strong class="verdana-class">Step 3</strong></h6>
+        <p><strong class="verdana-class">Define the Cronjob</strong><br>
+            This step is similar to traditional way of defining cron job</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE CronJob<span class="sy0">;</span> code<span
+                                    class="br0">[</span>unique<span class="sy0">=</span><span
+                                    class="kw2">true</span><span class="br0">]</span><span
+                                    class="sy0">;</span>job<span class="br0">(</span>code<span
+                                    class="br0">)</span><span class="sy0">;</span>singleExecutable<span
+                                    class="sy0">;</span>sessionLanguage<span
+                                    class="br0">(</span>isocode<span class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">;</span>myFirstDynamicScriptCronJob<span
+                                    class="sy0">;</span>myFirstDynamicScriptJob<span
+                                    class="sy0">;</span><span class="kw2">true</span><span class="sy0">;</span>en
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">INSERT_UPDATE CronJob; code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
+;myFirstDynamicScriptCronJob;myFirstDynamicScriptJob;true;en</pre>
+            </div>
+        </div>
+
+        <p><strong class="verdana-pink-class">code:</strong> Represents the unique code within that type<br>
+            <strong class="verdana-pink-class">job(code) :</strong> Holds the reference to the above defined job(in
+            Step 2)</p>
+        <h6><strong class="verdana-class">Step 4</strong></h6>
+        <p><strong class="verdana-class">Executing the CronJob</strong></p>
+        <p>We will define <strong class="georgia-lime-class">Groovy script to execute</strong> the cron job as below
+        </p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">def dynamicCJ <span class="sy0">=</span> cronJobService.<span
+                                    class="me1">getCronJob</span><span class="br0">(</span><span class="st0">"myFirstDynamicScriptCronJob"</span><span
+                                    class="br0">)</span></div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2">cronJobService.<span class="me1">performCronJob</span><span
+                                    class="br0">(</span>dynamicCJ,<span class="kw2">true</span><span
+                                    class="br0">)</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">def dynamicCJ = cronJobService.getCronJob("myFirstDynamicScriptCronJob")
+cronJobService.performCronJob(dynamicCJ,true)</pre>
+            </div>
+        </div>
+
+        <p>Go to the scripting languages console in HAC,select Groovy as scripting language, <strong
+                class="georgia-class"><em>Run the above script in Commit mode</em></strong></p>
+        <h6><strong class="verdana-class">Step 5</strong></h6>
+        <p>If you want to schedule the cron job instead of running it at directly,then we can <strong
+                class="verdana-class">avoid Step 4</strong> and can be scheduled using Trigger as below</p>
+
+        <div class="bwp-syntax-block clearfix">
+            <div class="bwp-syntax-wrapper clearfix bwp-syntax-advanced">
+                <div class="java">
+                    <ol>
+                        <li class="li1">
+                            <div class="de1">INSERT_UPDATE Trigger<span class="sy0">;</span>cronjob<span
+                                    class="br0">(</span>code<span class="br0">)</span><span
+                                    class="br0">[</span>unique<span
+                                    class="sy0">=</span><span class="kw2">true</span><span class="br0">]</span><span
+                                    class="sy0">;</span>cronExpression
+                            </div>
+                        </li>
+                        <li class="li2">
+                            <div class="de2"><span class="sy0">;</span>myFirstDynamicScriptCronJob<span
+                                    class="sy0">;</span>
+                                <span class="nu0">0</span> <span class="nu0">0</span> <span class="sy0">*</span>
+                                <span class="sy0">?</span> <span class="sy0">*</span> <span class="sy0">*</span>
+                                <span class="sy0">*</span></div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="bwp-syntax-source"><pre class="no-parse">INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
+;myFirstDynamicScriptCronJob; 0 0 * ? * * *</pre>
+            </div>
+        </div>
+
+        <p>Now above trigger defines the <strong class="georgia-class"><em>schedule to run the cron
+            job</em></strong> for every one hour</p>
+        <p><strong class="georgia-class">Output of the defined scron job is very simple, it just prints Welcome
+            message with Current date</strong></p>
+        <p><strong class="verdana-pink-class">Note :</strong> It is possible to define much complex logic instead of
+            just Welcome message in the real time requirements.</p>
+        <h6><strong class="verdana-pink-class">Limitation:</strong></h6>
+        <p>One of the main limitations of this approach is that, since script content is stored as column value in
+            DB,we can not store large chunk of content due to column length limit in DB</p>
+    </div>
+</section>
+</body>
+</html>

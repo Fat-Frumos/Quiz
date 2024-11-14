@@ -1,0 +1,490 @@
+<article id="post-1"
+         class="post-1 post type-post status-publish format-standard has-post-thumbnail category-hybris tag-cronjob tag-hybris tag-java tag-job tag-trigger clearfix article">
+    <div class="article__content  e-content">
+        <h2 class="article__title  p-name">Everything about CronJobs in Hybris (Part 1)</h2>
+        <p>A&nbsp;<strong>Cronjob</strong> (Cron job) in Hybris is a task&nbsp;that is executed manually by a user
+            (Administrator) or started automatically via a <strong>Trigger</strong>, it runs in the background as a
+            single Thread.</p>
+        <p>Typically&nbsp;<strong>Cronjobs</strong> are used for long and periodic processes, for example, Catalog
+            Synchronization, Data Indexation, Carts Cleaning, Backups…</p>
+        <blockquote><p>In this rrticle, I will show you how to create and to use Cronjobs, Jobs and Triggers, and what
+            the difference between them.</p></blockquote>
+        <h1>1. Concept overview</h1>
+        <p>There are 3 different components that interact with one another : Cronjob, Job and Trigger <em>(we will see
+            each component in detail).</em></p>
+        <p><img data-attachment-id="111"
+                data-permalink="https://www.stackextend.com/hybris/everything-about-cronjobs-in-hybris-part-1/attachment/concept-of-cronjob-in-hybris/"
+                data-orig-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?fit=847%2C497&amp;ssl=1"
+                data-orig-size="847,497" data-comments-opened="1"
+                data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                data-image-title="concept of cronjob in hybris" data-image-description="" data-image-caption=""
+                data-medium-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?fit=300%2C176&amp;ssl=1"
+                data-large-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?fit=847%2C497&amp;ssl=1"
+                decoding="async" class="aligncenter wp-image-111 size-full"
+                src="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?resize=847%2C497"
+                alt="concept of cronjob in hybris" width="795" height="466"
+                srcset="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?w=847&amp;ssl=1 847w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?resize=300%2C176&amp;ssl=1 300w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/concept-of-cronjob-in-hybris.png?resize=768%2C451&amp;ssl=1 768w"
+                sizes="(max-width: 847px) 100vw, 847px"></p>
+        <p>&nbsp;</p>
+        <h2>1.1. Trigger</h2>
+        <p>Let’s start with the&nbsp;<strong>Trigger</strong> because it is the easiest one to explain and to use 🙂</p>
+        <p>Trigger is used to schedule when the Job should be executed using&nbsp;<a
+                href="https://docs.oracle.com/cd/E12058_01/doc/doc.1014/e12030/cron_expressions.htm" target="_blank"
+                rel="noopener">Cron expressions</a>.</p>
+        <p>Don’t worry if you can’t figure out the morning of the Cron experiences symbols, personally I use <a
+                href="http://www.cronmaker.com/" target="_blank" rel="noopener">CronMaker</a> to generate Cron
+            expressions for my Triggers,&nbsp;it will make your life easier&nbsp;<em>(go and play with it)</em>.</p>
+        <p>This is an example of some Cron expressions:</p>
+        <table style="height: 122px; width: 747px;">
+            <tbody>
+            <tr>
+                <td style="width: 222px; text-align: left;"><strong>Cron expression</strong></td>
+                <td style="width: 521px; text-align: left;"><strong>Explanation</strong></td>
+            </tr>
+            <tr>
+                <td style="width: 222px; text-align: left;">0 0/10 * 1/1 * ? *</td>
+                <td style="width: 521px; text-align: left;">Job will be executed every 10 Minutes.</td>
+            </tr>
+            <tr>
+                <td style="width: 222px; text-align: left;">0 0 12 ? * MON *</td>
+                <td style="width: 521px; text-align: left;">Job will be executed every Monday at 12:00.</td>
+            </tr>
+            </tbody>
+        </table>
+        <h2>1.2. Job</h2>
+        <p>The Job is the most important part here, it’s the one who holds the logic to be done (<em>synchronization,
+            indexation, cleaning,…</em>).</p>
+        <blockquote><p>So how to create a Job ?</p></blockquote>
+        <p>The Job consists of 2 parts a&nbsp;<strong>Model</strong> and a&nbsp;<strong>Jalo:</strong></p>
+        <ul>
+            <li><strong>Model</strong> is the identity of the Job for Hybris</li>
+            <li><strong>Jalo</strong> is&nbsp;a Java class where we will write the business logic to be executed.</li>
+        </ul>
+        <p>Let’s write a <em>Hello World</em> Job as an example:</p>
+        <p>First create a <code>HelloWorldJobModel </code>extends from <code>JobModel</code><strong>.</strong></p>
+        <pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span
+                class="token tag"><span class="token tag"><span
+                class="token punctuation">&lt;</span>itemtype</span> <span class="token attr-name">code</span><span
+                class="token attr-value"><span class="token punctuation">=</span><span
+                class="token punctuation">"</span>HelloWorldCustomerJob<span
+                class="token punctuation">"</span></span> <span class="token attr-name">extends</span><span
+                class="token attr-value"><span class="token punctuation">=</span><span
+                class="token punctuation">"</span>Job<span class="token punctuation">"</span></span>
+	<span class="token attr-name">autocreate</span><span class="token attr-value"><span
+                    class="token punctuation">=</span><span class="token punctuation">"</span>true<span
+                    class="token punctuation">"</span></span> <span class="token attr-name">generate</span><span
+                    class="token attr-value"><span class="token punctuation">=</span><span
+                    class="token punctuation">"</span>true<span class="token punctuation">"</span></span>
+	<span class="token attr-name">jaloclass</span><span class="token attr-value"><span
+                    class="token punctuation">=</span><span class="token punctuation">"</span>com.stackextend.training.core.jalo.HelloWorldCustomerJob<span
+                    class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>attributes</span><span
+            class="token punctuation">&gt;</span></span>
+		<span class="token comment" spellcheck="true">&lt;!-- no attribute needed --&gt;</span>
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>attributes</span><span
+            class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>itemtype</span><span
+        class="token punctuation">&gt;</span></span><span
+                    class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <p>Then in the&nbsp;<code>HelloWorldCustomerJob </code>(Jalo) that extends from <code>Job </code>(Jalo)
+            implement the method <code>performCronJob(Cronjob)</code> and write the logic to be done on it.</p>
+        <pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span
+                class="token keyword">public</span> <span class="token keyword">class</span> <span
+                class="token class-name">HelloWorldCustomerJob</span> <span class="token keyword">extends</span> <span
+                class="token class-name">Job</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> HelloWorldCustomerJob <span class="token punctuation">(</span><span
+                    class="token punctuation">)</span> <span class="token punctuation">{</span><span
+                    class="token punctuation">}</span>
+
+	<span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">protected</span> CronJobResult <span class="token function">performCronJob</span><span
+                    class="token punctuation">(</span>CronJob cronJob<span class="token punctuation">)</span> <span
+                    class="token keyword">throws</span> AbortCronJobException <span class="token punctuation">{</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+                    class="token function">println</span><span class="token punctuation">(</span><span
+                    class="token string">"Hello World from Job!"</span><span class="token punctuation">)</span><span
+                    class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span
+                    class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <p>Congratulation! You have successfully created your very first Job 🙂</p>
+        <blockquote><p>Well, now it’s the time to tell you to forget everything I told about creating a Job 😛 because
+            this not how it’s should be done actually!</p></blockquote>
+        <p>Thanks to Hybris teams, we don’t need to go all over this to create a Job, they did all the dirty job for
+            us.</p>
+        <p>Actually we need just to create a simple Bean Spring that implements&nbsp;<code>JobPerformable </code>and put
+            the business logic on it, refer to the <a
+                    href="https://www.stackextend.com/hybris/everything-about-cronjobs-in-hybris-part-2/"
+                    target="_blank" rel="noopener">part 2</a> to see how to create a Job properly.</p>
+        <p><img data-attachment-id="140"
+                data-permalink="https://www.stackextend.com/hybris/everything-about-cronjobs-in-hybris-part-1/attachment/create-job-performable-and-servicelayer-job-in-hybris/"
+                data-orig-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?fit=958%2C580&amp;ssl=1"
+                data-orig-size="958,580" data-comments-opened="1"
+                data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                data-image-title="create job performable and servicelayer job in hybris" data-image-description=""
+                data-image-caption=""
+                data-medium-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?fit=300%2C182&amp;ssl=1"
+                data-large-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?fit=958%2C580&amp;ssl=1"
+                decoding="async" class="size-full wp-image-140 aligncenter"
+                src="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?resize=958%2C580"
+                alt="create job performable and servicelayer job in hybris" width="795" height="481"
+                srcset="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?w=958&amp;ssl=1 958w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?resize=300%2C182&amp;ssl=1 300w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/create-job-performable-and-servicelayer-job-in-hybris.png?resize=768%2C465&amp;ssl=1 768w"
+                sizes="(max-width: 958px) 100vw, 958px"></p>
+        <h2>1.3. CronJob</h2>
+        <p>For a <strong>Job</strong> to do the task properly it may need some inputs (configuration), the <strong>Cronjob</strong>
+            is the holder of this configuration, we can create as many configurations <em>(instances of <code>CronJobModel</code>)</em>&nbsp;we
+            want, each instance of the Cronjob will define a single run of the Job.</p>
+        <p>If we suppose that we have a Job called&nbsp;<strong><em>LogExtractorJob</em> </strong>that extracts the <em>Server
+            Logs</em> in a interval of time, the inputs to this Job would be<strong><em> start date</em></strong>
+            and<em><strong> end date </strong>(interval):</em></p>
+        <ul>
+            <li>We can create an instance of&nbsp;<strong><em>LogExtractorJob</em> </strong>with start date as
+                <strong>A</strong> and end date as <b>B</b>.
+            </li>
+            <li>And another instance with start date as <strong>X</strong> and end date as <strong>Y</strong>.</li>
+        </ul>
+        <blockquote><p>In the next section of this article we will have o concrete example on how to create a
+            CronJob.</p></blockquote>
+        <h1>2. Conclusion</h1>
+        <p><strong>Cronjobs</strong> (Cron Jobs)&nbsp;in Hybris is made to take care of the long and repetitive tasks
+            that should be executed in background manually or schedule in time.</p>
+        <ul>
+            <li><strong>Job</strong> : is the part hosting the logic to be done.</li>
+            <li><strong>Cronjob</strong> : it holds the information to be passed to the Job to perform properly.</li>
+            <li><strong>Trigger</strong> : is the component responsible for scheduling the task in time.</li>
+        </ul>
+</article>
+
+<article id="post-160"
+         class="post-160 post type-post status-publish format-standard has-post-thumbnail category-hybris tag-cronjob tag-hmc tag-hybris tag-impex tag-java tag-job tag-trigger clearfix article">
+    <div class="article__content  e-content">
+        <!-- Content -->
+        <h2 class="article__title  p-name">Everything about CronJobs in Hybris (Part 2)</h2>
+        <h1>1. CronJob</h1>
+        <p>Create a new item type extends <strong>CronJob</strong>, with name <code>HelloWorldCronJob </code>and
+            attribute <strong>firstName</strong>.</p>
+        <pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span
+                class="token tag"><span class="token tag"><span
+                class="token punctuation">&lt;</span>itemtype</span> <span class="token attr-name">code</span><span
+                class="token attr-value"><span class="token punctuation">=</span><span
+                class="token punctuation">"</span>HelloWorldCronJob<span class="token punctuation">"</span></span> <span
+                class="token attr-name">extends</span><span class="token attr-value"><span
+                class="token punctuation">=</span><span class="token punctuation">"</span>CronJob<span
+                class="token punctuation">"</span></span> <span class="token attr-name">jaloclass</span><span
+                class="token attr-value"><span class="token punctuation">=</span><span
+                class="token punctuation">"</span>com.stackextend.training.core.jalo.HelloWorldCronJob<span
+                class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>attributes</span><span
+            class="token punctuation">&gt;</span></span>
+
+		<span class="token tag"><span class="token tag"><span
+                class="token punctuation">&lt;</span>attribute</span> <span
+                class="token attr-name">qualifier</span><span class="token attr-value"><span
+                class="token punctuation">=</span><span class="token punctuation">"</span>firstName<span
+                class="token punctuation">"</span></span> <span class="token attr-name">type</span><span
+                class="token attr-value"><span class="token punctuation">=</span><span
+                class="token punctuation">"</span>java.lang.String<span class="token punctuation">"</span></span><span
+                class="token punctuation">&gt;</span></span>
+			<span class="token tag"><span class="token tag"><span
+                    class="token punctuation">&lt;</span>modifiers</span><span
+                    class="token punctuation">/&gt;</span></span>
+			<span class="token tag"><span class="token tag"><span
+                    class="token punctuation">&lt;</span>persistence</span> <span
+                    class="token attr-name">type</span><span class="token attr-value"><span
+                    class="token punctuation">=</span><span class="token punctuation">"</span>property<span
+                    class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+		<span class="token tag"><span class="token tag"><span
+                class="token punctuation">&lt;/</span>attribute</span><span class="token punctuation">&gt;</span></span>
+
+	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>attributes</span><span
+            class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>itemtype</span><span
+        class="token punctuation">&gt;</span></span><span
+                    class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <p>Run <strong>ant all</strong> command, then run <strong>update system</strong> from the HAC.</p>
+        <blockquote><p>Note that you don’t need to create a new Cronjob if your Job does not require inputs.</p>
+        </blockquote>
+        <h1>2. Job</h1>
+        <p>Create a Job where we are going to add our Logic <em>(display Hello firstName) :</em></p>
+        <p>First create a class that extends from&nbsp;<code>AbstractJobPerformable </code>and implement the <code>perform()</code>
+            method:</p>
+        <pre class="line-numbers language-java" data-language="java"><code class=" language-java"><span
+                class="token keyword">public</span> <span class="token keyword">class</span> <span
+                class="token class-name">HelloWorldJob</span> <span class="token keyword">extends</span> <span
+                class="token class-name">AbstractJobPerformable</span><span class="token operator">&lt;</span>HelloWorldCronJobModel<span
+                class="token operator">&gt;</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> PerformResult <span class="token function">perform</span><span
+                    class="token punctuation">(</span>HelloWorldCronJobModel cronJobModel<span
+                    class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// Retrieve firstName from the cronJob</span>
+            String firstName <span class="token operator">=</span> cronJobModel<span
+                    class="token punctuation">.</span><span class="token function">getFirstName</span><span
+                    class="token punctuation">(</span><span class="token punctuation">)</span><span
+                    class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// Display Hello firstName</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span
+                    class="token function">println</span><span class="token punctuation">(</span><span
+                    class="token string">"Hello "</span> <span class="token operator">+</span> firstName<span
+                    class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// In case of success return result: SUCCESS and status: FINISHED</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span
+                    class="token class-name">PerformResult</span><span
+                    class="token punctuation">(</span>CronJobResult<span class="token punctuation">.</span>SUCCESS<span
+                    class="token punctuation">,</span> CronJobStatus<span
+                    class="token punctuation">.</span>FINISHED<span class="token punctuation">)</span><span
+                    class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span><span
+                    class="token punctuation">(</span>Exception e<span class="token punctuation">)</span> <span
+                    class="token punctuation">{</span>
+
+            <span class="token comment" spellcheck="true">// In case of exception return result: ERROR and status: ABORTED</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span
+                    class="token class-name">PerformResult</span><span
+                    class="token punctuation">(</span>CronJobResult<span class="token punctuation">.</span>ERROR<span
+                    class="token punctuation">,</span> CronJobStatus<span class="token punctuation">.</span>ABORTED<span
+                    class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span
+                    class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <p>Register the <code>HelloWorldJob</code> class as a bean into Spring context.</p>
+        <pre class="line-numbers language-xml" data-language="xml"><code class=" language-xml"><span
+                class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span
+                class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span
+                class="token punctuation">"</span>helloWorldJob<span class="token punctuation">"</span></span> <span
+                class="token attr-name">class</span><span class="token attr-value"><span
+                class="token punctuation">=</span><span class="token punctuation">"</span>de.hybris.merchandise.core.job.HelloWorldJob<span
+                class="token punctuation">"</span></span>
+	  <span class="token attr-name">parent</span><span class="token attr-value"><span class="token punctuation">=</span><span
+                    class="token punctuation">"</span>abstractJobPerformable<span
+                    class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>
+
+	<span class="token comment" spellcheck="true">&lt;!-- Inject other beans here if it's needed --&gt;</span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span
+        class="token punctuation">&gt;</span></span><span
+                    class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        <p>Create an instance of the&nbsp;<code>ServicelayerJob</code>&nbsp;with <code>springId</code> as&nbsp;<code>helloWorldJob</code>.
+        </p>
+        <pre class="line-numbers language-markup" data-language="markup"><code class=" language-markup">INSERT_UPDATE ServicelayerJob	;code[unique=true]	;springId
+								;helloWorldJob	;helloWorldJob<span
+                    class="line-numbers-rows"><span></span><span></span></span></code></pre>
+        <p>Create an instance of our <code>HelloWorldCronJob</code>, give it a firstName and the instance of <code>ServicelayerJob</code>
+            that we have just created.</p>
+        <pre class="line-numbers language-markup" data-language="markup"><code class=" language-markup">INSERT_UPDATE HelloWorldCronJob	;code[unique=true]	;job(code)		;firstName; sessionLanguage(isocode); sessionCurrency(isocode)
+								;helloWorldCronJob	;helloWorldJob	;Mouad; en ;EUR<span
+                    class="line-numbers-rows"><span></span><span></span></span></code></pre>
+        <p>Our Cronjob is ready to be used now, we should be able to start it manually from HMC or Backoffice.</p>
+        <p><img data-attachment-id="312"
+                data-permalink="https://www.stackextend.com/hybris/everything-about-cronjobs-in-hybris-part-2/attachment/start-cronjob-manually-from-hmc-in-hybris-2/"
+                data-orig-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/start-cronjob-manually-from-hmc-in-hybris-1.png?fit=767%2C461&amp;ssl=1"
+                data-orig-size="767,461" data-comments-opened="1"
+                data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                data-image-title="Start cronjob manually from hmc in hybris" data-image-description="<p>Start cronjob manually from hmc in hybris</p>
+" data-image-caption=""
+                data-medium-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/start-cronjob-manually-from-hmc-in-hybris-1.png?fit=300%2C180&amp;ssl=1"
+                data-large-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/start-cronjob-manually-from-hmc-in-hybris-1.png?fit=767%2C461&amp;ssl=1"
+                decoding="async" class="aligncenter wp-image-312 size-full"
+                src="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/start-cronjob-manually-from-hmc-in-hybris-1.png?resize=767%2C461&amp;ssl=1"
+                alt="Start cronjob manually from hmc in hybris" width="767" height="461"
+                srcset="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/start-cronjob-manually-from-hmc-in-hybris-1.png?w=767&amp;ssl=1 767w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/start-cronjob-manually-from-hmc-in-hybris-1.png?resize=300%2C180&amp;ssl=1 300w"
+                sizes="(max-width: 767px) 100vw, 767px"></p>
+        <h1>3. Trigger</h1>
+        <p>Create a Trigger to run the Cronjob at specific period of time, every Sunday at 12:00 for example.</p>
+        <pre class="line-numbers language-markup" data-language="markup"><code class=" language-markup">INSERT_UPDATE Trigger	;cronjob(code)[unique=true]	;cronExpression
+						;helloWorldCronJob		;0 0 12 ? * SUN *<span
+                    class="line-numbers-rows"><span></span><span></span></span></code></pre>
+        <p>You can find the next activation time of our CronJob from HMC.</p>
+        <p><img data-attachment-id="313"
+                data-permalink="https://www.stackextend.com/hybris/everything-about-cronjobs-in-hybris-part-2/attachment/cronjob-trigger-activation-time-from-hmc-hybris/"
+                data-orig-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/cronjob-trigger-activation-time-from-hmc-hybris.png?fit=767%2C461&amp;ssl=1"
+                data-orig-size="767,461" data-comments-opened="1"
+                data-image-meta="{&quot;aperture&quot;:&quot;0&quot;,&quot;credit&quot;:&quot;&quot;,&quot;camera&quot;:&quot;&quot;,&quot;caption&quot;:&quot;&quot;,&quot;created_timestamp&quot;:&quot;0&quot;,&quot;copyright&quot;:&quot;&quot;,&quot;focal_length&quot;:&quot;0&quot;,&quot;iso&quot;:&quot;0&quot;,&quot;shutter_speed&quot;:&quot;0&quot;,&quot;title&quot;:&quot;&quot;,&quot;orientation&quot;:&quot;0&quot;}"
+                data-image-title="Cronjob trigger activation time from hmc hybris" data-image-description="<p>Cronjob trigger activation time from hmc hybris</p>
+" data-image-caption=""
+                data-medium-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/cronjob-trigger-activation-time-from-hmc-hybris.png?fit=300%2C180&amp;ssl=1"
+                data-large-file="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/cronjob-trigger-activation-time-from-hmc-hybris.png?fit=767%2C461&amp;ssl=1"
+                decoding="async" class="aligncenter wp-image-313 size-full"
+                src="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/cronjob-trigger-activation-time-from-hmc-hybris.png?resize=767%2C461&amp;ssl=1"
+                alt="Cronjob trigger activation time from hmc hybris" width="767" height="461"
+                srcset="https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/cronjob-trigger-activation-time-from-hmc-hybris.png?w=767&amp;ssl=1 767w, https://i0.wp.com/www.stackextend.com/wp-content/uploads/2017/12/cronjob-trigger-activation-time-from-hmc-hybris.png?resize=300%2C180&amp;ssl=1 300w"
+                sizes="(max-width: 767px) 100vw, 767px"></p>
+        <h1>4. Conclusion</h1>
+        <p>To Create a Cron job in Hybris, we need to :</p>
+        <ul>
+            <li>Create <strong>CronJob </strong>that hold all the inputs to be passed to the Job <em>(it’s
+                optional).</em></li>
+            <li>Create Our <strong>JobPerformable</strong>, then implement the logic to be done inside it.</li>
+            <li>Register the JobPerformable as a Spring bean with id.</li>
+            <li>Create a new instance of <strong>ServicelayerJob</strong>, then inject the bean id in it.</li>
+            <li>Create an instance CronJob model with this signle run configuration <em>(inputs)</em>.</li>
+            <li>Then Create a <strong>Trigger</strong> if it’s needed to schedule the CronJob in time.</li>
+        </ul>
+        <p>&nbsp;</p>
+</article>
+
+
+<h1>Medium Cron jobs in hybris</h1>
+    <p id="4619"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk me"
+       data-selectable-paragraph=""><span class="l mf mg mh bo mi mj mk ml mm ed">C</span>ronjobs are used to
+        automatically and regularly perform specified tasks within a certain time period. Typically cron jobs can be
+        used for creating data for backups, updating catalog contents, or recalculating prices.</p>
+    <figure class="mq mr ms mt mu mv mn mo paragraph-image">
+        <div class="mn mo mp">
+            <picture>
+                <source srcset="https://miro.medium.com/v2/resize:fit:640/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 1100w, https://miro.medium.com/v2/resize:fit:1228/format:webp/1*csTT4LomSaZzOBhRtIX6Yg.png 1228w"
+                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 614px"
+                        type="image/webp">
+                <source data-testid="og"
+                        srcset="https://miro.medium.com/v2/resize:fit:640/1*csTT4LomSaZzOBhRtIX6Yg.png 640w, https://miro.medium.com/v2/resize:fit:720/1*csTT4LomSaZzOBhRtIX6Yg.png 720w, https://miro.medium.com/v2/resize:fit:750/1*csTT4LomSaZzOBhRtIX6Yg.png 750w, https://miro.medium.com/v2/resize:fit:786/1*csTT4LomSaZzOBhRtIX6Yg.png 786w, https://miro.medium.com/v2/resize:fit:828/1*csTT4LomSaZzOBhRtIX6Yg.png 828w, https://miro.medium.com/v2/resize:fit:1100/1*csTT4LomSaZzOBhRtIX6Yg.png 1100w, https://miro.medium.com/v2/resize:fit:1228/1*csTT4LomSaZzOBhRtIX6Yg.png 1228w"
+                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 614px">
+                <img alt="" class="bh ko mw c" width="614" height="293" loading="eager" role="presentation"
+                     src="https://miro.medium.com/v2/resize:fit:921/1*csTT4LomSaZzOBhRtIX6Yg.png"></picture>
+        </div>
+    </figure>
+    <blockquote class="mx my mz"><p id="48c5"
+                                    class="lg lh na li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+                                    data-selectable-paragraph="">You need to know these three basic components for
+        cronjobs.</p></blockquote>
+    <figure class="mq mr ms mt mu mv mn mo paragraph-image">
+        <div class="mn mo nb">
+            <picture>
+                <source srcset="https://miro.medium.com/v2/resize:fit:640/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 1100w, https://miro.medium.com/v2/resize:fit:956/format:webp/1*0Xco0DMiwyNqaWNpKH36Ug.png 956w"
+                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 478px"
+                        type="image/webp">
+                <source data-testid="og"
+                        srcset="https://miro.medium.com/v2/resize:fit:640/1*0Xco0DMiwyNqaWNpKH36Ug.png 640w, https://miro.medium.com/v2/resize:fit:720/1*0Xco0DMiwyNqaWNpKH36Ug.png 720w, https://miro.medium.com/v2/resize:fit:750/1*0Xco0DMiwyNqaWNpKH36Ug.png 750w, https://miro.medium.com/v2/resize:fit:786/1*0Xco0DMiwyNqaWNpKH36Ug.png 786w, https://miro.medium.com/v2/resize:fit:828/1*0Xco0DMiwyNqaWNpKH36Ug.png 828w, https://miro.medium.com/v2/resize:fit:1100/1*0Xco0DMiwyNqaWNpKH36Ug.png 1100w, https://miro.medium.com/v2/resize:fit:956/1*0Xco0DMiwyNqaWNpKH36Ug.png 956w"
+                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 478px">
+                <img alt="" class="bh ko mw c" width="478" height="272" loading="lazy" role="presentation"
+                     src="https://miro.medium.com/v2/resize:fit:717/1*0Xco0DMiwyNqaWNpKH36Ug.png"></picture>
+        </div>
+    </figure>
+    <blockquote class="mx my mz"><p id="5e75"
+                                    class="lg lh na li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+                                    data-selectable-paragraph="">Relations between <strong
+            class="li fr">CronJob</strong>, <strong class="li fr">Job</strong>, and <strong
+            class="li fr">Trigger</strong> types</p></blockquote>
+    <figure class="mq mr ms mt mu mv mn mo paragraph-image">
+        <div class="mn mo nc">
+            <picture>
+                <source srcset="https://miro.medium.com/v2/resize:fit:640/format:webp/0*IXC4oFjwulYUp9J2.png 640w, https://miro.medium.com/v2/resize:fit:720/format:webp/0*IXC4oFjwulYUp9J2.png 720w, https://miro.medium.com/v2/resize:fit:750/format:webp/0*IXC4oFjwulYUp9J2.png 750w, https://miro.medium.com/v2/resize:fit:786/format:webp/0*IXC4oFjwulYUp9J2.png 786w, https://miro.medium.com/v2/resize:fit:828/format:webp/0*IXC4oFjwulYUp9J2.png 828w, https://miro.medium.com/v2/resize:fit:1100/format:webp/0*IXC4oFjwulYUp9J2.png 1100w, https://miro.medium.com/v2/resize:fit:1032/format:webp/0*IXC4oFjwulYUp9J2.png 1032w"
+                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 516px"
+                        type="image/webp">
+                <source data-testid="og"
+                        srcset="https://miro.medium.com/v2/resize:fit:640/0*IXC4oFjwulYUp9J2.png 640w, https://miro.medium.com/v2/resize:fit:720/0*IXC4oFjwulYUp9J2.png 720w, https://miro.medium.com/v2/resize:fit:750/0*IXC4oFjwulYUp9J2.png 750w, https://miro.medium.com/v2/resize:fit:786/0*IXC4oFjwulYUp9J2.png 786w, https://miro.medium.com/v2/resize:fit:828/0*IXC4oFjwulYUp9J2.png 828w, https://miro.medium.com/v2/resize:fit:1100/0*IXC4oFjwulYUp9J2.png 1100w, https://miro.medium.com/v2/resize:fit:1032/0*IXC4oFjwulYUp9J2.png 1032w"
+                        sizes="(min-resolution: 4dppx) and (max-width: 700px) 50vw, (-webkit-min-device-pixel-ratio: 4) and (max-width: 700px) 50vw, (min-resolution: 3dppx) and (max-width: 700px) 67vw, (-webkit-min-device-pixel-ratio: 3) and (max-width: 700px) 65vw, (min-resolution: 2.5dppx) and (max-width: 700px) 80vw, (-webkit-min-device-pixel-ratio: 2.5) and (max-width: 700px) 80vw, (min-resolution: 2dppx) and (max-width: 700px) 100vw, (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px) 100vw, 516px">
+                <img alt="" class="bh ko mw c" width="516" height="322" loading="lazy" role="presentation"
+                     src="https://miro.medium.com/v2/resize:fit:774/0*IXC4oFjwulYUp9J2.png"></picture>
+        </div>
+    </figure>
+    <h1 id="3d6a" class="nd ne fq bf nf ng nh ni nj nk nl nm nn no np nq nr ns nt nu nv nw nx ny nz oa bk"
+        data-selectable-paragraph="">Cronjob Implementation</h1>
+    <p id="85fa"
+       class="pw-post-body-paragraph lg lh fq li b lj ob ll lm ln oc lp lq lr od lt lu lv oe lx ly lz of mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">1-</strong>Create an class extending AbstractJobPerformable&lt;CronJobModel&gt;.
+        <br>Also we can create implementing JobPerformable&lt;T&gt;</p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="4525" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph=""><span class="hljs-keyword">public</span> <span
+            class="hljs-keyword">class</span> <span class="hljs-title.class">MySampleJob</span> <span
+            class="hljs-keyword">extends</span> <span class="hljs-title.class">AbstractJobPerformable</span>&lt;CronJobModel&gt;<br>{<br>    <span
+            class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span
+            class="hljs-type">Logger</span> <span class="hljs-variable">LOGGER</span> <span
+            class="hljs-operator">=</span> LoggerFactory.getLogger(MySampleJob.class);<br><br>    <span
+            class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> PerformResult <span
+            class="hljs-title.function">perform</span><span class="hljs-params">(<span class="hljs-keyword">final</span> CronJobModel cronJobModel)</span><br>    {<br>        <span
+            class="hljs-comment">//to do something - or logging</span><br>       LOGGER.info(<span class="hljs-string">"{} started at {}"</span>, cronJobModel.getCode(), cronJobModel.getStartTime());<br>       <span
+            class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title.class">PerformResult</span>(CronJobResult.SUCCESS, CronJobStatus.FINISHED);   <br>    }</span></pre>
+    <p id="95c2"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">2-</strong>Define spring bean configuration of this class in
+        the extensionName-spring.xml file.</p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="c15a" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph=""><span class="hljs-tag">&lt;<span
+            class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span
+            class="hljs-string">"mySampleJob "</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"com.myProject.cronjobs.MySampleJob"</span> <span
+            class="hljs-attr">parent</span>=<span class="hljs-string">"abstractJobPerformable"</span>/&gt;</span></span></pre>
+    <p id="66eb"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">3-</strong>Run the update system to create ServiceLayerJob.
+        Also we can create ServiceLayerJob with impex.</p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="7444" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph="">INSERT_UPDATE ServicelayerJob; <span
+            class="hljs-selector-tag">code</span><span
+            class="hljs-selector-attr">[unique = true]</span>   ; springId<br>                             ; mySampleJob           ; mySampleJob</span></pre>
+    <p id="a21d"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">4-</strong>Create a cronjob with impex.</p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="f9f9" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph="">INSERT_UPDATE SharjahCronjob; <span
+            class="hljs-selector-tag">code</span><span
+            class="hljs-selector-attr">[unique = true]</span>       ; job(<span
+            class="hljs-selector-tag">code</span>)<br>                            ; mySampleCronJob           ; mySampleJob</span></pre>
+    <p id="c8e0"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">5-</strong>Set a trigger.</p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="791e" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph=""># CronJob Triggers <span
+            class="hljs-keyword">set</span> <span class="hljs-keyword">to</span> run <span
+            class="hljs-keyword">every</span> <span class="hljs-keyword">day</span> <span class="hljs-keyword">at</span> midnight<br>INSERT_UPDATE <span
+            class="hljs-keyword">Trigger</span> ; cronJob(code)[<span class="hljs-keyword">unique</span><span
+            class="hljs-operator">=</span><span class="hljs-literal">true</span>]         ; cronExpression<br>                      ; mySampleCronJob; <span
+            class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span
+            class="hljs-operator">*</span> <span class="hljs-operator">*</span> ?</span></pre>
+    <blockquote class="mx my mz"><p id="f928"
+                                    class="lg lh na li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+                                    data-selectable-paragraph="">We<!-- --> can generate cron expression(like this 0 0 0
+        * * ?) with automatic cron expression generator with searching on browser.</p></blockquote>
+    <h1 id="58a3" class="nd ne fq bf nf ng nh ni nj nk nl nm nn no np nq nr ns nt nu nv nw nx ny nz oa bk"
+        data-selectable-paragraph="">Custom Cronjob Implementation</h1>
+    <p id="7a6a"
+       class="pw-post-body-paragraph lg lh fq li b lj ob ll lm ln oc lp lq lr od lt lu lv oe lx ly lz of mb mc md fj bk"
+       data-selectable-paragraph="">If we want to add different parameters to the CronJob, we need to create a custom
+        CronJob model with extending CronJob Item Type in items.xml file.</p>
+    <p id="0cb3"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">1-</strong>Create a new custom cronjob model in items.xml file
+    </p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="a2b2" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph=""><span class="hljs-tag">&lt;<span
+            class="hljs-name">itemtype</span> <span class="hljs-attr">code</span>=<span class="hljs-string">"MyCustomCronJob"</span> <span
+            class="hljs-attr">autocreate</span>=<span class="hljs-string">"true"</span> <span
+            class="hljs-attr">generate</span>=<span class="hljs-string">"true"</span> <br><span class="hljs-attr">extends</span>=<span
+            class="hljs-string">"CronJob"</span><br>    &lt;<span class="hljs-attr">attributes</span>&gt;</span><br>        <span
+            class="hljs-tag">&lt;<span class="hljs-name">attribute</span> <span class="hljs-attr">type</span>=<span
+            class="hljs-string">"java.lang.Integer"</span> <span class="hljs-attr">qualifier</span>=<span
+            class="hljs-string">"newAttribute"</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span
+            class="hljs-name">persistence</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"property"</span>/&gt;</span><br>            <span
+            class="hljs-tag">&lt;<span class="hljs-name">modifiers</span>/&gt;</span><br>        <span class="hljs-tag">&lt;/<span
+            class="hljs-name">attribute</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">attributes</span>&gt;</span><br>&lt;/itemtype<br></span></pre>
+    <p id="e26e"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><strong class="li fr">2-</strong>Create an class extending AbstractJobPerformable&lt;MyCustomCronJobModel&gt;.
+    </p>
+    <pre class="mq mr ms mt mu og oh oi bp oj bb bk"><span id="2043" class="ok ne fq oh b bg ol om l on oo"
+                                                           data-selectable-paragraph=""><span class="hljs-keyword">public</span> <span
+            class="hljs-keyword">class</span> <span class="hljs-title.class">MyCustomJob</span> <span
+            class="hljs-keyword">extends</span> <br><span class="hljs-title.class">AbstractJobPerformable</span>&lt;MyCustomCronJobModel&gt;<br><br>{<br><br><span
+            class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span
+            class="hljs-type">Logger</span> <span class="hljs-variable">LOG</span> <span class="hljs-operator">=</span> Logger.getLogger(MyCustomJob.class);<br><br><span
+            class="hljs-meta">@Override</span><br><br><span class="hljs-keyword">public</span> PerformResult <span
+            class="hljs-title.function">perform</span><span class="hljs-params">(<span class="hljs-keyword">final</span> MyJavaOopsCustomJob cronJobModel)</span><br><br>{<br><br>LOG.info(<span
+            class="hljs-string">"Hello My Custom CronJob!!!"</span>);<br><br><span
+            class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title.class">PerformResult</span>(CronJobResult.SUCCESS, CronJobStatus.FINISHED);<br><br>}<br><br>}</span></pre>
+    <p id="8ba0"
+       class="pw-post-body-paragraph lg lh fq li b lj lk ll lm ln lo lp lq lr ls lt lu lv lw lx ly lz ma mb mc md fj bk"
+       data-selectable-paragraph=""><em class="na">and then there is same process as in the first example.</em></p>
+</div>
