@@ -1,0 +1,1411 @@
+<div data-v-98888fa5="" class="topic-loader">
+    <div data-v-98888fa5="" class="topic-width"><h1 data-v-0cf96e11="" data-v-98888fa5="">Catalog
+        Guide</h1></div>
+
+    <div data-v-4cbec4a8="" data-v-98888fa5="" role="article" aria-labelledby="topic-title"
+         class="topic-width">
+        <div class="page concept  - topic-topic concept-concept " id="loio8b749dc08669101495f88f8593dc5df0"><p
+                class="shortdesc">The <span class="keyword">catalog</span> extension provides catalog
+            functionality for holding, structuring, and managing products and product
+            information.</p>
+            <div class="topic nested1" aria-labelledby="ariaid-title2" id="catalogguide-typeoverview">
+                <h2 class="title topictitle2 w-anchor" id="type-overview"><span class="text">Type Overview</span>
+                    <button class="anchor" title="Copy Link to Section"></button>
+                </h2>
+                <div class="body">
+                    <div class="fig fignone" id="id-16499-catalogguide-typeoverview--fig-24-264-0">
+                        <div class="figbody"><img class="inline"
+                                                  src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86c56dfa86691014be52f12012242d9e_LowRes.png">
+                        </div>
+                    </div>
+                    <p class="p"><span class="ph pname" translate="no">SAP
+Commerce</span> represents catalogs by a
+                        type structure as shown in the following diagram: a catalog can contain a number of
+                        catalog version objects, each of which can contain a number of category objects.
+                        Category objects can contain catalog objects, product objects or classification
+                        objects.</p>
+                    <div data-v-a4365549="" id="horizontal-viewport-0" class="horizontal-scroller">
+                        <div data-v-a4365549="" class="table-wrapper tablenoborder leftmost rightmost">
+                            <table class="table" rules="all">
+                                <colgroup>
+                                    <col width="33.333333333333336%">
+                                    <col width="33.333333333333336%">
+                                    <col width="33.333333333333336%">
+                                </colgroup>
+                                <thead class="thead" style="text-align:left;">
+                                <tr class="row">
+                                    <th class="entry" style="vertical-align:top;" id="d187599e76"><p class="p"><span
+                                            class="ph pname" translate="no">SAP
+Commerce</span> Type</p></th>
+                                    <th class="entry" style="vertical-align:top;" id="d187599e82"><p class="p">
+                                        Typical</p></th>
+                                    <th class="entry" style="vertical-align:top;" id="d187599e86"><p class="p">
+                                        Description</p></th>
+                                </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                <tr class="row">
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e76 "><p class="p">
+                                        Catalog</p></td>
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e82 ">
+                                        <ul class="ul">
+                                            <li class="li">Clothes catalog</li>
+                                            <li class="li">Hardware catalog</li>
+                                        </ul>
+                                    </td>
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e86 "><p class="p">
+                                        General grouping of products.</p></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e76 "><p class="p">
+                                        CatalogVersion</p></td>
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e82 ">
+                                        <ul class="ul">
+                                            <li class="li">Summer season 2008</li>
+                                            <li class="li">Summer season 2007</li>
+                                            <li class="li">Winter season 2008</li>
+                                            <li class="li">Winter season 2007</li>
+                                        </ul>
+                                    </td>
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e86 "><p class="p">
+                                        Narrowing down of the catalog scope.</p></td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e76 "><p class="p">
+                                        Category</p></td>
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e82 ">
+                                        <ul class="ul">
+                                            <li class="li">Jeans</li>
+                                            <li class="li">Jackets</li>
+                                            <li class="li">Men's fashion</li>
+                                            <li class="li">Women's fashion</li>
+                                            <li class="li">CPU</li>
+                                            <li class="li">Graphics cards</li>
+                                            <li class="li">Harddisks</li>
+                                        </ul>
+                                    </td>
+                                    <td class="entry" style="vertical-align:top;" headers="d187599e86 "><p class="p">
+                                        Rather close-up grouping of products.</p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="topic nested1" aria-labelledby="ariaid-title3" id="catalogguide-vis">
+                <h2 class="title topictitle2 w-anchor" id="catalog-visibility-in-backoffice"><span class="text">Catalog Visibility in <span
+                        class="ph" translate="no">Backoffice</span></span>
+                    <button class="anchor" title="Copy Link to Section"></button>
+                </h2>
+                <div class="topic nested2" aria-labelledby="ariaid-title4"
+                     id="catalogguide-catalogviewandeditingrights">
+                    <h3 class="title topictitle3 w-anchor" id="catalog-view-and-editing-rights"><span class="text">Catalog View and Editing Rights</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <div class="fig fignone" id="id-5297-catalogguide-catalogviewandeditingrights--fig-82-205-0">
+                            <div class="figbody"><img class="inline"
+                                                      src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86c62ecc8669101480abd18dc5d646fc_LowRes.png"
+                                                      width="375"></div>
+                        </div>
+                        <p class="p">In addition to the platform type system access rights, the <span
+                                class="keyword">catalog</span> extension runs a second evaluation of
+                            restrictions on
+                            catalog access rights. These restrictions do not interfere with the access of
+                            catalogs or catalog versions. They are meant to restrict employee rights to
+                            manipulate a catalog version content, such as products, categories, prices,
+                            others. When you initialize the system and have it create sample data, these
+                            rights are created automatically for the <samp class="ph codeph">employeegroup</samp>
+                            usergroup . You can check the restrictions by looking up the usergroup. If you
+                            add new employees to the system, they will be put into the
+                            <samp class="ph codeph">employeegroup</samp> by default.</p>
+                        <p class="p">The <span class="keyword">catalog</span> extension uses
+                            personalization rules
+                            (search restrictions) to evaluate catalog-editing rights. Since only the
+                            <samp class="ph codeph">employeegroup</samp> usergroup has these restrictions by default,
+                            a user must be in that usergroup or one of its subgroups to have those
+                            rights.</p>
+                        <p class="p">Thus, catalog and catalog version specific data (such as synchronizations or active
+                            version
+                            settings) as seen in the Catalog Editor or Catalog Version Editor is usually
+                            governed by the settings provided in the access restrictions of the relevant
+                            types (here: catalog and catalog version). In contrast, the accessibility of
+                            specific catalog version contents in terms of read/write access differentiation
+                            is administrated through (direct or indirect) membership in
+                            <samp class="ph codeph">employeegroup</samp>.</p>
+                        <aside class="note" aria-labelledby="n0t">
+                            <div class="title"><strong>Note</strong></div>
+                            <p>A user who is not in the <samp class="ph codeph">employeegroup</samp> or one of its
+                                subgroups can bypass
+                                this restriction system. A user who bypasses the restrictions, however, may have
+                                access rights to catalog versions in the web application that the user is not
+                                intended to have. In this way, you can allow users to browse catalogs you do not
+                                want them to see.</p></aside>
+                    </div>
+                </div>
+            </div>
+            <div class="topic nested1" aria-labelledby="ariaid-title5" id="catalogguide-frontend_security">
+                <h2 class="title topictitle2 w-anchor" id="catalog-visibility-in-a-web-application"><span class="text">Catalog Visibility in a Web Application</span>
+                    <button class="anchor" title="Copy Link to Section"></button>
+                </h2>
+                <div class="body">
+                    <p class="p">This section discusses how to set catalogs to be visible in a web application.</p>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title6" id="catalogguide-visibility">
+                    <h3 class="title topictitle3 w-anchor" id="visibility-of-products-for-customers"><span class="text">Visibility of Products for Customers</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">A catalog is a list of products that are available, along with product prices
+                            (among other
+                            attributes). The <span class="keyword">catalog</span> extension also
+                            allows you to block specified customers from viewing specific products, even if
+                            the products are generally available. This functionality is called
+                            visibility.</p>
+                        <p class="p">Whether the product is visible to customers or not is determined in five
+                            independent steps.
+                            If any of the steps fails, the product becomes not visible to that respective
+                            customer-- even if all other steps are successful. The following graphic shows
+                            the five steps:</p>
+                        <div class="fig fignone" id="id-52187-catalogguide-visibility--fig-105-181-51">
+                            <div class="figbody">
+                                <img class="inline"
+                                     src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86c5f59286691014a524dc5961589311_LowRes.png"
+                                     width="500">
+                                <p class="p">Fig. Visibility Checks for Product</p>
+                            </div>
+                        </div>
+                        <p class="p">The steps are:</p>
+                        <ol class="ol">
+                            <li class="li">Does the catalog URL pattern match?</li>
+                            <li class="li">Is the catalog version active?</li>
+                            <li class="li">Is the category visible?<p class="p">Products are usually put into
+                                categories. If a
+                                category is not visible to a customer or customer group, the products
+                                contained in the category will also not be visible.</p></li>
+                            <li class="li">Does the date range match?<p class="p">If a product is visible or not can
+                                also depend
+                                on the current date. For example, selling ice hockey equipment in June
+                                may not be very successful. Therefore, you can limit a product
+                                visibility to a certain date range. The product is not visible before
+                                the start of that date range or after its end.</p></li>
+                            <li class="li">Is the product approved? <p class="p">A product is always in one of three
+                                possible
+                                states: check, unapproved, and approved. An approved product is visible
+                                if all other checks pass, a product set to check or unapproved is
+                                not.</p>
+                            </li>
+                        </ol>
+                        <aside class="note" aria-labelledby="n1t">
+                            <div class="title" id="n1t"><strong>Note</strong></div>
+                            <p>Steps 1 and 2 are only checked at the very start of the session. The three remaining
+                                steps
+                                are checked on each customer mouse click. Another difference is that the
+                                <span class="keyword">catalog</span> extension itself deals with
+                                steps 1 and 2, while the other steps use <span class="ph" translate="no">Platform</span>
+                                restrictions.</p></aside>
+                    </div>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title7" id="catalogguide-matchingcatalogurlpatterns">
+                    <h3 class="title topictitle3 w-anchor" id="matching-catalog-url-patterns"><span class="text">Matching Catalog URL Patterns</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">Using the <span class="ph pname" translate="no">SAP
+Commerce</span>, you can have
+                            several shops running on one server. To keep the shops apart, you will probably
+                            use different URLs (like <span class="ph filepath">/computer</span>,
+                            <span class="ph filepath">/skateboard</span>, etc). URLs can use regular expressions
+                            according to the <a class="extlink"
+                                                href="/docs/link-disclaimer?site=http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FRegular_expression%23POSIX_Basic_Regular_Expressions"
+                                                target="_blank" rel="noopener"
+                                                alt="http://en.wikipedia.org/wiki/Regular_expression#POSIX_Basic_Regular_Expressions"
+                                                title="http://en.wikipedia.org/wiki/Regular_expression#POSIX_Basic_Regular_Expressions">POSIX
+                                Basic Regular expression syntax<img
+                                        src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/themes/sap-light/img/3rd_link.png"
+                                        class="link-external" alt="Information published on non-SAP site"
+                                        title="Information published on non-SAP site" border="0"></a>. If the shop's
+                            URL pattern does not match the catalog URL pattern, the customer is trying to
+                            access the wrong shop and, consequently, will not see that catalog products.</p>
+                        <p class="p">The easiest URL pattern you can set up is <span class="ph emphasis emphasis"><samp
+                                class="ph codeph">.*</samp></span>; This
+                            pattern matches any URL (even with protocols that do not exist).</p>
+                        <p class="p">This example of a URL pattern <span
+                                class="ph filepath">https?://+/bluestore($|/.*)</span> matches all
+                            URLs that conform to all the following conditions:</p>
+                        <ul class="ul">
+                            <li class="li">
+                                <p class="p">Have <span class="ph filepath">http://</span> or <span class="ph filepath">https://</span>
+                                    as their protocol (<span class="ph filepath">http</span>
+                                    with an optional (?) <samp class="ph codeph">s</samp>, followed by <samp
+                                            class="ph codeph">://</samp>)</p>
+                            </li>
+                            <li class="li">Have at least one character but the slash after the protocol (<samp
+                                    class="ph codeph">+</samp>; the
+                                circumflex ^ negates the term, the plus sign <samp class="ph codeph">+</samp> indicates
+                                at least one
+                                occurrence)
+                            </li>
+                            <li class="li">Contain the term <span class="ph filepath">/bluestore</span></li>
+                            <li class="li">End with any of the following terms
+                                <ul class="ul">
+                                    <li class="li">End of line (indicated by the dollar symbol $; for example:
+                                        <span class="ph filepath">/bluestore</span>)
+                                    </li>
+                                    <li class="li"><span class="ph filepath">/</span> plus any string (<samp
+                                            class="ph codeph">.*)</samp> (such as
+                                        <span class="ph filepath">/bluestore/mypage.html</span>)
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p class="p">You may set up several URL patterns for one catalog. That way, you can set up one
+                            catalog to be used by several web shops at different URLs, for example.</p>
+                    </div>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title8" id="catalogguide-catalogversionactive">
+                    <h3 class="title topictitle3 w-anchor" id="catalog-version-active"><span class="text">Catalog Version Active</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">You may have several catalog versions available in your platform, but only one may
+                            be active
+                            at a time. The other ones are stored in the platform and can be edited, but they
+                            are not currently active. Such staging of catalogs (that is, having one or more
+                            inactive versions) is useful if your product portfolio changes over the year,
+                            such as a winter and summer collection.</p>
+                    </div>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title9" id="catalogguide-categoryvisibility">
+                    <h3 class="title topictitle3 w-anchor" id="category-visibility"><span class="text">Category Visibility</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">If a product category is visible to a specific customer in a catalog depends on
+                            whether the
+                            category itself is visible to the customer and the user group the customer
+                            belongs to. If the customer or the group the customer belongs to is not
+                            explicitly allowed to view a specific category in the platform, the category
+                            will not be visible for the customer or the customer's group in the shop.</p>
+                        <div class="fig fignone" id="id-62949-catalogguide-categoryvisibility--fig-164-123-11">
+                            <div class="figbody">
+                                <img class="inline" id="catalogguide-categoryvisibility__image_dh1_d4r_wcb"
+                                     src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86c5c5ae86691014979bea78e38154de_LowRes.png">
+                            </div>
+                        </div>
+                        <p class="p">Categories inherit access rights to their children. If you set the root category to
+                            be
+                            visible to a certain customer, that customer will be able to view not only the
+                            root category itself, but also all subcategories of it. On the other hand, user
+                            groups also inherit. If a usergroup has the rights to view a certain category,
+                            any subgroup of that usergroup will be able to view that category as well.</p>
+                        <p class="p">For this reason, <span class="ph pname" translate="no">SAP
+Commerce</span>
+                            recommends that you put all customers into a customergroup or into one of its
+                            subgroups so that you can maintain the visibility rights more easily. If you do
+                            not work with usergroups and their visibility, you will have to maintain the
+                            visibility rights on a per user basis, which is more work and more
+                            complicated.</p>
+                        <p class="p">If all customers belong to a customergroup directly, all customers will have access
+                            to all
+                            categories that the customergroup has access to. However, if you want to have
+                            two sorts of customers with distinct category access, for example, computer
+                            users and skateboarders, you must work with subgroups of customergroup. It is
+                            not possible to explicitly deny access to users, only to allow it.</p>
+                        <div class="fig fignone" id="id-57054-catalogguide-categoryvisibility--fig-170-117-0">
+                            <div class="figbody"><img class="inline"
+                                                      src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86c5173d86691014bf6daf6f5ef61faa_LowRes.png"
+                                                      width="600"></div>
+                        </div>
+                        <p class="p">In the image above, an example customer group hierarchy is shown. The customergroup
+                            is
+                            divided into two groups, computer users and skateboarders, each of which is
+                            split into two additional subgroups: gamers and normal users, and beginners and
+                            advanced, respectively. The following table gives you an overview of who would
+                            be able to view a category if that category <span
+                                    class="ph emphasis emphasis">Visible to</span>
+                            value were set to the respective value:</p>
+                        <div data-v-a4365549="" id="horizontal-viewport-1" class="horizontal-scroller">
+                            <div data-v-a4365549="" class="table-wrapper tablenoborder leftmost rightmost">
+                                <table class="table" rules="all">
+                                    <colgroup>
+                                        <col width="50%">
+                                        <col width="50%">
+                                    </colgroup>
+                                    <thead class="thead" style="text-align:left;">
+                                    <tr class="row">
+                                        <th class="entry" style="vertical-align:top;" id="d187599e474"><p class="p">
+                                            Value of Visible to</p></th>
+                                        <th class="entry" style="vertical-align:top;" id="d187599e478"><p class="p">
+                                            Category is Visible to Members of</p></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="tbody">
+                                    <tr class="row">
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e474 "><p
+                                                class="p">customergroup</p></td>
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e478 "><p
+                                                class="p">all</p></td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e474 "><p
+                                                class="p">computer users</p></td>
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e478 "><p
+                                                class="p">computer users, gamers, normal users</p></td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e474 "><p
+                                                class="p">skateboarders</p></td>
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e478 "><p
+                                                class="p">skateboarders, beginners, advanced</p></td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e474 "><p
+                                                class="p">normal users</p></td>
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e478 "><p
+                                                class="p">normal users</p></td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e474 "><p
+                                                class="p">computer users, advanced</p></td>
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e478 "><p
+                                                class="p">computer users, gamers, normal users, advanced</p></td>
+                                    </tr>
+                                    <tr class="row">
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e474 "><p
+                                                class="p">gamers, normal users</p></td>
+                                        <td class="entry" style="vertical-align:top;" headers="d187599e478 "><p
+                                                class="p">gamers, normal users</p></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <aside class="note" aria-labelledby="n2t">
+                            <div class="title" id="n2t"><strong>Note</strong></div>
+                            <p>There is a difference between adding computer users and adding both gamers and normal
+                                users to the <samp class="ph codeph">Visible to</samp> value. If there are any customers
+                                who
+                                belong to computer users, but not to gamers or normal users, these would be
+                                included if you add computer users, but not if you add only its subgroups gamers
+                                and normal users.</p></aside>
+                        <p class="p">It is also possible to explicitly add customers to the <samp class="ph codeph">Visible
+                            to</samp> setting,
+                            as shown in the following image. This does not have any side effects, but it
+                            makes sure that these customers will have access to that category even if the
+                            usergroup they belong to is removed from the list (in that case, their access
+                            rights to the category would be gone normally).</p>
+                        <div class="fig fignone" id="id-999-catalogguide-categoryvisibility--fig-219-68-11">
+                            <div class="figbody">
+                                <img class="inline" id="catalogguide-categoryvisibility__image_qfw_v4r_wcb"
+                                     src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86c5986f86691014a6e4d08cfb237c98_LowRes.png">
+                            </div>
+                        </div>
+                        <p class="p">In the above image, the customers eckstein-brinkmann, kotal, and schneider would be
+                            able to
+                            see category root (and all its subcategories) even if customergroup would be
+                            removed from the visibility list.</p>
+                        <p class="p">This inheritance implies another thing as well, however. If you set a category to
+                            be visible
+                            for a customer or a group of customers, all subcategories of that category will
+                            be visible to that customer or group of customers as well. In other words, in
+                            the above image, all the customers listed explicitly, plus the members of
+                            customergroup, would be able to see the root category and all its subcategories,
+                            that is, in the case of root: all categories. If you want a certain category to
+                            be visible to some customers only, you need to add those customers explicitly to
+                            that specific category. If you start setting the visibility of a category above
+                            the one you wish to set, those settings will be inherited downwards and may
+                            cause categories to be visible to users that you do not want to be visible to
+                            them.</p>
+                    </div>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title10" id="catalogguide-matchingdaterange">
+                    <h3 class="title topictitle3 w-anchor" id="matching-daterange"><span
+                            class="text">Matching DateRange</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">Product life cycles have a beginning and an end, that is, products start and cease
+                            to be
+                            available. Often, there are fixed dates at which a product has reached its
+                            market maturity and when it will no longer be sold. The <span class="keyword">catalog</span>
+                            extension supports this. You may set a
+                            date by which a product will be visible in your shop, and/or a date when it will
+                            no longer be visible. A blank field means that the product will be visible until
+                            that date (on-line to) or from that date onwards (on-line from), respectively.
+                            If you assign a value to both fields, the product will be available only in the
+                            time span between both dates.</p>
+                        <aside class="note" aria-labelledby="n3t">
+                            <div class="title" id="n3t"><strong>Note</strong></div>
+                            <p>Dates start by 0:00:00 hours AM on the respective day, and end by 11:59:59 PM
+                                (0:00:00 to 23:59:59 hours, respectively). It is not possible to have a product
+                                visibility start or end at some time within that day, like 11:00 AM.</p></aside>
+                    </div>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title11" id="catalogguide-approval">
+                    <h3 class="title topictitle3 w-anchor" id="approving-product"><span
+                            class="text">Approving Product</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">A product that is a part of the catalog is in one of three possible approval
+                            states: approved, check, and unapproved.</p>
+                        <p class="p">Only products in the approved state are visible, the two others indicate that the
+                            product is
+                            not in a state to be synchronized and consequently to be offered for sale.</p>
+                        <p class="p">You can change a product approval state in its editor. Go to <span
+                                class="ph menucascade"><span class="ph uicontrol">Catalog</span>&nbsp;&nbsp;<span
+                                class="ph uicontrol">Products</span></span>, search for your product by its name or
+                            browse to it. Click it to
+                            open up its editor and change the approval state in the
+                            <span class="ph uicontrol">ATTRIBUTES</span>
+                            tab.</p>
+                        <p class="p">You can also perform bulk approval of your products using the Bulk Edit or Bulk
+                            Approval actions. </p>
+                        <p class="p">For more inforamtion, <a class="xref"
+                                                              href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/e6902aed046f4696b048d88a586df8d4.html?locale=en-US"
+                                                              title="Bulk editing in Backoffice allows for modification of multiple items at one time.">Bulk
+                            Editing in Backoffice</a>,
+                            <a class="xref"
+                               href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/5e81a70fbd0148bab2e6c5128d018499.html?locale=en-US"
+                               title="The Bulk Edit action allows you to edit many items at one time.">Bulk Edit
+                                Action</a>, and <a class="xref"
+                                                   href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/150b441b7b3942a0abec381a556b7030.html?locale=en-US"
+                                                   title="The Enumeration action allows for a bulk update of selected items.">Enumeration
+                                Action</a>.</p>
+                        <div class="fig fignone" id="catalogguide-approval__fig_qnl_5qr_wcb">
+                            <div class="figbody">
+                                <img class="inline" id="catalogguide-approval__image_o55_3sr_wcb"
+                                     src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loioe7747585f2d24c83a70b256672285daf_LowRes.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="topic nested2" aria-labelledby="ariaid-title12" id="catalogguide-hybrisinitfilter">
+                    <h3 class="title topictitle3 w-anchor" id="using-the-catalog-extension-with-web-application"><span
+                            class="text">Using the Catalog Extension with Web Application</span>
+                        <button class="anchor" title="Copy Link to Section"></button>
+                    </h3>
+                    <div class="body">
+                        <p class="p">The <span class="keyword">catalog</span> extension relies on <a
+                                class="xref"
+                                href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8c428f8286691014970ceee87aa01605.html?locale=en-US"
+                                title="Restrictions are rules obeyed by FlexibleSearch which allow to limit search results depending on which type is searched and which user is currently logged in.">Restrictions</a>
+                            for
+                            visibility and access settings. Without set restrictions, the <span
+                                    class="keyword">catalog</span> extension does not work properly and
+                            users may be allowed access to catalog versions they are not intended to see,
+                            and vice versa.</p>
+                        <p class="p">This is not critical with the <span class="ph" translate="no">Backoffice</span>,
+                            where all
+                            users must log in and have their restrictions set based on their account.
+                            However, in a web application, such as a web shop, you need a way of handling
+                            restrictions related to the <span class="keyword">catalog</span>
+                            extension without requiring users to log in. You can use <span class="ph" translate="no">Platform</span>
+                            filters to
+                            do this. They provide flexibility. You can use the following filters to handle
+                            catalog version activation:</p>
+                        <ul class="ul">
+                            <li class="li"><span
+                                    class="ph emphasis emphasis">SimpleCatalogVersionActivationFilter</span></li>
+                            <li class="li"><span
+                                    class="ph emphasis emphasis">DynamicCatalogVersionActivationFilter</span></li>
+                        </ul>
+                        <p class="p">For more information, see <a class="xref"
+                                                                  href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8be9c15b866910149c1bcbec75a42bbf.html?locale=en-US"
+                                                                  title="Platform Filters is a solution that provides a set of filters used for Web applications. These filters are represented by a filter chain which can be modified according to your needs. You may also implement your own filter and include it in a custom filter chain.">Platform
+                            Filters</a>.</p>
+                        <p class="p">The <span class="keyword apiname">SimpleCatalogVersionActivationFilter</span>
+                            filter assures that the
+                            configured catalog versions are set as session catalog versions. The
+                            <span class="keyword apiname">DynamicCatalogVersionActivationFilter</span> filter takes care
+                            of activating the catalog versions at runtime. Below is an example that shows
+                            how to add the <span class="keyword apiname">SimpleCatalogVersionActivationFilter</span> to
+                            the
+                            <span class="ph pname" translate="no">SAP
+Commerce</span>
+                            filters chain used in your Web application. It presents the current
+                            implementation in the <span class="keyword">springmvcstore</span>
+                            extension as shown in the following examples from the
+                            <span class="ph filepath">springmvcstore-web-spring.xml</span> file:</p>
+                        <div data-v-314a257c="" id="codeblock-viewport-0" class="horizontal-scroller">
+                            <div data-v-314a257c="" class="codeblock-wrapper scrollable leftmost">
+                                <pre data-v-314a257c="" class="pre codeblock prettyprint prettyprinted"><span
+                                        class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span
+                                        class="pun">=</span><span class="atv">"springMvcStoreFilterChain"</span><span
+                                        class="pln"> </span><span class="atn">class</span><span
+                                        class="pun">=</span><span class="atv">"de.hybris.platform.servicelayer.web.PlatformFilterChain"</span><span
+                                        class="tag">&gt;</span><span class="pln">
+		</span><span class="tag">&lt;constructor-arg&gt;</span><span class="pln">
+			</span><span class="tag">&lt;list&gt;</span><span class="pln">
+				</span><span class="tag">&lt;ref</span><span class="pln"> </span><span class="atn">bean</span><span
+                                        class="pun">=</span><span class="atv">"log4jFilter"</span><span class="tag">/&gt;</span><span
+                                        class="pln">
+				</span><span class="tag">&lt;ref</span><span class="pln"> </span><span class="atn">bean</span><span
+                                        class="pun">=</span><span
+                                        class="atv">"dynamicTenantActivationFilter"</span><span class="tag">/&gt;</span><span
+                                        class="pln">
+				</span><span class="tag">&lt;ref</span><span class="pln"> </span><span class="atn">bean</span><span
+                                        class="pun">=</span><span class="atv">"springMvcStoreRedirectFilter"</span><span
+                                        class="tag">/&gt;</span><span class="pln">
+				</span><span class="tag">&lt;ref</span><span class="pln"> </span><span class="atn">bean</span><span
+                                        class="pun">=</span><span class="atv">"sessionFilter"</span><span class="tag">/&gt;</span><span
+                                        class="pln">
+				</span><span class="tag">&lt;ref</span><span class="pln"> </span><span class="atn">bean</span><span
+                                        class="pun">=</span><span
+                                        class="atv">"springMvcStoreDataSourceSwitchingFilter"</span><span class="tag">/&gt;</span><span
+                                        class="pln">
+				</span><span class="tag">&lt;ref</span><span class="pln"> </span><span class="atn">bean</span><span
+                                        class="pun">=</span><span class="atv">"springMvcStoreCatalogVersionActivationFilter"</span><span
+                                        class="tag">/&gt;</span><span class="pln">
+			</span><span class="tag">&lt;/list&gt;</span><span class="pln">
+		</span><span class="tag">&lt;/constructor-arg&gt;</span><span class="pln">
+   </span><span class="tag">&lt;/bean&gt;</span><span class="pln">
+
+   </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span
+                                        class="pun">=</span><span class="atv">"springMvcStoreCatalogVersionActivationFilter"</span><span
+                                        class="pln"> </span><span class="atn">class</span><span
+                                        class="pun">=</span><span class="atv">"de.hybris.platform.servicelayer.web.SimpleCatalogVersionActivationFilter"</span><span
+                                        class="pln"> </span><span class="tag">&gt;</span><span class="pln">
+		</span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span
+                                        class="pun">=</span><span class="atv">"catalogVersionService"</span><span
+                                        class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span
+                                        class="atv">"catalogVersionService"</span><span class="tag">/&gt;</span><span
+                                        class="pln">
+		</span><span class="com">&lt;!-- &lt;property name="onlySetOncle" value="true"/&gt; --&gt;</span><span
+                                        class="pln"> </span><span class="com">&lt;!-- true by default, set to to false, if there is a wish to do that --&gt;</span><span
+                                        class="pln">
+		</span><span class="com">&lt;!-- property catalog.versions.default will be read from properties file  --&gt;</span><span
+                                        class="pln">
+		</span><span class="tag">&lt;aop:scoped-proxy/&gt;</span><span class="pln">
+   </span><span class="tag">&lt;/bean&gt;</span><span class="pln">
+
+   </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span
+                                        class="pun">=</span><span class="atv">"springMvcStoreRedirectFilter"</span><span
+                                        class="pln"> </span><span class="atn">class</span><span
+                                        class="pun">=</span><span class="atv">"de.hybris.platform.servicelayer.web.RedirectWhenSystemIsNotInitializedFilter"</span><span
+                                        class="tag">&gt;</span><span class="pln">
+		</span><span class="tag">&lt;constructor-arg&gt;</span><span class="pln">
+  			</span><span class="tag">&lt;value&gt;</span><span class="com">&lt;!-- nothing - redirect to default maintenance page --&gt;</span><span
+                                        class="tag">&lt;/value&gt;</span><span class="pln">
+  		</span><span class="tag">&lt;/constructor-arg&gt;</span><span class="pln">
+  		</span><span class="tag">&lt;constructor-arg&gt;</span><span class="pln">
+  			</span><span class="tag">&lt;list&gt;</span><span class="pln">
+  				</span><span class="tag">&lt;value&gt;</span><span class="pln">login</span><span class="tag">&lt;/value&gt;</span><span
+                                        class="pln">
+  				</span><span class="tag">&lt;value&gt;</span><span class="pln">static</span><span class="tag">&lt;/value&gt;</span><span
+                                        class="pln">
+  			</span><span class="tag">&lt;/list&gt;</span><span class="pln">
+  		</span><span class="tag">&lt;/constructor-arg&gt;</span><span class="pln">
+   </span><span class="tag">&lt;/bean&gt;</span><span class="pln">
+
+   </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span
+                                        class="pun">=</span><span
+                                        class="atv">"springMvcStoreDataSourceSwitchingFilter"</span><span
+                                        class="pln"> </span><span class="atn">class</span><span
+                                        class="pun">=</span><span class="atv">"de.hybris.platform.servicelayer.web.DataSourceSwitchingFilter"</span><span
+                                        class="tag">&gt;</span><span class="pln">
+   </span><span class="tag">&lt;/bean&gt;</span></pre>
+                            </div>
+                        </div>
+                        <p class="p">For more information about extending the <span class="ph pname" translate="no">SAP
+Commerce</span> filters used
+                            by your Web application, see the <span class="ph emphasis emphasis">Configuring Existing
+Filters</span>section of <a class="xref"
+                            href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8be9c15b866910149c1bcbec75a42bbf.html?locale=en-US"
+                            title="Platform Filters is a solution that provides a set of filters used for Web applications. These filters are represented by a filter chain which can be modified according to your needs. You may also implement your own filter and include it in a custom filter chain.">Platform
+                                Filters</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="topic nested1" aria-labelledby="ariaid-title13"
+                 id="catalogguide-settingadefaultcatalogduringsysteminitializationorupdate">
+                <h2 class="title topictitle2 w-anchor"
+                    id="setting-a-default-catalog-during-system-initialization-or-update"><span class="text">Setting a Default Catalog During System Initialization or Update</span>
+                    <button class="anchor" title="Copy Link to Section"></button>
+                </h2>
+                <div class="body">
+                    <p class="p">During a <span class="ph pname" translate="no">SAP
+Commerce</span> initialization or
+                        update, the catalog manager ensures that there is a default catalog. The catalog
+                        manager <span class="keyword apiname">createEssentialData(...)</span> method retrieves the
+                        catalog,
+                        which is set as default.</p>
+                    <p class="p">If no catalog is set as default, the catalog manager creates a new catalog called
+                        default and
+                        creates an on-line (Online) and an off-line (<span class="ph emphasis emphasis">Staged</span>)
+                        catalog
+                        version within that new catalog.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-v-98888fa5="" data-v-33c4b040="">
+    <div data-v-98888fa5="">
+        <div data-v-e8e67c46="" data-v-98888fa5="" class="sidebar toc collapsed"
+             style="height: calc(-184.986px + 100vh); position: absolute; top: unset; bottom: 0; right: unset; left: unset;">
+
+            <div data-v-e8e67c46="" class="sidebar-content">
+                <div data-v-98888fa5="" class="loading-animation" style="display: none;">
+                    <div class="i"></div>
+                    <div class="ii"></div>
+                    <div class="iii"></div>
+                </div>
+                <nav data-v-92ea6e5a="" data-v-98888fa5="" id="toc" style="display: none;">
+                    <header data-v-92ea6e5a=""><h2 data-v-92ea6e5a="">Table of Contents</h2>
+                        <nav data-v-92ea6e5a="" class="sidebar-actions">
+                            <button data-v-92ea6e5a="" title="Expand Table of Contents"><span data-v-92ea6e5a=""
+                                                                                              class="pre-icon"></span>
+                            </button>
+                            <button data-v-92ea6e5a="" title="Collapse Table of Contents"><span data-v-92ea6e5a=""
+                                                                                                class="pre-icon"></span>
+                            </button>
+                        </nav>
+                    </header>
+                    <ul data-v-92ea6e5a="" class="tiles">
+                        <li data-v-92ea6e5a="" class="ref expanded">
+                            <div data-v-658d638e=""><a class="chevron"
+                                                       title="Collapse Platform, Services, and Utilities" href=""></a><a
+                                    class=""
+                                    href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c29ad3f8669101485378214f6a7e2b6.html?locale=en-US">Platform,
+                                Services, and Utilities </a></div>
+                            <ul class="tiles">
+                                <li class="ref expanded">
+                                    <div data-v-658d638e=""><a class="chevron"
+                                                               title="Collapse Platform" href=""></a><a
+                                            class=""
+                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/a3ebd1a143c64df4b11d2aaa91b62da3.html?locale=en-US">Platform
+                                    </a></div>
+                                    <ul class="tiles">
+                                        <li class="ref">
+                                            <div data-v-658d638e=""><a class="chevron"
+                                                                       title="Expand Platform Features" href=""></a><a
+                                                    class=""
+                                                    href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/f965c1d25b4a4dd7b5d848bda028fce8.html?locale=en-US">Platform
+                                                Features </a></div>
+                                        </li>
+                                        <li class="ref">
+                                            <div data-v-658d638e=""><a class="chevron"
+                                                                       title="Expand Platform Architecture" href=""></a><a
+                                                    class=""
+                                                    href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/515a258960e346348ae82692601812e3.html?locale=en-US">Platform
+                                                Architecture </a></div>
+                                        </li>
+                                        <li class="ref expanded">
+                                            <div data-v-658d638e=""><a class="chevron"
+                                                                       title="Collapse Platform Implementation"
+                                                                       href=""></a><a class=""
+                                                                                      href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/62047a92cf054231801c384b8512e45f.html?locale=en-US">Platform
+                                                Implementation </a></div>
+                                            <ul class="tiles">
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Building SAP Commerce"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b6ded0d86691014a6fab18e171c1f91.html?locale=en-US">Building
+                                                        SAP Commerce </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Business Process Management"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/cd717a7657b6475fab602d02c16e252b.html?locale=en-US">Business
+                                                        Process Management </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Cache" href=""></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/b50d73d079fb42b4a1dd2ec59393f63e.html?locale=en-US">Cache
+                                                    </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Charon" href=""></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/018acdf8c8a849db945f076b2bdc4923.html?locale=en-US">Charon
+                                                    </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Clustered Environment"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b7c5c75866910148c329ee71f3a681e.html?locale=en-US">Clustered
+                                                        Environment </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Collecting and Classifying Running Operations"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/1a3783173f6c4bb0acbab487a106e92f.html?locale=en-US">Collecting
+                                                        and Classifying Running Operations </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Containerized SAP Commerce"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/a5cb538ba19f4502865c53953f6f5e3e.html?locale=en-US">Containerized
+                                                        SAP Commerce </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Data Management with ImpEx"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/1b6dd3451fc04c3aa8e95937e9ef2471.html?locale=en-US">Data
+                                                        Management with ImpEx </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Data Report and Audit"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/d825c187856b4fa8ba761e641c50fe0f.html?locale=en-US">Data
+                                                        Report and Audit </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Data Retention Framework"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/2268d55f40c94c5e8c43fa47f3b609a4.html?locale=en-US">Data
+                                                        Retention Framework </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Data Validation Framework"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8ba7f5a9866910148b749e7217fa45fa.html?locale=en-US">Data
+                                                        Validation Framework </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Digital Asset Management"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c0fbaf186691014b1389bc475fb7b02.html?locale=en-US">Digital
+                                                        Asset Management </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="blank"></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/120f6d7b89a745018cb28b5e34318fa4.html?locale=en-US">Extension
+                                                        Library Management Using Maven </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand HTTP Session Failover"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/5da5660b2a3f4263ac3095d900d07f88.html?locale=en-US">HTTP
+                                                        Session Failover </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand ImpEx API" href=""></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8bee24e986691014b97bcd2c7e6ff732.html?locale=en-US">ImpEx
+                                                        API </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Installer Platform Plugin"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/052b1c026d7e4af09624a737282a8772.html?locale=en-US">Installer
+                                                        Platform Plugin </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Internationalization and Localization"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8bfc204086691014a345f64b08505839.html?locale=en-US">Internationalization
+                                                        and Localization </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="blank"></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c00066686691014a5a5d19875a1525b.html?locale=en-US">Jalo
+                                                        Layer </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="blank"></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c005cde86691014a49ce1de22f3897f.html?locale=en-US">Jalo
+                                                        Session </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Logging" href=""></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c07853c866910148a00baf81ea1669e.html?locale=en-US">Logging
+                                                    </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand OAuth2" href=""></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/3d3ea6a4d5fa486aa324ce278fa2afc3.html?locale=en-US">OAuth2
+                                                    </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Ordering, Payment and Pricing Standards"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/e18cf2470672494f9c4d1a7e1a882264.html?locale=en-US">Ordering,
+                                                        Payment and Pricing Standards </a></div>
+                                                </li>
+                                                <li class="head"><a data-v-658d638e=""
+                                                                    title="Expand Performance and Monitoring"
+                                                                    class="" href=""><span
+                                                        data-v-658d638e="">Performance and Monitoring</span></a>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Platform Filters"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8be9c15b866910149c1bcbec75a42bbf.html?locale=en-US">Platform
+                                                        Filters </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Polyglot Persistence"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/a94ab1238cc34f94bc9dee639e256440.html?locale=en-US">Polyglot
+                                                        Persistence </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Product and Data Modeling"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/13874f67274c4f5189ce8138d55ea26f.html?locale=en-US">Product
+                                                        and Data Modeling </a></div>
+                                                </li>
+                                                <li class="head expanded"><a data-v-658d638e=""
+                                                                             title="Collapse Product Content and Catalogs"
+                                                                             class="" href=""><span
+                                                        data-v-658d638e="">Product Content and Catalogs</span></a>
+                                                    <ul class="tiles">
+                                                        <li class="ref expanded">
+                                                            <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                       class="chevron"
+                                                                                       title="Collapse Working with Catalogs"
+                                                                                       href=""></a><a data-v-658d638e=""
+                                                                                                      class=""
+                                                                                                      href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b74cb8186691014a19de16c7b468699.html?locale=en-US">Working
+                                                                with Catalogs </a></div>
+                                                            <ul class="tiles">
+                                                                <li class="ref">
+                                                                    <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                               class="chevron"
+                                                                                               title="Expand Structuring Your Collection with Products and Categories"
+                                                                                               href=""></a><a
+                                                                            class=""
+                                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c66ac86866910149719a9e59036ed83.html?locale=en-US">Structuring
+                                                                        Your Collection with Products and Categories
+                                                                    </a></div>
+                                                                </li>
+                                                                <li class="ref expanded">
+                                                                    <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                               class="chevron"
+                                                                                               title="Collapse Catalogs and Catalog Versions"
+                                                                                               href=""></a><a
+                                                                            class="active"
+                                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b49a0638669101487a8e89d6ec837ba.html?locale=en-US">Catalogs
+                                                                        and Catalog Versions </a></div>
+                                                                    <ul class="tiles">
+                                                                        <li class="ref">
+                                                                            <div data-v-658d638e=""><a
+                                                                                    data-v-658d638e=""
+                                                                                    class="blank"></a><a
+                                                                                    class=""
+                                                                                    href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/b8935d2242ca470c9aa13b4698bd096b.html?locale=en-US">Adding
+                                                                                a Category to a Catalog Version
+                                                                            </a></div>
+                                                                        </li>
+                                                                        <li class="ref">
+                                                                            <div data-v-658d638e=""><a
+                                                                                    data-v-658d638e=""
+                                                                                    class="blank"></a><a
+                                                                                    class=""
+                                                                                    href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/ca0a17380d4148fcad26f137160da83b.html?locale=en-US">Adding
+                                                                                a Catalog Version to a Catalog in
+                                                                                Backoffice </a></div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </li>
+                                                                <li class="ref">
+                                                                    <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                               class="blank"></a><a
+                                                                            class=""
+                                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c0c3e6d86691014aa39adc69c2502c1.html?locale=en-US">Managing
+                                                                        Multiple Product Catalogs in a Catalog System
+                                                                    </a></div>
+                                                                </li>
+                                                                <li class="ref">
+                                                                    <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                               class="blank"></a><a
+                                                                            class=""
+                                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b4a208b8669101487c784b5f8557c30.html?locale=en-US">Synchronizing
+                                                                        Catalog Versions </a></div>
+                                                                </li>
+                                                                <li class="ref">
+                                                                    <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                               class="blank"></a><a
+                                                                            class=""
+                                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8bae803786691014811eb4b6d97f06ea.html?locale=en-US">Defining
+                                                                        Product Attributes </a></div>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="ref">
+                                                            <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                       class="chevron"
+                                                                                       title="Expand Catalog Guide"
+                                                                                       href=""></a><a data-v-658d638e=""
+                                                                                                      class=""
+                                                                                                      href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b749dc08669101495f88f8593dc5df0.html?locale=en-US">Catalog
+                                                                Guide </a></div>
+                                                        </li>
+                                                        <li class="ref">
+                                                            <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                       class="chevron"
+                                                                                       title="Expand Synchronizing Catalogs"
+                                                                                       href=""></a><a data-v-658d638e=""
+                                                                                                      class=""
+                                                                                                      href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c6a38118669101481bdf1303d70949e.html?locale=en-US">Synchronizing
+                                                                Catalogs </a></div>
+                                                        </li>
+                                                        <li class="ref">
+                                                            <div data-v-658d638e=""><a data-v-658d638e=""
+                                                                                       class="chevron"
+                                                                                       title="Expand Classification"
+                                                                                       href=""></a><a data-v-658d638e=""
+                                                                                                      class=""
+                                                                                                      href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b7aa49c86691014ae51c3b0d38cd87b.html?locale=en-US">Classification
+                                                            </a></div>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="blank"></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/bde41b6a42c541a08eb2a3b1993fb097.html?locale=en-US">SameSite
+                                                        Cookie Attribute Handler </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Scripting Engine"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8bec04a386691014938a9996a977d07f.html?locale=en-US">Scripting
+                                                        Engine </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Search Mechanisms"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/97c165d9c24e4f61b3f52ed46515ed89.html?locale=en-US">Search
+                                                        Mechanisms </a></div>
+                                                </li>
+                                                <li class="head"><a data-v-658d638e=""
+                                                                    title="Expand Security and User Management"
+                                                                    class="" href=""><span
+                                                        data-v-658d638e="">Security and User Management</span></a>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand ServiceLayer"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/df85e82ae7dd4956b28c266222fcc693.html?locale=en-US">ServiceLayer
+                                                    </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Startup Tuning"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/ac4345084cdc4b0f8f4045e208eef43e.html?locale=en-US">Startup
+                                                        Tuning </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Suspending and Resuming SAP Commerce"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/354ecec9afe54b0fb02e56670a2a1b59.html?locale=en-US">Suspending
+                                                        and Resuming SAP Commerce </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Testing" href=""></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c6f059d866910149b6aede7ab7a0f36.html?locale=en-US">Testing
+                                                    </a></div>
+                                                </li>
+                                                <li class="head"><a data-v-658d638e=""
+                                                                    title="Expand Tracing and Monitoring"
+                                                                    class="" href=""><span
+                                                        data-v-658d638e="">Tracing and Monitoring</span></a></li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="blank"></a><a
+                                                            class=""
+                                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8c7387f186691014922080f2e053216a.html?locale=en-US">Transactions
+                                                    </a></div>
+                                                </li>
+                                                <li class="ref">
+                                                    <div data-v-658d638e=""><a class="chevron"
+                                                                               title="Expand Workflow and Collaboration"
+                                                                               href=""></a><a data-v-658d638e=""
+                                                                                              class=""
+                                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/5b4e9794ea3d4623a0fa2b36a43faa59.html?locale=en-US">Workflow
+                                                        and Collaboration </a></div>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="ref">
+                                    <div data-v-658d638e=""><a class="chevron"
+                                                               title="Expand Platform Module" href=""></a><a
+                                            class=""
+                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/c043fc70d74143ddb013064c0a8821fc.html?locale=en-US">Platform
+                                        Module </a></div>
+                                </li>
+                                <li class="ref">
+                                    <div data-v-658d638e=""><a class="chevron"
+                                                               title="Expand API Registry Module" href=""></a><a
+                                            class=""
+                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/3eed84aaa70d47dfbe3cec317f37e020.html?locale=en-US">API
+                                        Registry Module </a></div>
+                                </li>
+                                <li class="ref">
+                                    <div data-v-658d638e=""><a class="chevron"
+                                                               title="Expand Search and Navigation Module"
+                                                               href=""></a><a class=""
+                                                                              href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b300c4a866910149b55ef7c323ece04.html?locale=en-US">Search
+                                        and Navigation Module </a></div>
+                                </li>
+                                <li class="ref">
+                                    <div data-v-658d638e=""><a class="chevron"
+                                                               title="Expand Hybris Utilities Module" href=""></a><a
+                                            class=""
+                                            href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/a83bfc0b318240d08c81b88b250a1309.html?locale=en-US">Hybris
+                                        Utilities Module </a></div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div data-v-98888fa5="" class="topic-wrapper" style="padding-left: 0; padding-right: 0;">
+            <div data-v-98888fa5="" id="topic-blocker" style="display: none; opacity: 0;"></div>
+            <div data-v-98888fa5="" class="loading-animation" style="display: none;">
+                <div class="i"></div>
+                <div class="ii"></div>
+                <div class="iii"></div>
+            </div>
+            <div data-v-4f348110="" data-v-98888fa5="" class="topic-width" style="display: none;">
+                <div data-v-4f348110="" class="search-highlighting">
+                    <button data-v-4f348110="" title="Close"></button>
+                </div>
+            </div>
+            <div data-v-98888fa5="" class="topic-loader">
+                <div data-v-98888fa5="" class="topic-width"><h1 data-v-0cf96e11="" data-v-98888fa5="">
+                    Catalogs and Catalog Versions</h1></div>
+                <aside data-v-9948d462="" data-v-98888fa5="" class="topic-index-pane mobile" id="topic-index-mobile"><h2
+                        data-v-9948d462="">On this page</h2>
+                    <ul data-v-9948d462="" class="topic-index">
+                        <li data-v-9948d462=""><a data-v-9948d462=""
+                                                  href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b49a0638669101487a8e89d6ec837ba.html?locale=en-US#holding-your-category-structure-in-catalog-versions">Holding
+                            Your Category Structure in Catalog Versions</a></li>
+                        <li data-v-9948d462=""><a data-v-9948d462=""
+                                                  href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b49a0638669101487a8e89d6ec837ba.html?locale=en-US#bundling-multiple-catalog-versions-in-a-catalog">Bundling
+                            Multiple Catalog Versions in a Catalog</a></li>
+                    </ul>
+                </aside>
+                <div data-v-4cbec4a8="" data-v-98888fa5="" role="article" aria-labelledby="topic-title"
+                     class="topic-width">
+                    <div class="page concept  - topic-topic concept-concept " id="loio8b49a0638669101487a8e89d6ec837ba">
+                        <div class="body conbody"><p class="shortdesc">Categories are contained in catalog versions. A
+                            catalog version can represent the
+                            collection of products you offer at a certain point in time. To maintain your collection
+                            within a
+                            basic process, you typically contain two or more catalog versions in an object called a
+                            catalog.
+                            For example, while you can have one catalog version for editing the content (the Staged
+                            version),
+                            you can use another catalog version for propagation as a web shop (the Online
+                            version).</p>
+                            <div class="section"
+                                 id="loio8b49a0638669101487a8e89d6ec837ba__aboutcatalogsandcatalogversions-holdyourcategorystructureincatalogversions">
+                                <section class="section" type="Holding Your Category Structure in Catalog Versions">
+                                    <h2 class="section_title w-anchor"
+                                        id="holding-your-category-structure-in-catalog-versions"><span class="text">Holding Your Category Structure in Catalog Versions</span>
+                                        <button class="anchor" title="Copy Link to Section"></button>
+                                    </h2>
+                                    <p class="p">To use a category structure
+                                        to represent your collection—or parts of it—you contain it in catalog versions.
+                                        A catalog
+                                        version is a container for categories that contains products in one or multiple
+                                        categories.</p>
+                                    <div class="fig fignone" id="loio8b49a0638669101487a8e89d6ec837ba__fig_ch3_mms_pcb">
+                                        <div class="figbody">
+                                            <img class="inline"
+                                                 id="loio8b49a0638669101487a8e89d6ec837ba__image_dh3_mms_pcb"
+                                                 src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86f0b54a866910149f26eabb0b5d0a32_LowRes.png">
+                                            <p class="p">Figure: Sample Structure of a Catalog Version.</p>
+                                        </div>
+                                    </div>
+                                    <p class="p">Both a <span class="ph pname" translate="no">SAP
+Commerce</span> catalog version and a typical printed product catalog, for example,
+                                        represent the collection of products that your offer at a certain point in time.
+                                        The differences between the two is that a printed product catalog
+                                        is a list of sequenced products. In <span class="ph pname" translate="no">SAP
+Commerce</span> catalog versions, you can organize products
+                                        in hierarchical category structures. It allows you to automate content
+                                        modification. It enables you to maintain more and very specific information
+                                        types, such as metadata, hidden product data, localizations, views, and
+                                        restrictions. Instead of paper only, you can propagate your products to
+                                        multiple channels like web sites, electronic catalogs, mobile, point of sales
+                                        terminals, or tele-commerce applications. To enable channel-specific
+                                        propagation, the layout is defined separately from the content. </p>
+                                    <aside class="note" aria-labelledby="n0t">
+                                        <div class="title"><strong>Note</strong></div>
+                                        <p>A <span class="ph pname" translate="no">SAP
+Commerce</span> catalog version item is similar
+                                            to the concept of a product catalog. Contrary to this concept, a <span
+                                                    class="ph pname" translate="no">SAP
+Commerce</span>
+                                            <span class="ph emphasis emphasis">catalog</span> item is a container for
+                                            multiple catalog versions.
+                                        </p></aside>
+                                    <div id="aboutcatalogsandcatalogversions-howtoaddacategorytoacatalogversion"
+                                         class="sectiondiv subsection">
+                                        <h3 class="p subsectiontitle">Adding a Category to a Catalog Version</h3>
+                                        <p class="p">You can add categories to a catalog version by different
+                                            methods:</p>
+                                        <ul class="ul" id="loio8b49a0638669101487a8e89d6ec837ba__ul_eh3_mms_pcb">
+                                            <li class="li">Assign a category to another catalog version in <span
+                                                    class="ph" translate="no">Backoffice</span>. For information, see <a
+                                                    class="xref"
+                                                    href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/b8935d2242ca470c9aa13b4698bd096b.html?locale=en-US"
+                                                    title="Backoffice allows you to add a category to a catalog version.">Adding
+                                                a Category to a Catalog Version</a>.
+                                            </li>
+                                            <li class="li">Add a category to a supercategory of another catalog version.
+                                                For information, see <a class="xref"
+                                                                        href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8c66ac86866910149719a9e59036ed83.html?locale=en-US"
+                                                                        title="Products are the basic elements of each catalog. By grouping them, you can arrange your collection in categories. In order to build a hierarchical product structure, products can be kept in categories.">Structuring
+                                                    Your Collection with Products and Categories</a>.
+                                            </li>
+                                            <li class="li">The category, one of its supercategories, or one of its
+                                                catalog versions is synchronized.
+                                                For information about synchronization, see <a class="xref"
+                                                                                              href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8b4a208b8669101487c784b5f8557c30.html?locale=en-US"
+                                                                                              title="Catalog versions can be synchronized in a one-directional way for updating a catalog version according to another. This way you can transfer catalog content between the catalog versions which represent steps in your catalog maintenance process. You can synchronize catalog versions, even if they are of the same or different catalogs within your SAP Commerce. Synchronizing operations are executed between catalog versions.">Synchronizing
+                                                    Catalog Versions</a>.
+                                            </li>
+                                        </ul>
+                                        <p class="p"><span class="ph emphasis emphasis">Details</span></p>
+                                        <p class="p">The <span class="keyword apiname">CatalogVersion</span> item has
+                                            the <samp class="ph codeph">rootCategories</samp> property
+                                            set to a read-only dynamic attribute. Invoking the
+                                            <span class="keyword apiname">CatalogVersionModel.getRootCategories()</span>
+                                            method returns all root categories
+                                            ordered by the category <samp class="ph codeph">order</samp> property. To
+                                            set root categories for
+                                            <span class="keyword apiname">CatalogVersion</span>, edit the <span
+                                                    class="keyword apiname">Category</span> model. Make sure the
+                                            categories don't have a parent category, assign them to the catalog version,
+                                            and save them.
+                                            Don't use the <span class="keyword apiname">setRootCategories()</span>
+                                            method for that purpose.</p>
+                                    </div>
+                                    <div id="aboutcatalogsandcatalogversions-controlvisibilityandaccessofacatalogversion"
+                                         class="sectiondiv subsection">
+                                        <h3 class="p subsectiontitle">Controlling Visibility and Access to a Catalog
+                                            Version</h3>
+                                        <p class="p">The visibility of a catalog version in a web front end, such as a
+                                            webshop, is determined by the visibility of the categories included in the
+                                            catalog version. For details, see <a class="xref"
+                                                                                 href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8c66ac86866910149719a9e59036ed83.html?locale=en-US"
+                                                                                 title="Products are the basic elements of each catalog. By grouping them, you can arrange your collection in categories. In order to build a hierarchical product structure, products can be kept in categories.">Structuring
+                                                Your Collection with Products and Categories</a>. You can also create a
+                                            web front-end implementation that
+                                            checks the language settings of a user group against those of the catalog
+                                            version.</p>
+                                        <p class="p">To control the access of a catalog version in <span class="ph"
+                                                                                                         translate="no">Backoffice</span>,
+                                            you must specify which user
+                                            groups or individual users are allowed to access the catalog version for
+                                            writing or
+                                            reading.</p>
+                                        <p class="p">To set access rights for a catalog version, go to the <span
+                                                class="ph uicontrol">Permissions</span> tab of the catalog version
+                                            editor. You can edit the
+                                            lists for <span class="ph emphasis emphasis">User accounts with write permissions</span>
+                                            and <span
+                                                    class="ph emphasis emphasis">User accounts with read permissions</span>.
+                                            For each list,
+                                            you can add one or more user groups or individual users.</p>
+                                        <div class="fig fignone"
+                                             id="loio8b49a0638669101487a8e89d6ec837ba__fig_dsb_sgl_wcb">
+                                            <div class="figbody">
+                                                <img class="inline"
+                                                     id="loio8b49a0638669101487a8e89d6ec837ba__image_fc1_khl_wcb"
+                                                     src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio03ce1d9bcd2a4f9f9af4f1b8fe93cb09_LowRes.png">
+                                            </div>
+                                        </div>
+                                        <p class="p">For more information, see <a class="xref"
+                                                                                  href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8b2bf31a86691014b302af68c521e0e7.html?locale=en-US"
+                                                                                  title="You can configure SAP Commerce to allow or deny access to items, catalogs, and features. Some of these controls take effect in the front end, while others are specific to Backoffice Administration Cockpit.">Visibility
+                                            Mechanisms (Checklist)</a>.</p>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="section"
+                                 id="loio8b49a0638669101487a8e89d6ec837ba__aboutcatalogsandcatalogversions-bundlemultiplecatalogversionsinacatalog">
+                                <section class="section" type="Bundling Multiple Catalog Versions in a Catalog">
+                                    <h2 class="section_title w-anchor"
+                                        id="bundling-multiple-catalog-versions-in-a-catalog"><span class="text">Bundling Multiple Catalog Versions in a Catalog</span>
+                                        <button class="anchor" title="Copy Link to Section"></button>
+                                    </h2>
+
+                                    <p class="p">A catalog version represents the collection of products that you offer
+                                        at a certain point in time. To enable updating your collection without
+                                        modifying the propagated catalog, you usually use two or more catalog versions
+                                        bundled in an <span class="ph pname" translate="no">SAP
+Commerce</span> object called a <dfn class="term">catalog</dfn>. Based on such a catalog/catalog version
+                                        structure, you can set up a simple maintenance process.</p>
+                                    <p class="p">For example, you can have one catalog version for editing the content
+                                        (the Staged version) and another catalog version for propagation as a
+                                        webshop (the Online version). Thus, a catalog is not only a container for
+                                        holding and structuring your products but it also a structure for basic
+                                        maintenance and propagation processes.</p>
+                                    <div class="fig fignone" id="loio8b49a0638669101487a8e89d6ec837ba__fig_m2r_mms_pcb">
+                                        <div class="figbody">
+                                            <img class="inline"
+                                                 id="loio8b49a0638669101487a8e89d6ec837ba__image_n2r_mms_pcb"
+                                                 src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86f08b7486691014b332ead461717697_LowRes.png">
+                                            <p class="p">Figure: Typical structure of a catalog including a Staged
+                                                catalog version and an Online
+                                                catalog version.</p>
+                                        </div>
+                                    </div>
+                                    <p class="p">You can organize multiple catalog versions in a catalog, each used for
+                                        a specific process
+                                        step. Among different catalog versions, you can synchronize the content. That
+                                        way, you can
+                                        establish separate catalog versions for use cases like the following:</p>
+                                    <ul class="ul" id="loio8b49a0638669101487a8e89d6ec837ba__ul_o2r_mms_pcb">
+                                        <li class="li">Drafting</li>
+                                        <li class="li">Review and approval</li>
+                                        <li class="li">Seasonal product catalogs, for example summer and winter
+                                            collections
+                                        </li>
+                                        <li class="li">Distributed import and export scenarios to be performed on
+                                            separate catalog versions
+                                        </li>
+                                        <li class="li">Archiving</li>
+                                    </ul>
+                                    <div class="fig fignone" id="loio8b49a0638669101487a8e89d6ec837ba__fig_p2r_mms_pcb">
+                                        <div class="figbody">
+                                            <img class="inline"
+                                                 id="loio8b49a0638669101487a8e89d6ec837ba__image_q2r_mms_pcb"
+                                                 src="https://help.sap.com/doc/d0224eca81e249cb821f2cdf45a82ace/2205/en-US/loio86f05de88669101487bf94971db83c5c_LowRes.png">
+                                            <p class="p">Figure: Sample structure of a catalog with multiple catalog
+                                                versions.</p>
+                                        </div>
+                                    </div>
+                                    <p class="p">Only one catalog version within a catalog can be active at a time,
+                                        which in a web front end typically provides the propagated online version.
+                                        Consequently, this concept is applicable only for sequential catalog maintenance
+                                        processes that propagate only one catalog version. For more
+                                        information, see <a class="xref"
+                                                            href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8b4a208b8669101487c784b5f8557c30.html?locale=en-US"
+                                                            title="Catalog versions can be synchronized in a one-directional way for updating a catalog version according to another. This way you can transfer catalog content between the catalog versions which represent steps in your catalog maintenance process. You can synchronize catalog versions, even if they are of the same or different catalogs within your SAP Commerce. Synchronizing operations are executed between catalog versions.">Synchronize
+                                            Catalog Versions</a>.</p>
+                                    <p class="p">If you set up more complex catalog maintenance processes that allow
+                                        propagating multiple web front ends simultaneously, you must use multiple
+                                        catalogs. For more information, see <a class="xref"
+                                                                               href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/8c0c3e6d86691014aa39adc69c2502c1.html?locale=en-US">Managing
+                                            Multiple Product Catalogs in a Catalog System</a>.</p>
+                                    <p class="p">To learn how to add a catalog version to a catalog, see <a class="xref"
+                                                                                                            href="https://help.sap.comhttps://help.sap.com/docs/SAP_COMMERCE/ca0a17380d4148fcad26f137160da83b.html?locale=en-US"
+                                                                                                            title="Backoffice allows you to add a catalog version to a catalog.">Adding
+                                        a Catalog Version to a Catalog in Backoffice</a>.</p>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div data-v-e8e67c46="" data-v-98888fa5="" class="sidebar right rw collapsed"
+             style="height: calc(-184.986px + 100vh); position: absolute; top: unset; bottom: 0; right: 0; left: unset;">
+
+            <div data-v-e8e67c46="" class="sidebar-content">
+                <div data-v-98888fa5="" class="rw-content" lang="" dir="ltr" style="display: none;">
+                    <header data-v-98888fa5="">
+                        <button data-v-98888fa5="" class="close" title="Close " style="display: none;"></button>
+                        <h2 data-v-98888fa5=""></h2></header>
+                    <div data-v-98888fa5="">
+                        <aside data-v-9948d462="" data-v-98888fa5="" class="topic-index-pane desktop"><h2
+                                data-v-9948d462="">On this page</h2>
+                            <ul data-v-9948d462="" class="topic-index">
+                                <li data-v-9948d462=""><a data-v-9948d462=""
+                                                          href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b49a0638669101487a8e89d6ec837ba.html?locale=en-US#holding-your-category-structure-in-catalog-versions">Holding
+                                    Your Category Structure in Catalog Versions</a></li>
+                                <li data-v-9948d462=""><a data-v-9948d462=""
+                                                          href="https://help.sap.com/docs/SAP_COMMERCE/d0224eca81e249cb821f2cdf45a82ace/8b49a0638669101487a8e89d6ec837ba.html?locale=en-US#bundling-multiple-catalog-versions-in-a-catalog">Bundling
+                                    Multiple Catalog Versions in a Catalog</a></li>
+                            </ul>
+                            <hr data-v-9948d462="" role="separator">
+                        </aside>
+                        <div data-v-98888fa5="" class="feedback-widget" dir="ltr">
+                            <div data-v-28ef6330="" class="feedback-widget-content" dir="ltr">
+                                <div data-v-28ef6330=""><h2 data-v-28ef6330="">Was this page helpful?</h2>
+                                    <div data-v-28ef6330="" class="buttons-toggle">
+                                        <button data-v-28ef6330="" class="">Yes</button>
+                                        <button data-v-28ef6330="" class="">No</button>
+                                    </div>
+                                </div>
+                                <div data-v-28ef6330="" style="display: none;"><p data-v-28ef6330="">Thank you. Please
+                                    enter any additional feedback you would like to leave, then press submit.</p></div>
+                                <div data-v-28ef6330="" style="display: none;"><p data-v-28ef6330="">How can we make the
+                                    page better for you?</p></div>
+                                <div data-v-28ef6330="" style="display: none;"><textarea data-v-28ef6330="" rows="4"
+                                                                                         placeholder="Additional feedback (optional)"></textarea>
+                                    <div data-v-28ef6330="" class="buttons-toggle">
+                                        <button data-v-28ef6330="">Cancel</button>
+                                        <button data-v-28ef6330="">Submit</button>
+                                    </div>
+                                </div>
+                                <div data-v-28ef6330="" style="display: none;"><p data-v-28ef6330="">Thank you for your
+                                    feedback</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br data-v-98888fa5="" class="clear"></div>
+</div>
