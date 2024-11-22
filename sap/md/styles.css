@@ -1,0 +1,34 @@
+body, input, button, select, textarea, kbd, samp {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #000;
+    color: #ccc;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 900;
+}
+
+h1 {
+    margin-left: 0px;
+}
+
+.bwp-syntax-block.clearfix {
+    width: 75%;
+}
+
+img {
+    background: white;
+}
+
+p {
+    line-height: 1.5;
+}
+
+pre, code {
+    background-color: #222;
+    color: #fff;
+    width: auto;
+    border-radius: 10px;
+    padding-left: 10px;
+}
