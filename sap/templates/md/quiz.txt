@@ -1,0 +1,476 @@
+Deployment - процес, коли ми визначаємо ім'я та код типу таблиці для мапінгу item чи relation.
+Кожен екземпляр елемента зберігається в одному рядку таблиці.
+В deploymentType є 3 атрибути: table(req), typecode(req), propertytable(opt)
+typecode - використовується для генерації PK і, має бути унікальним, від 10001 до 32766( commons(132xx), processing (327xx), b2bcommerce (100xx))
+значення кодів можна знайти у reservedTypecodes.txt
+
+table - вказуємо унікальне ім'я в global scope
+Якщо deployment не вказанний, тоді використовується у найближчому типі в ієрархії
+Коли немає ієрархії - розгортання використовується GenericItem
+
+Ми повинні визначити deploymentType у випадках для n:m і коли вже є існючий, щоби build зібрався:
+ - розширення GenericItem
+ - визначення нового типу шляхом розширення існуючого типу елемента, для якого немає розгортання
+ 
+Не завджи нам потрібно зберігати в таблиці данні, замість того щоб зберігати, ми можемо обчислити дані за допомогою існуючих даних 
+PersistenceType якраз відповідає зберігаєти чи ні. 
+Наразі є 2 типи: 'property' (persistent), 'dynamic' (not persisted)
+В property випадку значення зберігатимуться в БД
+В dynamic випадку не зберігається, але маємо вказати attribute handler, інакше BeanId буде згенеровано автоматично
+
+
+What is SAP Hybris and what are its main components?
+Can you explain the architecture of SAP Hybris?
+What is the role of the items.xml file in Hybris?
+How do you create a new extension in Hybris?
+What is the purpose of the localextensions.xml file?
+What is the difference between impex and flexible search in Hybris?
+How do you import data using impex in Hybris?
+How do you create a new type in Hybris?
+How do you configure a new cron job in Hybris?
+
+What is the role of the ServiceLayer in Hybris?
+How do you extend an existing service in Hybris?
+What is the purpose of the facade layer in Hybris?
+
+How do you handle internationalization (i18n) in Hybris?
+What are the different types of promotions available in Hybris? Name few examples.
+
+What is the role of the backoffice in Hybris?
+How do you debug a Hybris application?
+
+custom-property
+search(true)
+
+• Extensions are the java projects where you implement your own logic;
+• You can reuse and extend logic from existing extensions;
+• Dependencies are downloaded with maven;
+• Extensions are listed in "config/localextensions.xml" file.
+• Build is done via "ant all";
+• Build is customized with the callbacks;
+• Ant targets has broad use:
+• customize OOTB files;
+• run tests;
+• log targets;
+• execute scripts or jobs
+• Its possible to have multiple, aware of each other hybris instances running locally;
+• Secondary instances will have some differences (ports);
+• Backoffice is a great tool to walk over data and run processes in hybris;
+• Backoffice is customized via custom extensions
+• Atomic types, required for most of cases are already defined.
+• Most likely you don't need to add your own;
+• Adding custom class that requires "customize" is strongly discouraged!
+• unless you want to execute "customize" every time after "clean" target;
+• still, better don't.
+• Dynamic enums are more flexible and provide you higher runtime stability;
+• Static enums fit better if your possible value can't be something different from already defined set of values
+• Item type is the main type in hybris;
+• Every item is extending ItemModel and having:
+• unique PK;
+• created and modified Time;
+• New types should be persisted in different tables, defined in <deployment>
+• Item type is the main type in hybris data layer;
+• Carefully define data, especially <deployment>;
+• Property change or removal may bring you lots of troubles;
+• For item type - use Relation type over Collection
+• Having each relation as separate entity in data base:
+• improves search performance and usability;
+• will not run into "column value to long" issue.
+• For the most cases, models should be created via "model service";
+• Java's "new" keyword returns limited version of the model;
+• that is great for "searchByExample";
+• To intervene into model's life cycle - implement one of the five interceptors.
+• Item's persistence should take place outside the interceptor chain;
+• Interceptor's context lets you to check the item's state;
+• If you need to pass the objects further down the interceptor chain - use caching capabilities of the interceptor's context;
+• You can disable the interceptor by type or spring identifier.
+• The modelService is used for:
+• persistence operations:
+• create/save/remove;
+• state check:
+• isNew/isModified/isRemoved;
+• locking;
+• context interaction:
+• attach/detach.
+• Once item is persisted - "after save event" is published.
+• If you need special treatment for some column values, you can provide them in custom Translator;
+• To do this, you add special attribute "@.." (qualifier, or free text);
+• Specify class with implementation as "translator";
+• Generic DAO can cover basic search scenarios;
+• Generic Search is fairly easy to use;
+• Constructing query as java object interaction may take a lot of space on screen;
+• Suggestion - keep Generic Search for simple cases.
+• Flexible search - convenient abstraction over the SQL queries;
+• Both, simple and more sophisticated cases - can be covered with flexible search;
+• Restrictions can provide additional, user specific, layer of search logic.
+• Hybris Validation Framework is based on JSR 303 specification;
+• What can be validated?
+• How validation is defined?
+• When validation is performed?
+• To validate items you can use :
+• @Annotations for Model Items;
+• @Annotations or Constraint|tems for POJOs;
+• After Constrain rules change validation engine should be reloaded;
+• Validation is executed by the platform during "modelService.save ()":
+• Validation can be triadered on demand using "validation Service"
+• Retention can be done for:
+• old (by time threshold property) items;
+• flexible query results;
+• Executed by:
+• default cleanup action;
+• extended with hooks;
+• completely custom cleanup action;
+• To use maintenance infrastructure - provide strategy with:
+• "createfetchQuer" and "process" methods:
+• With reporting you can get information about currently persisted data;
+• Report view is configured in xml, can be extended by child extension;
+• Report configuration provides enough tools for customization per neededcase;
+• Events are used by application to notify itself about different changes:
+• can be processed in sync or async way;
+• can be shared across the nodes in the cluster;
+• can be delayed till transaction is committed.
+
+• With events, your application can notify itself about different changes:
+• for example - you can publish event for every customer registration;
+• Event communication consists of 2 parts:
+• Event object - pojo class with needed properties;
+• Event handler - logic class that reacts to event;
+• Event is fired using eventService class:
+• sync mode - code will proceed after event is handled;
+• async mode - code and event are going in parallel.
+• Cache gives significant boost for the performance, as the amount of DB calls is decreased;
+• Every ..Model.getProperty() call checks the value from the cache, if absent - retrieves value from the DB, saves in cache and returns;
+• Every modelService.save/remove invalidates item from the cache
+• also sends cluster aware event, so item is invalidated on all nodes;
+• Once cache is reaching its size - new entry will replace one of the existing
+• which exactly is chosen by the eviction policy:
+• LRU - Least Recently Used;
+• LFU - Least Frequently Used;
+• FIFO - First In, First Out.
+• Flexible search results are having different cache:
+• often flexible queries are having time parameter;
+• filling cache with those queries has no point, as they are single-use;
+• to avoid this - disable caching for such queries:
+• OOTB caching is big help in terms of performance;
+• In most cases you are good without modifying it;
+• New region can be added easily;
+• Better not to cache unique search requests.
+• Processing engine gives you a possibility to define process as list of actions (in xml file);
+• Definition can be treated as the pattern;
+• Later you can start process by defined pattern;
+• Example - order process:
+• different users and products going through the same process.
+• Process is defined as chain of blocks:
+• action;
+• wait;
+• split;
+• notify;
+• Process definition shouldn't be changed often;
+• Before changing - make sure that all processes were finished.
+• Cronjob can be used for recurrent tasks;
+• Cronjob is not deleted once finished, status and logs are persisted;
+• Cronjob consists of:
+• spring bean with logic;
+• timer with time properties or cron expression:
+• 000/12?***
+• Cronjob is more complicated use case for task;
+• Cronjobs are used for recurring operations:
+• cleanup;
+• indexing;
+• etc;
+• You can choose part of cluster where job will run;
+• There is a possibility to track the progress and abort certain jobs.
+• With workflow you can organize collaboration across the employees;
+• Workflow is meant to be used from Backoffice;
+• Example case:
+• administrator starts the process;
+• designer has to perform his part of job;
+• administrator can:
+• confirm the result;
+• deny it and mini loop will start again.
+• To create workflow you will need:
+• template;
+• list of actions (linked to template);
+• list of decisions:
+• available from actions;
+• and leading to different actions;
+• Workflow is useful tool that helps to organize cooperation between the different departments;
+• Workflows can be defined in the runtime from BackOffice or with ImpEx;
+• Workflow is backed by Backoffice Ul.
+
+base commerce:
+• One of the main models;
+• Properties:
+• websites;
+• product catalogs;
+• default currency & language;
+• currencies;
+• languages;
+• net (price is with/without tax);
+• tax group;
+• warehouses;
+• delivery modes;
+• delivery & billing countries;
+• checkout flow group;
+payment provider;
+• order business process code;
+
+• Base commerce:
+• Customer reviews & services;
+• Order split;
+• Deep link;
+• Fraud detection:
+• Stock;
+• Store locator:
+
+• Commerce services:
+• Product configurator:
+• Commerce cart service;
+• Converter & populator;
+
+• Search & Navigation, Data model:
+• SOLR:
+• standalone:
+• cloud;
+• Soir facet search config:
+• server config:
+index config;
+• indexed type.
+• Done via Solr:
+• Delivered as "solr facet search" extension;
+• Works in 2 modes:
+• standalone;
+• cloud;
+
+• Content management:
+• CMS is catalog aware;
+• It contains:
+• page template;
+• content slots;
+• pages;
+• components;
+• links;
+• navigation nodes;
+
+
+
+---
+
+### **Core Hybris Concepts**
+
+1. **Explain the structure of a Hybris extension. How do extensions interact within the Hybris platform?**
+2. **What is the purpose of the `localextensions.xml` file, and how does it affect the development process?**
+3. **How do you configure the `items.xml` file in Hybris, and what is its role in creating new item types?**
+4. **How does the Hybris platform handle multi-tenancy, and what challenges should you consider when developing for multiple tenants?**
+5. **What is the difference between `Impex` and `FlexibleSearch` in Hybris? When would you choose one over the other?**
+
+### **Data Modeling and Persistence**
+
+6. **How do you handle custom data types in Hybris? What steps do you take to ensure efficient persistence?**
+7. **Can you explain the lifecycle of an item in Hybris, from creation to deletion?**
+8. **What are the different ways to create custom attributes for items in Hybris, and how are they stored in the database?**
+9. **What happens when you change an item’s deployment type in Hybris, and what are the consequences for existing data?**
+10. **How do you configure the persistence layer to work with different databases in Hybris (e.g., MySQL, Oracle)?**
+
+### **Service Layer and Facade**
+
+11. **What is the role of the service layer in Hybris, and how does it differ from the data layer?**
+12. **How do you define and expose custom services in Hybris?**
+13. **What is a Facade in Hybris, and how does it interact with the service layer and controller layer?**
+14. **Explain how a custom service can be made transactional in Hybris.**
+15. **How do you implement and use a custom logic within a Hybris service for a multi-step process?**
+
+### **Data Import and Export**
+
+16. **What is ImpEx, and how would you use it to import product data into Hybris?**
+17. **What are some strategies for importing large amounts of data efficiently in Hybris?**
+18. **How would you handle complex relationships between items during an ImpEx import?**
+19. **What is the role of ImpEx macros, and how do they help in data import tasks?**
+20. **Can you explain how you can use flexible search to import complex data structures in Hybris?**
+
+### **Customization and Interceptors**
+
+21. **How would you create a custom interceptor to enforce business rules before an item is saved in Hybris?**
+22. **What are the different types of interceptors in Hybris, and what are their specific use cases?**
+23. **How would you use `@Before` and `@After` annotations in Hybris for custom business logic in interceptors?**
+24. **What role do validators play in Hybris, and how can they be customized?**
+25. **What is the purpose of a `PrepareInterceptor` in Hybris, and when would you use it?**
+
+### **FlexibleSearch and Querying**
+
+26. **How would you optimize a FlexibleSearch query that retrieves a large number of products and their prices?**
+27. **Explain how to use joins in a FlexibleSearch query. What are the performance considerations?**
+28. **What is the role of a `GenericSearch` in Hybris, and how does it differ from `FlexibleSearch`?**
+29. **How do you use `FlexibleSearch` to query data across multiple item types and ensure efficient performance?**
+30. **What are the limitations of `FlexibleSearch`, and when should you consider using direct SQL queries instead?**
+
+### **Performance Optimization**
+
+31. **How do you ensure that data loading (e.g., product catalog) is optimized for performance in Hybris?**
+32. **What are the key strategies to improve the performance of `FlexibleSearch` queries in Hybris?**
+33. **Explain how indexing works in Hybris and how to create custom indexes for performance optimization.**
+34. **What is the use of caching in Hybris, and how do you manage cache invalidation efficiently?**
+35. **How does Hybris handle caching for frequently accessed data, and what impact does it have on system performance?**
+
+### **Cron Jobs and Task Engine**
+
+36. **How do you configure a custom CronJob in Hybris to run at scheduled intervals?**
+37. **What is the role of the `TaskEngine` in Hybris, and how does it relate to background processing?**
+38. **Can you explain how Hybris handles CronJobs in the context of multi-server environments?**
+39. **How would you create a custom task using the Hybris `TaskEngine` for scheduled data processing?**
+40. **What is the difference between a `Job` and a `CronJob` in Hybris, and when should each be used?**
+
+### **Workflows and Business Processes**
+
+41. **How would you configure a custom workflow for processing orders in Hybris?**
+42. **What are the key components of a workflow in Hybris, and how do they interact?**
+43. **How would you modify an existing workflow in Hybris to add custom logic or business rules?**
+44. **Can you describe the lifecycle of a workflow in Hybris and how events are triggered within it?**
+45. **What is the difference between a simple workflow and an advanced workflow in Hybris, and when would you use each?**
+
+### **Security and Encryption**
+
+46. **How do you manage encryption for sensitive data in Hybris?**
+47. **What are the steps for securing communication between Hybris and external systems?**
+48. **How do you implement encrypted attributes in Hybris, and what are the best practices for handling sensitive information?**
+49. **Explain how user authentication and authorization work in Hybris. How would you customize them for a specific use case?**
+50. **What are the security implications of using custom Spring Beans in Hybris, and how can you mitigate risks?**
+
+---
+
+Here’s a complete transformation of the statements into questions:
+
+---
+
+### **Extensions and Build Process**
+1. **What are extensions in Hybris, and how do they enable the implementation of custom logic?**
+2. **How can you reuse and extend logic from existing extensions in a Hybris project?**
+3. **What role does Maven play in a Hybris project, and how are dependencies managed with it?**
+4. **Why are extensions listed in the `config/localextensions.xml` file, and how is it used during the build process?**
+5. **What is the significance of the `ant all` command in Hybris, and how is the build process customized with callbacks?**
+6. **How are Ant targets used in Hybris for customizing OOTB files, running tests, logging, or executing scripts and jobs?**
+7. **Is it possible to have multiple Hybris instances running locally, and what differences exist between primary and secondary instances?**
+8. **How do secondary Hybris instances differ in configuration, particularly in terms of ports?**
+
+---
+
+### **Backoffice and Customization**
+9. **Why is the Backoffice tool valuable for navigating data and running processes in Hybris?**
+10. **How can Backoffice be customized through custom extensions?**
+
+---
+
+### **Data Modeling**
+11. **What are atomic types in Hybris, and why are they sufficient for most cases without requiring custom additions?**
+12. **Why is adding custom classes that require a "customize" operation strongly discouraged?**
+13. **What challenges arise from adding custom classes that require "customize" after the "clean" target, and why is it better to avoid this?**
+14. **What are the advantages of using dynamic enums over static enums, and when is it better to use static enums?**
+
+---
+
+### **Item Types**
+15. **What is an item type in Hybris, and how does it extend `ItemModel`?**
+16. **What properties are inherited by every item type, such as unique PK, created time, and modified time?**
+17. **Why should new item types be persisted in separate tables defined under the `<deployment>` tag?**
+18. **What potential issues arise when making changes to or removing properties from item types?**
+19. **Why is using Relation Types over Collection Types recommended for item type relationships in Hybris?**
+20. **How does storing relations as separate database entities improve search performance and usability?**
+
+---
+
+### **Model Service and Lifecycle**
+21. **Why is it preferred to use the `modelService` for creating, saving, and removing models rather than using Java's `new` keyword?**
+22. **How does the `modelService` handle persistence operations, state checks, locking, and context interactions?**
+23. **What happens when an item is persisted in Hybris, and how does the "after save event" function?**
+24. **What are interceptors in Hybris, and how can you implement them to intervene in the lifecycle of a model?**
+25. **Why should item persistence be performed outside the interceptor chain?**
+26. **How does the interceptor's context allow checking the item's state, caching, and passing objects further down the chain?**
+27. **How can you disable an interceptor for a specific type or spring identifier?**
+
+---
+
+### **Flexible Search and Generic DAO**
+28. **What are the primary use cases for the generic DAO, and how does it support basic search scenarios?**
+29. **Why is the flexible search abstraction over SQL queries a better choice for complex search requirements?**
+30. **How can restrictions add user-specific search logic in flexible search?**
+31. **What types of queries should avoid caching in flexible search, and why?**
+
+---
+
+### **Validation Framework**
+32. **What is the Hybris Validation Framework, and how is it based on the JSR 303 specification?**
+33. **What types of data can be validated, and how is the validation defined in Hybris?**
+34. **When is validation performed in Hybris, and how can it be triggered on demand?**
+35. **How are validation annotations or constraint items applied to models and POJOs?**
+36. **Why is it necessary to reload the validation engine after changing constraint rules?**
+
+---
+
+### **Retention and Cleanup**
+37. **What retention mechanisms are available for removing old items based on a time threshold or flexible query results?**
+38. **How can cleanup actions be executed using default, hook-extended, or completely custom strategies?**
+39. **What methods must be implemented to provide a maintenance strategy, and how are the results reported?**
+
+---
+
+### **Event Framework**
+40. **How does the event framework in Hybris allow applications to notify themselves about changes?**
+41. **What are the two key parts of an event communication system, and how do they interact?**
+42. **What is the difference between synchronous and asynchronous modes of event processing?**
+43. **What happens when an item is saved or removed, and how does it affect the cache and event system?**
+
+---
+
+### **Cache Management**
+44. **Why is caching important in Hybris, and how does it improve performance by reducing database calls?**
+45. **What eviction policies are used for Hybris cache management (e.g., LRU, LFU, FIFO)?**
+46. **How are flexible search results managed differently in caching, and why should unique search requests generally not be cached?**
+
+---
+
+### **Processing Engine**
+47. **What is the purpose of the processing engine in Hybris, and how is it used to define reusable process patterns?**
+48. **How is a process defined using actions, waits, splits, and notifications in Hybris?**
+49. **What precautions should be taken before modifying process definitions, and why is it important to complete all running processes first?**
+
+---
+
+### **Cronjobs**
+50. **What is a cronjob in Hybris, and how is it used for recurring tasks?**
+51. **What are the key components of a cronjob, such as spring beans and time properties or cron expressions?**
+52. **How can you monitor, track progress, or abort cronjobs during execution?**
+
+---
+
+### **Workflow**
+53. **What is a workflow in Hybris, and how does it facilitate collaboration across employees?**
+54. **What components are required to create a workflow, such as templates, actions, and decisions?**
+55. **How can workflows be defined at runtime through BackOffice or using ImpEx?**
+56. **What are some typical use cases for workflows in a Hybris application?**
+
+---
+
+### **Base Commerce**
+57. **What are the main properties of the base commerce module in Hybris, and how are they configured?**
+58. **How does base commerce support features like customer reviews, order splits, deep links, fraud detection, and stock management?**
+
+---
+
+### **Commerce Services**
+59. **What is the purpose of the commerce cart service, and how does it interact with the product configurator?**
+60. **How are converters and populators used in commerce services to map and transfer data?**
+
+---
+
+### **Search and Navigation**
+61. **How is Solr integrated with Hybris for search and navigation, and what are its two modes of operation?**
+62. **What are the components of Solr facet search, including server configuration, index configuration, and indexed types?**
+
+---
+
+### **Content Management**
+63. **What is the role of content management in Hybris, and how is it catalog-aware?**
+64. **What are the key components of the CMS, such as page templates, content slots, pages, and components?**
+65. **How are navigation nodes, links, and components organized within the CMS in Hybris?**
+
+---

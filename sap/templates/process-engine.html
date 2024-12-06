@@ -1,0 +1,1339 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> process engine</title>
+</head>
+<body>
+<link rel='stylesheet' href='styles.css' type='text/css' media='all'/>
+
+<h1 id="the-sap-commerce- process  engine">The Sap Commerce process engine</h1>
+<p>The process engine enables you to dene business process es through XML process definitions, and runs these process es
+    in an asynchronous way. It guarantees that actions are performed in the right order and on the right condition. A
+    new
+    process can be created for each process definition. It is then possible to manage these process es by using their
+    own context.</p>
+<p>The process engine delivers a solution for waiting for events, notifying users or user groups, ring actions (dened in
+    spring beans), and ow decisions based on action results.</p>
+<p>It is a good idea to study Java and XML les in the yacceleratorfulfilment process extension. This is an illustration
+    of the fulfillment process and neatly demonstrates how to create a process .</p>
+<h2 id="introduction">Introduction</h2>
+<p>The process engine represents an engine to build and interpret a memory structure of a process . This memory
+    representation is based on nodes. To build a correct object tree, a process definition.xsd le is used by JAXB. The
+    result of this process ing is a map that relates nodes and their IDs. Information about the node ID that is the next
+    one in the process is stored in different ways for different nodes. Wait, notify, and split nodes have their next
+    nodes explicitly listed. In case of alternatives, use the action node.</p>
+<p>Its execution path logic is described further below.</p>
+<h2 id="simplied-work-sequence-example">Simplied Work Sequence Example</h2>
+<p>When starting to work with the process engine, it is advisable to do a business analysis rst.</p>
+<p><img src=" process-engine/2_image_0.png" alt="2_image_0.png"></p>
+<ol>
+    <li>The workow gained from this analysis then needs to be translated to the process XML le.</li>
+</ol>
+<p>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt; </p>
+
+<pre>
+<code>
+&lt; process  xmlns=&quot;http://www.hybris.de/xsd/ process definition&quot; name=&quot;Example&quot; start=&quot;Action1&quot;&gt;
+  &lt;action id=&quot;Action1&quot; bean=&quot;Action1&quot;&gt;
+    &lt;transition name=&quot;OK&quot; to=&quot;Action2&quot;/&gt;
+    &lt;transition name=&quot;NOK&quot; to=&quot;Action3&quot;/&gt;
+  &lt;/action&gt;
+  &lt;action id=&quot;Action2&quot; bean=&quot;Action2&quot;&gt;
+    &lt;transition name=&quot;OK&quot; to=&quot;Action4&quot;/&gt;
+  &lt;/action&gt;
+  &lt;action id=&quot;Action3&quot; bean=&quot;Action3&quot;&gt;
+    &lt;transition name=&quot;OK&quot; to=&quot;Action4&quot;/&gt;
+  &lt;/action&gt;
+  &lt;action id=&quot;Action4&quot; bean=&quot;Action4&quot;&gt;
+    &lt;transition name=&quot;OK&quot; to=&quot;success&quot;/&gt;
+  &lt;/action&gt;
+  &lt;end id=&quot;success&quot; state=&quot;SUCCEEDED&quot;&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+</code>
+</pre>
+
+
+2. Next, dene the beans in <strong>|your_extension_name|-spring.xml</strong> le.
+
+<pre>
+&lt;bean id="Action1" class="org.training.actions.Action1" parent="abstractAction"/&gt;
+&lt;bean id="Action2" class="org.training.actions.Action2" parent="abstractAction"/&gt; 
+&lt;bean id="Action3" class="org.training.actions.Action3" parent="abstractAction"/&gt;
+&lt;bean id="Action4" class="org.training.actions.Action4" parent="abstractAction"/&gt;
+</pre>
+
+
+3. Finally implement the actions classes. Below nd the example of implementation of the Action1.
+
+package org.training.actions;public class Action1 extends AbstractSimpleDecisionAction {
+@Override public Transition executeAction(final Business process Model process )
+{
+if(.......)
+{ return Transition.NOK;
+}
+else
+{
+return Transition.OK; }
+}
+}
+
+## Support For Scripts In Business process
+
+With support for scripting and the dynamic process definition, it is possible to declare not only the structure of the
+business process but also to dene the the behavior directly in the XML le that denes the process .
+
+## Calling A Script
+
+Here is an example of a process definition with a script that returns the next transition:
+
+&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;
+
+<pre>
+<code>
+&lt;process xmlns=&quot;http://www.hybris.de/xsd/processdefinition&quot; start=&quot;action0&quot; name=&quot;testProcessDefinition&quot;&gt;
+    &lt;scriptAction id=&quot;action0&quot;&gt;
+        &lt;script type=&quot;javascript&quot;&gt;
+            (function () {
+                return &#39;itworks&#39;;
+            })();
+        &lt;/script&gt;
+        &lt;transition name=&quot;itworks&quot; to=&quot;success&quot;/&gt;
+    &lt;/scriptAction&gt;
+    &lt;end id=&quot;success&quot; state=&quot;SUCCEEDED&quot;&gt;Everything was fine&lt;/end&gt;
+&lt;/process&gt;
+</code>
+</pre>
+
+This simple process definition shows the usage of a scriptAction element. It is almost exactly the same as an action
+element, but instead of executing some logic from a spring bean, it executes the script dened in a script element. Here
+it only invokes an anonymous function that returns the next transition (**'itworks'**).
+
+## Accessing A Business process Context From A Script
+
+Scripts from process definitions are invoked with a special process parameter passed to the script. The process
+parameter
+is an instance of the Business process Model describing the running business process . Here is an example of script that
+modies a context parameter of a business process :
+
+<pre>
+<code>
+&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt; process  xmlns='http://www.hybris.de/xsd/ process definition' start='action0' name='test process Definiti&gt;
+  &lt;contextParameter name='testParameter' use='required' type='java.lang.String'/&gt;
+  &lt;scriptAction id='action0'&gt;
+    &lt;script type='javascript'&gt;
+      var parameter =  process .contextParameters.get(0);
+      parameter.setValue(&#39;changedFromScript&#39;); 
+      modelService.save(parameter); 
+      &#39;itworks&#39;
+    &lt;/script&gt;
+    &lt;transition name='itworks' to='success'/&gt;
+  &lt;/scriptAction&gt;
+  &lt;end id='success' state='SUCCEEDED'&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+</code>
+</pre>
+
+
+<h2 id="handling-business- process -restart-requests">Handling Business process Restart Requests</h2>
+<p>By default, the system doesn&#39;t restart business process es with nodes that are being run as. It creates a request
+    before each restart to check whether there are any business process es with running nodes. If such process es exist,
+    the system doesn&#39;t restart them to ensure that that there are no process es with doubled instances of the same
+    nodes running at the same time. As a result, the existing data model isn&#39;t broken by concurrent business
+    process es.</p>
+<p>Use the following properties to set the number of retires and milliseconds between attempts to request a business
+    process restart:
+    process engine. process .restart.retries=3 process engine. process .restart.millis=500 The default values are 3
+    retries
+    and 500 milliseconds. The following property ensures that the system throws an exception when requests for
+    restarting business process es fail:
+    process engine. process .restart.exception.if.failed=true The property is set to true by default.</p>
+<p>If you want the system to allow restarting business process es without any validation of currently running process
+    es,
+    use the following property with the value true:
+    process engine. process .restart.legacy=true</p>
+<p>Enabling the process engine. process .restart.legacy=true property can lead to corrupt behavior caused by process es
+    being run at the same time after being restarted.</p>
+<h2 id="disconnecting-task-instances-from-business- process ">Disconnecting Task Instances From Business process </h2>
+<p>To make business process es more resilient in case of database outages or node failures, use the following property:
+    mark. process .as.done.enabled=true The property is enabled by default.</p>
+<p>The property ensures that task instances are no longer connected to any business process es when business logic is
+    successfully carried out. It also removes all conditions related to tasks and sets the value of the
+    TaskModel.RUNNER BEAN property to pass through Runner. If the process of removing a given task isn&#39;t successful,
+    the pass through Runner bean does nothing with it during any attempts to carry it out again, allowing the task to be
+    removed smoothly by the task service.</p>
+<h2 id=" process -definition-creation"> process definition Creation</h2>
+<p>The process definition denes a set of nodes that are connected with each other through their IDs.</p>
+<p>To create a new process instance, call the create process method from the Business process Service service. You can
+    then
+    run this service using the start process method. If a process definition has not been created before, the
+    process definitionFactory will create one in this step.</p>
+<p>business process Service.start process (id, process Name);
+    The process definition denes a set of nodes that are connected with each other through their IDs. The process
+    definition
+    starts with the process header. To make the process definition visible to the process definitionFactory, it is
+    necessary
+    to declare it as a resource in Spring.</p>
+<p><img src=" process-engine/4_image_0.png" alt="4_image_0.png"></p>
+<h2 id="dening-in-spring-the- process ">Dening In Spring The process </h2>
+<p>The Spring definition of a process is straightforward:</p>
+
+<pre>
+<code>
+&lt;bean id=&quot;placeorder process DefinitionResource&quot; class=&quot;de.hybris.platform. process  engine.definition. process DefinitionResource&quot;&gt; 
+  &lt;property name=&quot;resource&quot; value=&quot;classpath:/ process demo/placeorder.xml&quot;/&gt; 
+&lt;/bean&gt;
+</code>
+</pre>
+
+<p>The table below explains the meaning of the current
+    bean element attributes.
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>This attribute needs to be unique in Spring</td>
+    </tr>
+    <tr>
+        <td>class</td>
+        <td>This attribute should always be as presented. It is the indicator for the process definitionFactory; where
+            to
+            search for beans in the Spring context for process definitions.
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p>The
+    bean element contains the
+    property element. The table below explains the meaning of the
+    property element attributes.
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>The name of the property is: resources. The name indicates the value of this property shows where in the le
+            system the process definition XML le is located.
+        </td>
+    </tr>
+    <tr>
+        <td>value</td>
+        <td>The value attribute contains the actual path to the process definition XML le.</td>
+    </tr>
+    </tbody>
+</table>
+
+
+## The Actions
+
+The Action beans also need to be declared in Spring:
+
+<pre>
+<code>
+&lt;bean id=&quot;checkOrder&quot; class=&quot;de.hybris.platform.fulfilment.actions.CheckOrder&quot; parent=&quot;abstractAction&quot;&gt; 
+  &lt;property name=&quot;checkOrderService&quot; ref=&quot;checkOrderService&quot;/&gt; 
+&lt;/bean&gt;
+</code>
+</pre>
+
+
+The table below explains the meaning of the current bean element attributes.
+
+<table>
+    <thead>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>id</td>
+        <td>This attribute is important as it relates the Spring bean with the action node.</td>
+    </tr>
+    <tr>
+        <td>class</td>
+        <td>This attribute points to the class name that realizes the action interface.</td>
+    </tr>
+    <tr>
+        <td>parent</td>
+        <td>This attribute is only used for information.</td>
+    </tr>
+    </tbody>
+</table>
+
+
+Additionally, the properties can be set in Spring. In the example above, the property checkOrderService is set.
+
+The Root Tag and the process Class The definition of the process needs to be written in an XML le. This le must be
+adequate to the definition in the process definition.xsd. Each process definition starts with a header.
+
+<pre>
+<code>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;process xmlns=&quot;http://www.hybris.de/xsd/processdefinition&quot;
+         name=&quot;consignmentFulfilmentSubProcess&quot;
+         start=&quot;waitBeforeTransmission&quot;
+         onError=&quot;onError&quot;
+         processClass=&quot;de.hybris.platform.fulfilment.model.ConsignmentFulfilmentProcess&quot;&gt;
+&lt;/process&gt;
+</code>
+</pre>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>This attribute tells the process &#39; name.</td>
+    </tr>
+    <tr>
+        <td>start</td>
+        <td>This attribute tells the ID of the start node.</td>
+    </tr>
+    <tr>
+        <td>onError</td>
+        <td>This attribute gives the node that is called when an error occurs.</td>
+    </tr>
+    <tr>
+        <td> process Class</td>
+        <td>This attribute refers to the class that implements the process context. The normal routine is to extend this
+            class for extra elds where you can store extra process parameters.
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h2 id=" node-types
+    ">Node Types</h2>
+<p>After the process is dened, content must be added to the process . A process is described by a set of nodes, which
+    represent the steps in a given process . Each node, excluding the end node, needs to dene which node has to be
+    invoked next in the workow.</p>
+<p>The most important eld in each node is its ID. This is the key that joins two nodes in a workow.</p>
+<p>Remember The start attribute in the process root tag should point to one of the declared nodes Action Node Action
+    nodes are the nodes that realize the process logic.</p>
+<p>Example:</p>
+<p>
+
+<pre>
+<code>
+&lt;action id=&quot;is process Completed&quot; bean=&quot;sub process esCompleted&quot;&gt;
+  &lt;transition name=&quot;OK&quot; to=&quot;sendOrderCompletedNotification&quot;/&gt;
+  &lt;transition name=&quot;NOK&quot; to=&quot;waitForWarehouseSub process End&quot;/&gt;
+&lt;/action&gt;
+</code>
+</pre>
+
+
+<p>The bean attribute points to the bean id declared in the <strong>spring.xml</strong> le. It denes which action will
+    be red. For details, see the Actions section below. The table below shows the attributes of the transition
+    element.</p>
+<table>
+    <thead>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>Tells the result of an action.</td>
+    </tr>
+    <tr>
+        <td>to</td>
+        <td>Tells the process Engine to which node the process should go after the result of an action is
+            returned.
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    <strong>Wait Node</strong><br>
+    Wait nodes are used to communicate with the external environment. Use this node if somewhere in the process you need
+    to wait for an external process result. It is also used if waiting for sub-processes to finish their routine.
+    Example:
+</p>
+
+<pre>
+<code>
+&lt;wait id=&quot;waitForWarehouseSubProcessEnd&quot; then=&quot;isProcessCompleted&quot;&gt;
+    &lt;event&gt;ConsignmentSubProcessEnd&lt;/event&gt;
+&lt;/wait&gt;
+</code>
+</pre>
+
+<p>
+    The attribute <code>then</code> is the ID of the node that has to be invoked after the wait condition is fulfilled.
+</p>
+
+<p>
+    The element <code>&lt;event&gt;</code> defines the name of the event that activates this node. Internally, the
+    process engine prepends the process's code to the event name to make it unique. Set <code>prependProcessCode=&quot;false&quot;</code>
+    to avoid prepending the process's code. There is an expression language that you can use in your event names. The
+    process definition will look something like this:
+</p>
+
+<pre>
+<code>
+&lt;wait id=&quot;waitForWarehouseSubProcessEnd&quot; then=&quot;isProcessCompleted&quot; prependProcessCode=&quot;false&quot;&gt;
+    &lt;event&gt;${process.code}_ConsignmentSubProcessEnd&lt;/event&gt;
+&lt;/wait&gt;
+</code>
+</pre>
+
+<p>ConsignmentSub process End is an event that you need to trigger by using
+    de.hybris.platform. process engine.Business process Service.triggerEvent(String).</p>
+<p> process is a process which waits for the event specied in the event parameter.</p>
+<p>N.B.: In the expression language you have two variables:
+    process : the current instance of Business process Model</p>
+<p>params: a Map with the current process parameters</p>
+<h2 id="support-for-user-input">Support For User Input</h2>
+<p>There is also an option to provide additional information called choice when triggering an event. Based
+    on the choice, a process may transit to different nodes. Here is an example of using a wait node with
+    multiple choices:</p>
+
+<pre>
+<code>
+&lt;wait id='waitNode' then='nothingChoosen' prepend process Code='false'&gt;
+  &lt;case event='eventWithChoice'&gt;
+    &lt;choice id='first_choice' then='firstChoiceChoosen'/&gt;
+    &lt;choice id='second_choice' then='secondChoiceChoosen'/&gt;
+  &lt;/case&gt;
+&lt;/wait&gt;
+</code>
+</pre>
+
+<p>If you trigger an event without choice, the business process will transit to a node dened by the then
+    argument
+    (&#39;nothingChoosen&#39; in a given example). To trigger an event with choice, you can use the
+    de.hybris.platform. process engine.Business process Service.triggerEvent(Business process Event)
+    method.</p>
+<p>Here is an example showing how to trigger event with given choice:
+    final Business process Event event = Business process Event.builder(&quot;eventWithChoice&quot;).withChoice(&quot;
+    business process Service.triggerEvent(event);</p>
+<h2 id="timeout">Timeout</h2>
+<p>You can dene a timeout on the wait node. When the node with dened timeout doesn&#39;t receive an event
+    within a dened time, the transition congured on timeout element will be performed. Here is an example
+    definition of a wait node with a dened timeout:
+    This is For more the SAP Help 8</p>
+<p>The delay format is dened by duration component of ISO 8601 standard.</p>
+<p>Split Node</p>
+<p>Use of split nodes is discouraged.</p>
+<p>The Split node is used when a process needs to run actions or strings of actions in parallel.</p>
+<p>Example:</p>
+
+<h2 id="notify-node">Notify Node</h2>
+<p>Use this node if there is need to inform a user group or a particular user of a state of a process .</p>
+<p>Example:</p>
+
+<p>
+    <strong>Split Node</strong><br>
+    A split node is used to define multiple paths for the process to proceed concurrently or based on conditions.
+    Example:
+</p>
+
+<pre>
+<code>
+&lt;split id=&quot;split&quot;&gt;
+    &lt;targetNode name=&quot;rnd&quot;/&gt;
+    &lt;targetNode name=&quot;sayC&quot;/&gt;
+&lt;/split&gt;
+</code>
+</pre>
+
+<p>
+    The <code>&lt;targetNode&gt;</code> element defines the next nodes after the process is split.
+</p>
+
+<pre>
+<code>
+&lt;notify id="notifyadmingroup" then="split"&gt; 
+  &lt;userGroup name="admingroup" message="Perform action"/&gt; 
+  &lt;userGroup name="othergroup" message="other message"/&gt; 
+&lt;/notify&gt;
+</code>
+</pre>
+
+
+The attribute then of the
+notify element denes the next node in the process that is invoked after one member from the userGroup from
+each group accepts a message. The table below shows the attributes of the
+userGroup element.
+
+<p>
+    <strong>Wait Node with Timeout Example:</strong><br>
+    This example demonstrates the use of a wait node that listens for an event and has a timeout mechanism.
+</p>
+
+<pre>
+<code>
+&lt;wait id=&quot;waitForWarehouseSubProcessEnd&quot; then=&quot;isProcessCompleted&quot;&gt;
+    &lt;event&gt;ConsignmentSubProcessEnd&lt;/event&gt;
+    &lt;timeout delay='PT30S' then='timeout'/&gt;
+&lt;/wait&gt;
+</code>
+</pre>
+
+<p>
+    - The <code>&lt;event&gt;</code> element specifies the name of the event that activates the node.<br>
+    - The <code>&lt;timeout&gt;</code> element defines a delay (in ISO 8601 duration format) and the node to transition
+    to if the event does not occur within the specified time.
+</p>
+
+
+<table>
+    <thead>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>name</td>
+        <td>The group of users to which a message (one after other) has to be sent. There can be
+            several userGroup elements. The order of the informed groups is the same as in the definition.
+        </td>
+    </tr>
+    <tr>
+        <td>message</td>
+        <td>Based on the presented example, after a member of the admingroup has committed a
+            message, a message for othergroup is generated. After this message has also been
+            committed the process is informed and the next node (in this example split) is executed.
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h2 id="end-node">End Node</h2>
+<p>This node ends the process and stores state and message in a process item.</p>
+<pre data-v-314a257c="" class="pre codeblock prettyprint prettyprinted"><span
+        class="tag">&lt;end</span><span class="pln"> </span><span class="atn">id</span><span
+        class="pun">=</span><span class="atv">"error"</span><span class="pln"> </span><span
+        class="atn">state</span><span class="pun">=</span><span class="atv">"ERROR"</span><span
+        class="tag">&gt;</span><span class="pln">All went wrong.</span><span
+        class="tag">&lt;/end&gt;</span><span
+        class="pln">
+</span><span class="tag">&lt;end</span><span class="pln"> </span><span class="atn">id</span><span
+        class="pun">=</span><span class="atv">"success"</span><span class="pln"> </span><span
+        class="atn">state</span><span class="pun">=</span><span class="atv">"SUCCEEDED"</span><span
+        class="tag">&gt;</span><span class="pln">Everything was fine</span><span
+        class="tag">&lt;/end&gt;</span></pre>
+The state attribute tells a process state set after the node is executed. The content of this
+element, for example All went wrong.,
+is a sample message stored in a process item.</p>
+<h2 id="actions">Actions</h2>
+<p>Actions are the most important part of the process engine functionality. Normally, they have to
+    implement a logic or call specialized services to execute tasks that are necessary in a process .
+    An Action performs a single piece of work within a process .</p>
+<p>Usually an action acts upon input data which has been fed into the engine or has been produced by
+    previous actions. Each action produces an action result, which enables the engine to direct the
+    process to the next action. Each action is part of the process </p>
+<p><img src=" process-engine/9_image_0.png" alt="9_image_0.png"></p>
+<p>The Action Interface has two methods:
+    Set [String] getTransitions();
+    This method is used for validation if all possible results from an action are mapped in the
+    process definition. In this method a Set of all possible return codes should be returned.
+</p>
+<p>String execute(Business process Model process )throwsRetryLaterException, Exception; This method is
+    used to implement the main logic of an action. The reason for having separated
+    RetryLaterException is that this exception is meant to inform the engine to re an action once
+    again.</p>
+<p>This is For more the SAP Help 10 In addition, there are two codes that an action could return
+    outside of the normal action procedure:
+    RETRY_RETURN_CODE - same as throwing RetryLaterException ERROR_RETURN_CODE - same as throwing
+    another Exception</p>
+<h2 id="transitions">Transitions</h2>
+<p>The transitions dene the target for the next step of a process. The action result determines the
+    route.</p>
+
+<img src="process-engine/10_image_0.png" alt="10_image_0.png"></p>
+<p>Example:</p>
+
+<p>Example workflow should be defined like this:</p>
+
+<pre>
+<code>
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;process xmlns=&quot;http://www.hybris.de/xsd/processdefinition&quot; name=&quot;Example&quot; start=&quot;Action1&quot;&gt;
+    &lt;action id=&quot;Action1&quot; bean=&quot;Action1&quot;&gt;
+        &lt;transition name=&quot;OK&quot; to=&quot;Action2&quot;/&gt;
+        &lt;transition name=&quot;NOK&quot; to=&quot;Action3&quot;/&gt;
+    &lt;/action&gt;
+    &lt;action id=&quot;Action2&quot; bean=&quot;Action2&quot;&gt;
+        &lt;transition name=&quot;OK&quot; to=&quot;Action4&quot;/&gt;
+    &lt;/action&gt;
+    &lt;action id=&quot;Action3&quot; bean=&quot;Action3&quot;&gt;
+        &lt;transition name=&quot;OK&quot; to=&quot;Action4&quot;/&gt;
+    &lt;/action&gt;
+    &lt;action id=&quot;Action4&quot; bean=&quot;Action4&quot;&gt;
+        &lt;transition name=&quot;OK&quot; to=&quot;success&quot;/&gt;
+    &lt;/action&gt;
+    &lt;end id=&quot;success&quot; state=&quot;SUCCEEDED&quot;&gt;Everything was fine&lt;/end&gt;
+&lt;/process&gt;
+</code>
+</pre>
+
+<p>
+    - The <code>&lt;action&gt;</code> elements define the tasks or actions in the workflow.<br>
+    - The <code>&lt;transition&gt;</code> elements specify the flow from one action to the next based on conditions like
+    "OK" or "NOK".<br>
+    - The <code>&lt;end&gt;</code> element marks the successful completion of the workflow.
+</p>
+
+
+<p>
+    As we can see, result of Action1 determines if Action2 or Action3 occur, and then workow in both
+    cases goes back to Action4.
+</p>
+<p>Of course bean and action ID do not need to be the same.</p>
+<h2 id="action-superclasses">Action Superclasses</h2>
+<p>To make an action implementation easy, dene an abstractAction that implements useful routines in
+    action implementation, such as de.hybris.platform. process engine.action.AbstractAction.</p>
+<p>There is a set of methods for logging both messages and errors, as well as getters and setters
+    for ModelService, process ParameterHelper, and at the end:
+    get process ParameterValue: Gets a parameter stored in the process context</p>
+<p>setOrderStatus: Sets a status of the order
+    createTransitions: Creates a set of transitions for lists of strings</p>
+<h2 id="available-actions">Available Actions</h2>
+<p>There are also two additional templates to use for a procedural or simple decision action:</p>
+<p>AbstractProceduralAction: It simply returns OK whatever happens. It is useful to split a process
+    into smaller pieces.</p>
+<p>Only an implementation of the execute method is necessary.</p>
+<p>AbstractSimpleDecisionAction: It returns one of OK or NOK values. It is useful to make a simple
+    decision. Transitions are dened and only the execute method must be implemented.</p>
+<h2 id="retries">Retries</h2>
+<p>If an action should be executed once again, the RetryLaterException exception or
+    RETRY_RETURN_CODE could be returned.</p>
+<h2 id="sub process es">Sub process es</h2>
+<p>To run a sub- process , simply call the Business process Service.start process . Use events to inform
+    the parent process </p>
+<p><img src=" process-engine/11_image_0.png" alt="11_image_0.png"></p>
+<p>that a sub process has ended. To re an event, use
+    de.hybris.platform. process engine.Business process Service.triggerEvent(String) Example:</p>
+<h2 id="support-for-scripts-in-business- process ">Support For Scripts In Business process </h2>
+<p>With support for scripting and the dynamic process definition, it is possible to declare not only
+    the structure of the business process but also to dene the behavior directly in the xml which
+    denes the process .</p>
+<h2 id="calling-a-script">Calling A Script</h2>
+<p>Here is an example of a process definition with a script that returns the next transition:
+    &lt;?xml version=&#39;1.0&#39; encoding=&#39;utf-8&#39;?&gt;</p>
+
+<pre>
+<code>
+&lt; process  xmlns='http://www.hybris.de/xsd/ process definition' start='action0' name='test process Definiti&gt;
+  &lt;scriptAction id='action0'&gt;
+    &lt;script type='javascript'&gt;(function() { return 'itworks' })()&lt;/script&gt;
+    &lt;transition name='itworks' to='success'/&gt;
+  &lt;/scriptAction&gt;
+  &lt;end id='success' state='SUCCEEDED'&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+
+This simple  process  definition shows the usage of a scriptAction element. It is almost exactly the same as an action element, but instead of executing some logic from a spring bean, it executes the script defined in a script element. Here it only invokes an anonymous function that returns the next transition (**'itworks'**).
+
+## Accessing A Business  process  Context From A Script
+
+This is   For more    the SAP Help  12 Scripts from  process  definitions are invoked with a special  process  parameter passed to the script. The  process  parameter is an instance of the Business process Model describing the running business  process . Here is an example of a script that modifies a context parameter of a business  process :
+
+&lt;?xml version='1.0' encoding='utf-8'?&gt;
+&lt; process  xmlns='http://www.hybris.de/xsd/ process definition' start='action0' name='test process Definiti&gt;
+  &lt;contextParameter name='testParameter' use='required' type='java.lang.String'/&gt;
+  &lt;scriptAction id='action0'&gt;
+    &lt;script type='javascript'&gt;
+      var parameter =  process .contextParameters.get(0);
+      parameter.setValue(&#39;changedFromScript&#39;);
+      modelService.save(parameter);
+      &#39;itworks&#39;
+    &lt;/script&gt;
+    &lt;transition name='itworks' to='success'/&gt;
+  &lt;/scriptAction&gt;
+  &lt;end id='success' state='SUCCEEDED'&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+</code>
+</pre>
+
+<h2>Related Information</h2>
+<p>Business process Management</p>
+<h2 id="starting-a- process  engine- process -with-a-service-activator">Starting A process engine
+    process
+    With A Service Activator</h2>
+<p>From within a Spring Integration Message Channel you often need to call SAP Commerce services.
+    Likewise, you need to be able to publish messages to the Spring Integration channel from a
+    service. This tutorial shows you how to use the Messaging Gateway to start a pipeline, and how
+    to use a Message Transformer and a Service Activator to start a process from within Spring
+    Integration.</p>
+<p>You should already be acquainted with:
+    Spring Integration Enterprise Integration Patterns Objectives Let us consider a simple interface
+    with sayHello method:
+
+<pre>
+<code>
+HelloWorldService.java public interface HelloWorldService
+{
+ void sayHello(final String toWhom);
+}
+If you call the method with the following parameter:
+helloWorldService.sayHello(&quot;you&quot;);
+
+</code>
+</pre>
+
+
+the following message should be displayed:
+Hello, you Of course you can easily do this by just implementing the interface, but for the sake of
+this tutorial let us take a slight detour.</p>
+<p>This is For more the SAP Help 13</p>
+<h2 id="messaging-gateway">Messaging Gateway</h2>
+<p>With Spring Integration you do not need to implement your own code to interface the messaging
+    system. You may use the Messaging Gateway, which encapsulates messaging-specic code and
+    separates it from the rest of the application code. You just need to dene a dynamic proxy for
+    the interface:
+    tutorial-spring.xml</p>
+<pre>
+<code>
+&lt;int:gateway id=&quot;helloWorldService&quot; service-interface=&quot;de.hybris.tutorial.HelloWorldService&quot;
+                 default-request-channel=&quot;sayHelloChannel&quot; /&gt;
+</code>
+</pre>
+
+<p>
+    It creates a dynamic proxy with the bean id helloWorldService, which implements the above
+    interface. When calling the sayHello method, the proxy takes the parameter, creates a message
+    with the method parameter as payload, and publishes the message to the sayHelloChannel.
+</p>
+<p>The channel is dened like any Spring Integration channel: tutorial-spring.xml</p>
+<pre>
+<code>
+&lt;int:channel id=&quot;sayHelloChannel&quot; /&gt;
+</code>
+</pre>
+
+<p>
+    You may use any type of channel supported by Spring Integration.
+</p>
+<h2 id="creating-a-business- process -with-a-transformer">Creating A Business process With A
+    Transformer</h2>
+<p>To get the result in form of the printed message, you should create a process using the
+    process engine extension. To do it, follow the steps provided in Creating a Business process with
+    a Transformer.</p>
+<h2 id="starting-the- process -with-a-service-activator">Starting The process With A Service
+    Activator</h2>
+<p>Now that the process is created, you can start the process with the Business process Service. To do
+    this use a Service Activator that is an endpoint connecting the messages on the channel to the
+    service being accessed.</p>
+<p>In Spring Integration you may dene the Service Activator by means of Spring Expression Language
+    (SpEL). The Service Activator takes the message from the sayHello process Channel and passes it
+    over to the SpEL expression:</p>
+<h2 id="tutorial-spring-xml">Tutorial-Spring.Xml</h2>
+<pre>
+<code>
+&lt;int:service-activator input-channel=&quot;sayHello process Channel&quot;
+                       expression=&quot;@business process Service.start process (payload)&quot; /&gt;
+</code>
+</pre>
+<h2 id="summary-tutorial-spring-xml">Summary Tutorial-Spring.Xml</h2>
+
+<pre>
+<code>
+&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:int="http://www.springframework.org/schema/integration" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/aop This is   For more    the SAP Help  14 http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"&gt;
+  &lt;bean id="sayHello process " class="de.hybris.platform. process  engine.definition. process DefinitionResource"&gt;
+    &lt;property name="resource" value="classpath:/sayHello process .xml"/&gt;
+  &lt;/bean&gt;
+  &lt;bean id="sayHelloAction" class="de.hybris.tutorial.action.SayHelloAction"/&gt;
+  &lt;bean id="sayHello process Factory" class="de.hybris.tutorial.SayHello process Factory"&gt;
+    &lt;property name="business process Service" ref="business process Service"/&gt;
+  &lt;/bean&gt;
+  &lt;int:gateway id="helloWorldService" service-interface="de.hybris.tutorial.HelloWorldService" default-request-channel="sayHelloChannel"/&gt;
+  &lt;int:channel id="sayHelloChannel"/&gt;
+  &lt;int:transformer input-channel="sayHelloChannel" output-channel="sayHello process Channel" expression="@sayHello process Factory.create process (payload)"/&gt;
+  &lt;int:service-activator input-channel="sayHello process Channel" expression="@business process Service.start process (payload)"/&gt;
+&lt;/beans&gt;
+</code>
+</pre>
+
+
+As you can see, SAP Commerce services may be used out of the box through SpEL expressions or
+reection. It is quite a common pattern to use a Transformer to convert the payload to some SAP
+Commerce-specic object and then pass it to the service. For simple cases you can use SpEL expression
+for the transformations, too.
+
+## Related Information
+
+<a href="http://static.springsource.org/spring-integration/reference/htmlsingle/">http://static.springsource.org/spring-integration/reference/htmlsingle/</a>
+<a href="http://www.eaipatterns.com/MessagingAdapter.html">http://www.eaipatterns.com/MessagingAdapter.html</a>
+<a href="http://www.eaipatterns.com/MessagingGateway.html">http://www.eaipatterns.com/MessagingGateway.html</a>
+
+<h2>Creating A Business process With A Transformer</h2>
+<p>Follow the steps to create a business process with a transformer.</p>
+
+<h3>Procedure</h3>
+
+<ol>
+    <li>Create a new process type in the <code>items.xml</code> file in your extension. In our case,
+        its only attribute is called <code>toWhom</code>:
+    </li>
+</ol>
+
+<pre>
+    <code>
+    &lt;itemtype generate="true" code="SayHello process " jaloclass="de.hybris.tutorial.jalo.SayHello process " extends="Business process " autocreate="true"&gt;
+    &lt;attributes&gt;
+        &lt;attribute qualifier="toWhom" type="java.lang.String"&gt;
+            &lt;persistence type="property"/&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+    &lt;/itemtype&gt;
+    </code>
+    </pre>
+
+<ol start="2">
+    <li>Define the action bean in the <strong>spring.xml</strong> file in your extension:</li>
+</ol>
+
+<pre>
+    <code>
+    &lt;bean id="sayHelloAction" class="de.hybris.tutorial.action.SayHelloAction"/&gt;
+    </code>
+    </pre>
+
+<ol start="3">
+    <li>Implement the action class:</li>
+</ol>
+
+<pre>
+    <code>
+    public class SayHelloAction extends AbstractProceduralAction {
+        @Override
+        public void executeAction(final Business process Model  process ) throws RetryLaterException, Exce {
+            final SayHello process Model sayHello process  = (SayHello process Model)  process ;
+            System.out.println(">>> Hello " + sayHello process .getToWhom());
+        }
+    }
+    </code>
+    </pre>
+
+<ol start="4">
+    <li>Create an XML file for the process definition and specify the process as follows:</li>
+</ol>
+
+<pre>
+    <code>
+    &lt; process  xmlns="http://www.hybris.de/xsd/ process definition" start="sayHello" name="sayHello process "  process Class="de.hybris.tutorial.model.SayHello process Model"&gt;
+        &lt;action id="sayHello" bean="sayHelloAction"&gt;
+            &lt;transition name="OK" to="end"/&gt;
+        &lt;/action&gt;
+        &lt;end id="end" state="SUCCEEDED"&gt;Success&lt;/end&gt;
+    &lt;/ process &gt;
+    </code>
+    </pre>
+
+<ol start="5">
+    <li>To create the process , a Transformer is used to convert the payload of a message into the
+        format that the next endpoint expects. In this case, it is a String used as a value for the
+        <code>toWhom</code> attribute of the business process :
+    </li>
+</ol>
+
+<pre>
+    <code>
+    public class SayHello process Factory {
+        private Business process Service business process Service;
+        
+        public SayHello process Model create process (final String toWhom) {
+            final SayHello process Model  process  = (SayHello process Model) business process Service.create process (
+                " process _" + System.currentTimeMillis(), "sayHello process ");
+             process .setToWhom(toWhom);
+            return  process ;
+        }
+
+        @Required
+        public void setBusiness process Service(final Business process Service business process Service) {
+            this.business process Service = business process Service;
+        }
+    }
+    </code>
+    </pre>
+
+<ol start="6">
+    <li>Define the Spring bean for the <code>SayHello process Factory</code> in the
+        <strong>spring.xml</strong> file in your extension.
+    </li>
+</ol>
+
+<pre>
+    <code>
+    &lt;bean id="sayHello process Factory" class="de.hybris.tutorial.SayHello process Factory"&gt;
+        &lt;property name="business process Service" ref="business process Service"/&gt;
+    &lt;/bean&gt;
+    </code>
+    </pre>
+
+<ol start="7">
+    <li>Add the Transformer to the Spring Integration definition. It takes the message from the
+        <code>sayHelloChannel</code>, evaluates the expression that invokes the
+        <code>create process </code> method on the <code>sayHello process Factory</code>, and creates a
+        new message with the result of the evaluation as payload.
+    </li>
+</ol>
+
+<pre>
+    <code>
+    &lt;int:transformer input-channel="sayHelloChannel" output-channel="sayHello process Channel" expression="@sayHello process Factory.create process (payload)" /&gt;
+    </code>
+    </pre>
+
+<p>Note that you could also define the transformer using <code>ref</code> and <code>method</code>
+    attributes. The former denotes the bean id of the service and the latter the method to invoke in
+    order to transform the payload.</p>
+
+<h3>Example Order Management Business process </h3>
+
+<p>Based on the example provided in the <strong>fulfilment process </strong> extension, here you will
+    find a description of the creation of an order business process routine.</p>
+
+<p>A business process describes a sequence of steps or activities that is followed repeatedly. To
+    manage a process automatically or manually, it needs to be identified and defined. This tutorial
+    provides an example for how to create such a process in the scope of order management. As usual,
+    the business process is modeled as a flowchart with loops and parallel paths joining a number of
+    actions.</p>
+
+<h3>Defining The process </h3>
+
+<p>In order to define an order process , we need to know what the process looks like and what steps
+    are necessary to complete it. This of course also includes the actions to take in case an error
+    occurs during the process . For the example, two process es are defined: a
+    <strong>PlaceOrder</strong> process and a <strong>ConsignmentFulfillment</strong> sub process .
+    The PlaceOrder process represents the overall process , and for every consignment created out of
+    an order, a ConsignmentFulfillment sub process is activated. The example is based on the template
+    realized in the <strong>yacceleratorfulfillment process </strong> Extension.</p>
+
+<h3>Place Order</h3>
+
+<pre>
+    <code>
+    &lt;bean id="sayHello process Factory" class="de.hybris.tutorial.SayHello process Factory"&gt;
+        &lt;property name="business process Service" ref="business process Service"/&gt;
+    &lt;/bean&gt;
+    </code>
+    </pre>
+
+
+The PlaceOrder process starts with checking an incoming order for payment authorization and fraud.
+When these are passed, a notication is sent that the order has been placed. Next the order is split
+(see Order Splitting for details) into one or more consigments, starting a ConsignmentFullment
+sub process for every consigment created. The PlaceOrder process then waits for all the sub process es
+to report back in order to decide if and when the order process is completed and an according
+notication can
+
+<img src=" process-engine/16_image_0.png" alt="16_image_0.png">
+
+## Consignment Fullment
+
+The ConsignmentFullment sub process starts when the consignment is sent to the warehouse through an
+interface. This can happen immediately an order reaches this state or after certain conditions
+(amount of consignments, certain time, etc.) have been met, as dened through the
+waitBeforeTransmission step. The sub process now waits for the warehouse to report back on the
+consignment&#39;s status (cancel/partial/ok) before it takes according action. If the payment
+succeeds, shipping is allowed and a delivery message is sent. This ends a single sub process and
+returns it to the PlaceOrder process .
+
+<img src=" process-engine/17_image_0.png" alt="17_image_0.png">
+
+Fig2. ConsignmentFullment sub process diagram
+
+## process definition In Xml
+
+The rst step in the process creation is to dene it in an xml le. In our case we need to dene two
+process es, the PlaceOrder and the ConsignmentFullment process . Note how all the nodes in the process
+diagrams above are represented in the process definition and indicate the next process steps subject
+to their results. Detailed information about how a process should be dened is available in the
+process engine documentation .
+
+## Placeorder process
+
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+
+<pre>
+&lt; process  xmlns="http://www.hybris.de/xsd/ process definition" start="checkOrder" name="order process "&gt;
+  &lt;action id="checkOrder" bean="checkOrder"&gt;
+    &lt;transition name="OK" to="authorizeOrderPayment"/&gt;
+    &lt;transition name="NOK" to="error"/&gt;
+  &lt;/action&gt;
+  &lt;action id="authorizeOrderPayment" bean="authorizeOrderPayment"&gt;
+    &lt;transition name="OK" to="reserveAmount"/&gt;
+    &lt;transition name="NOK" to="authorizationFailedNotification"/&gt;
+  &lt;/action&gt;
+  &lt;action id="reserveAmount" bean="reserveOrderAmount"&gt;
+    &lt;transition name="OK" to="fraudCheck"/&gt;
+    &lt;transition name="NOK" to="sendPaymentFailedNotification"/&gt;
+  &lt;/action&gt;
+  &lt;action id="fraudCheck" bean="fraudCheckOrderInternal"&gt;
+    &lt;transition name="OK" to="sendOrderPlacedNotification"/&gt;
+    &lt;transition name="NOK" to="notifyCustomer"/&gt;
+  &lt;/action&gt;
+  &lt;action id="notifyCustomer" bean="sendFraudErrorNotification"&gt;
+    &lt;transition name="OK" to="manualOrderCheckCSA"/&gt;
+  &lt;/action&gt;
+  &lt;action id="manualOrderCheckCSA" bean="fraudCheckOrder"&gt;
+    &lt;transition name="OK" to="sendOrderPlacedNotification"/&gt;
+    &lt;transition name="NOK" to="cancelOrder"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendOrderPlacedNotification" bean="sendOrderPlacedNotification"&gt;
+    &lt;transition name="OK" to="splitOrder"/&gt;
+  &lt;/action&gt;
+  &lt;action id="cancelOrder" bean="cancelWholeOrderAuthorization"&gt;
+    &lt;transition name="OK" to="failed"/&gt;
+  &lt;/action&gt;
+  &lt;action id="authorizationFailedNotification" bean="sendAuthorizationFailedNotification"&gt;
+    &lt;transition name="OK" to="failed"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendPaymentFailedNotification" bean="sendPaymentFailedNotification"&gt;
+    &lt;transition name="OK" to="failed"/&gt;
+  &lt;/action&gt;
+  &lt;action id="splitOrder" bean="splitOrder"&gt;
+    &lt;transition name="OK" to="waitForWarehouseSub process End"/&gt;
+  &lt;/action&gt;
+  &lt;wait id="waitForWarehouseSub process End" then="is process Completed"&gt;
+    &lt;event&gt;ConsignmentSub process End&lt;/event&gt;
+  &lt;/wait&gt;
+  &lt;action id="is process Completed" bean="sub process esCompleted"&gt;
+    &lt;transition name="OK" to="sendOrderCompletedNotification"/&gt;
+    &lt;transition name="NOK" to="waitForWarehouseSub process End"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendOrderCompletedNotification" bean="sendOrderCompletedNotification"&gt;
+    &lt;transition name="OK" to="success"/&gt;
+  &lt;/action&gt;
+  &lt;end id="error" state="ERROR"&gt;All went wrong.&lt;/end&gt;
+  &lt;end id="failed" state="FAILED"&gt;Order not placed.&lt;/end&gt;
+  &lt;end id="success" state="SUCCEEDED"&gt;Order placed.&lt;/end&gt;
+&lt;/ process &gt;
+
+&lt; process  xmlns="http://www.hybris.de/xsd/ process definition" start="waitBeforeTransmission" name="ConsignmentFullment process "  process Class="de.hybris.platform.fulfilment.model.ConsignmentFullment process "&gt;
+  &lt;action id="waitBeforeTransmission" bean="waitBeforeTransmission"&gt;
+    &lt;transition name="OK" to="sendConsignmentToWarehouse"/&gt;
+    &lt;transition name="NOK" to="waitBeforeTransmission"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendConsignmentToWarehouse" bean="sendConsignmentToWarehouse"&gt;
+    &lt;transition name="OK" to="waitForWarehouse"/&gt;
+  &lt;/action&gt;
+  &lt;wait id="waitForWarehouse" then="receiveConsignmentStatus"&gt;
+    &lt;event&gt;WaitForWarehouse&lt;/event&gt;
+  &lt;/wait&gt;
+  &lt;action id="receiveConsignmentStatus" bean="receiveConsignmentStatus"&gt;
+    &lt;transition name="OK" to="takePayment"/&gt;
+    &lt;transition name="PARTIAL" to="calculatePayment"/&gt;
+    &lt;transition name="CANCEL" to="cancelConsignment"/&gt;
+    &lt;transition name="ERROR" to="error"/&gt;
+  &lt;/action&gt;
+  &lt;action id="calculatePayment" bean="calculatePayment"&gt;
+    &lt;transition name="OK" to="takePayment"/&gt;
+  &lt;/action&gt;
+  &lt;action id="takePayment" bean="takePayment"&gt;
+    &lt;transition name="OK" to="allowShipment"/&gt;
+    &lt;transition name="NOK" to="sendPaymentFailedMessage"/&gt;
+  &lt;/action&gt;
+  &lt;action id="allowShipment" bean="allowShipment"&gt;
+    &lt;transition name="OK" to="sendDeliveryMessage"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendDeliveryMessage" bean="sendDeliveryMessage"&gt;
+    &lt;transition name="OK" to="sub process End"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendPaymentFailedMessage" bean="sendPaymentFailedMessage"&gt;
+    &lt;transition name="OK" to="sub process End"/&gt;
+  &lt;/action&gt;
+  &lt;action id="cancelConsignment" bean="cancelConsignment"&gt;
+    &lt;transition name="OK" to="sendCancelMessage"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sendCancelMessage" bean="sendCancelMessage"&gt;
+    &lt;transition name="OK" to="sub process End"/&gt;
+  &lt;/action&gt;
+  &lt;action id="sub process End" bean="sub process End"&gt;
+    &lt;transition name="OK" to="success"/&gt;
+  &lt;/action&gt;
+  &lt;end id="error" state="ERROR"&gt;All went wrong.&lt;/end&gt;
+  &lt;end id="failed" state="FAILED"&gt;Order not placed.&lt;/end&gt;
+  &lt;end id="success" state="SUCCEEDED"&gt;Order placed.&lt;/end&gt;
+&lt;/ process &gt;
+</pre>
+
+<h2 id="dening-actions">Dening Actions</h2>
+<p>The next step denes the actions that are specied in the bean attribute of the action nodes. How
+    to design an action foremost depends on what result(s) an action has to be able to provide.</p>
+<p>The process engine extension offers three standard abstract actions as outlined below. When you
+    have to implement action behavior you can simply create a class that implements the Action
+    Interface, but if you inherit from one of the actions specied below, you will have a set of
+    useful functionality at hand. In our example, all three types of actions are included.</p>
+<h2 id="abstractproceduralaction-example-sendorderplacednotication-">Abstractproceduralaction
+    (Example: Sendorderplacednotication)</h2>
+<p>For some actions there exists only one possible result, on the advent of which the next event in
+    the process chain is triggered. For such an action, the best solution is to dene it to inherit
+    from AbstractProceduralAction . All you need to do is to implement:
+    @Override public void executeAction(final Business process Model process )
+    {
+    //some logic
+    }</p>
+<h2 id="abstractsimpledecisionaction-example-fraudcheckorder-">Abstractsimpledecisionaction
+    (Example: Fraudcheckorder)</h2>
+<p>Perhaps the most common type is the action that has two possible results. Such an action should
+    inherit from the AbstractSimpleDecisionAction public Transition executeAction(final
+    Business process Model process )
+    {
+    //some logic return Transition.NOK; // or return Transition.OK; }</p>
+<h2 id="abstractaction-example-receiveconsignmentstatus-">Abstractaction (Example
+    Receiveconsignmentstatus)</h2>
+<p>This is For more the SAP Help 20 In this action we have four possible results. Since there is no
+    dened action template for such a case, best practice is to dene an enumeration inside the class
+    that denes all possible codes.</p>
+<p>public enum Transition {</p>
+<p>&nbsp;&nbsp;&nbsp;OK, PARTIAL, CANCEL, ERROR;</p>
+<p>&nbsp;&nbsp;&nbsp;public static Set&lt;String&gt; getStringValues() {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;final Set&lt;String&gt; res = new HashSet&lt;String&gt;();</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for (final Transition t : Transition.values()) {</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res.add(t.toString());</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res;</p>
+<p>&nbsp;&nbsp;&nbsp;}</p>
+<p>}</p>
+
+<p>The method getStringValues() is a useful method defined in the Action interface and its implementation looks like
+    this:</p>
+
+<p>@Override</p>
+<p>public Set&lt;String&gt; getTransitions() {</p>
+<p>&nbsp;&nbsp;&nbsp;return Transition.getStringValues();</p>
+<p>}</p>
+
+<p>Its implementation is generic, so if you need to define your own transition, you can simply copy these lines,
+    redefining only the possible result codes for the action.</p>
+
+<p>All you need to do in action class implementation is to ll in the execute method. Simply put your
+    logic in this method and return one of the results specied in Transition enum.</p>
+<h2 id="spring-integration">Spring Integration</h2>
+<p>Finally you make the process work by dening the spring beans with the names specied in the
+    process definition, and join them with the classes dened in the step before.</p>
+
+
+<pre>
+?xml version="1.0" encoding="UTF-8"?
+&lt;beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"&gt;
+  &lt;!--  process  resources definition --&gt;
+  &lt;bean id="placeorder process DefinitionResource" class="de.hybris.platform.proc"&gt;
+    &lt;property name="resource" value="classpath:/ process demo/placeorder.xml"/&gt;
+  &lt;/bean&gt;
+  &lt;bean id="consignmentFulfilmentsub process " class="de.hybris.platform. process e"&gt;
+    &lt;property name="resource" value="classpath:/ process demo/consignmentFulfilment"/&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Actions --&gt;
+  &lt;bean id="checkOrderService" class="de.hybris.platform.fulfilment.impl.DefaultOrderService"/&gt;
+  &lt;bean id="abstractAction" class="de.hybris.platform. process  engine.action.AbstractAction"&gt;
+    &lt;property name="modelService" ref="modelService"/&gt;
+    &lt;property name=" process ParameterHelper" ref=" process ParameterHelper"/&gt;
+  &lt;/bean&gt;
+  &lt;bean id="checkOrder" class="de.hybris.platform.fulfilment.actions.CheckOrder"&gt;
+    &lt;property name="checkOrderService" ref="checkOrderService"/&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="cancelWholeOrderAuthorization" class="de.hybris.platform.fulfilment.actions.CancelWholeOrderAuthorization" parent="abstractAction"/&gt;
+  &lt;bean id="sendOrderPlacedNotification" class="de.hybris.platform.fulfilment.actions.SendOrderPlacedNotification" parent="abstractAction"/&gt;
+  &lt;bean id="sendPaymentFailedNotification" class="de.hybris.platform.fulfilment.actions.SendPaymentFailedNotification" parent="abstractAction"/&gt;
+  &lt;bean id="fraudCheckOrder" class="de.hybris.platform.fulfilment.actions.FraudCheckOrder" parent="abstractAction"&gt;
+    &lt;property name="fraudService" ref="fraudService"/&gt;
+    &lt;property name="providerName" value="Mockup_3rdPartyProvider"/&gt;
+  &lt;/bean&gt;
+  &lt;bean id="sendFraudErrorNotification" class="de.hybris.platform.fulfilment.actions.SendFraudErrorNotification" parent="abstractAction"/&gt;
+  &lt;bean id="authorizeOrderPayment" class="de.hybris.platform.fulfilment.actions.AuthorizeOrderPayment" parent="abstractAction"/&gt;
+  &lt;bean id="sendAuthorizationFailedNotification" class="de.hybris.platform.fulfilment.actions.SendAuthorizationFailedNotification" parent="abstractAction"/&gt;
+  &lt;bean id="reserveOrderAmount" class="de.hybris.platform.fulfilment.actions.ReserveOrderAmount" parent="abstractAction"/&gt;
+  &lt;bean id="fraudCheckOrderInternal" class="de.hybris.platform.fulfilment.actions.FraudCheckOrderInternal" parent="abstractAction"&gt;
+    &lt;property name="fraudService" ref="fraudService"/&gt;
+    &lt;property name="providerName" value="Hybris"/&gt;
+  &lt;/bean&gt;
+
+  &lt;bean id="splitOrder" class="de.hybris.platform.fulfilment.actions.SplitOrder"&gt;
+    &lt;property name="orderSplittingService" ref="orderSplittingService"/&gt;
+  &lt;/bean&gt;
+  &lt;bean id="sub process esCompleted" class="de.hybris.platform.fulfilment.actions.Sub process esCompleted" parent="abstractAction"/&gt;
+  &lt;bean id="sendOrderCompletedNotification" class="de.hybris.platform.fulfilment.actions.SendOrderCompletedNotification" parent="abstractAction"/&gt;
+
+  &lt;!-- Consignment fulfillment  process  --&gt;
+  &lt;bean id="waitBeforeTransmission" class="de.hybris.platform.fulfilment.actions.WaitBeforeTransmission" parent="abstractAction"/&gt;
+  &lt;bean id="sendConsignmentToWarehouse" class="de.hybris.platform.fulfilment.actions.SendConsignmentToWarehouse" parent="abstractAction"&gt;
+    &lt;property name=" process 2WarehouseAdapter" ref=" process 2WarehouseAdapter"/&gt;
+  &lt;/bean&gt;
+  &lt;bean id="receiveConsignmentStatus" class="de.hybris.platform.fulfilment.actions.ReceiveConsignmentStatus" parent="abstractAction"/&gt;
+  &lt;bean id="calculatePayment" class="de.hybris.platform.fulfilment.actions.CalculatePayment" parent="abstractAction"/&gt;
+  &lt;bean id="takePayment" class="de.hybris.platform.fulfilment.actions.TakePayment" parent="abstractAction"/&gt;
+  &lt;bean id="sendDeliveryMessage" class="de.hybris.platform.fulfilment.actions.SendDeliveryMessage" parent="abstractAction"/&gt;
+  &lt;bean id="sendPaymentFailedMessage" class="de.hybris.platform.fulfilment.actions.SendPaymentFailedMessage" parent="abstractAction"/&gt;
+  &lt;bean id="cancelConsignment" class="de.hybris.platform.fulfilment.actions.CancelConsignment" parent="abstractAction"/&gt;
+  &lt;bean id="sendCancelMessage" class="de.hybris.platform.fulfilment.actions.SendCancelMessage" parent="abstractAction"/&gt;
+  &lt;bean id="sub process End" class="de.hybris.platform.fulfilment.actions.Sub process End" parent="abstractAction"/&gt;
+  &lt;bean id="allowShipment" class="de.hybris.platform.fulfilment.actions.AllowShipment" parent="abstractAction"&gt;
+    &lt;property name=" process 2WarehouseAdapter" ref=" process 2WarehouseAdapter"/&gt;
+  &lt;/bean&gt;
+&lt;/beans&gt;
+</pre>
+
+<h2 id="related-information">Related Information</h2>
+<p>Order Splitting yacceleratorfullment process Extension The SAP Commerce process engine</p>
+<h2 id=" process -routine-of- process  engine"> process Routine Of process engine</h2>
+<p>A new process instance is created by calling the create process method from the
+    Business process Service service. You can then run this service using the start process method.
+    process definitionFactory will create a process definition in this step if not created before.</p>
+<p><img src=" process-engine/22_image_0.png" alt="22_image_0.png"></p>
+<p>This is For more the SAP Help 23
+    process creation.</p>
+<p>After a process is created and the start process routine invoked (1), we invoke the process
+    definition (1.2.1). Then (1.2.1.1) getStartNode gives the possibility to get the start node from
+    the process definition by its id. At this the process ing of a given process is red.</p>
+<p>First the trigger (1.2.1.1.1) method of the new node is executed. This method invokes
+    scheduleTask from TaskService with proper constraints (date or event name, see The Task Service
+    ). This stores a new Task in a queue and causes the Task Module (depending on specied
+    scheduleTask conditions) to invoke the method run (2.1) on TaskRunner.</p>
+<p>The next step begins with run (2.1) on TaskRunner. TaskRunner reads process definition (2.1.1), gets
+    from its nodes the one that has to be executed (2.1.2) and then perform the execute routine
+    (2.1.3) on it.</p>
+<p>Realization of the execute method depends on the node. For example with an action node rst the
+    action is performed and then the action result is evaluated to choose one of the transition
+    routes specied in the workow. wait does not simply invoke the trigger method on the node whose
+    id is stated in the then attribute but rather waits for a specied event to take place. end
+    simply ends the process and does not trigger another node as it is the last in a process .</p>
+<p><img src=" process-engine/24_image_0.png" alt="24_image_0.png"></p>
+<h2>Related Information</h2>
+<p>The Task Service This is custom documentation. For more information, please visit the SAP Help
+    Portal</p>
+<h2 id="executing-business- process -action-in-a-synchronous-way">Executing Business process Action In
+    A Synchronous Way</h2>
+<p>Platform runs action nodes in a synchronous manner.</p>
+<p>Action nodes in a business process definition can be run asynchronously or synchronously. In the
+    asynchronous mode, an action node is treated as a single and separate task when run by the task
+    engine. In the synchronous mode, an action node is run in the same task as the preceding
+    node.</p>
+<p>By default, action nodes are run synchronously. If you wish to disable the synchronous mode, add
+    the following property to your local.properties le:
+    process engine. process .canjoinpreviousnode.default=false Running action nodes synchronously meets
+    the following requirements:</p>
+<p>Steps are process ed within separate transactions so that any failed steps don&#39;t affect
+    previous successful steps.</p>
+<p>After each step, the process and task items are updated in the same way as if they were process ed
+    asynchronously. As a result, when the engine crashes, you know what the last successful step
+    was.
+    For both the synchronous and asynchronous mode, you can decide for any step whether it should be
+    process ed synchronously or asynchronously. To run a given step asynchronously, add the
+    canJoinPreviousNode element attribute in the process definition in XML, for example:</p>
+
+
+<p>The total time for process ing business model is reduced. There is no additional effort required
+    to run the task in the task engine for a synchronous job. This has mainly positive effect when
+    you have a business process model with many actions and the time of a single execution of an
+    action is small. On each node, you have the possibility to decide whether you want to perform a
+    node synchronously or asynchronously.</p>
+<h2 id="note-asynchronous-node-performing-restrictions">Note Asynchronous Node Performing
+    Restrictions</h2>
+<p>Only action nodes and their script action node extension have the possibility to synchronously
+    join to other node.</p>
+<p>Synchronous execution doesn&#39;t apply to the starting action.</p>
+<p>Synchronous execution doesn&#39;t apply to performing the same action a few times in a row If an
+    error occurs, the process is performed as usual - in an asynchronous way.</p>
+<p>A node with the canJoinPreviousNode ag set to true is run synchronously only if the previous node
+    is of the action node type.</p>
+<h2 id="simple-scenario-example">Simple Scenario Example</h2>
+<p>Here is a simple scenario example:</p>
+<pre>
+&lt; process  xmlns="http://www.hybris.de/xsd/ process definition" start="start" name="example"&gt;
+  &lt;action id="start" bean="SomeActionBean" canJoinPreviousNode="true"&gt;
+    &lt;transition name="OK" to="secondStep"/&gt;
+  &lt;/action&gt;
+  &lt;action id="secondStep" canJoinPreviousNode="true"&gt;
+    &lt;transition name="OK" to="thirdStep"/&gt;
+  &lt;/action&gt;
+  &lt;action id="thirdStep"&gt;
+    &lt;transition name="OK" to="fourthStep"/&gt;
+  &lt;/action&gt;
+  &lt;action id="fourthStep" canJoinPreviousNode="true"&gt;
+    &lt;transition name="OK" to="fifthStep"/&gt;
+  &lt;/action&gt;
+  &lt;action id="fifthStep" canJoinPreviousNode="true"&gt;
+    &lt;transition name="OK" to="sixthStep"/&gt;
+  &lt;/action&gt;
+  &lt;end id="success" state="SUCCEEDED"&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+</pre>
+
+
+After the process is started, the ow is as follows:
+1. The start node has the canJoinPreviousNode ag set but according to restriction it is process ed
+asynchronously.
+
+2. secondStep is process ed synchronously. 3. thirdStep is process ed synchronously or asynchronously
+depending on the default conguration set: synchronously for
+process engine. process .canjoinpreviousnode.default=true, asynchronously for
+process engine. process .canjoinpreviousnode.default=false.
+
+4. fourthStep is process ed synchronously. 5. fithStep is process ed synchronously.
+
+6. The next node is the end node.
+
+The process is nished inside the caller thread and returned.
+
+## Execution Logs
+
+Below you can see some execution logs (jdbc statements are enabled) for a business process dened for
+two actions with synchronous and asynchronous execution between them.
+
+This is the version with a synchronous execution:
+
+## process Definition
+
+
+<pre>
+&lt; process  xmlns="http://www.hybris.de/xsd/ process definition" start="start" name="simple process "&gt;
+  &lt;action id="start" bean="TestActionBean"&gt;
+    &lt;transition name="OK" to="secondStep"/&gt;
+  &lt;/action&gt;
+  &lt;action id="secondStep" bean="TestActionBean" canJoinPreviousNode="true"&gt;
+    &lt;transition name="OK" to="success"/&gt;
+  &lt;/action&gt;
+  &lt;end id="success" state="SUCCEEDED"&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+</pre>
+
+This is the version with an asynchronous execution:</p>
+<h2 id=" process -definition"> process Definition</h2>
+<pre>
+&lt; process  xmlns="http://www.hybris.de/xsd/ process definition" start="start" name="simple process "&gt;
+  &lt;action id="start" bean="TestActionBean"&gt;
+    &lt;transition name="OK" to="secondStep"/&gt;
+  &lt;/action&gt;
+  &lt;action id="secondStep" bean="TestActionBean" canJoinPreviousNode="false"&gt;
+    &lt;transition name="OK" to="success"/&gt;
+  &lt;/action&gt;
+  &lt;end id="success" state="SUCCEEDED"&gt;Everything was fine&lt;/end&gt;
+&lt;/ process &gt;
+</pre>
+</body>
+</html>

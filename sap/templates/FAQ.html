@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hybris Patterns and Concepts</title>
+</head>
+<body>
+<h2>Patterns in Hybris</h2>
+<ul>
+    <li>Mediator</li>
+    Mediator pattern defines an object that centralizes communication between different components, reducing direct
+    dependencies between them.
+    Mediator is used in the controller layer, where it acts as an intermediary between UI components and services,
+    helping to decouple them. For example, the CMSManager or other controller components in Hybris may use a mediator to
+    coordinate communication between the UI (frontend) and business logic (backend)
+    <li>Strategy</li>
+    Commonly used in business logic layers for implementing various pricing strategies, promotions, or payment methods.
+    For instance, PricingStrategy defines various pricing algorithms.
+
+    <li>Template</li>
+    Used in CMS page templates and component templates to define reusable structures with specific logic. For example,
+    AbstractPageTemplate defines common structure for CMS pages, and child templates can override specific parts.
+
+    <li>Visitor</li>
+    Used for performing operations on various models in a flexible way without modifying the models themselves. For
+    example, validating or processing multiple product models.
+
+    <li>DTO</li>
+    Used for transferring data between layers, such as the ProductData or CustomerData DTOs that are used to send data
+    between the web layer and service layer.
+
+    <li>DAO</li>
+    Used for abstracting database access and queries. For example, ProductDao or CustomerDao are responsible for
+    fetching or saving data from the database.
+
+    <li>Facade</li>
+    Simplifies interaction with complex subsystems. For instance, the CommerceFacade combines different services like
+    product, cart, and order into a single interface for the UI layer.
+
+    <li>Decorator</li>
+    Create a Module for the Decorator
+    First, you need to create an AngularJS module that will contain your decorator logic.
+
+    Create the module: Define an AngularJS module for your decorator. This module will handle the functionality of your
+    decorator (e.g., showing and hiding text when the pointer is over the component).
+    2. Create a Template
+    The next step is to create a template that will define the HTML structure for your decorator. This will be used by
+    the component to apply the desired functionality.
+
+    Create an HTML template: Define a template that will display the text when the pointer is over the component and
+    hide it when the pointer is not.
+    3. Add the Decorator to the Module
+    After creating the module, add the sample decorator to this module. The decorator will contain the logic to manage
+    the display behavior of the text when interacting with the component.
+
+    Create the decorator: The decorator should include the logic for mouse hover actions (e.g., showing text when the
+    mouse hovers and hiding it when the mouse leaves).
+    4. Wire the Decorators to the Components
+    You will need to associate the decorator with the component, so it knows when and where to apply the decorator.
+
+    Wire the decorator: In this step, bind the sampleDecorator module to the sampleComponent.
+    5. Create a Module for the Decorator Template
+    Next, create a module specifically for the decorator template. This template will hold the HTML and directives for
+    the decorator logic.
+
+    Define the module: The module will include the necessary files for the decorator template.
+    6. Create a JavaScript File to Expose the Decorator
+    A JavaScript file is needed to expose the decorator’s functionality, making it available to the SmartEdit
+    application. The file will typically define the decorator logic (like showing and hiding text).
+
+    Expose the decorator logic: This file will ensure that the decorator’s behavior is correctly exposed to the
+    SmartEdit application.
+    7. Expose and Wire the Module to the SmartEdit Application
+    Finally, expose the module to the SmartEdit application so that it can recognize and apply the decorator when
+    rendering components.
+
+    Expose the module: Make sure the module is accessible and properly wired to the SmartEdit application, enabling it
+    to apply the decorator when interacting with components.
+    By following these steps, you'll have successfully created and wired a sample decorator to a sampleComponent,
+    allowing it to display text when the pointer is over the component and hide it when the pointer isn't.
+
+    <li>Observer</li>
+
+    The Observer pattern defines a one-to-many dependency between objects, where a change in one object triggers updates
+    to all dependent objects.
+    Observer is often used in scenarios where multiple components need to react to changes in the system, like event
+    listeners for order status changes or product updates. For example, when a product's price is updated, multiple
+    systems or modules may need to react to that change (e.g., cache invalidation, pricing updates).
+
+    <li>Singleton</li>
+
+    The Singleton pattern ensures that a class has only one instance and provides a global point of access to that
+    instance.
+    Singletons are used in Hybris for services or manager classes where you want to ensure that only one instance of the
+    class is created throughout the system, such as in the case of the CMSManager or FlexibleSearchService.
+
+    <li>Chain of Responsibility</li>
+
+    The Chain of Responsibility pattern allows a number of classes to process a request, with each class having the
+    option to pass the request along the chain.
+    This pattern is used in workflows, such as order processing or pricing calculations, where different handlers
+    process a request sequentially until it's fully handled.
+
+    <li>Prototype</li>
+
+    The Prototype pattern involves creating new objects by copying an existing object, known as the prototype.
+    Prototype is used when objects need to be cloned or duplicated with minor changes. For example, creating new
+    instances of a product or order model with similar properties to an existing instance, rather than recreating all
+    attributes from scratch.
+
+    <li>Abstract Factory</li>
+    The Abstract Factory pattern provides an interface for creating families of related or dependent objects without
+    specifying their concrete classes.
+    Abstract Factory is used in Hybris to create related objects, such as product factories for creating different types
+    of products (e.g., physical vs digital products) or in payment service providers, where different configurations
+    might be needed for different payment methods.
+
+    <li>State</li>
+    The State pattern allows an object to alter its behavior when its internal state changes.
+    The State pattern is used to model different order states (e.g., order placed, order shipped, order delivered), with
+    each state having its own behavior and transitions.
+
+    <li>Builder</li>
+    The Builder pattern separates the construction of a complex object from its representation, allowing the same
+    construction process to create different representations.
+    Builder is often used in the Order Service or Cart Service where different order or cart items need to be
+    constructed with a large number of optional parameters.
+
+    <li>Flyweight</li>
+    The Flyweight pattern minimizes memory usage by sharing as much data as possible between objects, rather than
+    keeping duplicate copies.
+    Flyweight is used in cases where many objects have the same state and can share common data. For example, product
+    variants that share the same set of attributes like size or color, which can be stored and managed more efficiently.
+
+    <li>Composite</li>
+    The Composite pattern allows individual objects and composites of objects to be treated uniformly.
+    Composite is commonly used to handle hierarchical structures, such as in the CMS where content can be structured
+    into pages, components, and content slots. The composite pattern allows all these elements to be managed in a
+    unified way.
+
+    <li>Adapter</li>
+    The Adapter pattern allows incompatible interfaces to work together by providing a wrapper that converts the
+    interface of a class into another interface expected by the client.
+    The Adapter pattern is commonly used in Hybris to integrate with external systems or services, such as payment
+    gateways, shipping services, or legacy systems, where the interfaces may not align with Hybris' internal structure.
+</ul>
+
+<h2>Impex</h2>
+<p>Impex stands for import and export. It is the standard way in Hybris for importing data into the system and exporting
+    it as well.
+    Impex is a text-based functionality that supports CSV (semicolon-separated) data files.
+    Hybris component, product data, customer data, and order data can all be created, updated, removed, and exported in
+    this format at runtime or during initialization/update processes.</p>
+
+<ol>
+    <li>Macro Definition</li>
+    <li>Impex Header</li>
+    <li>Data</li>
+</ol>
+
+<h3>Command to insert an item into the database if it doesn't exist, otherwise to update:</h3>
+<ul>
+    Model name where data is to be inserted. as PageTemplateModel here.
+    Macro definition. as content catalog version here
+    Attributes which makes composite key.
+</ul>
+
+<pre>
+        INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+        ;;ProductDetailsPageTemplate;Product Details Page Template;product/productLayout2Page;ProductPage
+    </pre>
+
+<h2>CMS Hybrid</h2>
+<h3>Page Templates</h3>
+<p>Page templates are reusable templates with specific structures that serve as the base for creating content pages.
+    They are catalog-aware and CMS-manageable entities linked to a frontend JSP page for rendering.
+    Templates can restrict their usage to specific page types like ContentPage, ProductPage, etc.</p>
+
+<h4>Velocity Templates</h4>
+<p>Velocity templates allow editing of CMS templates in the cockpit or SmartEdit. Changes to .vm files reflect only
+    after importing the Impex script.</p>
+<pre>
+        INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];velocityTemplate[translator=de.hybris.platform.commerceservices.impex.impl.FileLoaderValueTranslator]
+        ;ProductDetailsPageTemplate;$jarResourceCms/structure-view/structure_productDetails2PageTemplate.vm
+    </pre>
+
+<h3>Content Slots</h3>
+<p>Content slots are containers for components, which can be defined at the template or page level. Slots can be
+    overridden at the page level, replacing template-level slot content.</p>
+
+<h4>Content Slot for Template</h4>
+<p>Shared by all pages created from a template:</p>
+<pre>
+        INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+        ;;SiteLogoSlot;Default Site Logo Slot;true;siteLogoImageComponentModel
+    </pre>
+
+<h4>Content Slot for Page</h4>
+<p>Specific to a page:</p>
+<pre>
+        INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV) [unique=true];contentSlot(uid,$contentCV) [unique=true]
+        ;;Bottom-checkoutLogin;BottomContent;BottomContent-checkoutLogin
+    </pre>
+
+<h4>Content Slot Name</h4>
+<p>Restrict slots to specific components:</p>
+<pre>
+        INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='ProductDetailsPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+        ;VariantSelector;;ProductVariantSelectorComponent;narrow
+        ;AddToCart;;ProductAddToCartComponent;narrow
+    </pre>
+
+<p>dontOptimize: Defaults to false. When set to true, the value is stored in the props table (non-indexed).</p>
+<p>Use Cases:</p>
+<ul>
+    <li>Storing non-searchable, large attributes such as FAQs.</li>
+</ul>
+
+<h2>FlexibleSearch</h2>
+<h3>Syntax</h3>
+<pre>
+        private static final String GET_ORDERS = "SELECT {PK} FROM {Order} WHERE {status}=?status";
+        FlexibleSearchQuery query = new FlexibleSearchQuery(GET_ORDERS);
+        query.addQueryParameter("status", OrderStatus.COMPLETED);
+        SearchResult result = getFlexibleSearchService().search(query);
+        List orders = result.getResult();
+    </pre>
+
+<h3>Failsafe Approach</h3>
+<p>Use constants for attributes in queries to ensure errors if model attributes change:</p>
+<pre>
+        private static final String GET_COMPLETED_ORDERS = "SELECT {" + OrderModel.PK + "} FROM {"
+        + OrderModel._TYPECODE + "} WHERE {" + OrderModel.STATUS+ "}='COMPLETED'";
+    </pre>
+
+<h2>Cache Eviction Policies</h2>
+<ul>
+    <li>Least Recently Used (LRU): Removes the least recently accessed item.</li>
+    <li>Least Frequently Used (LFU): Removes the least accessed item based on hit counts.</li>
+    <li>First In First Out (FIFO): Replaces items in the order they were added.</li>
+</ul>
+<p>Note: Type system regions do not use eviction policies.</p>
+
+<h2>Cache Eviction Policies</h2>
+<ul>
+    <li>Least Recently Used (LRU): Removes the least recently accessed item from the cache. This is helpful when the
+        system has limited cache storage, and items that are not frequently used are the first to be evicted.
+    </li>
+    <li>Least Frequently Used (LFU): Removes the least accessed item based on hit counts, meaning items that are used
+        less frequently over time are evicted. This helps retain items that are more commonly accessed.
+    </li>
+    <li>First In First Out (FIFO): Replaces items in the order they were added, meaning the oldest item is evicted
+        first. This is simple but may not always reflect usage patterns effectively.
+    </li>
+</ul>
+<p>Note: Type system regions do not use eviction policies, as these regions handle specific type data, and eviction does
+    not apply to them.</p>
+
+<h2>OCC (Omni Commerce Connect)</h2>
+<h3>Key Features</h3>
+<ul>
+    <li>Token-based authentication with custom client registration in the token store: OCC utilizes tokens for
+        authentication, ensuring secure interactions between systems. The client is registered in the token store to get
+        a unique token for communication.
+    </li>
+    <li>Field validation for request bodies and parameters: OCC allows validation to ensure that the data sent in
+        requests is correctly structured and meets predefined criteria, preventing invalid data from being processed.
+    </li>
+    <li>Data carrier objects returned as responses: OCC responses include data carrier objects that encapsulate the
+        necessary data in a structured format, ensuring easy access and manipulation of the returned data.
+    </li>
+    <li>Field set level mapping for response customization: OCC allows customization of the response format by mapping
+        field sets to tailor the data returned, ensuring that only relevant data is included in the response.
+    </li>
+</ul>
+
+<h3>Common Questions</h3>
+<ul>
+    <li><strong>What are the major changes in V1 and V2?</strong><br> V2 of OCC introduced several enhancements,
+        including support for improved data mapping, better performance through asynchronous processing, and the
+        addition of new API endpoints to support modern business scenarios.
+    </li>
+    <li><strong>What is a token? How do you register your client in the token store?</strong><br> A token is a security
+        mechanism that ensures the authenticity of a client making requests to OCC APIs. To register a client in the
+        token store, the client must be registered with necessary credentials and the system generates a unique token
+        for that client.
+    </li>
+    <li><strong>Explain session handling in terms of OCC.</strong><br> OCC typically uses stateless session handling,
+        meaning it doesn’t retain session information between requests. Each request requires re-authentication via the
+        token mechanism, ensuring that session information is not retained on the server side.
+    </li>
+    <li><strong>How to optimize APIs with long response times and app crashes?</strong><br> To optimize APIs, you can
+        implement caching mechanisms, optimize database queries, and use background processing for heavy tasks.
+        Additionally, consider implementing pagination for large datasets and reducing unnecessary network calls.
+    </li>
+    <li><strong>How to create a new service endpoint for simultaneous support of V2 and new services?</strong><br> To
+        support both V2 and new services, you should create a flexible API design using versioning and conditional
+        routing. This way, old and new endpoints can coexist, with the appropriate version handling each request.
+    </li>
+    <li><strong>How do you validate fields in request bodies and parameters?</strong><br> Field validation can be done
+        using annotations or validation frameworks (like Hibernate Validator) that check for required fields, valid
+        formats, and other business rules before processing the request.
+    </li>
+    <li><strong>What are the filters a V2 request passes through?</strong><br> A V2 request passes through filters such
+        as authentication, validation, logging, and exception handling. These ensure that the request is secure,
+        well-formed, and correctly processed before reaching the service endpoint.
+    </li>
+</ul>
+
+<h2>Additional Information</h2>
+<ul>
+    <li><strong>Impex:</strong> Detailed overview and commands for importing and updating data in Hybris. Impex is the
+        standard way to manage data in Hybris, supporting operations like creating, updating, and exporting data. It
+        uses CSV (semicolon-separated) files.
+    </li>
+    <li><strong>CMS Hybrid:</strong> Explanation of Page Templates and Content Slots, which allow you to manage and
+        configure content for websites. Impex commands can be used to import and manage page templates and content slots
+        in the system.
+    </li>
+    <li><strong>FlexibleSearch:</strong> Usage and syntax for querying data in Hybris. FlexibleSearch allows dynamic
+        querying of the database using an object-oriented syntax, and it provides a failsafe approach to ensure
+        robustness and easier debugging.
+    </li>
+    <li><strong>Cache Eviction Policies:</strong> Cache eviction strategies that help maintain the performance of the
+        system by removing items from the cache based on their usage patterns.
+    </li>
+    <li><strong>OCC:</strong> Omni Commerce Connect, a set of features and APIs in Hybris for integrating with external
+        systems through a secure and flexible API layer.
+    </li>
+</ul>
+
+<h2>Everything about WCMS in Hybris</h2>
+<h2>Create a custom CMS component in Hybris</h2>
+<p>Creating a custom CMS component involves extending the default functionality to cater to specific business
+    requirements. This typically includes creating a model for the component, defining the necessary properties, and
+    implementing the logic for rendering the component on the storefront. Additionally, custom CMS components are often
+    integrated with Hybris' CMS Cockpit or SmartEdit to enable content managers to easily manage and configure them
+    through the user interface.</p>
+
+<h1>Adding Custom CMS Component in Hybris</h1>
+
+<p>In this requirement, we are going to create a completely new component type and add it to the page.</p>
+<p>Let’s say the requirement is to display the Offers on the Home page, where the Offers component should include
+    attributes like images, header text, and footer text of the offer.</p>
+<p>Our goal is to create a new CMS component type to add these attributes into it and display it on the page.</p>
+
+<h2>Steps to Achieve This</h2>
+<ol>
+    <li>Create a new CMS component type by defining it in the <code>items.xml</code> file</li>
+    <li>Write impex statements for adding the new component item type instance and assign the newly created CMS
+        component to the home page by linking it to the correct content slot
+    </li>
+    <li>Create the controller and JSP page for the new component</li>
+    <li>Add this new component into the Home page JSP using CMS tags</li>
+    <li>Open the Home page and verify the new component is displayed</li>
+</ol>
+
+<h2>Step 1: Create a New CMS Component in <code>items.xml</code></h2>
+<p>Define the new CMS component in the <code>items.xml</code> file located at <code>hybris\bin\custom\training\trainingcore\resources\trainingcore-items.xml</code>:
+</p>
+<pre><code>
+&lt;itemtype code="CustomOffersComponent" extends="SimpleCMSComponent" generate="true" autocreate="true" jaloclass="org.training.core.jalo.CustomOffersComponent"&gt;
+    &lt;description&gt;Used to display offers on homepage&lt;/description&gt;
+    &lt;attributes&gt;
+        &lt;attribute type="localized:java.lang.String" qualifier="headerText"&gt;
+            &lt;modifiers read="true" write="true" optional="false" /&gt;
+            &lt;persistence type="property" /&gt;
+        &lt;/attribute&gt;
+        &lt;attribute type="localized:java.lang.String" qualifier="footerText"&gt;
+            &lt;modifiers read="true" write="true" optional="false" /&gt;
+            &lt;persistence type="property" /&gt;
+        &lt;/attribute&gt;
+        &lt;attribute type="Media" qualifier="offerImage"&gt;
+            &lt;modifiers read="true" write="true" optional="false" /&gt;
+            &lt;persistence type="property" /&gt;
+        &lt;/attribute&gt;
+        &lt;attribute type="CustomOfferLinksList" qualifier="offerImageLink"&gt;
+            &lt;persistence type="property" /&gt;
+            &lt;description&gt;List of CMS Link Component&lt;/description&gt;
+            &lt;modifiers read="true" write="true" /&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;
+
+&lt;collectiontype code="CustomOfferLinksList" elementtype="CMSLinkComponent" autocreate="true" generate="true" type="list" /&gt;
+    </code></pre>
+<p>After adding the component definition, do a build and refresh the platform to generate the new component model and
+    associated classes.</p>
+
+<h2>Step 2: Write Impex Statements</h2>
+<p>To insert data for the new component, create impex statements. These will add references for CMSLinkComponent and
+    Media objects, and define the new component itself:</p>
+
+<pre><code>
+# Insert CMSLinkComponent data
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow'];$category;
+;;MenOfferLink;Men Offer Link;/MenOfferLink;MenOfferLink;MenOfferLink;;;;
+;;WomenOfferLink;Women Offer Link;/WomenOfferLink;WomenOfferLink;WomenOfferLink;;;;
+;;KidsOfferLink;Kids Offer Link;/KidsOfferLink;KidsOfferLink;KidsOfferLink;;;;
+# Insert Media data
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];&imageRef;folder(qualifier)[default='images'];altText
+;;customOffersMedia;$siteResource/images/banners/homepage/offers.jpeg;;offers.jpeg;;
+# Insert CustomOffersComponent data
+INSERT_UPDATE CustomOffersComponent;$contentCV[unique=true];uid[unique=true];name;headerText[lang=$lang];footerText[lang=$lang];offerImage(code);&componentRef;offerImageLink(&linkRef);
+;;summerOfferComponent;Summer offer Component;"up to 70 % off";"Grab this offer on all summer<br>Collections";customOffersMedia;summerOfferComponent;MenOfferLink,WomenOfferLink,KidsOfferLink
+    </code></pre>
+
+<h2>Step 3: Create Controller and JSP for the New Component</h2>
+<p>To create the controller for the new CMS component, we extend the <code>AbstractCMSComponentController</code> class,
+    overriding the <code>fillModel()</code> method:</p>
+
+<pre><code>
+package org.training.storefront.controllers.cms;
+
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.training.core.model.CustomOffersComponentModel;
+import org.training.storefront.controllers.ControllerConstants;
+
+@Controller("CustomOffersComponentController")
+@Scope("tenant")
+@RequestMapping(value = ControllerConstants.Actions.Cms.CustomOffersComponent)
+public class CustomOffersComponentController extends AbstractCMSComponentController<CustomOffersComponentModel> {
+
+    @Override
+    protected void fillModel(final HttpServletRequest request, final Model model, final CustomOffersComponentModel component) {
+        model.addAttribute("offerImageLinks", component.getOfferImageLink());
+        model.addAttribute("offerImage", component.getOfferImage());
+        model.addAttribute("headerText", component.getHeaderText());
+        model.addAttribute("footerText", component.getFooterText());
+    }
+}
+    </code></pre>
+
+<p>Also, ensure that the <code>RequestMapping</code> value is defined in the <code>ControllerConstants</code> file:</p>
+
+<pre><code>
+public interface ControllerConstants {
+    interface Actions {
+        interface Cms {
+            String CustomOffersComponent = _Prefix + CustomOffersComponentModel._TYPECODE + _Suffix;
+        }
+    }
+}
+    </code></pre>
+
+<p>Next, create the JSP page <code>customOffersComponent.jsp</code> under the <code>/WEB-INF/views/desktop/cms/</code>
+    directory:</p>
+
+<pre><code>
+&lt;div class="customOffersComponent"&gt;
+    &lt;p class="customOffersComponent_header_text"&gt;${headerText}&lt;/p&gt;
+    &lt;img alt="Offer Image" src="${offerImage.url}" class="offers_image"&gt;
+    &lt;ul class="offers_list"&gt;
+        &lt;c:forEach items="${offerImageLinks}" var="offerImageLink"&gt;
+            &lt;li class="offers_list_element"&gt;&lt;a href="${offerImageLink.url}"&gt;${offerImageLink.name}&lt;/a&gt;&lt;/li&gt;
+        &lt;/c:forEach&gt;
+    &lt;/ul&gt;
+    &lt;p class="customOffersComponent_header_text"&gt;${footerText}&lt;/p&gt;
+&lt;/div&gt;
+    </code></pre>
+
+<h2>Step 4: Add Component to Home Page Using CMS Tags</h2>
+<p>Add the component to the home page by inserting the CMS tags into the <code>landingLayout2Page.jsp</code> file:</p>
+
+<pre><code>
+&lt;cms:pageSlot position="SummerOffersSlotName" var="feature" element="div" class="span-24 section5 cms_disp-img_slot"&gt;
+    &lt;cms:component component="${feature}" /&gt;
+&lt;/cms:pageSlot&gt;
+    </code></pre>
+
+<h2>Step 5: Verify the New Component on the Home Page</h2>
+<p>Finally, perform the following actions:</p>
+<ul>
+    <li>Run <code>ant all</code> and update the system</li>
+    <li>Ensure the content catalog is copied from Staged to Online (if not done, synchronize it)</li>
+    <li>Open the home page in the site and check if the new component is displayed correctly</li>
+</ul>
+
+
+</body>
+</html>

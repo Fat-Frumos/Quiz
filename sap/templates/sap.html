@@ -1,0 +1,2050 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<link rel='stylesheet' href='styles.css' type='text/css' media='all'/>
+<h3>What is SAP Hybris and what are its main components?</h3>
+<p>SAP Hybris, now known as SAP Commerce Cloud, is a comprehensive e-commerce platform designed to help businesses
+    create, manage, and optimize digital commerce experiences across multiple channels. It offers features for product
+    content management, customer experience management, and integrated marketing capabilities.</p>
+<p>The platform is built on a unified core that provides key services and models tailored specifically for commerce,
+    accessible across all functional modules. Additional modules extend the platform's capabilities with services like
+    the API registry and support for search and navigation functionalities.</p>
+<p>SAP Commerce is highly flexible and extensible, allowing businesses to create personalized commerce solutions. Its
+    architecture leverages multiple abstraction layers and a modular design, enabling customization and scalability to
+    meet specific business needs.</p>
+
+<h3>Why SAP Commerce:</h3>
+<p>SAP Commerce is a modular, extensible platform that integrates deeply with SAP's broader ecosystem, enabling
+    businesses to deliver scalable and unique commerce experiences across various channels. Its flexibility ensures that
+    it can adapt to diverse business requirements while maintaining seamless integration and consistency throughout
+    operations.</p>
+<p>The platform’s layered architecture and modular approach make it an ideal solution for businesses aiming for
+    scalable, adaptable, and future-proof digital transformation in commerce.</p>
+<hr>
+
+<h3>Platform Features</h3>
+<p>The SAP Commerce Platform offers a range of features to support its core functionalities such as containerization,
+    data management, synchronization, security, and localization. For example, the data report feature helps collect raw
+    data from the SAP Commerce database and present it in an easily understandable report format.</p>
+
+<h3>Build Framework</h3>
+<p>SAP Commerce includes a build framework that handles many tasks, including code generation. It is extendable and
+    supports tools like JRebel, which can help avoid unnecessary rebuilds during the development phase, improving
+    efficiency.</p>
+
+<h3>Business Process Management</h3>
+<p>Business processes are a series of steps or activities that repeat over time. Business process management in SAP
+    Commerce helps identify, define, document, control, and optimize these processes, integrating both automated and
+    human-driven activities.</p>
+
+<h3>Caching</h3>
+<p>The SAP Commerce Cache is an important part of the persistence layer, improving performance by reducing the number of
+    database queries. It stores search results, item attributes, and item instances in memory, making data access
+    faster.</p>
+
+<h3>Clustering</h3>
+<p>Clustering in SAP Commerce refers to using multiple SAP Commerce installations that share data from a single
+    database. The clustering functionality offers various configurable options for scaling your system effectively.</p>
+
+<h3>Containerization</h3>
+<p>With containerization, SAP Commerce allows you to build Docker images and run them as isolated software instances.
+    This makes it easier to deploy your system in different environments, ensuring compatibility without issues.</p>
+
+<h3>Data Retention</h3>
+<p>The platform offers a Data Retention Framework that enables you to define strategies for retaining or cleaning up
+    specified data. The Item Locking Service helps you prevent data modifications or deletions when necessary.</p>
+
+<h3>Data Validation</h3>
+<p>SAP Commerce includes a data validation framework based on the JSR 303 Java validation specification. This framework
+    allows you to validate your data before it's saved, and it can be customized at runtime to meet specific needs.</p>
+
+<h3>Digital Asset Management</h3>
+<p>SAP Commerce simplifies the management of digital assets with tools for media conversion and organization, making it
+    easier to handle various aspects of your digital content.</p>
+
+<h3>Generic Data Report and Audit</h3>
+<p>The Generic Data Report feature allows you to collect and display raw data from the SAP Commerce database in an
+    understandable report format. For historical reports, the audit feature is available, providing a way to track data
+    changes over time.</p>
+
+<h3>ImpEx</h3>
+<p>ImpEx is a text-based tool in SAP Commerce for importing and exporting data. It allows you to create, update, remove,
+    and transfer data items like customer, product, or order information between CSV files and the platform.</p>
+
+<h3>Internationalization and Localization</h3>
+<p>SAP Commerce supports internationalization and localization, enabling you to customize the system for different
+    languages and regional requirements, ensuring that your platform caters to a global audience.</p>
+
+<h3>Java Message Service (JMS)</h3>
+<p>JMS in SAP Commerce provides asynchronous communication, allowing for remote method invocation. It complements
+    synchronous solutions like RMI and Web services, providing a more flexible communication approach.</p>
+
+<h3>Logging</h3>
+<p>SAP Commerce includes robust logging features that let you configure how logs are formatted, sorted by message type
+    and level, and where they are reported, making it easier to track and manage application events.</p>
+
+<h3>Multitenancy</h3>
+<p>In multitenant mode, SAP Commerce can run multiple logical instances on a single installation, each with its own
+    distinct set of data. This is useful for hosting multiple online shops for different customers within one SAP
+    Commerce system.</p>
+
+<h3>OAuth 2.0</h3>
+<p>OAuth 2.0 is the default authorization framework used for the Omni Commerce Connect (OCC) Web Services, enabling
+    secure and flexible authentication and authorization.</p>
+
+<h3>Ordering, Payment, and Pricing Standards</h3>
+<p>The platform provides built-in support for processing orders, managing payment methods, handling pricing, and
+    organizing regions for shipping costs. It also offers services for managing orders efficiently.</p>
+
+<h3>Performance and Monitoring</h3>
+<p>SAP Commerce provides various tools for monitoring the performance of your application. These tools help you
+    fine-tune your installation, ensuring that the system runs efficiently and effectively.</p>
+
+<h3>Polyglot Persistence</h3>
+<p>Polyglot persistence allows you to store certain types of data in alternative storage systems, like document-based
+    storage. This helps reduce the load on the main database and supports non-SQL storage for specific data types.</p>
+
+<h3>Primary Keys</h3>
+<p>SAP Commerce provides methods to filter database data based on primary keys, improving query performance and data
+    management.</p>
+
+<h3>Product and Data Modeling</h3>
+<p>When customizing SAP Commerce, it's essential to set up a clear business model. The platform provides tools to help
+    you design and implement your business models effectively.</p>
+
+<h3>Product Content and Catalogs</h3>
+<p>The Product Content and Catalog features in SAP Commerce allow you to structure, manage, and organize products and
+    product information, making it easier to manage your online store’s catalog.</p>
+
+<h3>Search</h3>
+<p>SAP Commerce supports two built-in search mechanisms: FlexibleSearch and GenericSearch. You can also use ViewType,
+    which represents a database view, to enhance search functionality.</p>
+
+<h3>Secure HTTP Transactions</h3>
+<p>SAP Commerce uses Charon to ensure secure HTTP transactions, protecting sensitive data during communication.</p>
+
+<h3>Security and User Management</h3>
+<p>The platform includes tools for managing user access, data encryption, and security, allowing you to control who can
+    access what data and ensuring your platform is secure.</p>
+
+<h3>ServiceLayer</h3>
+<p>The SAP Commerce ServiceLayer API allows you to develop and extend services for your system. It includes a number of
+    common services and allows you to create custom services tailored to your needs.</p>
+
+<h3>ServiceLayer Direct</h3>
+<p>ServiceLayer Direct enables you to directly read and write data in the database, bypassing the Jalo layer. This is
+    useful when you need more direct control over your data management.</p>
+
+<h3>Workflow and Collaboration</h3>
+<p>Platform workflow and collaboration tools make it easier to define and manage complex organizational processes. These
+    tools help improve transparency and efficiency in your workflows.</p>
+
+<h3><strong>Key Features</strong></h3>
+<ol>
+    <li>
+        <p><strong>Omnichannel Capabilities:</strong></p>
+        <ul>
+            <li>Supports customer engagement across all touchpoints, ensuring consistent and seamless user
+                experiences.
+            </li>
+            <li>Enables advanced features such as real-time inventory, click-and-collect, and cross-channel
+                promotions.
+            </li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Pre-built Accelerators:</strong></p>
+        <ul>
+            <li>Offers industry-specific templates (e.g., B2C, B2B, telco) for rapid storefront deployment.</li>
+            <li>Customizable to meet unique business needs, reducing time-to-market.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Product Content Management (PCM):</strong></p>
+        <ul>
+            <li>Centralized control over product catalogs, pricing, and metadata ensures consistency across channels.
+            </li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Order Management:</strong></p>
+        <ul>
+            <li>Comprehensive tools for order tracking, inventory management, and payment integration.</li>
+            <li>Supports end-to-end processes such as order capture, fulfillment, and returns.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Personalization:</strong></p>
+        <ul>
+            <li>Uses data-driven insights to deliver personalized recommendations and promotions.</li>
+            <li>Enhances customer engagement and loyalty through dynamic content delivery.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Integration with SAP Ecosystem:</strong></p>
+        <ul>
+            <li>Provides seamless integration with SAP ERP and CRM for unified data management.</li>
+            <li>Improves operational efficiency and data visibility across the enterprise.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Cloud Deployment:</strong></p>
+        <ul>
+            <li>Offers flexibility, scalability, and reduced maintenance costs.</li>
+            <li>Facilitates rapid updates and adjustments to meet evolving business demands.</li>
+        </ul>
+    </li>
+    <li>
+        <p><strong>Analytics and Reporting:</strong></p>
+        <ul>
+            <li>Provides actionable insights into customer behavior, sales trends, and operational performance.</li>
+            <li>Supports data-driven strategy development for better decision-making.</li>
+        </ul>
+    </li>
+</ol>
+<hr>
+
+
+<h3>SAP Commerce Architecture</h3>
+<p>SAP Commerce, is built on a modular and extensible architecture that ensures flexibility, scalability,<br>and
+    seamless integration with SAP’s ecosystem. The platform supports tailored commerce experiences through its<br>multi-layered
+    structure, including the <strong>Platform</strong>, <strong>Modules and Extensions</strong>,
+    <strong>Accelerators</strong>, and a comprehensive<br>suite of administrative tools. This design empowers businesses
+    to efficiently manage complex commerce operations,<br>integrate with other systems, and adapt to evolving business
+    requirements.</p>
+<h3><strong>Key Components Architecture</strong></h3>
+
+<h4>1. <strong>Platform Layer</strong></h4>
+<p>The core of SAP Commerce is the Platform, which serves as the foundational module common to all configurations. It
+    includes a variety of extensions that provide essential building blocks for higher-level modules. These building
+    blocks include support for core functionalities like:</p>
+
+<ul>
+    <li>Provides foundational services like persistence, caching, clustering, security, and multi-tenancy.</li>
+    <li>Includes the <strong>Service Layer</strong> for defining and exposing consistent business logic.</li>
+    <li>Modular and extensible, enabling developers to tailor the core functionalities without disrupting the system.
+    </li>
+</ul>
+<ul>
+    <li>Persistence</li>
+    <li>Logging</li>
+    <li>Caching</li>
+    <li>Cron jobs</li>
+    <li>Security</li>
+    <li>Search</li>
+    <li>Clustering</li>
+    <li>Task queuing</li>
+</ul>
+<p>Additionally, many optional extensions can be added to enhance functionality and support both standard business
+    modules and any custom features you may wish to develop.</p>
+
+<h4>2. <strong>Modules and Extensions</strong></h4>
+<ul>
+    <li><strong>Modules</strong>: Represent specific business functionalities such as cart management, order processing,
+        and product<br>catalogs.
+        <ul>
+            <li>Include <strong>Service Extensions</strong> for business logic, <strong>Facade Layers</strong> for data
+                exchange, and <strong>Backoffice<br>Extensions</strong> for administration.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Extensions</strong>: Pre-built or custom components that can integrate with APIs or enhance the system’s
+        functionality.
+        <ul>
+            <li>Examples include <strong>Web Services Extensions</strong> for RESTful APIs and <strong>AddOns</strong>
+                for feature injection without<br>altering core code.
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4>3. <strong>Storefront Accelerators</strong></h4>
+<ul>
+    <li>Pre-configured templates for B2C, B2B, and industry-specific storefronts.</li>
+    <li>Includes features like responsive design, SEO, and rapid deployment capabilities.</li>
+    <li>Supports <strong>Spartacus</strong>, an Angular-based headless storefront leveraging the OCC API for enhanced
+        flexibility and<br>speed.
+    </li>
+</ul>
+<h4>4. <strong>Integration and Customization</strong></h4>
+<ul>
+    <li><strong>SAP Ecosystem Integration</strong>: Connects seamlessly with SAP ERP, S4/HANA, and SAP BTP for
+        synchronized data<br>management.
+    </li>
+    <li><strong>Custom Extensions</strong>: Developers can create bespoke extensions or modify existing ones to cater to
+        unique business<br>scenarios.
+    </li>
+    <li><strong>APIs and Adapters</strong>: Facilitate external system integration and data synchronization.</li>
+</ul>
+<h4>5. <strong>Configuration and Administration</strong></h4>
+<ul>
+    <li><strong>Administration Console (HAC)</strong>: Provides tools for system monitoring, cron jobs, and
+        configuration.
+    </li>
+    <li><strong>Backoffice Administration Cockpit</strong>: Offers user-friendly interfaces for managing products,
+        roles, workflows, and<br>dynamic search configurations.
+    </li>
+    <li>Includes specialized tools like the <strong>Product Management Cockpit</strong> and <strong>Adaptive
+        Search</strong> for enhanced control and<br>efficiency.
+    </li>
+</ul>
+<h3><strong>Advantages of SAP Commerce Architecture</strong></h3>
+<ol>
+    <li><p><strong>Modularity and Extensibility</strong></p>
+        <ul>
+            <li>Encourages modular development, enabling businesses to activate, customize, or extend functionalities
+                without<br>affecting the core platform.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Seamless Integration</strong></p>
+        <ul>
+            <li>Through SAP BTP and APIs, SAP Commerce integrates effortlessly with SAP’s business applications and
+                third-party<br>systems, facilitating a unified ecosystem.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Customizable and Scalable Solutions</strong></p>
+        <ul>
+            <li>Accelerators and the headless <strong>Spartacus</strong> storefront enable rapid deployment and tailored
+                experiences.
+            </li>
+            <li>Scales efficiently to handle complex scenarios like global commerce, high transaction volumes, and
+                extensive<br>product catalogs.
+            </li>
+        </ul>
+    </li>
+</ol>
+<hr>
+<h3><strong>Strategic Importance of SAP Commerce Cloud</strong></h3>
+<ol>
+    <li><p><strong>Business Agility</strong>:</p>
+        <ul>
+            <li>Modular architecture and pre-built accelerators ensure faster deployment and adaptation to market
+                changes.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Enhanced Customer Experience</strong>:</p>
+        <ul>
+            <li>Offers omnichannel consistency, personalization, and real-time interactions across touchpoints.</li>
+        </ul>
+    </li>
+    <li><p><strong>Future-Proof Design</strong>:</p>
+        <ul>
+            <li>Cloud-based deployment and seamless SAP ecosystem integration provide a robust foundation for evolving
+                commerce<br>needs.
+            </li>
+        </ul>
+    </li>
+</ol>
+<hr>
+
+<h4>Modules and Extensions</h4>
+<p>Modules in SAP Commerce provide the business logic, APIs, and presentation layers. Each module consists of several
+    extensions that deliver different layers of a business function. For example, a subscription management module might
+    include:</p>
+<ul>
+    <li>A service extension that provides the data model and core business logic.</li>
+    <li>A facade extension that contains DTOs and storefront-specific implementations of features, such as extending the
+        cart and checkout functionality.
+    </li>
+    <li>A backoffice extension that adds subscription setup and management tools within the Backoffice administration
+        application.
+    </li>
+</ul>
+<p>Other common extensions may include web service extensions, such as REST APIs, or AddOns, which allow you to add new
+    functionality to a storefront without modifying core template files. Modules may also leverage business logic from
+    other modules, which is handled by SAP Commerce's build management system during application construction.</p>
+
+<h4>Accelerators</h4>
+<p>Accelerators are pre-built, customizable storefront templates provided by SAP Commerce. These templates support both
+    B2C and B2B business models, along with industry-specific solutions. You can also create a storefront using a
+    decoupled JavaScript implementation, such as Spartacus, for more flexibility in front-end design.</p>
+
+<h4>Integration and Customization</h4>
+<p>SAP Commerce allows full customization and integration to meet your specific business requirements. You can integrate
+    it with the SAP Business Technology Platform (BTP) to sync data with backend systems like SAP ERP or S/4HANA, or
+    utilize services from the SAP BTP Extensions. Additionally, SAP Commerce allows you to extend or build new features
+    from scratch, leveraging its platform and APIs to create unique, tailored experiences for your customers.</p>
+
+<h4>Configuration and Administration</h4>
+<p>SAP Commerce provides a suite of tools for both system and business administration. System configurations can be
+    managed using the Administration Console. For business management, the Backoffice Administration Cockpit and various
+    specialized perspectives like the Product Management Cockpit and Adaptive Search allow for detailed control over
+    users, roles, access permissions, and other business aspects.</p>
+
+<h3>What is the role of the items.xml file?</h3>
+<p>The data model is base of application, it defines the structure of your application.<br>Business logic is always
+    based on top of the data model and helps an organize and maintain their database.<br>each extension has
+    extension-name-items.xml file.
+</p>
+<p>ItemTypes are the base of the hybris. Item types are used to create new tables or to update existing tables.</p>
+<p>The <code>items.xml</code> file in is used to define <strong>ItemTypes</strong>, which represent the business objects
+    .<br>These items are mapped to database tables. The <code>items.xml</code> file specifies attributes,
+    relations, and other metadata for<br>each type, helping to configure the data model for the application.</p>
+<p>Data entities are defined with item type elements, whereas relations between items are defined with relation
+    elements.<br>Item.xml file is locate resource/ extension-name.items.xml file in each extension. which is used for
+    create data model<br>of business. you can define new types,override and extend existing types.
+</p>
+<p>Type system is used for design data modeling or organize data. Types define an objects for manage and store<br>data
+    with Java implementation . For instance, Java have class and object . Class is blueprint of Object and Object is<br>instance
+    of Class. Same concept is follow. Hybris is define Type and Item. Type is blueprint of Item and Item<br>is
+    instance of type.</p>
+<h4>There are two kind of Types</h4>
+<p>System Related Type : It extends type system itself and deal with manage internal data</p>
+<ul>
+    <li>Data Type : It is used for define attribute value and representation type as CollectionTypes, MapTypes,<br>EnumerationTypes,
+        and AtomicTypes. It is same like in Java Date , Map , Enum etc.
+    </li>
+    <li>Infrastructure Type : It is called ItemType as well. It is carry attribute and hold information as ComposedTypes
+        ,<br>Relation. It is same like Java Object.
+    </li>
+</ul>
+<p>Business Related Type: it is manage business activity data like Order, Customer, Product .</p>
+<ul>
+    <li>Item types − This is used to create model (POJO) and tables in DB.</li>
+    <li>Relation types − This is used to create mapping between tables.</li>
+    <li>Atomic types − It is used to create as basic types, which include Java number and string objects</li>
+    <li>Collection types − It is used to build collection/group of element types</li>
+    <li>Map Types −It is used to tore key values pairs data modeling</li>
+    <li>Enum types − It is used to build enumeration for preparing a particular set of values</li>
+</ul>
+<h4>CollectionTypes</h4>
+<p>A CollectionType contains number of instances of types . It is based on the Java Collection class. you can use of the<br>Collection
+    class and some of its sub-classes (List, Set, and SortedSet) . There are two types of relations that you can<br>build
+    with CollectionTypes: one to many relations and many to one relations. Both kinds of relation are unidirectional.
+</p>
+<p>Collection Types have technical limitations</p>
+<p>If a collection contains a number of PKs, the field value may reach the maximum length of field for the database
+    and<br>collection entries may get truncated. you can only store values of a certain length in that database field
+    and every bit<br>of information beyond that length gets lost.</p>
+<p>As the database entry only contains the PKs and not the items themselves, you cannot run database searches on the<br>entries
+    directly.</p>
+<p>If a single CollectionType instance has several AtomicType entries that match a search query, you are not able to
+    detect<br>the exact number of matches from the database directly.</p>
+<h4>RelationTypes</h4>
+<p>RelationTypes represent n:m relations in the hybris . You can link a one item to other item. LinkItems hold two<br>attributes,
+    SourceItem and TargetItem, that hold references to the respective item . LinkItem is helper type item which<br>is
+    linked together of source and target item.</p>
+<h4>Kind of relation</h4>
+<p>one-to-one, unidirectional : (attribute definition, such as Product instance - Unit instance)<br>one-to many,
+    unidirectional : CollectionType<br>many-to-one, unidirectional : CollectionType<br>many-to-many, bidirectional :
+    RelationType</p>
+<p>When to use and when not use Collection/Relation?<br>There is no such hard and fast rule for choosing
+    Collection/Relation, we just need to consider few points before<br>choosing it.</p>
+<p>When to Use Collection?<br>Prefer collection when we are sure that in our current and future requirements, we will
+    not have many rows mapped for<br>one side.<br>It means whenever the collection size is small,we can prefer
+    collection as it helps to achieve faster retrieval</p>
+<p>When not to use Collection?<br>Don’t use collection whenever the collection size is very big as it can lead to data
+    truncation</p>
+<p>When to use Relation?<br>Whenever the collection size is bigger or there is a chance that it can grow bigger then
+    prefer Relation as it assures<br>that there will be no data truncation.<br>For many to many , we should go for
+    Relation always.</p>
+<p>When not to use Relation?<br>We can just prefer collection in place of Relation whenever the collection size is
+    smaller to compensate slow retrieval<br>of Relation but in that case we need to negotiate with Bidirectional
+    mapping.</p>
+<p>So choose it based on the above factors which suits your requirements.</p>
+<h4>Dynamic Attribute</h4>
+<p>As we all know that any attribute we define in item type will have a tag called persistent type.</p>
+<p>persistent type=”property”<br>Corresponding column will be created in the database and hence the values will be
+    stored in the DB. So it’s called<br>persistent attribute.</p>
+<p>persistent type=”dynamic”<br>There will be no column created in the database and hence values will not be stored in
+    the database.<br>So it’s called Non persistent or dynamic attribute.</p>
+<p>For every dynamic attribute we define, we need to mention the attribute handler otherwise Bean Id will be
+    generated<br>automatically and we have to use the same bean id while defining Spring bean in XML.</p>
+<p>Attribute handler is implemented using Spring.</p>
+<p>So we need to mention the spring bean id for the attribute handler.<br>Then we need to define the class for that
+    spring bean id which provides the custom logic for the dynamic attribute.<br>It is possible that one item type can
+    have any number of dynamic attributes.</p>
+<h4>Dynamic in Enum?</h4>
+<p>Dynamic in enum is completely different from Dynamic attributes.<br>If an Enumtype is non-dynamic (by default,
+    dynamic=”false”) we are not allowed to add new values at runtime.<br>If we add any non-dynamic enumtype without
+    values,build will fail as it does not have any effect.<br>So if you want to add new values at runtime we have to
+    make dynamic=”true” for an enum.<br>We can change the flag anytime but enforces a system update.<br>If
+    dynamic=”false” the servicelayer generates real java enums (having a fixed set of values).<br>If dynamic=”true” it
+    generates hybris enums which can be used without fixed values(means we can add run time values).</p>
+<h4>ItemType Modifiers</h4>
+<p>code :The identifier of this ItemType<br>extends :The superclass of this ItemType<br>jaloclass: The fully qualified
+    classpath of this ItemType<br>autocreate : If set to true, this ItemType will be created when the platform creates
+    the type system during<br>initialization.<br>generate: If set to true, the platform creates getter and setter
+    methods for this ItemType.</p>
+<h5>AttributeDescriptor Modifiers</h5>
+<p>qualifier: The identifier of this Attribute<br>redeclare: change its behaviour of an attribute<br>type: The
+    identifier of the type this attribute is going to be .<br>write : Setting modifier to true results in a setter
+    method being generated for this attribute and setting modifier to<br>false results in no setter method being
+    generated for this attribute:<br>read: Setting modifier to true results in a getter method being generated for this
+    attribute and setting the modifier to<br>false results in no getter method being generated for this attribute:</p>
+<h4>Custom Types Columns</h4>
+<p>Hybris provide two ways for set the database column type :</p>
+<p>By specifying the database column type in the item.xml file, such as<br>You can also define this in more detail by
+    specifying database systems</p>
+<h4>There are 3 ways of defining an item type.</h4>
+<p>We need to decide one of the ways based on the requirement.</p>
+<ol>
+    <li>Define the new item type without extending any existing item type</li>
+    <li>Define the new item type by extending it with existing item type</li>
+    <li>Define the existing item type again with new attributes</li>
+</ol>
+<h3>Redeclare in items.xml</h3>
+<p>concept called variable hiding which means variable with the same name is defined in both parent and child
+    classes.</p>
+<p>variable from Parent will be inherited but it will be hidden in the Child class as the Child class also has the
+    same<br>variable.</p>
+<p>we can also change the variable data type in Child class keeping the same variable name.</p>
+<h3>How do you create a new extension?</h3>
+<p>To create a new extension in , follow these steps:</p>
+<ol>
+    <li>Navigate to the <code>/bin/platform</code> directory.</li>
+    <li>Run the <code>ant extgen</code> command: <code>ant extgen -Dinput.template=yempty -Dinput.name=occ
+        -Dinput.package=com.epam.training</code></li>
+    <li>Choose the template (<code>yempty</code> for an empty extension).</li>
+    <li>Define the extension&#39;s name and package.</li>
+    <li>The new extension will appear in the <code>/custom</code> directory and is ready to be developed.</li>
+    <li>Deploy the Extension: ant clean all</li>
+    <li>Add Extension to Localextensions.xml</li>
+</ol>
+<h3>What is the purpose of the localextensions.xml file?</h3>
+<p>This file contains the list of extensions that you are using for your commerce application. This file would be<br>responsible
+    to build all the extension for your application.</p>
+<p>It enables developers to customize the platform’s functionality by selectively enabling or disabling<br>extensions,
+    controlling their loading order, and managing dependencies, all of which ensure the flexibility and<br>scalability
+    of the Hybris system.</p>
+<h3>Difference Between Impex and FlexibleSearch</h3>
+<p><strong>Impex</strong> is a powerful import/export tool, designed primarily for inserting, updating, or
+    deleting data in<br>the database from flat files (such as CSV). It allows batch operations for managing data within
+    the Hybris system. It<br>can be used for importing product data, updating catalog information, or managing complex
+    configurations like user<br>groups and permissions.</p>
+<ul>
+    <li><strong>Purpose</strong>: Impex is used for importing, updating, or deleting items in the database. It can
+        insert new records if<br>they do not exist or update existing records based on certain conditions.
+    </li>
+    <li><strong>Syntax</strong>: The syntax typically involves <strong>INSERT_UPDATE</strong> statements. It uses a
+        declarative approach for specifying<br>which items to add or modify.
+        <ul>
+            <li><strong>INSERT</strong> is used for adding new records, while <strong>UPDATE</strong> is used for
+                modifying existing ones.
+            </li>
+            <li><strong>Example</strong>: To insert a new <code>PageTemplateModel</code>:
+                <pre><code class="language-impex">INSERT_UPDATE PageTemplate; code[unique = true]; name[lang = en]; catalogVersion(catalog(id), version)[unique = true]
+; myPageTemplate; &quot;My Page Template&quot; ; {catalogVersion}
+</code></pre>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul>
+    <li><strong>Data Loading/Export</strong>: Impex is mainly used to load data into the Hybris database or to export
+        data from Hybris to<br>external files. It works with data such as products, categories, customers, orders, etc.
+    </li>
+    <li><strong>Flat File Format</strong>: Impex scripts are typically written in a flat file format, where each line
+        represents an object<br>with its attributes.
+    </li>
+    <li><strong>Predefined Operations</strong>: Impex supports operations like <strong>INSERT</strong>,
+        <strong>UPDATE</strong>, <strong>REMOVE</strong>, etc., which allow for<br>bulk insertion, modification, or
+        deletion of data.
+    </li>
+    <li><strong>Batch Processing</strong>: It is optimized for handling large volumes of data in batch, and it&#39;s
+        generally used in<br>scenarios like data migrations or synchronizing external systems with Hybris.
+    </li>
+    <li><strong>Context-Based</strong>: Impex can use context-based information to populate values dynamically (e.g.,
+        using variables or<br>referencing data objects).
+    </li>
+    <li>It works primarily through files and batch operations.</li>
+    <li>Data is inserted or updated based on the attributes specified.</li>
+    <li>It requires knowledge of item types and their attributes (which are defined in <code>items.xml</code>).</li>
+    <li>It supports importing data with unique identifiers, often using composite keys (like <code>catalogVersion</code>).
+    </li>
+</ul>
+<hr>
+<h3><strong>FlexibleSearch: Querying and Fetching Data</strong></h3>
+<p><strong>FlexibleSearch</strong> is a query language used to retrieve data from the database in a more
+    dynamic way. It is an<br>abstraction layer over SQL, making it easier to write database queries while remaining
+    database-agnostic. FlexibleSearch<br>automatically adapts to the underlying database system (e.g., MySQL, SAP HANA)
+    and allows you to execute queries using<br>the Hybris FlexibleSearch API.</p>
+<ul>
+    <li><strong>Purpose</strong>: FlexibleSearch is used for querying and fetching data from the database. It helps
+        developers to retrieve<br>specific data efficiently using object-oriented queries.
+    </li>
+    <li><strong>Syntax</strong>: FlexibleSearch uses a more declarative SQL-like syntax with placeholders and aliases
+        for item types,<br>fields, and conditions.
+        <ul>
+            <li><strong>Example</strong>: A basic query to fetch all orders:
+                <pre><code class="language-sql">SELECT * FROM {Order}
+</code></pre>
+            </li>
+            <li><strong>Condition Example</strong>: To fetch orders where the <code>date</code> is not null:
+                <pre><code class="language-sql">SELECT * FROM {Order} WHERE {date} IS NOT NULL
+</code></pre>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<ul>
+    <li><strong>Data Retrieval</strong>: FlexibleSearch is used to retrieve data from the Hybris database. It is highly
+        flexible, allowing<br>users to query complex business data by accessing the database directly.
+    </li>
+    <li><strong>Dynamic Queries</strong>: Unlike Impex, which is designed for static data insertion and updates,
+        FlexibleSearch allows<br>dynamic querying and filtering based on the data model.
+    </li>
+    <li><strong>Joins and Aggregation</strong>: FlexibleSearch supports complex queries involving <strong>joins</strong>,
+        <strong>filters</strong>, <strong>sorting</strong>, *<br><em>pagination</em>*, and <strong>aggregation</strong>.
+        It allows users to write sophisticated queries across multiple related objects.
+    </li>
+    <li><strong>Read-Only</strong>: FlexibleSearch is strictly read-only, meaning it is used to <strong>fetch</strong>
+        data, not manipulate it.
+    </li>
+    <li><strong>Object-Oriented</strong>: The query results are returned as Hybris model objects, which can then be
+        processed in Java code<br>or used in the platform.
+    </li>
+    <li>It is a querying tool for fetching data, not for modifying data.</li>
+    <li>It is used both in the Hybris administration console (HAC) and programmatically in DAOs.</li>
+    <li>Supports parameterized queries, allowing dynamic input (e.g., filtering results based on user inputs).</li>
+    <li>Ensures database portability by abstracting SQL differences between databases.</li>
+    <li>Allows executing complex queries, including localized values and excluding subtypes.</li>
+</ul>
+<hr>
+<h3><strong>Key Differences</strong></h3>
+<table>
+    <thead>
+    <tr>
+        <th>Feature</th>
+        <th><strong>Impex</strong></th>
+        <th><strong>FlexibleSearch</strong></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Purpose</strong></td>
+        <td>Data import/export, batch data manipulation.</td>
+        <td>Data retrieval from the database.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Used for importing, inserting, and updating data in the database.</td>
+        <td>Used for querying and retrieving data from the database.</td>
+    </tr>
+    <tr>
+        <td><strong>Use Case</strong></td>
+        <td>Batch operations for managing data (e.g., product data, user groups).</td>
+        <td>Querying specific data from Hybris items.</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Used for inserting, updating, and deleting large sets of data (products, categories, etc.).</td>
+        <td>Used for querying data from the database for reports, filtering, and searching.</td>
+    </tr>
+    <tr>
+        <td><strong>Data Handling</strong></td>
+        <td>Works primarily with CSV-like data in flat files.</td>
+        <td>Works with Hybris database and model objects.</td>
+    </tr>
+    <tr>
+        <td><strong>Query Type</strong></td>
+        <td>No querying; it’s based on predefined actions like <code>INSERT</code>, <code>UPDATE</code>,
+            <code>REMOVE</code>.
+        </td>
+        <td>Supports complex queries with filters, joins, and sorting.</td>
+    </tr>
+    <tr>
+        <td><strong>Read/Write</strong></td>
+        <td>Both read and write (can insert, update, or delete data).</td>
+        <td>Read-only (used for data retrieval).</td>
+    </tr>
+    <tr>
+        <td><strong>Performance</strong></td>
+        <td>Optimized for batch processing and large imports/exports.</td>
+        <td>Optimized for querying and retrieving data in real-time.</td>
+    </tr>
+    <tr>
+        <td><strong>Context Support</strong></td>
+        <td>Supports dynamic data population using context-based values.</td>
+        <td>Allows querying of data objects and relations.</td>
+    </tr>
+    <tr>
+        <td><strong>Flexibility</strong></td>
+        <td>Limited flexibility, as it is mainly for predefined operations on datasets.</td>
+        <td>Highly flexible in terms of querying and data retrieval.</td>
+    </tr>
+    <tr>
+        <td><strong>Language</strong></td>
+        <td>Flat-file format with specific syntax.</td>
+        <td>SQL-like query language with object-oriented syntax.</td>
+    </tr>
+    <tr>
+        <td><strong>Syntax</strong></td>
+        <td>Declarative syntax with <code>INSERT_UPDATE</code>.</td>
+        <td>SQL-like syntax with a focus on object-oriented queries.</td>
+    </tr>
+    <tr>
+        <td><strong>Flexibility</strong></td>
+        <td>Primarily used for data imports and updates; not used for dynamic querying.</td>
+        <td>More flexible in querying with dynamic parameters and complex conditions.</td>
+    </tr>
+    <tr>
+        <td><strong>Modification</strong></td>
+        <td>Used to insert or update records in the database.</td>
+        <td>Does not modify data, only fetches it.</td>
+    </tr>
+    <tr>
+        <td><strong>Database Support</strong></td>
+        <td>Database-independent, but based on predefined item types.</td>
+        <td>Database-agnostic, adapts to various underlying databases.</td>
+    </tr>
+    <tr>
+        <td><strong>Output</strong></td>
+        <td>Affects the database by inserting or updating records.</td>
+        <td>Returns results in a <code>SearchResult</code> object (list of models).</td>
+    </tr>
+    <tr>
+        <td><strong>Example Use</strong></td>
+        <td>Importing new products, updating user group configurations.</td>
+        <td>Fetching orders based on their status or products based on a category.</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3><strong>FlexibleSearch Example with Parameters</strong></h3>
+<p>FlexibleSearch supports parameters, making it more dynamic and adaptable for real-time queries.</p>
+<p>Example:</p>
+<pre><code class="language-java">private static final String GET_ORDERS = &quot;SELECT {PK} FROM {Order} WHERE {status}=?status&quot;;
+FlexibleSearchQuery query = new FlexibleSearchQuery(GET_ORDERS);
+query.
+
+addQueryParameter(&quot;status&quot;,OrderStatus.COMPLETED);
+
+SearchResult&lt;OrderModel&gt; result = flexibleSearchService.search(query);
+List&lt;OrderModel&gt; orders = result.getResult();
+</code></pre>
+<p>This example demonstrates how a parameterized query is used to dynamically fetch orders that are completed.</p>
+<hr>
+<h3><strong>When to Use Impex vs. FlexibleSearch</strong></h3>
+<ul>
+    <li><p><strong>Impex</strong> should be used when:</p>
+        <ul>
+            <li>You need to <strong>import/export</strong> data in bulk, such as products, customers, or categories.
+            </li>
+            <li>You are working with flat files to insert/update data.</li>
+            <li>You need to perform batch processing, like migrations or data synchronization.</li>
+            <li>Importing data into Hybris (e.g., product information, user groups).</li>
+            <li>Synchronizing the database with the business data from external sources.</li>
+            <li>Batch processing of large datasets in a controlled way.</li>
+        </ul>
+    </li>
+    <li><p><strong>FlexibleSearch</strong> should be used when:</p>
+        <ul>
+            <li>You need to <strong>query</strong> the database for business data, such as fetching products, orders, or
+                customers.
+            </li>
+            <li>You want to retrieve data with complex filtering, sorting, or joining operations.</li>
+            <li>You are integrating with the business logic of the platform or creating reports or custom search
+                functionality.
+            </li>
+            <li>Searching for business objects (e.g., products, orders).</li>
+            <li>Fetching data dynamically based on user input or conditions.</li>
+            <li>Running complex queries to retrieve large sets of data from the database.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h3>How do you import data using impex?</h3>
+<ul>
+    <li><strong>CSV files</strong> are the core of data imports in <strong>Hybris</strong> using <strong>ImpEx</strong>,
+        and the <strong>CSV format</strong> follows specific<br>rules regarding quoting, line breaks, and multi-line
+        entries.
+    </li>
+    <li>You can combine <strong>Groovy scripts</strong>, <strong>conditional logic</strong>, and <strong>external data
+        sources</strong> (such as SQL and CSV) to make<br>your data imports dynamic and flexible.
+    </li>
+    <li>ImpEx allows complex operations like <strong>collections</strong>, <strong>maps</strong>, <strong>relaxed
+        validation</strong>, and direct **database imports<br>**.
+    </li>
+</ul>
+<h3><strong>1. CSV File for Data Import (Impex)</strong></h3>
+<p>Hybris supports importing data via CSV (Comma-Separated Values) format, but with certain specific rules and<br>configurations.
+    Here&#39;s how to use the <strong>ImpEx</strong> CSV format.</p>
+<h4>CSV Data Format</h4>
+<pre><code class="language-csv">code[unique=true];name[lang=en];catalogVersion(catalog(id),version);price
+product001;Product 1;{electronicsCatalog:online};100.00
+product002;Product 2;{electronicsCatalog:online};200.00
+</code></pre>
+<p>Here, each column in the CSV represents an attribute of the <strong>Product</strong> item type:</p>
+<ul>
+    <li><strong>code</strong>: Unique product code.</li>
+    <li><strong>name[lang=en]</strong>: Name in English.</li>
+    <li><strong>catalogVersion(catalog(id),version)</strong>: The catalog and version.</li>
+    <li><strong>price</strong>: The product price.</li>
+</ul>
+<h4>Impex Script Using CSV Data</h4>
+<pre><code class="language-impex"># This Impex script imports or updates products.
+INSERT_UPDATE Product; code[unique = true]; name[lang = en]             ; catalogVersion(catalog(id), version); price
+product001           ; Product 1          ; {electronicsCatalog:online} ; 100.00
+product002           ; Product 2          ; {electronicsCatalog:online} ; 200.00
+</code></pre>
+<ul>
+    <li><code>INSERT_UPDATE</code>: Ensures that if the product exists, it will be updated; if not, it will be inserted.
+    </li>
+    <li><code>catalogVersion(catalog(id), version)</code>: References the catalog and version.</li>
+</ul>
+<h3><strong>2. Using Groovy in ImpEx Scripts</strong></h3>
+<p>You can access <strong>Groovy</strong> scripting in ImpEx to add logic or retrieve external data. The
+    <strong>Groovy</strong> code can be used to<br>enhance or manipulate the import data dynamically.</p>
+<h4>Example of Groovy in ImpEx:</h4>
+<pre><code class="language-impex"># Define variables for dynamic logic
+$catalogVersion = {electronicsCatalog:online}
+$price = 150.00
+
+# Groovy Script to create product and set attributes
+&quot;#% import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;&quot;
+&quot;#% def catalogVersion = catalogVersionService.getCatalogVersion(&#39;electronicsCatalog&#39;, &#39;online&#39;);&quot;
+&quot;#% def price = 150.00;&quot;
+
+# Use the Groovy variable in Impex
+INSERT_UPDATE Product; code[unique = true]; name[lang = en]   ; catalogVersion(catalog(id), version); price
+product003           ; Product 3          ; {$catalogVersion} ; {$price}
+</code></pre>
+<ul>
+    <li>The <code>Groovy</code> logic runs before the Impex lines are executed. It dynamically determines catalog
+        versions or computes<br>values like prices.
+    </li>
+    <li>You can use it to modify or create variables dynamically in the script.</li>
+</ul>
+<hr>
+<h3><strong>3. Conditional Imports and Macros in ImpEx</strong></h3>
+<p>You can include <strong>conditional logic</strong> and <strong>variables</strong> in your Impex scripts to make them
+    more flexible.</p>
+<h4>Example: Conditional Impex</h4>
+<p>You can conditionally insert or update data based on the value of a variable:</p>
+<pre><code class="language-impex">$var = &quot;true&quot;
+#% if: &quot;$var.equals(&#39;true&#39;)&quot;
+INSERT_UPDATE Product; code[unique = true]; name[lang = en]             ; catalogVersion(catalog(id), version); price
+product004           ; Product 4          ; {electronicsCatalog:online} ; 250.00
+#% endif;
+</code></pre>
+<ul>
+    <li>This script only runs if <code>$var</code> equals &quot;true&quot;.</li>
+</ul>
+<h4>Example: Using Macros</h4>
+<p>Macros can be created to define reusable data or behavior.</p>
+<pre><code class="language-impex">$item = &quot;Product&quot;
+INSERT_UPDATE $item; code[unique = true]; name[lang = en]             ; catalogVersion(catalog(id), version); price
+product005         ; Product 5          ; {electronicsCatalog:online} ; 300.00
+</code></pre>
+<ul>
+    <li><code>$item</code> is a macro, and its value can be reused across the script.</li>
+</ul>
+<hr>
+<h3><strong>4. Handling External Data in ImpEx</strong></h3>
+<p>You can import data from <strong>external files</strong> or <strong>SQL databases</strong> directly into Hybris via
+    ImpEx.</p>
+<h4>Importing from an External File (e.g., CSV)</h4>
+<pre><code class="language-impex"># Importing external data from a file
+#% impex.includeExternalData(&quot;external_data.csv&quot;, &quot;UTF-8&quot;, 0);
+
+INSERT_UPDATE Product; code[unique = true]; name[lang = en]; price
+#% impex.includeExternalData(&quot;external_data.csv&quot;, &quot;UTF-8&quot;, 0);
+</code></pre>
+<ul>
+    <li><code>impex.includeExternalData</code> allows importing data from an external CSV into your Hybris system.</li>
+</ul>
+<h4>Importing from an SQL Database</h4>
+<p>You can also import data directly from an SQL database using <code>impex.includeSQLData</code>.</p>
+<pre><code class="language-impex">#% impex.initDatabase(&quot;jdbc:mysql://localhost/testdb?user=testuser&amp;password=testpass&quot;, &quot;com.mysql.jdbc.Driver&quot;);
+impex.includeSQLData(&quot;SELECT code, name FROM Products&quot;);
+</code></pre>
+<ul>
+    <li>This script will retrieve data from a MySQL database and insert it into the Hybris system.</li>
+    <li>You can skip columns or define offsets for more complex imports.</li>
+</ul>
+<hr>
+<h3><strong>5. Removing Data from Item Types</strong></h3>
+<p>To <strong>remove data</strong> from a specific item type (e.g., <code>Product</code>), use the
+    <strong>REMOVE</strong> operation.</p>
+<pre><code class="language-impex">$item = Product
+REMOVE $item[batchmode = true]; code[unique = true];
+$product
+</code></pre>
+<ul>
+    <li>This will remove the products with the provided codes.</li>
+</ul>
+<hr>
+<h3><strong>6. Handling Collections and Maps</strong></h3>
+<p>Hybris supports <strong>maps</strong> and <strong>collections</strong> within ImpEx. For example, for a product with
+    multiple categories:</p>
+<pre><code class="language-impex">INSERT_UPDATE Product; code[unique = true]; categories(code)
+product007           ; Electronics|HomeAppliances
+</code></pre>
+<p>Here, <code>categories(code)</code> is a map relationship where multiple values can be inserted in one go.</p>
+<hr>
+<h3><strong>7. ImpEx with Relaxed Mode</strong></h3>
+<p>You can set <strong>validation modes</strong> to <strong>relaxed</strong> or <strong>strict</strong> depending on how
+    the imports should handle missing or<br>inconsistent data.</p>
+<pre><code class="language-impex">#% impex.setValidationMode(&quot;import_relaxed&quot;);
+
+INSERT_UPDATE Product; code[unique = true]; name[lang = en]             ; catalogVersion(catalog(id), version); price
+product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
+</code></pre>
+<ul>
+    <li><code>import_relaxed</code> allows ignoring mandatory field validation errors, while <code>import_strict</code>
+        will enforce them.
+    </li>
+</ul>
+<hr>
+
+<h3>Creating new item types</h3>
+
+<p>Creating item types is a flexible process that allows for customization and extension of the platform&#39;s
+    data<br>models. You can create new item types from scratch, extend existing ones, or modify them with new
+    attributes, depending<br>on the requirements of your project. Each method ensures that the corresponding database
+    structure and Java classes are<br>correctly generated and managed by the system. </p>
+
+<p>Creating new item types is a critical part of managing data models for business applications. Item types<br>are
+    akin to database tables and their attributes represent the columns of those tables. Item types can be defined in<br>three
+    primary ways: as new standalone types, by extending existing types, or by modifying existing types with new<br>attributes.
+    Each method comes with specific configurations, such as generating Java classes, creating database tables,<br>and
+    managing attribute persistence.</p>
+<hr>
+<h3>Creating a New Item Type</h3>
+<p>To create a new <strong>Item Type</strong>, you must define the item type in the <code>items.xml</code>
+    file within your extension.<br>There are three main approaches:</p>
+<h3>1. <strong>Define New Item Type Without Extending an Existing Type</strong></h3>
+<p>In this method, you define a completely new item type without inheriting from any existing ones, such as <code>GenericItem</code>.
+</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">
+&lt;itemtype code=&quot;DeliveryArea&quot;
+          autocreate=&quot;true&quot;
+          generate=&quot;true&quot;
+          jaloclass=&quot;com.custom.core.jalo.DeliveryArea&quot;&gt;
+    &lt;description&gt;The delivery area for an order&lt;/description&gt;
+    &lt;deployment table=&quot;deliveryArea&quot; typecode=&quot;10502&quot;/&gt;
+    &lt;attributes&gt;
+        &lt;attribute qualifier=&quot;code&quot; type=&quot;java.lang.String&quot;&gt;
+            &lt;description&gt;Area code&lt;/description&gt;
+            &lt;modifiers optional=&quot;false&quot; unique=&quot;true&quot; initial=&quot;true&quot;/&gt;
+            &lt;persistence type=&quot;property&quot;/&gt;
+        &lt;/attribute&gt;
+        &lt;attribute qualifier=&quot;name&quot; type=&quot;localized:java.lang.String&quot;&gt;
+            &lt;description&gt;Area name&lt;/description&gt;
+            &lt;modifiers optional=&quot;false&quot;/&gt;
+            &lt;persistence type=&quot;property&quot;/&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;
+</code></pre>
+<ul>
+    <li><strong>autocreate=&quot;true&quot;</strong>: Ensures the database table is created automatically during
+        initialization.
+    </li>
+    <li><strong>generate=&quot;true&quot;</strong>: Instructs Hybris to generate Java classes, including getters and
+        setters, for the item type.
+    </li>
+    <li><strong>jaloclass</strong>: Specifies the Java class that corresponds to the item type.</li>
+    <li><strong>deployment table</strong>: The name of the database table that will store this item type’s data.</li>
+</ul>
+<h3>2. <strong>Extend an Existing Item Type</strong></h3>
+<p>You can extend an existing item type (e.g., <code>Product</code>), inheriting its attributes and functionality, and
+    then add custom<br>attributes or logic.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">
+&lt;itemtype generate=&quot;true&quot;
+          code=&quot;MyProduct&quot;
+          jaloclass=&quot;com.hybris.backoffice.jalo.MyProduct&quot;
+          extends=&quot;Product&quot;
+          autocreate=&quot;true&quot;&gt;
+    &lt;attributes&gt;
+        &lt;attribute qualifier=&quot;myExampleField&quot; type=&quot;java.lang.String&quot;&gt;
+            &lt;description&gt;My Example Initial String Value&lt;/description&gt;
+            &lt;modifiers/&gt;
+            &lt;persistence type=&quot;property&quot;/&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;
+</code></pre>
+<ul>
+    <li><strong>extends=&quot;Product&quot;</strong>: Specifies that <code>MyProduct</code> is an extension of the
+        existing <code>Product</code> type, inheriting its<br>attributes.
+    </li>
+    <li><strong>generate=&quot;true&quot;</strong>: Ensures that Java classes are generated.</li>
+    <li><strong>autocreate=&quot;true&quot;</strong>: Creates a new database table for this type.</li>
+</ul>
+<h3>3. <strong>Add New Attributes to an Existing Item Type</strong></h3>
+<p>Instead of defining an entirely new type, you can add new attributes to an existing item type, without modifying
+    its<br>structure. This is particularly useful when extending existing functionalities.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">
+&lt;itemtype code=&quot;Cart&quot; generate=&quot;false&quot; autocreate=&quot;false&quot;&gt;
+    &lt;attributes&gt;
+        &lt;attribute qualifier=&quot;subscription&quot; type=&quot;Subscription&quot;&gt;
+            &lt;persistence type=&quot;property&quot;/&gt;
+            &lt;modifiers/&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;
+</code></pre>
+<ul>
+    <li><strong>generate=&quot;false&quot;</strong>: No new Java classes are generated because this is modifying an
+        existing item type.
+    </li>
+    <li><strong>autocreate=&quot;false&quot;</strong>: No new database table is created, as this only adds an attribute
+        to an existing type.
+    </li>
+    <li><strong>persistence type=&quot;property&quot;</strong>: Specifies that the attribute is stored in the database.
+    </li>
+</ul>
+<h3>Key Concepts for Item Type Definition:</h3>
+<ul>
+    <li><strong>Typecodes</strong>: A typecode is a unique identifier for each item type. Hybris reserves typecodes
+        between 0 and 10000 for<br>internal use, and custom types must have typecodes greater than 10000.
+    </li>
+    <li><strong>Attributes</strong>: Item attributes correspond to columns in the database. Each attribute needs to
+        specify its type,<br>persistence behavior, and constraints like <code>unique</code>, <code>optional</code>, etc.
+    </li>
+    <li><strong>Persistence</strong>: Attributes can either be stored as persistent data in the database (<code>persistence
+        type=&quot;property&quot;</code>) or<br>be dynamically generated without being stored in the database.
+    </li>
+</ul>
+
+<h3>CronJob</h3>
+<p>Configuring a CronJob involves creating the CronJob model, implementing the job logic in a
+    <code>JobPerformable</code>
+    class, and linking everything through Spring beans and Cron expressions. The CronJob system is useful for running
+    periodic tasks in the background, such as synchronization, cleaning, and data processing. Once set up, you can
+    schedule the execution of the job and manage its lifecycle through the HMC or Backoffice.</p>
+
+<p>a <strong>CronJob</strong> is used to automate and schedule background tasks, such as catalog
+    synchronization, data indexing, and cart cleaning. It consists of three main components: <strong>CronJob</strong>,
+    <strong>Job</strong>, and <strong>Trigger</strong>. The <strong>Job</strong> defines the logic, the
+    <strong>CronJob</strong> holds configurations like inputs for the job, and the <strong>Trigger</strong> schedules
+    the job execution based on Cron expressions. This guide covers how to configure a new CronJob by defining the
+    necessary components and setting up a job for scheduled execution.</p>
+<hr>
+<h3>Configuring a New Cron Job</h3>
+<p>creating a new <strong>CronJob</strong> involves defining and configuring several components: <strong>CronJob
+    model</strong>, <strong>Job (performable)</strong>, and <strong>Trigger</strong>. Here’s a step-by-step guide to
+    configure a new CronJob:</p>
+<h3>1. <strong>Create the CronJob Model</strong></h3>
+<p>The <strong>CronJob</strong> holds the configurations for the job, such as inputs, and represents a single run of the
+    job. You can create a new CronJob model by extending the <code>CronJob</code> item type.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">&lt;itemtype code=&quot;HelloWorldCronJob&quot; extends=&quot;CronJob&quot; jaloclass=&quot;com.stackextend.training.core.jalo.HelloWorldCronJob&quot;&gt;
+    &lt;attributes&gt;
+        &lt;attribute qualifier=&quot;firstName&quot; type=&quot;java.lang.String&quot;&gt;
+            &lt;modifiers/&gt;
+            &lt;persistence type=&quot;property&quot;/&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;
+</code></pre>
+<ul>
+    <li><strong>firstName</strong>: A custom attribute in the CronJob that will hold input data (in this case, a name).
+    </li>
+    <li><strong>jaloclass</strong>: Defines the Java class that corresponds to the CronJob.</li>
+</ul>
+<h3>2. <strong>Create the Job Logic (JobPerformable)</strong></h3>
+<p>The <strong>Job</strong> contains the business logic to be executed., you generally create a
+    <code>JobPerformable</code>
+    class to implement the business logic. The class should extend <code>AbstractJobPerformable</code> and implement the
+    <code>perform</code> method.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-java">public class HelloWorldJob extends AbstractJobPerformable&lt;HelloWorldCronJobModel&gt; {
+
+    @Override
+    public PerformResult perform(HelloWorldCronJobModel cronJobModel) {
+        try {
+            // Retrieve firstName from the cronJob model
+            String firstName = cronJobModel.getFirstName();
+            // Display the greeting
+            System.out.println(&quot;Hello &quot; + firstName);
+
+            // Return success status
+            return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
+        } catch (Exception e) {
+            // Return error status if an exception occurs
+            return new PerformResult(CronJobResult.ERROR, CronJobStatus.ABORTED);
+        }
+    }
+}
+</code></pre>
+<ul>
+    <li><strong>perform method</strong>: Contains the logic to be executed, such as retrieving the first name and
+        printing a greeting.
+    </li>
+    <li><strong>PerformResult</strong>: Represents the result of the job execution, including status and completion
+        state.
+    </li>
+</ul>
+<h3>3. <strong>Register the Job as a Spring Bean</strong></h3>
+<p>Once the <code>JobPerformable</code> is implemented, register the class as a Spring bean.</p>
+<p><strong>Spring Bean Definition Example:</strong></p>
+<pre><code class="language-xml">&lt;bean id=&quot;helloWorldJob&quot; class=&quot;com.stackextend.training.core.job.HelloWorldJob&quot; parent=&quot;abstractJobPerformable&quot;&gt;
+    &lt;!-- Other bean configurations if needed --&gt;
+&lt;/bean&gt;
+</code></pre>
+<ul>
+    <li>The bean ID (e.g., <code>helloWorldJob</code>) will be used in the next step.</li>
+</ul>
+<h3>4. <strong>Create a ServiceLayerJob and Link the JobPerformable</strong></h3>
+<p>Create an instance of the <code>ServicelayerJob</code> and associate it with the Spring bean defined in the previous
+    step.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">INSERT_UPDATE ServicelayerJob; code[unique=true]; springId
+                            ; helloWorldJob    ; helloWorldJob
+</code></pre>
+<ul>
+    <li>This step associates the <code>ServicelayerJob</code> with the <code>helloWorldJob</code> bean in the Spring
+        context.
+    </li>
+</ul>
+<h3>5. <strong>Create a CronJob Instance</strong></h3>
+<p>Once the CronJob model and job are set up, create an instance of the CronJob, linking it to the job and providing any
+    necessary input parameters.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">INSERT_UPDATE HelloWorldCronJob; code[unique=true]; job(code); firstName; sessionLanguage(isocode); sessionCurrency(isocode)
+                               ; helloWorldCronJob; helloWorldJob; Mouad; en; EUR
+</code></pre>
+<ul>
+    <li><strong>firstName</strong>: This will hold the input (e.g., &quot;Mouad&quot;) for the CronJob.</li>
+    <li><strong>sessionLanguage and sessionCurrency</strong>: Optional configurations for the CronJob execution.</li>
+</ul>
+<h3>6. <strong>Create a Trigger for Scheduling the CronJob</strong></h3>
+<p>The <strong>Trigger</strong> defines when the CronJob should be executed, using a Cron expression. You can define a
+    trigger to schedule the CronJob at a specific time or interval.</p>
+<p><strong>Example:</strong></p>
+<pre><code class="language-xml">INSERT_UPDATE Trigger; cronjob(code)[unique=true]; cronExpression
+                     ; helloWorldCronJob     ; 0 0 12 ? * SUN *
+</code></pre>
+<ul>
+    <li><strong>cronExpression</strong>: A Cron expression that schedules the job to run every Sunday at 12:00 PM.</li>
+</ul>
+<h3>7. <strong>Execute the CronJob</strong></h3>
+<p>After configuring the CronJob, you can run it manually through the <strong>HMC</strong> or
+    <strong>Backoffice</strong>, or it will execute automatically based on the Trigger configuration.</p>
+
+<h3>Internationalization</h3>
+<p>Internationalization is essential for delivering localized content to users across different languages,
+    currencies, and countries. Through the use of localized attributes, types, and content management interfaces in
+    <strong>Backoffice</strong> and <strong>Storefront</strong>, Hybris supports a seamless multilingual experience.
+    Additionally, support for multi-currency, multi-country configurations, and a fallback mechanism ensures the
+    platform can scale to meet diverse regional requirements. Properly configuring these components guarantees an
+    optimal user experience for global audiences.</p>
+
+<p>Internationalization (i18n) enables applications to support multiple languages, currencies, and regions,
+    ensuring that content is presented according to a user&#39;s locale. Hybris offers built-in support for managing
+    translations of various elements like product descriptions, categories, and static content. To achieve this, it
+    provides mechanisms such as <strong>localized attributes</strong>, <strong>localized types</strong>, and <strong>multi-language
+        support</strong> through configuration. This guide outlines how to configure and implement internationalization
+    in a Hybris-based system.</p>
+<hr>
+<h3>Handling Internationalization (i18n)</h3>
+<p>Hybris provides a comprehensive internationalization (i18n) framework that allows you to manage multiple languages,
+    currencies, and country-specific content. Here&#39;s how you can handle i18n effectively within a Hybris system.</p>
+<h3>1. <strong>Configuring Languages</strong></h3>
+<p>Hybris allows you to configure multiple languages for your storefront and backoffice. These languages are tied to the
+    system&#39;s locale.</p>
+<ul>
+    <li><p><strong>Add Languages</strong>: In the <code>hybris/config</code> folder, add languages in the <code>locales.properties</code>
+        file.</p>
+        <p>Example:</p>
+        <pre><code class="language-properties">supported.languages=en, de, fr, es
+</code></pre>
+        <p>This configuration will allow the system to support English, German, French, and Spanish.</p>
+    </li>
+    <li><p><strong>Language Management</strong>: You can manage languages via the <strong>Hybris Administration Console
+        (HAC)</strong> by navigating to the <code>Internationalization</code> section where you can add and configure
+        new languages.</p>
+    </li>
+</ul>
+<h3>2. <strong>Localized Attributes</strong></h3>
+<p>Localized attributes allow you to store different values of an attribute for each language. For example, a product&#39;s
+    description might be different in English and French.</p>
+<ul>
+    <li><p><strong>Localized Attribute Configuration</strong>: In the item type definition, you use the
+        <code>localized</code> keyword to define which attributes should support multiple languages.</p>
+        <p>Example:</p>
+        <pre><code class="language-xml">&lt;attribute qualifier=&quot;description&quot; type=&quot;localized:java.lang.String&quot;&gt;
+    &lt;modifiers optional=&quot;false&quot;/&gt;
+    &lt;persistence type=&quot;property&quot;/&gt;
+&lt;/attribute&gt;
+</code></pre>
+        <ul>
+            <li>The <code>localized</code> prefix indicates that the attribute will have different values for each
+                supported language.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Accessing Localized Data</strong>: Hybris provides mechanisms to retrieve localized content through
+        the use of <code>LocalizedValue</code> objects. You can access localized values programmatically using the
+        <code>getDescription()</code> method, which returns the description in the current language.</p>
+    </li>
+</ul>
+<h3>3. <strong>Localized Types</strong></h3>
+<p>Hybris supports <strong>Localized Types</strong> that are extended from the <code>LocalizedType</code> class. This is
+    useful when you need to define multiple variants of an item based on the language.</p>
+<ul>
+    <li><p><strong>Example</strong>: If you have a product with localized attributes, the product type should extend
+        <code>LocalizedType</code>.</p>
+        <p>Example:</p>
+        <pre><code class="language-xml">&lt;itemtype code=&quot;Product&quot; extends=&quot;Product&quot;&gt;
+    &lt;attributes&gt;
+        &lt;attribute qualifier=&quot;localizedDescription&quot; type=&quot;localized:java.lang.String&quot;&gt;
+            &lt;modifiers optional=&quot;false&quot;/&gt;
+            &lt;persistence type=&quot;property&quot;/&gt;
+        &lt;/attribute&gt;
+    &lt;/attributes&gt;
+&lt;/itemtype&gt;
+</code></pre>
+    </li>
+    <li><p>When a user accesses the product, the appropriate localized description will be returned based on their
+        preferred language.</p>
+    </li>
+</ul>
+<h3>4. <strong>Localized Content in Backoffice and Storefront</strong></h3>
+<p>To manage localized content effectively, Hybris provides user interfaces in the <strong>Backoffice</strong> and
+    <strong>HMC</strong> that allow content managers to provide different translations for content such as product
+    descriptions, category names, and banners.</p>
+<ul>
+    <li><p><strong>Backoffice</strong>: Users can select the language for each field in the product, category, or
+        content page. For example, the &quot;Description&quot; field will allow entries for each supported language.</p>
+    </li>
+    <li><p><strong>Storefront</strong>: The storefront will automatically display content in the language associated
+        with the user’s locale. The content management system handles the different translations.</p>
+    </li>
+</ul>
+<h3>5. <strong>Multi-Currency and Multi-Country Support</strong></h3>
+<p>Hybris provides multi-currency and multi-country configurations to manage country-specific content such as pricing,
+    shipping methods, and promotions.</p>
+<ul>
+    <li><p><strong>Currency Management</strong>: You can configure different currencies in the system through <strong>HAC</strong>
+        or <strong>Backoffice</strong>. This includes defining exchange rates, supported currencies, and mapping them to
+        specific locales.</p>
+    </li>
+    <li><p><strong>Country-Specific Content</strong>: In the <strong>HAC</strong> or <strong>Backoffice</strong>, you
+        can configure country-specific content, including product catalogs and promotions, to ensure they meet the
+        specific requirements of each country.</p>
+    </li>
+</ul>
+<h3>6. <strong>Language Fallback Mechanism</strong></h3>
+<p>When a translation for a given language is unavailable, Hybris uses a fallback mechanism. By default, if the content
+    in the requested language is missing, the system will display the content in the fallback language (usually
+    English). You can configure fallback languages to ensure a seamless user experience even when content is not
+    available in the preferred language.</p>
+<h3>7. <strong>Using the <code>LocalizedValue</code> Class for Programmatic Access</strong></h3>
+<p>the <code>LocalizedValue</code> class is used to store localized values for attributes. This allows
+    content to be managed in multiple languages.</p>
+<ul>
+    <li><strong>Example</strong>:
+        <pre><code class="language-java">public String getLocalizedDescription(Product product, Language language) {
+    LocalizedValue localizedValue = product.getDescription();
+    return localizedValue.get(language.getIsocode());
+}
+</code></pre>
+    </li>
+</ul>
+<h3>8. <strong>Translation Management</strong></h3>
+<p>For translating content, the <strong>FlexibleSearch</strong> queries can be used to export content for
+    translation purposes. Additionally, Hybris offers <strong>SAP Translation Hub</strong> integration, which allows
+    easier management and automated translation of content across various languages.</p>
+<h3>9. <strong>Handling Dynamic Content and Customization</strong></h3>
+<p>For dynamic content (such as user-generated content), Hybris provides ways to handle multi-language support
+    programmatically by customizing controllers and views to ensure content is presented in the user&#39;s preferred
+    language.</p>
+<h3>10. <strong>SEO and URL Localization</strong></h3>
+<p>Hybris also provides functionality to support SEO and URL localization, so URLs can be adapted based on language and
+    country. For example, the product detail page might be accessible via <code>/en/product/123</code> for English users
+    and <code>/de/produkt/123</code> for German users.</p>
+<hr>
+
+<h3>Promotions</h3>
+<p> promotions are powerful but require custom implementation or strategic configuration to handle advanced use cases
+    effectively. Understanding OOTB limitations and proactively addressing them with tailored logic ensures seamless
+    promotion functionality while enhancing the customer experience.</p>
+<p>robust support for promotions, but certain mechanics, such as &quot;Buy One Get One Free&quot;
+    (BOGOF), multi-category promotions, and customer-specific discounts, reveal limitations in the Out-of-the-Box (OOTB)
+    implementation. While basic configurations are possible, edge cases and more advanced requirements, like
+    group-specific pricing or flexible free item handling, often require custom logic. Additionally, nuances such as
+    order-of-operations issues in delivery discounts and complications with grouping strategies can impact expected
+    functionality. This detailed overview identifies these gaps and offers insights into best practices for
+    implementation.</p>
+<hr>
+<h3>Key Promotion Types in and Insights</h3>
+<h4>1. <strong>Quantity and Price Discounts</strong></h4>
+<ul>
+    <li><strong>Basic Mechanism</strong>: Offers discounts based on the quantity or total price of items purchased.</li>
+    <li><strong>Challenges</strong>: Complex scenarios like cumulative discounts or tiered pricing often require
+        additional logic.
+    </li>
+</ul>
+<hr>
+<h4>2. <strong>Buy One Get One Free (BOGOF)</strong></h4>
+<p><strong>Two Implementation Options</strong>:</p>
+<ol>
+    <li><strong>Automatically Add Free Product</strong>: Use the &quot;Free Gift&quot; action.
+        <ul>
+            <li><strong>Issues</strong>:
+                <ul>
+                    <li>Adding one free item regardless of how many qualifying items are purchased.</li>
+                    <li>If the free product is manually added to the cart, its price may not be zeroed.</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><strong>Customer Adds Free Product Manually</strong>: Both qualifying and free products are configured in
+        separate containers with a rule making the free product cost zero when conditions are met.
+        <ul>
+            <li><strong>Improved Logic</strong>: Works for multiple free items if quantities are matched.</li>
+        </ul>
+    </li>
+</ol>
+<p><strong>Custom Workarounds</strong>:</p>
+<ul>
+    <li>Create multiple rules for each tier (e.g., Buy 1 -&gt; Get 1 Free, Buy 2 -&gt; Get 2 Free).</li>
+    <li>Use a custom action to handle unlimited quantity scaling efficiently.</li>
+</ul>
+<hr>
+<h4>3. <strong>Multi-Category Promotions</strong></h4>
+<ul>
+    <li><strong>Scenario</strong>: Buy X from Category A, Get Y from Category B.</li>
+    <li><strong>OOTB Support</strong>: Uses &quot;Product Perfect Partner Percentage Discount.&quot;</li>
+    <li><strong>Issues</strong>:
+        <ul>
+            <li>The system does not prioritize replacing existing products in the cart with free SKUs.</li>
+            <li>Unexpected results if conditions overlap or involve broader categories.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h4>4. <strong>Fixed Price for Bundles</strong></h4>
+<ul>
+    <li><strong>Example</strong>: Buy 3 items from the same category for a fixed price.</li>
+    <li><strong>Challenges</strong>:
+        <ul>
+            <li>Grouping products by SKU or price strategy (e.g., cheapest group) is unsupported OOTB.</li>
+            <li>Requires custom logic to dynamically identify optimal groupings for discounts.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h4>5. <strong>Buy 2 Get 1 Free (or Discounted)</strong></h4>
+<ul>
+    <li><strong>Mechanics</strong>:
+        <ul>
+            <li>Buy a set quantity (e.g., 2 items), get the third free or discounted.</li>
+            <li>Hybris OOTB allows &quot;Cheapest&quot; selection strategy, but grouping logic remains simple.</li>
+        </ul>
+    </li>
+    <li><strong>Issues</strong>:
+        <ul>
+            <li>Cannot dynamically optimize groupings for the best outcome (e.g., maximize seller margin).</li>
+            <li>Complex configurations may need stacking multiple promotions with custom rules.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h4>6. <strong>Coupons and Gift Certificates</strong></h4>
+<ul>
+    <li><strong>Basic Use Case</strong>: Coupons trigger discounts or free products.</li>
+    <li><strong>Limitations</strong>:
+        <ul>
+            <li>Hybris doesn’t check whether a coupon is effectively applied, leading to potential waste.</li>
+            <li>Gift coupons must be carefully managed to account for returns or cancellations.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h4>7. <strong>Order History and Customer-Specific Promotions</strong></h4>
+<ul>
+    <li><strong>Examples</strong>:
+        <ul>
+            <li>X% discount for customers with &gt;Y previous orders.</li>
+            <li>Discounts based on specific email domains (e.g., company.com).</li>
+        </ul>
+    </li>
+    <li><strong>Challenges</strong>:
+        <ul>
+            <li>Requires integration with order history systems, which may introduce delays or inconsistencies.</li>
+            <li>Currency conversions and refunds further complicate calculations.</li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h4>8. <strong>Delivery Promotions</strong></h4>
+<ul>
+    <li><strong>Free Shipping Scenarios</strong>:
+        <ul>
+            <li>Example: Free delivery on orders over $100.</li>
+            <li><strong>Order-of-Operations Issues</strong>:
+                <ul>
+                    <li>Conflicts arise when calculating discounts and delivery costs, especially if one depends on the
+                        other.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<hr>
+<h3>Recommendations for Addressing OOTB Limitations</h3>
+<ol>
+    <li><p><strong>Custom Actions and Conditions</strong>:</p>
+        <ul>
+            <li>For scaling promotions (e.g., unlimited BOGOF or tiered discounts).</li>
+            <li>To dynamically manage groupings for bundle promotions.</li>
+        </ul>
+    </li>
+    <li><p><strong>Optimize Configuration for Prioritization</strong>: </p>
+        <ul>
+            <li>Use promotion groups and stacking rules judiciously.</li>
+            <li>Test edge cases, such as overlapping conditions or rule executions, extensively.</li>
+        </ul>
+    </li>
+    <li><p><strong>Leverage External Systems</strong>:</p>
+        <ul>
+            <li>For complex customer-specific promotions or order history-based rules, integrate external systems for
+                efficient computation and caching.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Analyze Business Needs</strong>:</p>
+        <ul>
+            <li>For complex groupings or delivery logic, determine whether optimizing for customers or sellers aligns
+                better with business goals.
+            </li>
+        </ul>
+    </li>
+</ol>
+<hr>
+
+<h3>Promotions</h3>
+<p>&#39;s Promotion Engine, coupled with its modular design, delivers a powerful framework for creating tailored,
+    impactful promotions. Its support for customizations ensures it can meet both standard and complex promotional
+    needs, enabling businesses to enhance customer satisfaction and drive sales effectively.</p>
+<p>Promotions leverage a robust Promotion Engine to implement various marketing strategies, from
+    basic discounts to complex custom rules. The Promotion Engine includes essential modules like the Rule Engine,
+    Coupon Module, and Timed Access Promotion Engine Module. Its implementation sequence integrates seamlessly with cart
+    updates, recalculations, and rule evaluations while allowing advanced customization through custom conditions,
+    actions, and facts. Custom promotions like rewarding reviews with group-based discounts showcase the engine&#39;s
+    adaptability for unique business requirements.</p>
+<hr>
+<h3> Promotions Overview</h3>
+<ol>
+    <li><strong>Promotion Engine</strong>: Configures and manages diverse promotion types via drag-and-drop tools.</li>
+    <li><strong>Rule Engine</strong>: Defines conditions and actions for business rules that apply promotions
+        strategically.
+    </li>
+    <li><strong>Coupon Module</strong>: Enables creation and management of digital coupons.</li>
+    <li><strong>Customer Coupon Module</strong>: Adds flexibility for specific customer-targeted coupons.</li>
+    <li><strong>Timed Access Promotion Engine</strong>: Facilitates time-limited promotions, boosting urgency in
+        customer purchasing.
+    </li>
+</ol>
+<hr>
+<h3>Promotion Engine Workflow</h3>
+<p><strong>Sequence of Operations</strong>: </p>
+<ol>
+    <li><p><strong>Cart Update Trigger</strong>: Promotions are reevaluated whenever the cart changes (e.g.,
+        adding/removing products). </p>
+    </li>
+    <li><p><strong>Promotion Evaluation</strong>: The system:</p>
+        <ul>
+            <li>Undoes prior promotion results.</li>
+            <li>Prepares <strong>Rule-Aware Objects (RAOs)</strong> using converters and populators.</li>
+            <li>Identifies and processes the rule engine via the Spring-configured context.</li>
+        </ul>
+    </li>
+    <li><p><strong>Rule Execution</strong>: The <strong>Drools Rule Engine</strong> evaluates rules and applies actions,
+        such as:</p>
+        <ul>
+            <li>Discounts or free product additions.</li>
+            <li>In-memory order recalculations.</li>
+        </ul>
+    </li>
+    <li><p><strong>Action Persistence</strong>: RAOs representing actions (discounts, messages, etc.) are processed
+        using strategies:</p>
+        <ul>
+            <li>Updates to cart entries, shipment codes, or promotional messages.</li>
+            <li>Ensures compatibility with Hybris extensions like commercefacades.</li>
+        </ul>
+    </li>
+    <li><p><strong>Final Recalculation</strong>: Cart recalculations incorporate promotion results into the final order.
+    </p>
+    </li>
+</ol>
+<hr>
+<h3>Custom Promotion Creation</h3>
+<p>Custom promotions extend the flexibility of the Promotion Engine for scenarios not covered out of the box. </p>
+<h4>Steps to Create Custom Promotions:</h4>
+<ol>
+    <li><p><strong>Extension Creation</strong>: </p>
+        <ul>
+            <li>Create a <code>custompromotionengine</code> extension for custom rules.</li>
+        </ul>
+    </li>
+    <li><p><strong>Define New RAOs</strong>: </p>
+        <ul>
+            <li>Implement Rule-Aware Objects and their populators/providers to represent custom facts.</li>
+        </ul>
+    </li>
+    <li><p><strong>Custom Conditions and Actions</strong>: </p>
+        <ul>
+            <li>Develop new conditions and actions for unique promotion logic.</li>
+        </ul>
+    </li>
+    <li><p><strong>Strategy Implementation</strong>: </p>
+        <ul>
+            <li>Map custom RAOs to strategies ensuring seamless integration and persistence.</li>
+        </ul>
+    </li>
+    <li><p><strong>Testing and Deployment</strong>: </p>
+        <ul>
+            <li>Validate rules using test scenarios and integrate them into the platform.</li>
+        </ul>
+    </li>
+</ol>
+<hr>
+<h3>Use Case Example: Rewarding Product Reviews</h3>
+<p><strong>Scenario</strong>: Customers writing product reviews gain access to a unique promotion. </p>
+<ol>
+    <li><p><strong>Custom Promotion</strong>: </p>
+        <ul>
+            <li>A rule adds reviewers to a special user group (<code>reviewedProductsCustomerGroup</code>).</li>
+        </ul>
+    </li>
+    <li><p><strong>Out-of-the-Box Promotion</strong>: </p>
+        <ul>
+            <li>Applies a 25% discount for users in <code>reviewedProductsCustomerGroup</code>.</li>
+        </ul>
+    </li>
+</ol>
+<p>This highlights Hybris&#39;s ability to blend standard and custom rules for tailored customer incentives. </p>
+<hr>
+
+<h3>ServiceLayer</h3>
+<p>Purpose it separating business logic from persistence logic, ensuring that the core functionalities of the platform
+    are modular, extensible, and maintainable. It adheres to
+    service-oriented architecture principles and provides a clean framework for developing and extending services. By
+    focusing on business logic, the ServiceLayer allows developers to interact with the platform&#39;s models and manage
+    system events efficiently. It offers hooks into lifecycle events, enabling custom business rules and event
+    handling.</p>
+<hr>
+<h3>Role of the ServiceLayer</h3>
+<p>The <strong>ServiceLayer</strong> is an integral part of the architecture, sitting on top of the persistence layer
+    and responsible for encapsulating business logic. It serves as the bridge between the <strong>persistence
+        layer</strong> (which interacts with the database) and the client components (such as controllers, scripts, and
+    services). The primary function of the ServiceLayer is to provide services that execute business rules while
+    maintaining separation from the data access and storage logic.</p>
+<h3>Characteristics of the ServiceLayer</h3>
+<ol>
+    <li><p><strong>Service-Oriented Architecture (SOA)</strong>:<br>The ServiceLayer is based on <strong>service-oriented
+        architecture</strong>, which promotes loose coupling, modularity, and flexibility. This architecture ensures
+        that business logic can be encapsulated within independent services that can be easily extended or replaced
+        without affecting the core system.</p>
+    </li>
+    <li><p><strong>Separation of Business and Persistence Logic</strong>:<br>One of the key principles of the
+        ServiceLayer is the clear <strong>separation between business logic and persistence logic</strong>. The services
+        handle only the functional aspects of the application, while the data access logic is handled separately by
+        repositories or DAOs (Data Access Objects). This ensures that the system is maintainable, testable, and easier
+        to extend.</p>
+    </li>
+    <li><p><strong>Well-Defined Responsibilities</strong>:<br>Each service in the ServiceLayer is responsible for a
+        specific piece of functionality, whether it’s handling user management, order processing, or product catalog
+        management. This clear <strong>responsibility division</strong> makes it easier for developers to extend and
+        maintain the codebase.</p>
+    </li>
+    <li><p><strong>Extensibility</strong>:<br>The ServiceLayer provides an architecture that supports both <strong>custom
+        service development</strong> and the extension of existing services. Custom services can be developed by
+        following the same patterns as existing services, ensuring consistency across the platform.</p>
+    </li>
+    <li><p><strong>Based on the Spring Framework</strong>:<br>The ServiceLayer is built on the <strong>Spring
+        Framework</strong>, utilizing Spring’s features like <strong>dependency injection</strong> and <strong>transaction
+        management</strong>. Spring’s powerful dependency injection ensures that services are loosely coupled and that
+        dependencies can be injected into the services dynamically.</p>
+    </li>
+    <li><p><strong>Common Design Patterns</strong>:<br>The ServiceLayer leverages design patterns like <strong>interface-oriented
+        design</strong> and <strong>dependency injection</strong> to ensure scalability and modularity. Services are
+        typically implemented through interfaces, which decouple the service’s interface from its implementation,
+        facilitating better maintainability and testability.</p>
+    </li>
+    <li><p><strong>Lifecycle Hooks</strong>:<br>The ServiceLayer provides hooks into <strong>model lifecycle
+        events</strong> and <strong>system lifecycle events</strong>. For instance, it allows for custom logic to be
+        executed when a model is created, updated, or deleted, as well as during the initialization of the system or
+        when specific updates occur. This ensures that business logic can be executed automatically in response to
+        changes in the system.</p>
+    </li>
+    <li><p><strong>Event Publishing and Subscription</strong>:<br>The ServiceLayer provides a framework for publishing
+        and receiving events. Events can be published when specific actions or changes occur in the system, such as when
+        an order is placed, a product is updated, or a promotion is applied. These events can trigger external services
+        or processes, such as notifications or further business logic.</p>
+    </li>
+</ol>
+
+<h3>ServiceLayer Architecture</h3>
+<p>The ServiceLayer is built using a combination of different architectural concepts. Some of these concepts are
+    optional, while others are mandatory.</p>
+
+<h4>Structure Overview</h4>
+<p>The ServiceLayer can be seen as a layer of services built on top of the persistence layer. These services are further
+    divided into subcomponents.</p>
+
+<figure>
+    <img src="/img/service-layer-diagram.png" alt="ServiceLayer Architecture">
+    <figcaption>Figure: The ServiceLayer (blue) connects the persistence layer with the client. Arrows represent the
+        flow of data objects.
+    </figcaption>
+</figure>
+
+<h4>Architectural Components</h4>
+<h5>Client</h5>
+<p>In this context, a client refers to any software component that interacts with the ServiceLayer, such as:</p>
+<ul>
+    <li>Page Controllers in an MVC framework</li>
+    <li>Web Service clients</li>
+    <li>Scripts</li>
+    <li>Other services</li>
+</ul>
+
+<h5>Services</h5>
+<p>A service encapsulates the logic for performing specific business processes and provides this logic through public
+    methods, typically defined in a Java interface. These methods generally operate on model objects, like products or
+    orders.</p>
+<p>Services are designed to abstract away the persistence layer, meaning they focus purely on business logic without
+    handling database operations directly. The goal is to minimize the coupling between services and the underlying
+    persistence layer.</p>
+
+<figure>
+    <img src="/img/services-relations-diagram.png" alt="Service Relations Diagram">
+    <figcaption>Figure: Example showing the relationship between services. Each service follows the pattern of having an
+        interface and an implementation.
+    </figcaption>
+</figure>
+
+<p>SAP Commerce exposes its full functionality through services, which can be categorized into three types:</p>
+<ul>
+    <li><strong>Business Services</strong>: Handle business use cases, like cart management or backorders.</li>
+    <li><strong>Infrastructure Services</strong>: Provide technical foundations such as internationalization or data
+        import/export.
+    </li>
+    <li><strong>System Services</strong>: Manage internal functionalities like model handling or session management.
+    </li>
+</ul>
+<p>Service methods should be designed to be as fine-grained as possible to promote reusability.</p>
+
+<p>Extensions must expose their functionality as services. Each extension can provide multiple services, depending on
+    the needs of the business logic.</p>
+<p>While services can interact with other services, it’s recommended to keep these interactions to a minimum to avoid
+    tightly coupled components.</p>
+
+<h5>Strategies</h5>
+<p>A service can delegate tasks to smaller components called strategies. These strategies are more focused and
+    specialized, making them easier to adapt or replace without affecting the rest of the system. From the client's
+    perspective, the service still offers a stable API, while internally, the functionality is divided into smaller,
+    more manageable parts.</p>
+
+<figure>
+    <img src="/img/service-strategies-diagram.png" alt="Service Strategies Diagram">
+    <figcaption>Figure: Example of a service relying on strategies. Both services and strategies follow the same
+        interface-definition pattern.
+    </figcaption>
+</figure>
+
+<h5>DAOs (Data Access Objects)</h5>
+<p>A DAO is an interface used for interacting with the storage backend (e.g., database). It handles tasks like saving,
+    removing, and retrieving models. DAOs encapsulate SQL or FlexibleSearch queries, ensuring that the persistence logic
+    remains separate from the rest of the application.</p>
+<p>In SAP Commerce, DAOs use the Type System for persistence, meaning they don't implement custom logic but simply call
+    the persistence layer to interact with the database.</p>
+
+<h5>Models</h5>
+<p>Models in SAP Commerce are Java objects that represent items (like products or orders). They contain all attributes
+    of an item, regardless of the extension it's associated with, providing unified access to the data. Models are
+    typically Plain Old Java Objects (POJOs) and are easy to use without any storage requirements, which makes them
+    suitable for testing and debugging.</p>
+<p>Models are used by DAOs, services, strategies, converters, and facades for data processing and management.</p>
+
+<h3>Working with the ServiceLayer</h3>
+<p>The ServiceLayer provides an API for developing services in SAP Commerce, making it easy to implement business logic
+    in a clean and structured way. You can follow these procedures to work with the ServiceLayer effectively:</p>
+
+<ul>
+    <li><strong>Preparing an Extension for ServiceLayer Examples</strong>: Required to set up your extension correctly
+        before using ServiceLayer features.
+    </li>
+    <li><strong>Using the ServiceLayer</strong>: Learn how to display information like a user or product using the
+        ServiceLayer.
+    </li>
+    <li><strong>Adding a New Model</strong>: Steps to add a new data model to the system.</li>
+    <li><strong>Implementing a New Service</strong>: Instructions for adding a new service, which requires a model to be
+        in place.
+    </li>
+    <li><strong>Extending an Existing Service</strong>: Learn how to extend an existing service to cater to additional
+        requirements.
+    </li>
+</ul>
+
+<h5>Assumed Knowledge</h5>
+<p>Before using the ServiceLayer, it’s assumed that you have basic knowledge in the following areas:</p>
+<ul>
+    <li>Extension structure in SAP Commerce (core and web modules).</li>
+    <li>Defining custom types using the <code>items.xml</code> file.</li>
+    <li>Understanding the Spring framework and its integration with SAP Commerce.</li>
+    <li>Familiarity with the Spring MVC framework, which is used for web application development in SAP Commerce.</li>
+</ul>
+
+<h5>Preparations</h5>
+<p>Before starting with ServiceLayer-related tasks, you may need to configure and set up your extension. Begin by
+    preparing your extension as described in the "Preparing an Extension for ServiceLayer Examples" document.</p>
+
+<h3>ServiceLayer Overview</h3>
+<p>The ServiceLayer in SAP Commerce is a crucial API for implementing business logic. It allows developers to
+    encapsulate business processes in Java classes called services. Each service addresses a specific, well-defined
+    requirement, ensuring a modular and scalable architecture.</p>
+
+<h4>Key Topics</h4>
+<p>The ServiceLayer covers several key topics and functionalities, including:</p>
+<ul>
+    <li><strong>ServiceLayer Architecture:</strong> A combination of various architectural concepts, some mandatory and
+        others optional, is used to build the ServiceLayer.
+    </li>
+    <li><strong>Working with the ServiceLayer:</strong> A collection of procedures to help developers quickly implement
+        common use cases in SAP Commerce.
+    </li>
+    <li><strong>Key Services Overview:</strong> Built-in services that fall under three categories: System,
+        Infrastructure, and Platform services.
+    </li>
+    <li><strong>Implementing Services:</strong> Guidance for creating custom services, with best practices and
+        principles for effective implementation.
+    </li>
+    <li><strong>Transitioning to the ServiceLayer:</strong> A migration path for projects that previously relied on the
+        Jalo Layer for business logic. The ServiceLayer offers a cleaner, more modular architecture.
+    </li>
+    <li><strong>After Save Event:</strong> Events triggered after database operations, containing details about the
+        edited item and the type of database operation performed. These events can be captured and processed as needed.
+    </li>
+</ul>
+
+<h4>ServiceLayer Details</h4>
+<p>When implementing new business logic, the ServiceLayer allows you to encapsulate functionality into Java-based
+    services. These services provide an interface for interacting with the underlying persistence layer, making the
+    logic reusable and decoupled.</p>
+
+<h5>Transitioning to the ServiceLayer</h5>
+<p>Previously, the Jalo Layer managed both persistence and business logic. The introduction of the ServiceLayer
+    separates these concerns, moving all business logic to the ServiceLayer. This migration significantly reduces the
+    public API size and improves code maintainability.</p>
+
+<h5>After Save Event</h5>
+<p>For every database operation (committed or otherwise), an <strong>After Save Event</strong> is triggered. These
+    events provide information about:</p>
+<ul>
+    <li>The item that was modified</li>
+    <li>The type of database operation performed (e.g., save, delete, update)</li>
+</ul>
+<p>You can collect these events and handle them according to your business requirements, enabling advanced functionality
+    such as change tracking or cascading updates.</p>
+
+<h5>Key Built-in Services</h5>
+<p>The ServiceLayer provides several built-in services, divided into the following categories:</p>
+<ul>
+    <li><strong>System Services:</strong> Manage core functionalities like session handling and model management.</li>
+    <li><strong>Infrastructure Services:</strong> Support technical processes like internationalization, import/export,
+        and data validation.
+    </li>
+    <li><strong>Platform Services:</strong> Enable product content management, catalog management, and search
+        capabilities.
+    </li>
+</ul>
+<p>While these services cover most standard use cases, developers can implement their own services to extend
+    functionality as needed.</p>
+
+<h5>Working with the ServiceLayer</h5>
+<p>To make the most of the ServiceLayer, developers can follow step-by-step guides for common tasks such as:</p>
+<ul>
+    <li>Setting up an extension for ServiceLayer examples</li>
+    <li>Displaying user and product data</li>
+    <li>Adding new data models</li>
+    <li>Implementing or extending custom services</li>
+</ul>
+<p>These guides ensure a smooth development process while leveraging the ServiceLayer’s capabilities.</p>
+
+<h3>Steps to Extend an Existing Service</h3>
+
+<p>Extending an existing service in involves creating a new service implementation that builds upon the original
+    functionality. You implement custom behavior by overriding methods, using dependency injection to wire the service,
+    and ensuring that your new service integrates seamlessly into the platform’s ecosystem. The key to successful
+    service extension is maintaining loose coupling, adhering to Spring’s DI principles, and ensuring proper integration
+    within the Hybris service architecture.</p>
+
+<p>The purpose of the <strong>facade</strong> and <strong>service</strong> layers (SAP Commerce Cloud) are
+    both integral to the architecture, but they serve distinct roles. To clarify, here’s a detailed comparison and
+    explanation of their individual and overlapping functionalities:</p>
+
+<p>In software architecture, both <strong>services</strong> and <strong>facades</strong> play key roles in organizing
+    code and ensuring ease of use for clients. A <strong>service</strong> encapsulates business logic and often acts as
+    a layer for communicating with external systems or databases, providing a public API. A <strong>facade</strong>, on
+    the other hand, simplifies complex interfaces or integrates multiple services into one cohesive, easier-to-use API
+    for consumers. While a <strong>service</strong> focuses on functionality, a <strong>facade</strong> hides complexity
+    and provides a streamlined interface. Both are critical for achieving loose coupling, scalability, and flexibility
+    in a Hybris solution.</p>
+
+<p>Extending an existing service typically involves creating a custom implementation of an interface or class
+    that the service exposes. Here&#39;s a step-by-step guide on how to extend an existing service:</p>
+<h3>1. <strong>Create a Custom Extension</strong></h3>
+<p> To extend a service, you should begin by creating a <strong>custom extension</strong> if one does not already exist.
+    This extension will hold your custom service implementation and configurations.</p>
+<ul>
+    <li>In the Hybris backoffice or using the <code>hybris</code> command line tool, create a new extension or use an
+        existing one.
+    </li>
+    <li>Define the necessary structure within your extension (<code>/src</code>, <code>/resources</code>,
+        <code>/web</code>, etc.).
+    </li>
+</ul>
+<h3>2. <strong>Identify the Service to Extend</strong></h3>
+<ul>
+    <li>Identify the service you want to extend. Hybris services are typically defined by <strong>interfaces</strong> or
+        <strong>abstract classes</strong>. For example, you might want to extend a service like
+        <code>ProductService</code>, <code>OrderService</code>, or <code>CartService</code>.
+    </li>
+    <li>Find the interface or class within the Hybris source code that defines the service you want to extend. Look for
+        methods you need to override or enhance.
+    </li>
+</ul>
+<h3>3. <strong>Create a Custom Service Implementation</strong></h3>
+<ul>
+    <li>In your custom extension, implement a <strong>custom service</strong> class that extends or implements the
+        service you want to modify.
+    </li>
+    <li>Your service class should implement the same interface as the original service or extend the same abstract
+        class, depending on the original implementation.
+    </li>
+</ul>
+<h4>Example: Extending a Service Interface</h4>
+<p> Let&#39;s say you are extending <code>ProductService</code>:</p>
+<ul>
+    <li><p><strong>Step 1: Create a new service interface</strong> (optional, if you want to provide new behavior
+        alongside the original one):</p>
+        <pre><code class="language-java">public interface CustomProductService extends ProductService {
+    // Define custom methods or override existing ones.
+}
+</code></pre>
+    </li>
+    <li><p><strong>Step 2: Implement the interface</strong>:</p>
+        <pre><code class="language-java">@Service(&quot;customProductService&quot;)
+public class DefaultCustomProductService extends DefaultProductService implements CustomProductService {
+    // Override methods to provide custom functionality
+    @Override
+    public ProductModel getProductForCode(String code) {
+        // Custom behavior or call the base method
+        ProductModel product = super.getProductForCode(code);
+        // Add custom processing if needed
+        return product;
+    }
+}
+</code></pre>
+    </li>
+</ul>
+<h3>4. <strong>Use Dependency Injection</strong></h3>
+<ul>
+    <li>Hybris relies on <strong>Spring’s Dependency Injection (DI)</strong> to inject service implementations where
+        needed.
+    </li>
+    <li>Annotate your custom service class with <code>@Service</code> to make it eligible for dependency injection in
+        other components or services.
+    </li>
+</ul>
+<p> For example, the <code>@Service</code> annotation makes the service available for injection into controllers, other
+    services, or DAOs:</p>
+<pre><code class="language-java">@Service(&quot;customProductService&quot;)
+public class DefaultCustomProductService extends DefaultProductService {
+    // Your custom methods
+}
+</code></pre>
+<h3>5. <strong>Override the Original Service in Spring Configuration</strong></h3>
+<ul>
+    <li><p>After creating your custom service class, you need to tell the Spring container to use your custom
+        implementation instead of the default one.</p>
+    </li>
+    <li><p>Update the Spring beans configuration to <strong>override</strong> the original service bean with your custom
+        service.</p>
+    </li>
+    <li><p><strong>Example</strong>: In <code>spring.xml</code> or a custom XML configuration file:</p>
+        <pre><code class="language-xml">&lt;bean id=&quot;productService&quot; class=&quot;com.example.services.DefaultCustomProductService&quot; /&gt;
+</code></pre>
+    </li>
+</ul>
+<p> Alternatively, you can use the <code>@Qualifier</code> annotation if you have multiple beans of the same type and
+    need to specify which one to inject.</p>
+<h3>6. <strong>Update the Spring Context</strong></h3>
+<ul>
+    <li>Make sure your custom extension is included in the Spring context and your service bean is registered
+        correctly.
+    </li>
+    <li>Once the Spring context is updated, your service will be injected wherever it’s used, replacing the original
+        service (if the same bean ID is used).
+    </li>
+</ul>
+<h3>7. <strong>Testing and Validation</strong></h3>
+<ul>
+    <li>Once the service extension is implemented, it’s essential to test the changes thoroughly to ensure that the
+        custom logic works as expected.
+    </li>
+    <li>You can write unit tests for your custom service and integration tests to ensure it integrates properly with the
+        rest of the platform.
+    </li>
+</ul>
+<h3>8. <strong>Leverage the Service</strong></h3>
+<ul>
+    <li>You can now use your extended service anywhere in the platform, including in controllers, other services, or
+        even in scripts.
+    </li>
+    <li><strong>Example</strong>: Inject your custom service into a controller:
+        <pre><code class="language-java">@Autowired
+private CustomProductService customProductService;
+</code></pre>
+    </li>
+</ul>
+<h3>9. <strong>Handle Custom Logic and Lifecycle Events</strong></h3>
+<ul>
+    <li>Ensure that any custom logic related to model lifecycle events, transactions, or business rules is handled
+        properly in your service extension.
+    </li>
+    <li>Hybris services often provide hooks into lifecycle events, such as <code>beforeSave</code> or
+        <code>afterUpdate</code>, where you can inject custom behavior.
+    </li>
+</ul>
+<hr>
+<h3>Service Layer</h3>
+<p><strong>services</strong> are responsible for encapsulating business logic and providing
+    reusable functionality, while <strong>facades</strong> simplify and unify access to these services for the client
+    layer. The two are often used together: the service layer handles the core business operations, and the facade layer
+    simplifies these operations for external consumers, improving modularity, flexibility, and maintainability in
+    Hybris-based systems.</p>
+
+<p>the <strong>Service Layer</strong> is used to implement business logic that interacts with data and other
+    services. Its main purpose is to offer a clean separation of business logic from other layers, such as the
+    <strong>persistence layer</strong> or the <strong>presentation layer</strong>.</p>
+<h4>Characteristics:</h4>
+<ol>
+    <li><strong>Business Logic Encapsulation</strong>: Services encapsulate business operations and expose these as
+        reusable and modular interfaces.
+    </li>
+    <li><strong>Loose Coupling</strong>: Services interact with underlying components (like DAOs or repositories) but
+        keep their coupling minimal to avoid tight dependencies.
+    </li>
+    <li><strong>Transaction Management</strong>: They manage transaction boundaries, ensuring consistency and data
+        integrity across multiple operations.
+    </li>
+    <li><strong>Service-Oriented Architecture (SOA)</strong>: Services follow a service-oriented approach,
+        where they are intended to be independent and reusable across different parts of the application.
+    </li>
+    <li><strong>Spring Framework</strong>: Hybris services are often built on top of the Spring Framework, leveraging
+        dependency injection and other patterns to simplify the architecture.
+    </li>
+</ol>
+<p>Services typically provide a broad and coarse-grained interface to external systems. They abstract away details like
+    database access or network calls, focusing on providing a high-level API for other components like facades,
+    controllers, or external systems.</p>
+<hr>
+<h3>Facade Layer</h3>
+<p>The <strong>Facade Layer</strong> serves as an abstraction layer between the presentation layer (such as
+    web controllers or UI components) and the backend business logic. A facade simplifies the interactions with business
+    services and models.</p>
+<h4>Characteristics:</h4>
+<ol>
+    <li><strong>Simplified Interface</strong>: Facades expose a simplified and unified API to the client (such as the
+        web layer or mobile app). This can be useful when the underlying system is complex, involving several services
+        or components.
+    </li>
+    <li><strong>Complexity Reduction</strong>: Facades are often used when the client needs to interact with multiple
+        services or components that may have complicated setups or configurations. The facade consolidates this
+        complexity into a more user-friendly interface.
+    </li>
+    <li><strong>Unified Access</strong>: Facades are especially useful when integrating multiple services. For example,
+        the <code>CartFacade</code> may interact with <code>ProductService</code>, <code>CartService</code>, and <code>PromotionService</code>,
+        consolidating their functionality under a single API.
+    </li>
+    <li><strong>Abstraction of Multiple Services</strong>: A facade may wrap one or more services, offering a simpler or
+        consolidated interface. It hides the inner workings of these services, making it easier for developers to
+        interact with the system.
+    </li>
+    <li><strong>No Business Logic</strong>: Unlike services, facades don’t contain any core business logic themselves;
+        they delegate calls to services and return the results to the client. They act as an intermediary, often
+        simplifying or organizing the logic flow for clients.
+    </li>
+</ol>
+<h3>Key Differences Between Service and Facade</h3>
+<table>
+    <thead>
+    <tr>
+        <th><strong>Aspect</strong></th>
+        <th><strong>Service</strong></th>
+        <th><strong>Facade</strong></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Primary Role</strong></td>
+        <td>Encapsulates business logic and provides an API for interacting with backend systems or services.</td>
+        <td>Simplifies or consolidates complex service APIs, making them easier to use for external components.</td>
+    </tr>
+    <tr>
+        <td><strong>Complexity</strong></td>
+        <td>Often contains detailed, coarse-grained operations and can be complex.</td>
+        <td>Hides complexity by offering a simplified, user-friendly API to interact with one or more services.</td>
+    </tr>
+    <tr>
+        <td><strong>Interaction Level</strong></td>
+        <td>Directly interacts with underlying data sources (e.g., databases, external systems).</td>
+        <td>Interacts with multiple services, consolidating them into a unified interface.</td>
+    </tr>
+    <tr>
+        <td><strong>Focus</strong></td>
+        <td>Focuses on implementing business logic or workflows.</td>
+        <td>Focuses on exposing simplified interactions with backend components.</td>
+    </tr>
+    <tr>
+        <td><strong>Business Logic</strong></td>
+        <td>Services encapsulate business functionality.</td>
+        <td>Facades don’t encapsulate business logic but organize and simplify access to it.</td>
+    </tr>
+    <tr>
+        <td><strong>Usage</strong></td>
+        <td>Used internally to perform the actual business operations.</td>
+        <td>Used to expose a simplified interface for external clients (e.g., web controllers).</td>
+    </tr>
+    </tbody>
+</table>
+<h3>Relationship Between Service and Facade</h3>
+<ul>
+    <li><p><strong>Facades often rely on services</strong>: A facade may use one or more services to implement the logic
+        needed for its simplified API. For instance, a <strong>CartFacade</strong> could use the
+        <strong>CartService</strong>, <strong>ProductService</strong>, and <strong>PricingService</strong> to provide a
+        simple interface for managing a shopping cart.</p>
+    </li>
+    <li><p><strong>Service is more detailed, facade is more user-friendly</strong>: The <strong>service layer</strong>
+        is responsible for handling complex logic, whereas the <strong>facade</strong> wraps that logic to offer a
+        simplified and more coherent interface to the presentation layer, external systems, or end-users.</p>
+    </li>
+</ul>
+<h3>Scenario</h3>
+<ul>
+    <li><p><strong>Service</strong>: The <strong>ProductService</strong> may provide complex operations such
+        as fetching product data, updating product prices, or checking stock availability. It encapsulates the logic for
+        interacting with the database or third-party systems (e.g., an ERP system).</p>
+    </li>
+    <li><p><strong>Facade</strong>: The <strong>ProductFacade</strong> exposes a simpler API, perhaps providing methods
+        like <code>getProductDetails(productCode)</code> or <code>searchProducts(query)</code>. This facade abstracts
+        away the complex interactions with the <strong>ProductService</strong> and may aggregate data from multiple
+        services, offering a simplified interface for the frontend or other services.</p>
+    </li>
+</ul>
+</body>
+</html>

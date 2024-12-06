@@ -1,213 +1,295 @@
-<p>### Events</p><br><br><p>Hybris Event Framework — это мощный и гибкий механизм в SAP, который позволяет управлять и
-    запускать события в ответ на действия или условия.</p><br><p>Эти события можно использовать для расширения и
-    настройки функциональности платформы в соответствии с конкретными бизнес-требованиями.</p><br><p>События — это
-    способ общения между компонентами программного обеспечения.</p><br><p>Источники испускают события, и каждая сторона
-    регистрирует слушателей, которые могут получать эти события и выполнять логику.</p><br><br><p>События предназначены
-    для обмена информацией между слабосвязанными компонентами. Система событий Hybris основана на фреймворке событий
-    Spring.</p><br><p>События Hybris позволяют нам публиковать и прослушивать определенные события для выполнения
-    бизнес-логики в зависимости от произошедшего события.</p><br><p>События могут публиковаться как локально, так и на
-    узлах кластера, содержит необходимые данные для передачи в EventListener.</p><br><br><p>Системные события: это
-    предопределенные события, генерируемые Hybris в ответ на действия на системном уровне, такие как создание, изменение
-    или удаление объекта.</p><br><br><p>Пользовательские события: Разработчики могут определять пользовательские
-    события, соответствующие их конкретным потребностям.</p><br><p>Эти события могут быть вызваны из пользовательских
-    расширений или других частей системы.</p><br><br><p>Event содержит необходимые данные для передачи в EventListener.
-    Он определяется классом, который расширяет AbstractEvent.</p><br><br><p>События хорошо использовать, когда мы хотим
-    передать обработку другому потоку.</p><br><p>Мы используем событие для менее приоритетной задачи или долговременной
-    задачи или чего-то,</p><br><p>что может быть выполнено параллельно отдельным потоком от основного потока.</p><br>
-<br><p>Например: Задача с низким приоритетом. Выполнение задачи занимает много времени. Задачу следует запустить в
-    отдельном потоке от основного потока.</p><br><p>Отправлять электронные письма, отправка отчета на сторонний сервер,
-    сохранять данные журнала, сохранять данные аудита…</p><br><p>Способствует разделению задач, позволяя различным
-    частям системы реагировать на изменения без прямых зависимостей.</p><br><p>Поддерживает асинхронную обработку и
-    обработку кластерных событий, повышая масштабируемость систем с высоким трафиком.</p><br><p>События могут
-    публиковаться транзакционно, гарантируя, что прослушиватели будут действовать только в случае успеха транзакций,
-    предотвращая несогласованность.</p><br><p>Можно добавлять пользовательские события и прослушиватели для поддержки
-    уникальных бизнес-процессов и расширения функциональности платформы.</p><br><br><p>### EventListener</p><br><p>
-    Слушатели событий: Это компоненты или службы, которые подписываются на определенные события.</p><br><p>Когда
-    происходит событие, все зарегистрированные слушатели этого события уведомляются, что позволяет им соответствующим
-    образом реагировать.</p><br><br><p>Типы прослушивателей: прослушиватели могут быть реализованы как компоненты Spring
-    или как аспекты AspectJ,</p><br><p>что обеспечивает гибкость в структурировании логики обработки событий.</p><br>
-<br>
-<p>Классы прослушивателей событий: реализуйте EventListener
-    <T> для обработки типов событий. Spring Beans и аннотации.
-</p><br><p>Слушателями часто являются Spring bean-компоненты, подписывающиеся на события.</p><br><p>Hybris использует
-    аннотации Spring для объявления слушателей и привязки их к конкретным событиям.</p><br><br><p>EventListener будет
-    прослушивать событие-триггер и запускать бизнес-логику, которая определена внутри метода onEvent(event).</p><br><p>
-    Самый простой способ создать слушателя событий — расширить класс AbstractEventListener и переопределить его метод
-    onEvent().</p><br><br><p>События обычно публикуются в коде с помощью Hybris Event Service.</p><br><p>Разработчики
-    могут указать тип события и любые необходимые данные для включения в событие.</p><br><br><p>События также могут быть
-    вызваны действиями системы, например, при сохранении определенного объекта или при выполнении бизнес-процессов.</p>
-<br><p>Опубликовать событие нужно вызвать метод publishEvent(event) класса EventService с экземпляром события с
-    экземпляром ExpertHybrisEvent.</p><br><br><p>Перехватчики могут прерывать жизненный цикл модели и выполнять
-    некоторую логику.</p><br><p>Перехватчики работают до сохранения в базе данных. Но иногда нам требуется выполнить
-    бизнес-операцию после сохранения любой модели.</p><br><p>После каждой операции с базой данных (независимо от того,
-    вызвана ли она зафиксированной транзакцией или нет) Hybris создает одно событие.</p><br><p>Это событие содержит
-    информацию об элементе, который был добавлен или обновлен. Мы можем собирать эти события и выполнять нашу
-    бизнес-логику.</p><br><br><p>Класс AfterSaveEvent, который содержит PK измененного элемента и тип операции базы
-    данных. Это может быть CREATE, UPDATE или REMOVE.</p><br><p>Мы можем собирать эти события и выполнять нашу логику с
-    помощью реализации нашего слушателя с использованием интерфейса AfterSaveListener.</p><br><br><p>Слушатели событий
-    отвечают за определение логики, которая должна быть выполнена при возникновении определенного события.</p><br><p>Это
-    может включать обновление данных, запуск других процессов или отправку уведомлений.</p><br><br><p>Обработка событий
-    может быть синхронной или асинхронной, в зависимости от варианта использования.</p><br><p>Асинхронная обработка
-    может быть полезна для выгрузки трудоемких задач из основного потока приложения.</p><br><br><p>Слушатель может быть
-    уведомлен о вновь созданных событиях в двух режимах: синхронном и асинхронном. Асинхронный режим включен по
-    умолчанию.</p><br><p>Мы можем включить синхронный режим, используя указанные ниже свойства. Мы добавим эти свойства
-    в local.properties.core.aftersave.async=false</p><br><br><p>Все слушатели уведомляются с помощью одного и того же
-    набора событий. Нам нужно создать слушателя для сбора определенных событий и обработки бизнес-логики.</p><br><p>Для
-    создания пользовательского слушателя нам нужно реализовать интерфейс AfterSaveListener и переопределить метод
-    afterSave. Реализации по умолчанию нет.</p><br><br><p>События и слушатели</p><br><br><p>Система событий — это
-    структура, предоставляемая ServiceLayer, которая позволяет отправлять и получать события в SAP Commerce.</p><br><br>
-<p>Вы можете настроить компоненты вашего расширения для публикации событий, которые затем будут получены
-    зарегистрированными слушателями.</p><br><p>Слушатели — это объекты, которые уведомляются о событиях и выполняют
-    бизнес-логику в зависимости от произошедшего события.</p><br><p>События могут быть опубликованы локально или в
-    кластере узлов. Вы можете зарегистрировать новых слушателей как Spring-бины в вашем XML-файле конфигурации
-    Spring.</p><br><br><p>Платформа определяет и публикует события для ряда предопределенных типов событий.</p><br><p>К
-    ним относится тип AfterItemCreationEvent, элементы которого публикуются после сохранения любого нового элемента
-    данных в базе данных.</p><br><p>Для обработки этих событий AfterItemCreationEvent вы предоставляете класс слушателя
-    и регистрируете его в фреймворке событий.</p><br><br><p>Для вашего расширения вы хотите генерировать элементы
-    новостей, которые вы можете отправлять зарегистрированным подписчикам через различные каналы.</p><br><p>Вы хотите
-    создавать новый элемент новостей всякий раз, когда подписывается новая группа.</p><br><p>В вашем классе слушателя вы
-    переопределяете метод onEvent , чтобы указать код, который вы хотите выполнить, когда происходит это событие.</p>
-<br><p>В этом случае вы проверяете, является ли новый элемент группой.</p><br><p>Если это так, вы просите службу модели
-    платформы создать и сохранить новый элемент новостей.</p><br><br><p>### Events</p><br><br><p>Hybris Event Framework
-    — это мощный и гибкий механизм в SAP, который позволяет управлять и запускать события в ответ на действия или
-    условия.</p><br><p>Эти события можно использовать для расширения и настройки функциональности платформы в
-    соответствии с конкретными бизнес-требованиями.</p><br><p>События — это способ общения между компонентами
-    программного обеспечения.</p><br><p>Источники испускают события, и каждая сторона регистрирует слушателей, которые
-    могут получать эти события и выполнять логику.</p><br><br><p>События предназначены для обмена информацией между
-    слабосвязанными компонентами. Система событий Hybris основана на фреймворке событий Spring.</p><br><p>События Hybris
-    позволяют нам публиковать и прослушивать определенные события для выполнения бизнес-логики в зависимости от
-    произошедшего события.</p><br><p>События могут публиковаться как локально, так и на узлах кластера, содержит
-    необходимые данные для передачи в EventListener.</p><br><br><p>Системные события: это предопределенные события,
-    генерируемые Hybris в ответ на действия на системном уровне, такие как создание, изменение или удаление объекта.</p>
-<br><br><p>Пользовательские события: Разработчики могут определять пользовательские события, соответствующие их
-    конкретным потребностям.</p><br><p>Эти события могут быть вызваны из пользовательских расширений или других частей
-    системы.</p><br><br><p>Event содержит необходимые данные для передачи в EventListener. Он определяется классом,
-    который расширяет AbstractEvent.</p><br><br><p>События хорошо использовать, когда мы хотим передать обработку
-    другому потоку.</p><br><p>Мы используем событие для менее приоритетной задачи или долговременной задачи или
-    чего-то,</p><br><p>что может быть выполнено параллельно отдельным потоком от основного потока.</p><br><br><p>
-    Например: Задача с низким приоритетом. Выполнение задачи занимает много времени. Задачу следует запустить в
-    отдельном потоке от основного потока.</p><br><p>Отправлять электронные письма, отправка отчета на сторонний сервер,
-    сохранять данные журнала, сохранять данные аудита…</p><br><p>Способствует разделению задач, позволяя различным
-    частям системы реагировать на изменения без прямых зависимостей.</p><br><p>Поддерживает асинхронную обработку и
-    обработку кластерных событий, повышая масштабируемость систем с высоким трафиком.</p><br><p>События могут
-    публиковаться транзакционно, гарантируя, что прослушиватели будут действовать только в случае успеха транзакций,
-    предотвращая несогласованность.</p><br><p>Можно добавлять пользовательские события и прослушиватели для поддержки
-    уникальных бизнес-процессов и расширения функциональности платформы.</p><br><br><p>### EventListener</p><br><p>
-    Слушатели событий: Это компоненты или службы, которые подписываются на определенные события.</p><br><p>Когда
-    происходит событие, все зарегистрированные слушатели этого события уведомляются, что позволяет им соответствующим
-    образом реагировать.</p><br><br><p>Типы прослушивателей: прослушиватели могут быть реализованы как компоненты Spring
-    или как аспекты AspectJ,</p><br><p>что обеспечивает гибкость в структурировании логики обработки событий.</p><br>
-<br>
-<p>Классы прослушивателей событий: реализуйте EventListener
-    <T> для обработки типов событий. Spring Beans и аннотации.
-</p><br><p>Слушателями часто являются Spring bean-компоненты, подписывающиеся на события.</p><br><p>Hybris использует
-    аннотации Spring для объявления слушателей и привязки их к конкретным событиям.</p><br><br><p>EventListener будет
-    прослушивать событие-триггер и запускать бизнес-логику, которая определена внутри метода onEvent(event).</p><br><p>
-    Самый простой способ создать слушателя событий — расширить класс AbstractEventListener и переопределить его метод
-    onEvent().</p><br><br><p>События обычно публикуются в коде с помощью Hybris Event Service.</p><br><p>Разработчики
-    могут указать тип события и любые необходимые данные для включения в событие.</p><br><br><p>События также могут быть
-    вызваны действиями системы, например, при сохранении определенного объекта или при выполнении бизнес-процессов.</p>
-<br><p>Опубликовать событие нужно вызвать метод publishEvent(event) класса EventService с экземпляром события с
-    экземпляром ExpertHybrisEvent.</p><br><br><p>Перехватчики могут прерывать жизненный цикл модели и выполнять
-    некоторую логику.</p><br><p>Перехватчики работают до сохранения в базе данных. Но иногда нам требуется выполнить
-    бизнес-операцию после сохранения любой модели.</p><br><p>После каждой операции с базой данных (независимо от того,
-    вызвана ли она зафиксированной транзакцией или нет) Hybris создает одно событие.</p><br><p>Это событие содержит
-    информацию об элементе, который был добавлен или обновлен. Мы можем собирать эти события и выполнять нашу
-    бизнес-логику.</p><br><br><p>Класс AfterSaveEvent, который содержит PK измененного элемента и тип операции базы
-    данных. Это может быть CREATE, UPDATE или REMOVE.</p><br><p>Мы можем собирать эти события и выполнять нашу логику с
-    помощью реализации нашего слушателя с использованием интерфейса AfterSaveListener.</p><br><br><p>Слушатели событий
-    отвечают за определение логики, которая должна быть выполнена при возникновении определенного события.</p><br><p>Это
-    может включать обновление данных, запуск других процессов или отправку уведомлений.</p><br><br><p>Обработка событий
-    может быть синхронной или асинхронной, в зависимости от варианта использования.</p><br><p>Асинхронная обработка
-    может быть полезна для выгрузки трудоемких задач из основного потока приложения.</p><br><br><p>Слушатель может быть
-    уведомлен о вновь созданных событиях в двух режимах: синхронном и асинхронном. Асинхронный режим включен по
-    умолчанию.</p><br><p>Мы можем включить синхронный режим, используя указанные ниже свойства. Мы добавим эти свойства
-    в local.properties.core.aftersave.async=false</p><br><br><p>Все слушатели уведомляются с помощью одного и того же
-    набора событий. Нам нужно создать слушателя для сбора определенных событий и обработки бизнес-логики.</p><br><p>Для
-    создания пользовательского слушателя нам нужно реализовать интерфейс AfterSaveListener и переопределить метод
-    afterSave. Реализации по умолчанию нет.</p><br><br><p>События и слушатели</p><br><br><p>Система событий — это
-    структура, предоставляемая ServiceLayer, которая позволяет отправлять и получать события в SAP Commerce.</p><br><br>
-<p>Вы можете настроить компоненты вашего расширения для публикации событий, которые затем будут получены
-    зарегистрированными слушателями.</p><br><p>Слушатели — это объекты, которые уведомляются о событиях и выполняют
-    бизнес-логику в зависимости от произошедшего события.</p><br><p>События могут быть опубликованы локально или в
-    кластере узлов. Вы можете зарегистрировать новых слушателей как Spring-бины в вашем XML-файле конфигурации
-    Spring.</p><br><br><p>Платформа определяет и публикует события для ряда предопределенных типов событий.</p><br><p>К
-    ним относится тип AfterItemCreationEvent, элементы которого публикуются после сохранения любого нового элемента
-    данных в базе данных.</p><br><p>Для обработки этих событий AfterItemCreationEvent вы предоставляете класс слушателя
-    и регистрируете его в фреймворке событий.</p><br><br><p>Для вашего расширения вы хотите генерировать элементы
-    новостей, которые вы можете отправлять зарегистрированным подписчикам через различные каналы.</p><br><p>Вы хотите
-    создавать новый элемент новостей всякий раз, когда подписывается новая группа.</p><br><p>В вашем классе слушателя вы
-    переопределяете метод onEvent , чтобы указать код, который вы хотите выполнить, когда происходит это событие.</p>
-<br><p>В этом случае вы проверяете, является ли новый элемент группой.</p><br><p>Если это так, вы просите службу модели
-    платформы создать и сохранить новый элемент новостей.</p><br><br><h3>Events</h3><br><br><p>Hybris Event Framework —
-    это мощный и гибкий механизм в SAP, который позволяет управлять и запускать события в ответ на действия или
-    условия.</p><br><p>Эти события можно использовать для расширения и настройки функциональности платформы в
-    соответствии с конкретными бизнес-требованиями.</p><br><p>События — это способ общения между компонентами
-    программного обеспечения.</p><br><p>Источники испускают события, и каждая сторона регистрирует слушателей, которые
-    могут получать эти события и выполнять логику.</p><br><br><p>События предназначены для обмена информацией между
-    слабосвязанными компонентами. Система событий Hybris основана на фреймворке событий Spring.</p><br><p>События Hybris
-    позволяют нам публиковать и прослушивать определенные события для выполнения бизнес-логики в зависимости от
-    произошедшего события.</p><br><p>События могут публиковаться как локально, так и на узлах кластера, содержит
-    необходимые данные для передачи в EventListener.</p><br><br><p>Системные события: это предопределенные события,
-    генерируемые Hybris в ответ на действия на системном уровне, такие как создание, изменение или удаление объекта.</p>
-<br><br><p>Пользовательские события: Разработчики могут определять пользовательские события, соответствующие их
-    конкретным потребностям.</p><br><p>Эти события могут быть вызваны из пользовательских расширений или других частей
-    системы.</p><br><br><p>Event содержит необходимые данные для передачи в EventListener. Он определяется классом,
-    который расширяет AbstractEvent.</p><br><br><p>События хорошо использовать, когда мы хотим передать обработку
-    другому потоку.</p><br><p>Мы используем событие для менее приоритетной задачи или долговременной задачи или
-    чего-то,</p><br><p>что может быть выполнено параллельно отдельным потоком от основного потока.</p><br><br><p>
-    Например: Задача с низким приоритетом. Выполнение задачи занимает много времени. Задачу следует запустить в
-    отдельном потоке от основного потока.</p><br><p>Отправлять электронные письма, отправка отчета на сторонний сервер,
-    сохранять данные журнала, сохранять данные аудита…</p><br><p>Способствует разделению задач, позволяя различным
-    частям системы реагировать на изменения без прямых зависимостей.</p><br><p>Поддерживает асинхронную обработку и
-    обработку кластерных событий, повышая масштабируемость систем с высоким трафиком.</p><br><p>События могут
-    публиковаться транзакционно, гарантируя, что прослушиватели будут действовать только в случае успеха транзакций,
-    предотвращая несогласованность.</p><br><p>Можно добавлять пользовательские события и прослушиватели для поддержки
-    уникальных бизнес-процессов и расширения функциональности платформы.</p><br><br><h3>EventListener</h3><br><p>
-    Слушатели событий: Это компоненты или службы, которые подписываются на определенные события.</p><br><p>Когда
-    происходит событие, все зарегистрированные слушатели этого события уведомляются, что позволяет им соответствующим
-    образом реагировать.</p><br><br><p>Типы прослушивателей: прослушиватели могут быть реализованы как компоненты Spring
-    или как аспекты AspectJ,</p><br><p>что обеспечивает гибкость в структурировании логики обработки событий.</p><br>
-<br>
-<p>Классы прослушивателей событий: реализуйте EventListener
-    <T> для обработки типов событий. Spring Beans и аннотации.
-</p><br><p>Слушателями часто являются Spring bean-компоненты, подписывающиеся на события.</p><br><p>Hybris использует
-    аннотации Spring для объявления слушателей и привязки их к конкретным событиям.</p><br><br><p>EventListener будет
-    прослушивать событие-триггер и запускать бизнес-логику, которая определена внутри метода onEvent(event).</p><br><p>
-    Самый простой способ создать слушателя событий — расширить класс AbstractEventListener и переопределить его метод
-    onEvent().</p><br><br><p>События обычно публикуются в коде с помощью Hybris Event Service.</p><br><p>Разработчики
-    могут указать тип события и любые необходимые данные для включения в событие.</p><br><br><p>События также могут быть
-    вызваны действиями системы, например, при сохранении определенного объекта или при выполнении бизнес-процессов.</p>
-<br><p>Опубликовать событие нужно вызвать метод publishEvent(event) класса EventService с экземпляром события с
-    экземпляром ExpertHybrisEvent.</p><br><br><p>Перехватчики могут прерывать жизненный цикл модели и выполнять
-    некоторую логику.</p><br><p>Перехватчики работают до сохранения в базе данных. Но иногда нам требуется выполнить
-    бизнес-операцию после сохранения любой модели.</p><br><p>После каждой операции с базой данных (независимо от того,
-    вызвана ли она зафиксированной транзакцией или нет) Hybris создает одно событие.</p><br><p>Это событие содержит
-    информацию об элементе, который был добавлен или обновлен. Мы можем собирать эти события и выполнять нашу
-    бизнес-логику.</p><br><br><p>Класс AfterSaveEvent, который содержит PK измененного элемента и тип операции базы
-    данных. Это может быть CREATE, UPDATE или REMOVE.</p><br><p>Мы можем собирать эти события и выполнять нашу логику с
-    помощью реализации нашего слушателя с использованием интерфейса AfterSaveListener.</p><br><br><p>Слушатели событий
-    отвечают за определение логики, которая должна быть выполнена при возникновении определенного события.</p><br><p>Это
-    может включать обновление данных, запуск других процессов или отправку уведомлений.</p><br><br><p>Обработка событий
-    может быть синхронной или асинхронной, в зависимости от варианта использования.</p><br><p>Асинхронная обработка
-    может быть полезна для выгрузки трудоемких задач из основного потока приложения.</p><br><br><p>Слушатель может быть
-    уведомлен о вновь созданных событиях в двух режимах: синхронном и асинхронном. Асинхронный режим включен по
-    умолчанию.</p><br><p>Мы можем включить синхронный режим, используя указанные ниже свойства. Мы добавим эти свойства
-    в local.properties.core.aftersave.async=false</p><br><br><p>Все слушатели уведомляются с помощью одного и того же
-    набора событий. Нам нужно создать слушателя для сбора определенных событий и обработки бизнес-логики.</p><br><p>Для
-    создания пользовательского слушателя нам нужно реализовать интерфейс AfterSaveListener и переопределить метод
-    afterSave. Реализации по умолчанию нет.</p><br><br><p>События и слушатели</p><br><br><p>Система событий — это
-    структура, предоставляемая ServiceLayer, которая позволяет отправлять и получать события в SAP Commerce.</p><br><br>
-<p>Вы можете настроить компоненты вашего расширения для публикации событий, которые затем будут получены
-    зарегистрированными слушателями.</p><br><p>Слушатели — это объекты, которые уведомляются о событиях и выполняют
-    бизнес-логику в зависимости от произошедшего события.</p><br><p>События могут быть опубликованы локально или в
-    кластере узлов. Вы можете зарегистрировать новых слушателей как Spring-бины в вашем XML-файле конфигурации
-    Spring.</p><br><br><p>Платформа определяет и публикует события для ряда предопределенных типов событий.</p><br><p>К
-    ним относится тип AfterItemCreationEvent, элементы которого публикуются после сохранения любого нового элемента
-    данных в базе данных.</p><br><p>Для обработки этих событий AfterItemCreationEvent вы предоставляете класс слушателя
-    и регистрируете его в фреймворке событий.</p><br><br><p>Для вашего расширения вы хотите генерировать элементы
-    новостей, которые вы можете отправлять зарегистрированным подписчикам через различные каналы.</p><br><p>Вы хотите
-    создавать новый элемент новостей всякий раз, когда подписывается новая группа.</p><br><p>В вашем классе слушателя вы
-    переопределяете метод onEvent , чтобы указать код, который вы хотите выполнить, когда происходит это событие.</p>
-<br><p>В этом случае вы проверяете, является ли новый элемент группой.</p><br><p>Если это так, вы просите службу модели
-    платформы создать и сохранить новый элемент новостей.</p><br><br>
+Extensions:
+• Extensions are the java projects where you implement your own logic;
+• You can reuse and extend logic from existing extensions;
+• Dependencies are downloaded with maven;
+• Extensions are listed in "config/localextensions.xml" file.
+
+Build:
+• Build is done via "ant all";
+• Build is customized with the callbacks;
+• Ant targets has broad use:
+• customize OOTB files;
+• run tests;
+• log targets;
+• execute scripts or jobs
+
+Data definition:
+• Atomic types, required for most of cases are already defined.
+• Most likely you don't need to add your own;
+• Adding custom class that requires "customize" is strongly discouraged!
+• unless you want to execute "customize" every time after "clean" target;
+• still, better don't.
+
+• Dynamic enums are more flexible and provide you higher runtime stability;
+• Static enums fit better if your possible value can't be something different from already defined set of values
+
+MAP & COLLECTIONS: 
+• Collections are returned as "Unmodifiable..." collections.
+
+CLASS LEVEL TYPES
+Item type is the main type in hybris;
+Every item is extending ItemModel and having:
+• unique PK;
+• created and modified Time;
+New types should be persisted in different tables, defined in ‹deployment>
+
+• All hybris items persisted as rows in data base are having:
+• PK (primary key) field:
+• PK is the analogue to identifier, which is generated by the hybris taking into account type and counter of item;
+• Created time;
+• Modified time.
+• Don't try to set PK which you wish to have and don't use it for export.
+
+ITEM TYPES
+• Main unit of the data model - Item type;
+• Item types, declared in "*-items.xml" are generated as models during build;
+• Item type is the main type in hybris data layer;
+• Carefully define data, especially < deployment>;
+• Property change or removal may bring you lots of troubles;
+
+DEPLOYMENT 
+• Deployment tag lets you specify:
+• name of the table in DB;
+• typecode
+• used in PK generation;
+• name of the "not optimized properties" table in DB
+• req change in "/platform/ext/core/resources/core-advanced-deployment.xml"
+• You should specify deployment for your new types;
+• If you don't and "build.development.mode" property is:
+• true - build will fail;
+• false - your type will use OOTB table "genericitems" - bad performance;
+• You should not specify deployment, if you extend type which is already having its deployment
+• if you do - additional joins on search will impact performance.
+• You can't change deployment if hybris data model was updated.
+
+RESERVED TYPECODES
+• General rule - "1-9999" typecodes are reserved by the platform
+• But there are additional exceptions:
+• commons extension (132xx);
+• processing extension (327xx);
+• Legacy xprint extension (244xx,245xx);
+• bbcommerce extension (100xx);
+• For detailed and up to date list - check
+• platform/ext/core/resources/core/unittest/reservedTypecodes.txt
+
+ABSTRACT
+• You can specify item as abstract:
+• classes can be instantiated;
+• items cannot be persisted into DB
+
+EXTENDS
+• New item can extend already defined item:
+• to add new fields;
+• change property of the existing fields:
+• make non-writeable to writeable;
+• change type to sub-type;
+• change default value.
+• Every item is extending basic hybris Item:
+
+MODEL
+• You can specify list of Model Constructor properties:
+• using "new" for model creation is:
+• good for search by example;
+• bad for creation and persisting;
+• default values will not be set;
+
+CUSTOM PROPERTIES
+• Custom properties may be used to make your item Catalog-aware:
+• With custom properties you can make your type as "systemType";
+• Only one item of system type can exist;
+• If new is created - older is deleted
+
+INDEX
+• You can add indexes using "index" tag;
+• Its good practice to specify index for "unique" properties, but its not mandatory.
+
+ATTRIBUTES
+• redeclare - used to change the property of parent attribute;
+• Scope of changes:
+• make non-writeable to writeable;
+• change type to sub-type;
+• change default value.
+• model - used for customizing get/set methods of the attribute:
+• if "default" - standard access method will not be generated;
+• you can provide "nullDecorator" if you need custom logic in case value is "null":
+
+1 persistence - property:
+• saved in data base as column;
+• you can set column type with "columntype" tag;
+• you can have different values for different DBs, list of DB:
+• oracle, mysql, sqlserver, hsal, sap;
+• if value for current DB is not specified - fallback to default (no value);
+
+2 persistence - dynamic:
+• value computed on the fly;
+• handler class with logic;
+• wired as spring bean.
+• persistence - dynamic:
+• can be read-only:
+• modifier write = false
+• handler bean naming convention:
+• «ItemtypeCode_attributeQualifier AttributeHandler
+• can be localized:
+• implements DynamicLocalizedAttributeHandler
+
+• modifiers - used for specifying range of attribute properties:
+• read - defines if getter should be generated;
+‹modifiers read="false"
+• write - defines if setter should be generated;
+‹modifiers write="false"/>
+• initial - setter for "write=false" will be generated, but will work only on creation;
+‹modifiers write="false" initial="true"
+• private - will not generate access methods for model;
+‹modifiers private="true"/>
+• partOf - removes linked item if parent is removed;
+‹modifiers partof="true"/>
+• modifiers- used for specifying range of attribute properties:
+• optional - specifies if field is mandatory
+• good practice to provide default value as well;
+«modifiers optional="false"/>
+defaultvalue_"value"/defaultvalue
+• unique
+• keep in mind that listing this field in "indexes" will help with performance;
+‹modifiers unique="true" />
+• dontOptimize - stores field in 'global' table;
+‹modifiers dontOptimize="true
+• modifiers - used for specifying range of attribute properties:
+• encrypted - encrypts value in data base:
+‹modifiers encrypted="true"/>
+• configs:
+• encryption.provider.class = org.bouncycastle.jce.provider.BouncyCastleProvider
+• specifies class, responsible for en-/decryption;
+• symmetric.algorithm = PBEWITHSHA-256AND256BITAES-CBC-BC
+• symmetric algorithm, supported by encryption provider class ;
+• Attributes also can have "custom-properties":
+• hide it from back office:
+• Attribute removal:
+• removing entry attribute from items xml:
+• no get/set methods;
+• empty value in the backoffice;
+
+elern:
+Data Modeling
+Import & Export
+Flexible Search
+Service Layer, Facade Layer, Dynamic Attributes, Events and Interceptors
+Cronjobs, Backoffice, PCM, Workflow
+Process Engine, Data Validation, Security, Transactions, Cache
+Media, Accelerator, Addons, SmartEdit, Search & Navigation
+Media
+Accelerator
+Accelerator setup - mandatory
+Addons
+SmartEdit
+Search & Navigation
+OCC, Pricing, Promotion Engine, Payment, Order Management
+Omni Commerce Connect
+Pricing
+Promotion Engine
+Payment
+Order Management
+
+
+das 33:
+• Data definition:
+• types;
+• РК;
+
+• Data manipulation:
+• Interceptor;
+• Model Service;
+• Data import (ImpEx):
+• header;
+• type modifiers;
+• attribute modifiers;
+• macros and abbreviations;
+• scripts;
+• Data search & manipulation:
+• Generic Dao;
+• Generic Search;
+• Flexible Search;
+ 
+• SQL queries, Transactions & Polyglot:
+ 
+• Data operations:
+• Validation;
+• Retention;
+• Reporting;
+• Audit;
+
+• Service layer:
+• Properties;
+• Initialization/Update;
+• Patches;
+• Events;
+• Cache;
+• Processing;
+• Task Engine;
+• Cronjobs;
+• Workflows;
+• Scripting.
+
+
+2. Data Modeling in Hybris
+What is the role of items.xml in data modeling? The items.xml file is used to define new types (models) and their attributes in SAP Commerce. It defines how data is stored and managed in the database and provides the structure for Hybris items. Each type in the items.xml corresponds to a database table, and its attributes represent the columns.
+
+Dynamic Attributes: Dynamic attributes are calculated or derived at runtime, rather than being directly stored in the database. For example, a discount applied to a product may be a dynamic attribute calculated based on the product’s category.
+
+3. Import & Export in Hybris
+How is data imported using ImpEx? ImpEx (Import/Export) is a flexible data import/export tool in Hybris. It uses a script-based approach (CSV format) to handle bulk data migrations and synchronizations. ImpEx allows for data loading from external systems, such as customer data, product catalog data, or orders, into Hybris.
+
+Validation in ImpEx: You can enable validation rules to ensure data consistency during the import process. By default, strict mode is enabled, and it ensures all necessary attributes are validated before being imported.
+
+4. Flexible Search in Hybris
+Why is FlexibleSearch considered flexible? FlexibleSearch is an alternative to SQL in Hybris and is flexible because it allows you to query the database using an object-oriented approach. It supports complex queries with dynamic conditions, joins, and aggregations. FlexibleSearch queries can retrieve data from multiple types, making it easier to handle complex business logic compared to traditional SQL queries.
+
+5. Service Layer, Facade Layer, Dynamic Attributes, Events and Interceptors
+Service Layer in Hybris: The Service Layer encapsulates business logic and ensures separation between the persistence layer (database) and the rest of the application. It exposes business services, which are invoked by the Facade Layer.
+
+Facade Layer: The Facade Layer serves as a bridge between the presentation layer (UI) and the Service Layer. It simplifies the interaction with backend services by providing DTOs (Data Transfer Objects) and hiding the complexity of the underlying services.
+
+Events and Interceptors:
+
+Events: Hybris supports event-driven programming, where certain events trigger actions, such as sending an email when an order is placed.
+Interceptors: Interceptors are hooks for executing logic before or after certain operations, such as saving or updating data, making them useful for validation or logging purposes.
+6. Cron Jobs, Backoffice, PCM, Workflow
+What are Cron Jobs in Hybris? Cron jobs are scheduled tasks that automate periodic jobs, like syncing data from external systems or cleaning up old data. These tasks can be scheduled and managed via the Hybris Backoffice or through the CronJob Service.
+
+Backoffice: The Backoffice is an administrative tool in Hybris that allows you to manage configurations, products, users, and other business data. It's designed for business users and is highly customizable to suit different business needs.
+
+Product Content Management (PCM): PCM is a module in Hybris that focuses on the management of product data and catalog structures. It provides features for defining product catalogs, product attributes, categories, and variants.
+
+Workflows: Workflows define the steps and transitions involved in specific business processes (e.g., order fulfillment, approval). Hybris uses workflows to ensure consistency and automate tasks in the business process.
+
+7. Process Engine, Data Validation, Security, Transactions, Cache
+Process Engine: The Hybris Process Engine facilitates the management of business processes such as order processing and customer interaction. It allows the creation of complex workflows that involve multiple steps and stakeholders.
+
+Data Validation: Data validation in Hybris ensures that all business data adheres to the required constraints and business rules. This can be achieved using constraints defined in the items.xml file or through custom validation logic implemented in services or interceptors.
+
+Security: Hybris uses role-based access control (RBAC) to ensure secure access to its various resources. Permissions can be set for different user roles in the Backoffice or via configuration files.
+
+Transactions: Hybris supports transaction management through Spring. Transactions ensure that operations (e.g., creating or updating an order) are executed atomically, meaning either the entire operation succeeds or it is rolled back if something goes wrong.
+
+Cache: Hybris uses various caching strategies to improve performance. Some common caches include the type cache (storing item types), query cache (for FlexibleSearch results), and session cache (user session data).
+
+8. Media, Accelerator, Addons, SmartEdit, Search & Navigation
+Media in Hybris: The media service in Hybris manages digital assets (images, videos, documents, etc.). It stores media files and provides various options for handling them (e.g., resizing images).
+
+Accelerators: Hybris provides Accelerators, which are pre-configured templates for storefronts that offer best-practice implementations for B2C and B2B business models. They help speed up the development of customer-facing websites by providing ready-to-use features and UI templates.
+
+Addons: Addons are extensions that provide additional functionalities to a Hybris store without altering the core code. They can be integrated into existing storefronts, providing added features like customer reviews or personalized recommendations.
+
+SmartEdit: SmartEdit is a content management tool that allows business users to directly edit content on a live site. It enables them to update product pages, banners, and other content dynamically without needing to involve developers.
+
+Search & Navigation: Hybris provides advanced search and navigation features through the Adaptive Search extension, allowing for personalized product searches and filtering options on the storefront. It supports both faceted search and full-text search.
+
+9. Omni Commerce Connect, Pricing, Promotion Engine, Payment, Order Management
+Omni Commerce Connect (OCC): OCC is a set of APIs that allow Hybris to connect with external systems such as SAP ERP or SAP S4/HANA, enabling seamless integration between different commerce channels (e.g., in-store, mobile, online).
+
+Pricing: Hybris supports advanced pricing models, such as dynamic pricing based on customer groups, promotions, or seasons. The pricing service ensures that accurate prices are calculated for each customer based on the relevant business rules.
+
+Promotion Engine: The Promotion Engine in Hybris allows businesses to configure various types of promotions like discounts, vouchers, and personalized offers based on customer actions or behaviors.
+
+Payment: Hybris provides multiple payment integrations, enabling seamless processing of payments for orders. It supports various payment gateways and can be customized to integrate with specific payment methods as needed.
+
+Order Management: Hybris includes an Order Management module that handles the entire lifecycle of an order, from creation to payment processing, fulfillment, and post-purchase activities.

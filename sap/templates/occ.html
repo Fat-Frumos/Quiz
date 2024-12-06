@@ -1,0 +1,72 @@
+standard ow is as follows:
+The request comes to commerce web services controller and is in most cases passed directly to commerce facades (sometimes additional
+validation is required). It supports the following types of requests:
+GET - a request for data which triggers facade methods that look for and retrieve proper information.
+POST, PUT, PATCH - requests for creating and updating items which can be send either as separate URL parameters or with the use of
+RequestBody approach. The create/update requests are usually additionally validated in the OCC module.
+HEAD - a request that can be used to retrieve only the number of requested items information - this number is set in the response header.
+Once the data object is retrieved from the commerce facades, it is converted to predened DTOs (this way web services are isolated from data
+object changes in the commerce layer).
+Data objects then send a response to the call in XML or JSON format (assuming there is no errors or exceptions).
+
+The commercewebservicescommons extension is the only extension in the OCC module that is not a template. This extension contains web services
+cache control, data mapping, errors denitions and some other elements that do not t into template extensions. Although this extension is not a
+template, it is still distributed along with sources. It can be then easily extended or modied using a customer AddOn. A few new platform types have
+been dened in the commons extension and all of them are related to OAuth2 persistent token store that has been developed to enable flawless
+authentication in a clustered environment. Additionally, all DTO bean denitions and mappers between platform model types and DTO objects exposed
+in the OCC webservices are placed in this extension.
+
+The commercewebservices module is compliant with AddOns. The idea behind is the same as for the SAP Commerce Accelerator - by using an
+AddOn you can add a new/modify the existing functionality of the commercewebservices extension. The advantage of creating an AddOn (instead of
+modifying an extension) is that the upgrading to a new version is more convenient, because as no changes are made to the commercewebservices
+extensions, no customizations will have to be migrated. Currently, the OCC distribution features only the acceleratorwebservicesaddon AddOn.
+
+. Add the following extensions to your localextensions.xml
+addonsupport: Extension has an ant script required for AddOns to build correctly.
+yoccaddon: Base template used to create AddOns for Commerce Web Services.
+. Generate the AddOn by using extgen and the yoccaddon extension template.
+
+ant addoninstall -Daddonnames="occaddon" -DaddonStorefront.ycommercewebservices="ycommercewebservices"
+ant addoninstall -Daddonnames="occaddon" -DaddonStorefront.ycommercewebservices="mycommercewebservices"
+
+LocalMediaWebURLStrategy
+WebAppMediaFilters
+V1 Data Object Converter - SingleValueConverter
+V2 WsDTO Object Mapper - AbstractCustomMapper
+
+Having updated the url in the response body, we had to set up a WebAppMediaFilter for ycommercewebservices to handle V1 or V2 media
+requests. To deal with that we've registered two separate WebAppMediaFilter spring beans and added them to the lter chains for both
+ycommercewebservices servlets (V1 and V2).
+
+CacheControlHandlerInterceptor
+
+
+OCC uses a standard OAuth2 protocol. The main purpose is to enable long-term access to the
+principal and dierentiate security rules depending on the type of client application.
+
+Authentication means checking provided credentials. If credentials are valid, then the proper roles are assigned to a principal.
+Authorization means deciding if a principal can perform a given action. This is determined based on the assigned roles of the principal and also
+on other constraints, for example secure communication channel.
+
+A non-authenticated principal is assigned a built-in ANONYMOUS role by default.
+
+Every client application that was authenticated using an OAuth2 token in the
+client credentials ow is assigned a specic role depending on the client
+denition. When dening the clients remember to assign either the
+ROLE_CLIENT or ROLE_TRUSTED_CLIENT to them, because these roles allow
+client access to the ycommercewebservices extension
+
+Users who were authenticated using the OAuth2 token in the password ow are assigned a list of roles that are received from a service layer 
+in the same way as it works in the whole application. By default, CUSTOMERGROUP and CUSTOMERMANAGERGROUP roles are used.
+
+To make Spring Security work, you have to add the springSecurityFilterChain to the web services lter chain as shown below in the
+conguration for v1 and v2 webservices.
+
+ROLE_CLIENT Client application (i.e. mobile app) Can access only anonymous user resources
+ROLE_CUSTOMERGROUP User authenticated by client application Can access only its own resources
+ROLE_TRUSTEDCLIENT Trusted client application (i.e. Adobe CQ5) Can access all users and their resources
+ROLE_CUSTOMERMANAGERGROUP User manager authenticated by client app (i.e. POS terminal) Can access all users and their resources
+
+
+Verbs in RESTful API
+TenantAwareEhCacheManagerFactoryBean

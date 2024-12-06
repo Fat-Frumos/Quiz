@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AddOn</title>
+</head>
+<body>
+<div class="markdown prose w-full break-words dark:prose-invert dark"><h3>What is an AddOn in Hybris?</h3>
+    <p>AddOns in SAP Commerce are a powerful mechanism for extending and customizing Hybris without impacting the core
+        functionality. They offer a modular, flexible, and upgrade-safe way to add new features and integrate
+        third-party systems into the platform. By using AddOns, businesses can build a tailored e-commerce experience
+        while maintaining the integrity and maintainability of the SAP Commerce solution.</p></div>
+<p>
+    - Built on top of the existing SAP Hybris Commerce
+    to extend the functionality of the SAP Hybris
+    Commerce Accelerator.
+</p>
+<p>
+    - Addons are a form of extension that allows you to
+    add front-end files e.g. JSP, CSS, and JS via your
+    AddOn. (May or may not include frontend )
+</p>
+<p>
+    - No editing in core code of SAP Hybris (This is
+    considered as best practice)
+</p>
+<p>
+    - Adhere to best practices in SAP Hybris development.
+</p>
+<p>
+    - Safely upgrade your core SAP Hybris code without the need for excessive development.
+</p>
+<p>
+    - You can add and remove the AddOn, whenever needed without refactoring or otherwise rewriting code.
+
+</p>
+<p>In SAP Commerce (Hybris), an <strong>AddOn</strong> is a type of extension that allows developers to add new
+    functionalities to an existing storefront (or other parts of the SAP Commerce application) without directly
+    modifying the core code or the original extension code. AddOns are typically used to extend the default
+    functionality of the Hybris platform, specifically in storefronts built on Accelerators, such as adding new
+    features or customizing the storefront’s user interface.</p>
+<p>An AddOn is a modular piece of code that can be injected into a Hybris solution without altering the base
+    system's code. This provides flexibility in adding new features to the platform without disturbing the integrity
+    of the original system, allowing you to customize and extend the behavior of the Hybris application easily.</p>
+<h3>Structure of AddOns</h3>
+<p>AddOns are usually packaged as separate extensions that follow specific guidelines for integration into the
+    existing Hybris platform. The typical structure of an AddOn includes:</p>
+<ul>
+    <li><strong>Frontend code</strong>: HTML, JavaScript, and CSS for the storefront.</li>
+    <li><strong>Backend logic</strong>: Java classes or services that interact with the Hybris service layer,
+        possibly modifying behavior or adding new functionality.
+    </li>
+    <li><strong>Integration hooks</strong>: These hooks are points where the AddOn integrates with the storefront or
+        other modules.
+    </li>
+    <li><strong>Resources</strong>: Configuration files, templates, or other assets that the AddOn uses.</li>
+</ul>
+<h3>How AddOns Work</h3>
+<ol>
+    <li><strong>Modular Extension</strong>: An AddOn is installed as an extension but does not require modifying the
+        core or any other extension code directly.
+    </li>
+    <li><strong>Integration with Accelerators</strong>: AddOns are commonly used with Hybris Accelerators to inject
+        custom behavior into a storefront. For example, you could create an AddOn to add a payment gateway to an
+        accelerator-based storefront.
+    </li>
+    <li><strong>Seamless Upgrades</strong>: Since AddOns don’t modify core files or logic, they are usually
+        upgrade-safe. You can update or upgrade Hybris without worrying about breaking customizations made through
+        AddOns.
+    </li>
+    <li><strong>Dynamic Behavior</strong>: The AddOn might include components, services, or even front-end resources
+        that are dynamically injected into the application depending on the business needs.
+    </li>
+</ol>
+<h3>Example Use Cases for AddOns</h3>
+<ol>
+    <li><strong>Payment Gateway Integration</strong>: You can create an AddOn to integrate a custom payment gateway
+        without modifying core Hybris components.
+    </li>
+    <li><strong>Custom Search</strong>: An AddOn can be used to integrate a custom search solution (like
+        Elasticsearch or a specific recommendation engine) into the storefront.
+    </li>
+    <li><strong>Custom Widgets</strong>: AddOns can add new widgets to the storefront that provide extra
+        functionality, such as banners, promotional modules, or custom product recommendations.
+    </li>
+    <li><strong>Third-Party Integrations</strong>: AddOns are ideal for integrating external systems like CRM, ERP,
+        or other marketing tools without altering Hybris’s core functionality.
+    </li>
+</ol>
+<h3>Advantages of Using AddOns</h3>
+<ol>
+    <li><strong>Separation of Concerns</strong>:
+        <ul>
+            <li>AddOns help keep your core Hybris system code clean and maintainable by isolating custom
+                functionality into modular extensions. This makes it easier to manage and maintain your custom
+                features.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Flexibility</strong>:
+        <ul>
+            <li>You can add new features or change existing functionality on the fly without modifying the core
+                codebase. This means you can customize your SAP Commerce environment to meet specific business needs
+                without touching the base platform’s code.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Upgrade Compatibility</strong>:
+        <ul>
+            <li>Since AddOns do not alter the core code, they tend to be more upgrade-safe. When you upgrade SAP
+                Commerce, your custom AddOns are less likely to break, provided they follow good coding practices.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Modular Development</strong>:
+        <ul>
+            <li>AddOns can be developed and tested independently, making them easier to deploy and scale. This
+                modularity allows for focused development, which can result in faster time to market for new
+                features or integrations.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Reduced Risk</strong>:
+        <ul>
+            <li>By using AddOns, you avoid directly modifying the core extensions or platform logic, which can
+                reduce the risk of introducing bugs or incompatibilities with future Hybris upgrades.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Reusability</strong>:
+        <ul>
+            <li>AddOns can be reused across different Hybris projects or environments. For example, you can create
+                an AddOn that handles a specific payment method and reuse it across different stores or instances of
+                SAP Commerce.
+            </li>
+        </ul>
+    </li>
+    <li><strong>Customizable and Extensible</strong>:
+        <ul>
+            <li>AddOns can be customized and extended to meet specific business requirements. This allows businesses
+                to implement unique features without being constrained by the out-of-the-box functionality.
+            </li>
+        </ul>
+    </li>
+</ol>
+<h3>Example of an AddOn Creation</h3>
+<p>To create an AddOn in SAP Commerce, you typically:</p>
+<ol>
+    <li>Define your AddOn in the Hybris <code>localextensions.xml</code>.</li>
+    <li>Develop the AddOn by following the structure required for Hybris extensions (such as adding services,
+        controllers, and frontend resources).
+    </li>
+    <li>Include necessary templates, configuration, and resource files to integrate your AddOn into the storefront
+        or back-office.
+    </li>
+</ol>
+<pre class="!overflow-visible">
+        <code
+                class="!whitespace-pre hljs language-xml"><span class="hljs-tag">&lt;<span
+                class="hljs-name">extension</span> <span class="hljs-attr">name</span>=<span
+                class="hljs-string">"myaddon"</span> /&gt;</span>
+</code>
+</pre>
+</body>
+</html>
