@@ -1595,7 +1595,7 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
     divided into subcomponents.</p>
 
 <figure>
-    <img src="/img/service-layer-diagram.png" alt="ServiceLayer Architecture">
+    <img src="./img/service-layer-diagram.png" alt="ServiceLayer Architecture">
     <figcaption>Figure: The ServiceLayer (blue) connects the persistence layer with the client. Arrows represent the
         flow of data objects.
     </figcaption>
@@ -1620,7 +1620,7 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
     persistence layer.</p>
 
 <figure>
-    <img src="/img/services-relations-diagram.png" alt="Service Relations Diagram">
+    <img src="./img/services-relations-diagram.png" alt="Service Relations Diagram">
     <figcaption>Figure: Example showing the relationship between services. Each service follows the pattern of having an
         interface and an implementation.
     </figcaption>
@@ -1649,7 +1649,7 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
     more manageable parts.</p>
 
 <figure>
-    <img src="/img/service-strategies-diagram.png" alt="Service Strategies Diagram">
+    <img src="./img/service-strategies-diagram.png" alt="Service Strategies Diagram">
     <figcaption>Figure: Example of a service relying on strategies. Both services and strategies follow the same
         interface-definition pattern.
     </figcaption>
@@ -2046,5 +2046,1277 @@ private CustomProductService customProductService;
         services, offering a simplified interface for the frontend or other services.</p>
     </li>
 </ul>
+
+
+<h3>Region Cache in SAP Commerce (Hybris)</h3>
+
+<p>The <strong>Region Cache</strong> in SAP Commerce (Hybris) offers a flexible and highly configurable caching solution
+    that optimizes the performance of the system. By organizing cache into regions, SAP Commerce allows developers to
+    handle high-traffic and volatile data separately from more stable data, ensuring efficient memory usage and better
+    response times.</p>
+<p>Apologies for the confusion. The explanation I provided covers <strong>SAP Commerce Region Cache</strong> in general,
+    but I understand you&#39;re asking for the specific part of the article about creating a <strong>dedicated cache
+        region</strong> for types like <strong>Cart</strong> and <strong>CartEntry</strong>.</p>
+
+<p>The <strong>SAP Commerce Region Cache</strong> is an advanced caching mechanism that divides the cache into different
+    regions, each designed to store a specific set of data types. This division helps optimize caching by allowing
+    granular control over which types of data are cached and for how long, preventing issues such as excessive eviction
+    of important data.</p>
+<h3>Key Features of Region Cache</h3>
+<ol>
+    <li><p><strong>Modular and Configurable</strong>:<br>The Region Cache allows developers to configure and extend
+        cache regions with flexibility. Different regions can be set up for various data types like products,
+        categories, or sessions.</p>
+    </li>
+    <li><p><strong>Eviction Strategies</strong>:<br>It supports different eviction strategies to manage memory, such as:
+    </p>
+        <ul>
+            <li><strong>Least Recently Used (LRU)</strong>: Removes the least recently accessed items.</li>
+            <li><strong>Least Frequently Used (LFU)</strong>: Evicts the least accessed items based on the number of
+                accesses.
+            </li>
+            <li><strong>First In, First Out (FIFO)</strong>: Evicts items in the order they were inserted into the
+                cache.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Distributed Cache Support</strong>:<br>It allows for distributed cache configurations, integrating
+        third-party solutions like <strong>Hazelcast</strong>, <strong>Memcached</strong>, or <strong>Coherence</strong>
+        for large-scale systems, though serialization is required for query result regions.</p>
+    </li>
+    <li><p><strong>Full Control and Monitoring</strong>:<br>The region cache provides full control over cache
+        partitions, and tools for monitoring and invalidation allow for more detailed management.</p>
+    </li>
+</ol>
+<h3>Cache Regions</h3>
+<p>Each <strong>cache region</strong> in SAP Commerce stores a different kind of data, and you can configure each region
+    with distinct properties:</p>
+<ul>
+    <li><strong>Type System Region</strong>: Stores type system items.</li>
+    <li><strong>Entity Region</strong>: Stores non-type system entities (like products, categories).</li>
+    <li><strong>Query Results Region</strong>: Stores results from database queries.</li>
+    <li><strong>Media Items Region</strong>: Caches media files.</li>
+    <li><strong>Session Region</strong>: Stores HTTP session data.</li>
+</ul>
+<h3>Default Cache Regions</h3>
+<p>SAP Commerce provides pre-configured cache regions:</p>
+<ul>
+    <li><strong>Type System Region</strong>: Stores entities related to type system items.</li>
+    <li><strong>Entity Region</strong>: Caches non-type system entities.</li>
+    <li><strong>Query Results Region</strong>: Stores query results.</li>
+    <li><strong>Session Region</strong>: Caches HTTP session data.</li>
+    <li><strong>Media Items Region</strong>: Caches media items.</li>
+</ul>
+<h3>Customizing Cache Regions</h3>
+<p>You can easily modify or add new cache regions as per your requirements. This is done in the <strong><code>core-cache.xml</code></strong>
+    and <strong><code>advanced.properties</code></strong> files. For example, you can create a dedicated region cache
+    for high-traffic data types like <strong>Cart</strong> and <strong>CartEntry</strong>, which are volatile and should
+    not pollute the generic <strong>Entity Region</strong> cache.</p>
+<h3>Example: Creating a Dedicated Cache Region for Cart and CartEntry</h3>
+<ol>
+    <li><p><strong>Get Type Codes</strong>:<br>First, retrieve the type codes for the Cart and CartEntry items (you can
+        find this in the <strong>BackOffice Type Search</strong>).</p>
+    </li>
+    <li><p><strong>Spring XML Configuration</strong>:<br>Add the following Spring bean definition to declare a dedicated
+        cache region for Cart and CartEntry:</p>
+        <pre><code class="language-xml">&lt;!-- New cache region dedicated for Cart --&gt;
+&lt;bean name=&quot;cartCacheRegion&quot; class=&quot;de.hybris.platform.regioncache.region.impl.EHCacheRegion&quot; lazy-init=&quot;true&quot;&gt;
+    &lt;constructor-arg name=&quot;name&quot; value=&quot;cartCacheRegion&quot; /&gt;
+    &lt;constructor-arg name=&quot;maxEntries&quot; value=&quot;1000&quot; /&gt;
+    &lt;constructor-arg name=&quot;evictionPolicy&quot; value=&quot;LRU&quot; /&gt;
+    &lt;constructor-arg name=&quot;statsEnabled&quot; value=&quot;true&quot; /&gt;
+    &lt;constructor-arg name=&quot;exclusiveComputation&quot; value=&quot;false&quot; /&gt;
+    &lt;property name=&quot;handledTypes&quot;&gt;
+        &lt;array&gt;
+            &lt;value&gt;43&lt;/value&gt; &lt;!-- Cart --&gt;
+            &lt;value&gt;44&lt;/value&gt; &lt;!-- CartEntry --&gt;
+        &lt;/array&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+
+&lt;!-- Register cache region --&gt;
+&lt;bean id=&quot;cartCacheRegionRegistrar&quot; class=&quot;de.hybris.platform.regioncache.region.CacheRegionRegistrar&quot; c:region-ref=&quot;cartCacheRegion&quot; /&gt;
+</code></pre>
+    </li>
+    <li><p><strong>Update the Global Context</strong>:<br>Ensure this cache region configuration is included in the
+        global context, as shown below:</p>
+        <pre><code class="language-properties"># Cache regions need to go to the global context
+custom.global-context=custom-cache-spring.xml
+</code></pre>
+    </li>
+    <li><p><strong>Outcome</strong>:<br>After setting up this configuration, Cart and CartEntry items will no longer
+        impact the general Entity Region cache, improving the performance of less volatile data (like products and
+        categories).</p>
+    </li>
+</ol>
+<h3>Benefits of Custom Cache Regions</h3>
+<ul>
+    <li><strong>Improved Performance</strong>: By creating dedicated regions for frequently accessed or volatile data
+        (e.g., Cart), the <strong>Entity Region</strong> cache remains unpolluted, preventing unnecessary evictions of
+        less volatile data.
+    </li>
+    <li><strong>Fine-Grained Control</strong>: Customizing cache regions lets you control eviction strategies, cache
+        sizes, and types of data being cached, enhancing both efficiency and performance.
+    </li>
+    <li><strong>Scalability</strong>: The use of distributed cache support allows SAP Commerce to scale effectively when
+        handling large datasets or high traffic volumes.
+    </li>
+</ul>
+<h3>Monitoring and Invalidation</h3>
+<p>The Region Cache allows monitoring and invalidation of cache regions:</p>
+<ul>
+    <li><strong>Invalidation Filters</strong>: Custom invalidation filters can be set up to invalidate cached data based
+        on conditions, ensuring that the data is fresh when necessary.
+    </li>
+    <li><strong>Cache Statistics</strong>: SAP Commerce provides tools for monitoring cache usage and performance,
+        enabling you to keep track of cache hit rates and eviction frequencies.
+    </li>
+</ul>
+
+<hr>
+<h3>Creating a New Cache Region for Cart and CartEntry</h3>
+
+<p>By creating a dedicated cache region for high-traffic or volatile data like <strong>Cart</strong> and <strong>CartEntry</strong>,
+    you prevent performance bottlenecks that arise from the eviction of important, low-volatility data in the default
+    <strong>Entity Region Cache</strong>. This separation ensures that more stable data (such as
+    <strong>Product</strong> and <strong>Category</strong>) can remain in the cache longer without being prematurely
+    evicted by volatile items.</p>
+
+<p><strong>Why a New Cache Region?</strong><br>By default, the <strong>Entity Region Cache</strong> captures all types
+    of items (instances of Item types). This approach works fine for smaller catalogs and systems with limited traffic.
+    However, as the system grows, especially with large catalogs or high user traffic, the eviction of items (such as
+    <strong>Product</strong>, <strong>Category</strong>, <strong>Feature</strong>) from the entity region can cause
+    significant performance degradation. High volatility data, such as <strong>Cart</strong>, <strong>CartEntry</strong>,
+    <strong>PromotionResult</strong>, and <strong>PromotionAction</strong>, should be stored in separate, dedicated
+    caches to prevent them from affecting the generic Entity Region cache.</p>
+<h3>Steps to Create a New Cache Region for Cart and CartEntry</h3>
+<ol>
+    <li><p><strong>Identify Type Codes</strong>:<br>First, you need to obtain the <strong>type codes</strong> for the
+        items you want to dedicate a cache region to (e.g., <strong>Cart</strong> and <strong>CartEntry</strong>). You
+        can find these type codes in the <strong>BackOffice Type Search</strong>.</p>
+    </li>
+    <li><p><strong>Configure Cache Region in Spring XML</strong>:<br>Next, you define a new cache region in your Spring
+        XML configuration file (<code>custom-cache-spring.xml</code>). For example, here’s how you would configure a
+        dedicated cache region for <strong>Cart</strong> and <strong>CartEntry</strong>:</p>
+        <pre><code class="language-xml">&lt;!-- New cache region dedicated for Cart --&gt;
+&lt;bean name=&quot;cartCacheRegion&quot; class=&quot;de.hybris.platform.regioncache.region.impl.EHCacheRegion&quot; lazy-init=&quot;true&quot;&gt;
+    &lt;constructor-arg name=&quot;name&quot; value=&quot;cartCacheRegion&quot; /&gt;
+    &lt;constructor-arg name=&quot;maxEntries&quot; value=&quot;1000&quot; /&gt;
+    &lt;constructor-arg name=&quot;evictionPolicy&quot; value=&quot;LRU&quot; /&gt;
+    &lt;constructor-arg name=&quot;statsEnabled&quot; value=&quot;true&quot; /&gt;
+    &lt;constructor-arg name=&quot;exclusiveComputation&quot; value=&quot;false&quot; /&gt;
+    &lt;property name=&quot;handledTypes&quot;&gt;
+        &lt;array&gt;
+            &lt;value&gt;43&lt;/value&gt; &lt;!-- Cart --&gt;
+            &lt;value&gt;44&lt;/value&gt; &lt;!-- CartEntry --&gt;
+        &lt;/array&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+        <p>In this configuration:</p>
+        <ul>
+            <li><strong><code>cartCacheRegion</code></strong> is the name of the new cache region.</li>
+            <li><strong><code>maxEntries</code></strong> defines the maximum number of entries in this region.</li>
+            <li><strong><code>evictionPolicy</code></strong> specifies the eviction strategy, in this case, <strong>LRU
+                (Least Recently Used)</strong>.
+            </li>
+            <li><strong><code>handledTypes</code></strong> lists the types that will be stored in this cache region,
+                identified by their type codes (43 for Cart, 44 for CartEntry).
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Register the Cache Region</strong>:<br>To ensure the region is registered, you need to add a <code>CacheRegionRegistrar</code>
+        in your Spring configuration:</p>
+        <pre><code class="language-xml">&lt;!-- Register cache region --&gt;
+&lt;bean id=&quot;cartCacheRegionRegistrar&quot; class=&quot;de.hybris.platform.regioncache.region.CacheRegionRegistrar&quot; c:region-ref=&quot;cartCacheRegion&quot; /&gt;
+</code></pre>
+    </li>
+    <li><p><strong>Add Configuration to Global Context</strong>:<br>Once the new cache region is defined, it needs to be
+        included in the <strong>global context</strong> to be recognized by the system. This can be done by updating the
+        <code>project.properties</code>:</p>
+        <pre><code class="language-properties"># Cache regions need to go to the global context
+custom.global-context=custom-cache-spring.xml
+</code></pre>
+    </li>
+    <li><p><strong>Result</strong>:<br>With this configuration in place, <strong>Cart</strong> and
+        <strong>CartEntry</strong> types will no longer affect the general <strong>Entity Region Cache</strong>. This
+        will prevent frequent evictions of stable, low-volatility data, improving performance for product-related data
+        while handling the volatile <strong>Cart</strong> data separately.</p>
+    </li>
+</ol>
+
+<h3>Relation Caching in SAP Commerce Cloud</h3>
+<p>Relation caching improves the performance of SAP Commerce Cloud by storing results for <strong>related items</strong>
+    (like users and user groups) separately, without triggering unnecessary cache invalidations. The system provides
+    flexibility through <strong>configuration properties</strong> that allow enabling, disabling, and customizing
+    relation caching at different levels. By carefully configuring cache size and invalidation strategies, you can
+    ensure your system scales efficiently while maintaining the integrity of related data caches.</p>
+
+<p>Relation caching in SAP Commerce Cloud stores results of FlexibleSearch queries that involve relationships between
+    items, particularly focusing on collections like user and user group relations (e.g.,
+    <code>PrincipalGroupRelation</code>). This specialized cache avoids the overhead of checking modification counters
+    during cache validation, thus improving performance, especially when frequent modifications (like user creation) are
+    made without affecting cached relation results. Relation caching is designed to prevent unnecessary cache
+    invalidations that can occur with other types of cache strategies and ensures better performance when dealing with
+    relations between items such as users and user groups.</p>
+<h3><strong>Key Concepts of Relation Caching</strong></h3>
+<ol>
+    <li><p><strong>Performance Improvement</strong></p>
+        <ul>
+            <li>Relation caching allows <strong>FlexibleSearch</strong> query results involving relations between items
+                (such as <code>PrincipalGroupRelation</code>) to be stored and reused without re-validating the cache on
+                every query.
+            </li>
+            <li>Unlike regular cache mechanisms that check the <strong>modification counters</strong> (which track
+                changes like creating or removing items), relation caching skips this validation for certain types of
+                relations, reducing unnecessary overhead.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Modifications and Invalidation</strong></p>
+        <ul>
+            <li>When an item is modified, it typically triggers an invalidation in the cache. This is true for the
+                <strong>PrincipalGroupRelation</strong> cache too. However, since relation caching avoids using the
+                modification counter, it ensures that the cache does not become invalidated unnecessarily when, for
+                instance, new users are created, and their relations don&#39;t affect the cached results.
+            </li>
+            <li>In the event of an update (like modifying an item involved in a relation), <strong>invalidation
+                events</strong> track changes in related items and invalidate the cache accordingly.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Clustered Environments &amp; Invalidation</strong></p>
+        <ul>
+            <li>In some scenarios, like a <strong>clustered environment</strong> or when relation caching is enabled
+                during a rolling update, cache invalidation events might not include all the data necessary for precise
+                invalidation. In these cases, to prevent outdated data from staying in the cache, the entire cache for a
+                given relation might be invalidated to ensure consistency.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Cache Metrics</strong></p>
+        <ul>
+            <li>To monitor the <strong>performance</strong> of relation caching, enable the <strong>relation cache
+                statistics</strong> using the property:
+                <pre><code class="language-properties">regioncache.stats.enabled=true
+</code></pre>
+            </li>
+            <li>This allows you to track cache behavior through the <strong>SAP Commerce Cloud Administration
+                Console</strong>.
+            </li>
+        </ul>
+    </li>
+</ol>
+<h3><strong>Configuring Relation Caching</strong></h3>
+<ol>
+    <li><p><strong>Global Configuration</strong></p>
+        <ul>
+            <li><p>Relation caching is enabled by default in SAP Commerce Cloud, but you can configure it using the
+                following properties:</p>
+                <pre><code class="language-properties">relation.cache.enabled=true  # Enables relation caching globally
+relation.cache.default.capacity=10000  # Defines how many items the relation cache can store by default
+</code></pre>
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Per-Relation Configuration</strong></p>
+        <ul>
+            <li>Specific relations can have caching enabled or disabled using the property <code>relation.cache.&lt;RelationTypeCode&gt;.enabled</code>.
+                You would replace <code>&lt;RelationTypeCode&gt;</code> with the name of the relation you wish to
+                configure, as defined in the <code>items.xml</code> file.
+                <pre><code class="language-properties">relation.cache.PrincipalGroupRelation.enabled=true  # Enables caching for PrincipalGroupRelation
+relation.cache.PrincipalGroupRelation.capacity=50000  # Defines how many results to store for PrincipalGroupRelation
+</code></pre>
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Customizing Relation Cache for Other Relations</strong></p>
+        <ul>
+            <li>You can also customize the relation cache for relations other than the default ones like <code>PrincipalGroupRelation</code>.
+                This can be done by implementing the cache for specific relations and setting their respective cache
+                sizes.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Limitations</strong></p>
+        <ul>
+            <li>Note that the cache size has <strong>license restrictions</strong>, so exceeding the allowed cache size
+                limit will trigger errors in the system. For instance:
+                <pre><code class="language-bash">ERROR [RegionCacheAdapter] Configuration is not valid with the given licence - cache size limit exceeded
+</code></pre>
+            </li>
+            <li>If needed, you can revert to a <strong>legacy cache solution</strong> by adding <code>cache.legacymode=true</code>
+                to the <code>local.properties</code> file, though using the default region cache is recommended for
+                optimal performance.
+            </li>
+        </ul>
+    </li>
+</ol>
+<h3><strong>Custom Implementation of Relation Caching</strong></h3>
+<ul>
+    <li>SAP Commerce Cloud allows you to extend or customize relation caching by implementing your own logic for
+        specific relations. This involves modifying the <strong>CacheController</strong>, <strong>CacheRegion</strong>,
+        and <strong>CacheRegionResolver</strong> components to support custom caching strategies.
+    </li>
+</ul>
+<h3><strong>Custom Cache Region Implementation</strong></h3>
+<ol>
+    <li><strong>CacheController</strong>: Coordinates cache operations for multiple regions.</li>
+    <li><strong>CacheRegion</strong>: Defines the interface for a cache region; there are various implementations like:
+        <ul>
+            <li><strong>DefaultCacheRegion</strong>: FIFO cache (default for general regions)</li>
+            <li><strong>EHCacheRegion</strong>: Cache based on <strong>Ehcache</strong></li>
+            <li><strong>UnlimitedCacheRegion</strong>: An unlimited cache region for type systems</li>
+        </ul>
+    </li>
+    <li><strong>CacheRegionResolver</strong>: Resolves which cache region should store specific data.</li>
+    <li><strong>CacheStatistics</strong>: Keeps statistics for cache regions to monitor and optimize performance.</li>
+</ol>
+<p>By customizing these components, you can ensure that your relation cache is optimized for your specific needs,
+    especially in systems with heavy loads or complex relationships between items.</p>
+
+<h3>Restrictions in SAP Commerce Cloud</h3>
+<p>Restrictions in SAP Commerce Cloud are a powerful tool to filter and limit search results based on user roles or
+    session context. They work seamlessly with <strong>FlexibleSearch</strong> queries to restrict data across the
+    platform, not just in Backoffice. Restrictions can be managed dynamically, enabling or disabling them as needed, and
+    they can be applied globally or to specific user groups or sessions. Custom restrictions can be created using both
+    the SAP Commerce API and ImpEx for flexible control over data access and visibility.</p>
+
+<p>Restrictions in SAP Commerce Cloud provide a flexible mechanism to limit search results based on the type of data
+    being searched and the user’s context (e.g., which user or user group is logged in). These restrictions are
+    automatically applied to <strong>FlexibleSearch</strong> queries and help filter data without requiring
+    modifications to the business layer. They operate transparently by modifying the <strong>WHERE</strong> clause of
+    FlexibleSearch queries to ensure that the results respect the user’s access or session context.</p>
+<h3><strong>How Restrictions Work</strong></h3>
+<ol>
+    <li><p><strong>Functionality of Restrictions</strong></p>
+        <ul>
+            <li>A <strong>restriction</strong> essentially adds an additional <strong>WHERE</strong> clause to a
+                FlexibleSearch query to limit the data returned based on the logged-in user or user group. This
+                filtering happens automatically for any query that can be affected by the restriction.
+            </li>
+            <li>Restrictions can be defined by the type of data (e.g., products, categories) and the user. For example,
+                if a user has restricted access to a specific product type, the results of any search for that product
+                type will automatically exclude products that the user does not have access to.
+            </li>
+        </ul>
+        <p><strong>Example:</strong></p>
+        <p>A basic FlexibleSearch query:</p>
+        <pre><code class="language-sql">SELECT {p:pk} FROM {Product AS p} WHERE {p:code} LIKE &#39;%test%&#39;
+</code></pre>
+        <p>With a restriction on the <code>description</code> field:</p>
+        <pre><code class="language-sql">SELECT {p:pk} FROM {Product AS p} WHERE {p:code} LIKE &#39;%test%&#39; AND {p:description} NOT NULL
+</code></pre>
+    </li>
+    <li><p><strong>Scope of Restrictions</strong></p>
+        <ul>
+            <li><strong>Restrictions are global</strong> across SAP Commerce Cloud, meaning they apply to search results
+                in Backoffice, SAP Commerce Cloud-based web applications, and other SAP Commerce Cloud modules.
+            </li>
+            <li>Unlike <strong>type access rights</strong>, which only apply in the <strong>Backoffice</strong>,
+                restrictions affect <strong>all instances of FlexibleSearch</strong> across the platform, regardless of
+                the interface (Backoffice, SAP, storefront, etc.).
+            </li>
+            <li>Restrictions <strong>do not affect external search engines</strong> or direct item fetches using methods
+                like <code>Item.getProperty()</code> or <code>LocalizableItem.getLocalizedProperty()</code> because they
+                bypass FlexibleSearch and directly query the database.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Session-Specific Restrictions</strong></p>
+        <ul>
+            <li>Restrictions can be dynamic and based on <strong>session parameters</strong> such as the logged-in user
+                or specific session attributes (like countries or regions).
+            </li>
+            <li>You can include session-bound variables in the restriction query, for example:
+                <pre><code class="language-sql">{user} = ?session.user
+{country} IN (?session.countries)
+</code></pre>
+            </li>
+        </ul>
+        <p><strong>Caution:</strong> Ensure that any custom session attributes (like <code>countries</code>) are present
+            in the session; otherwise, the query will fail.</p>
+    </li>
+</ol>
+<h3><strong>Managing Restrictions</strong></h3>
+<ol>
+    <li><p><strong>Disabling Restrictions</strong></p>
+        <ul>
+            <li><p>During <strong>development, testing, or debugging</strong>, you may want to disable restrictions
+                temporarily to see unfiltered data. This can be done with:</p>
+                <pre><code class="language-java">searchRestrictionService.disableSearchRestrictions();
+</code></pre>
+            </li>
+            <li><p>Once you are done, you can enable restrictions again:</p>
+                <pre><code class="language-java">searchRestrictionService.enableSearchRestrictions();
+</code></pre>
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Admin User Exceptions</strong></p>
+        <ul>
+            <li><strong>Admin users</strong> (users belonging to the &quot;admingroup&quot;) are <strong>exempt from
+                restrictions</strong>. This means that when the session is set to an admin user, no restrictions will
+                apply, allowing them to view all data, regardless of the restrictions set for regular users.
+            </li>
+        </ul>
+        <p>You can assign an admin user to the session like this:</p>
+        <pre><code class="language-java">userService.setCurrentUser(userService.getAdminUser());
+</code></pre>
+        <p>Additionally, for executing queries in the context of an admin user, you can use
+            <strong>SessionExecutionBody</strong>:</p>
+        <pre><code class="language-java">sessionService.executeInLocalView(new SessionExecutionBody() {
+    @Override
+    public Object execute() {
+        userService.setCurrentUser(userService.getAdminUser());
+        // Perform query or action for admin user
+    }
+});
+</code></pre>
+    </li>
+</ol>
+<h3><strong>Creating Restrictions</strong></h3>
+<p>Restrictions can be created either through the <strong>SAP Commerce Cloud API</strong> or via <strong>ImpEx
+    files</strong>. Here’s how both approaches work:</p>
+<ol>
+    <li><p><strong>Creating Restrictions via API</strong></p>
+        <ul>
+            <li>You can use the <strong>ModelService</strong> to create a new <code>SearchRestrictionModel</code>, which
+                represents the restriction. Key attributes include:
+                <ul>
+                    <li><code>active</code>: Whether the restriction is enabled.</li>
+                    <li><code>code</code>: A unique identifier for the restriction.</li>
+                    <li><code>principal</code>: The user or user group the restriction applies to.</li>
+                    <li><code>query</code>: The actual <strong>WHERE clause</strong> condition.</li>
+                    <li><code>restrictedType</code>: The item type to which the restriction applies.</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>Example:</strong></p>
+        <pre><code class="language-java">final ComposedTypeModel restrictedType = typeService.getComposedTypeForClass(ProductModel.class);
+final PrincipalModel principal = userService.getUserForUID(&quot;someUser&quot;);
+
+final SearchRestrictionModel restriction = modelService.create(SearchRestrictionModel.class);
+restriction.setCode(&quot;productRestriction&quot;);
+restriction.setActive(true);
+restriction.setQuery(&quot;{active} = true&quot;);
+restriction.setRestrictedType(restrictedType);
+restriction.setPrincipal(principal);
+restriction.setGenerate(true);
+modelService.save(restriction);
+</code></pre>
+    </li>
+    <li><p><strong>Creating Restrictions via ImpEx</strong></p>
+        <ul>
+            <li>Restrictions can also be defined in <strong>ImpEx</strong> CSV files. Here’s an example:</li>
+        </ul>
+        <pre><code class="language-csv">INSERT_UPDATE SearchRestriction;code[unique=true];name[lang=de];name[lang=en];query;principal(UID);restrictedType(code);active;generate
+;Frontend_Navigationelement;Navigation;Navigation;{active} IS TRUE;test_user;Language;true;true
+</code></pre>
+        <p>This creates a restriction that applies to the <code>Navigation</code> type for the user
+            <code>test_user</code>, restricting access to navigation elements where <code>active = true</code>.</p>
+    </li>
+</ol>
+
+<h3><strong>Hybris Application Context Hierarchy</strong></h3>
+<ol>
+    <li><strong>Master Hybris Context (Core)</strong>: Contains core beans available to all tenants and web application
+        contexts.
+    </li>
+    <li><strong>Web Application Contexts</strong>: Specific to each web module (e.g., <code>hac-web-spring.xml</code>),
+        with limited visibility to other contexts unless explicitly referenced.
+    </li>
+    <li><strong>Tenant-Specific Contexts</strong>: Separate contexts for master and slave tenants, allowing for specific
+        configurations while inheriting from the master.
+    </li>
+    <li><strong>Global Static Context</strong>: Shared global configurations across tenants.</li>
+    <li><strong>Isolation Between Contexts</strong>: Beans in one web context are not visible to others unless
+        explicitly imported, even if they belong to the same application.
+    </li>
+    <li><strong>Flow Master-Slave</strong>: A hierarchical setup where the master tenant provides core functionality,
+        and the slave tenants can customize their configurations.
+    </li>
+</ol>
+<p>the Hybris application context hierarchy provides a modular, scalable approach to defining and managing
+    beans across different components of the system. It enables isolation, reusability, and flexibility while
+    maintaining a clear structure between core, web, and tenant-specific beans.</p>
+
+<p>The <strong>Hybris Application Context</strong> hierarchy is structured in a way that allows for modularity and
+    flexibility, separating different application layers into distinct contexts. These contexts define how beans
+    (components and services) are registered, accessed, and made available to different parts of the system. Here’s a
+    breakdown of the key components of this hierarchy:</p>
+<h4><strong>1. Master Hybris Application Context (Core)</strong></h4>
+<ul>
+    <li>This is the central application context that defines the core beans and services available throughout the entire
+        system.
+    </li>
+    <li>Beans declared in the <strong>core module extensions</strong> (like <code>core-spring.xml</code>) are registered
+        in this context and are globally available to all other web application contexts.
+    </li>
+    <li>The <strong>master tenant</strong> context is a primary example of this, containing shared services, business
+        logic, and application infrastructure beans.
+    </li>
+</ul>
+<h4><strong>2. Web Application Contexts</strong></h4>
+<ul>
+    <li><p>For each extension with a web module (such as the <strong>HAC (Hybris Administration Console)</strong>,
+        <strong>catalog extension</strong>, or custom extensions like <code>yempty</code>), there is a corresponding
+        <strong>WebApplicationContext</strong>.</p>
+    </li>
+    <li><p>These contexts are typically defined in <code>*-web-spring.xml</code> files, which define beans specific to
+        the web module or user interface functionality.</p>
+    </li>
+    <li><p>Each <strong>web application context</strong> can access the beans declared in the master context, but beans
+        defined within other web application contexts are <strong>not visible</strong>. This means that each web context
+        is isolated to its own scope.</p>
+        <ul>
+            <li>Example:
+                <ul>
+                    <li><strong>HAC web application context</strong>: Defined within <code>hac-web-spring.xml</code>.
+                    </li>
+                    <li><strong>Catalog web application context</strong>: Defined within
+                        <code>catalog-web-spring.xml</code>.
+                    </li>
+                    <li><strong>Empty extension web context</strong>: Defined within <code>empty-web-spring.xml</code>.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4><strong>3. Tenant-Specific Contexts</strong></h4>
+<ul>
+    <li><p>Hybris supports a <strong>multi-tenant architecture</strong>, where each tenant (master and slave) can have
+        its own isolated application context. </p>
+        <ul>
+            <li><strong>Master Tenant Context</strong>: The master tenant is typically where shared business logic and
+                core services reside. It defines common beans used across all tenants.
+            </li>
+            <li><strong>Slave Tenant Context</strong>: A slave tenant can override or extend the master tenant&#39;s
+                beans and configurations. The slave tenant may have its own specific beans and configurations that are
+                isolated from the master.
+            </li>
+        </ul>
+    </li>
+    <li><p>Each tenant, whether <strong>master</strong> or <strong>slave</strong>, can have its own context
+        configuration. For instance, <code>core-spring.xml</code> is used to configure beans in the <strong>master
+            tenant</strong>, and similarly, beans can be defined in separate context files for the <strong>slave
+            tenant</strong> like <code>slave-web-spring.xml</code>.</p>
+    </li>
+</ul>
+<h4><strong>4. Global Static Application Context</strong></h4>
+<ul>
+    <li>This context is global and defines beans that need to be shared across different components of the application.
+        This includes things like global configurations, utility beans, and shared services. It is often referred to as
+        a &quot;static&quot; context because its contents are not tenant-specific and can be used across multiple
+        tenants.
+    </li>
+</ul>
+<h4><strong>5. Web Module Extensions</strong></h4>
+<ul>
+    <li>Each <strong>web module extension</strong> has its own application context, such as the
+        <code>yempty-spring.xml</code> file for an empty extension or <code>catalog-spring.xml</code> for a catalog
+        extension.
+    </li>
+    <li>These web modules define context-specific beans (e.g., controllers, services, or DAOs) that are only accessible
+        within that particular web module.
+    </li>
+    <li>Beans defined in one web context (e.g., <code>hac-web-spring.xml</code>) will not be available in another
+        context (e.g., <code>catalog-web-spring.xml</code>), unless explicitly imported or referenced.
+    </li>
+</ul>
+<h4><strong>6. Bean Accessibility Across Contexts</strong></h4>
+<ul>
+    <li><p>Beans declared in the <strong>core module extension</strong> are globally accessible from any <strong>web
+        application context</strong>. This ensures that core services are always available for use in various parts of
+        the application.</p>
+    </li>
+    <li><p>However, when beans are defined in a specific <strong>web application context</strong>, they are not
+        accessible by other web contexts unless explicitly referenced or imported.</p>
+        <ul>
+            <li>For instance, in the <strong>HAC application context</strong>, you might not be able to access beans
+                declared in the <strong>catalog extension</strong> context unless the HAC context explicitly imports
+                them or references them.
+            </li>
+        </ul>
+    </li>
+</ul>
+<h4><strong>7. Flow Master-Slave Model</strong></h4>
+<ul>
+    <li>The <strong>master-slave</strong> configuration refers to the setup where the <strong>master tenant</strong>
+        holds the primary configuration and business logic, while the <strong>slave tenants</strong> inherit from the
+        master but can override certain configurations or beans specific to their needs.
+        <ul>
+            <li><strong>Master Tenant</strong>: Contains the primary configuration, common services, and shared beans.
+            </li>
+            <li><strong>Slave Tenant</strong>: May override certain beans or extend functionality but usually depends on
+                the master context for shared beans and services.
+            </li>
+        </ul>
+    </li>
+</ul>
+<hr>
+
+<h3><strong>Classification System Overview</strong></h3>
+
+<p>The <strong>Classification System</strong> is a powerful tool that allows for dynamic and selective
+    assignment of attributes to products. It is particularly useful for cases where only certain products need specific
+    attributes, and it provides flexibility for managing product data in a modular way. By defining <strong>classification
+        attributes</strong> (category features) and linking them to products or categories in the Product Catalog, the
+    system provides efficient data modeling and allows for the easy management of product attributes that can change
+    over time. This approach enhances both the flexibility and scalability of the product data structure.</p>
+
+<p>In SAP Hybris, the <strong>Classification System</strong> is used to manage product attributes in a way that allows
+    dynamic assignment and fine-grained control over which products or product categories receive certain attributes.
+    This is in contrast to the more static approach of adding attributes directly to the <strong>Product
+        Catalog</strong>.</p>
+
+<h4><strong>1. Key Concepts of Classification System</strong></h4>
+<p>The <strong>Classification System</strong> is another type system in SAP Hybris that organizes product attributes
+    based on categories. These categories are referred to as <strong>classifying categories</strong>, and they are
+    structured hierarchically, similar to the <strong>Product Catalog</strong> type system, which defines product
+    categories.</p>
+<ul>
+    <li><strong>Classifying Categories</strong>: These are the categories in the Classification System that group and
+        organize <strong>classification attributes</strong> (or <strong>category features</strong>).
+    </li>
+    <li><strong>Classification Attributes (Category Features)</strong>: These are the product-specific values associated
+        with a given classifying category. They act as containers for product-related values that correspond to a
+        product attribute.
+    </li>
+</ul>
+<h4><strong>2. How Classification System Works</strong></h4>
+<p>The <strong>Classification System</strong> allows for the creation of classification attributes (like &quot;color&quot;)
+    that can be assigned only to certain products or categories within the <strong>Product Catalog</strong>, without
+    needing to add them to every product. This is beneficial in situations where only some products require certain
+    attributes. For example:</p>
+<ul>
+    <li><strong>Requirement</strong>: Some products, like mobile phones or cameras, require a &quot;color&quot;
+        attribute, while other products like processors or RAM do not.
+    </li>
+    <li><strong>Solution</strong>: Instead of adding a &quot;color&quot; attribute to every product in the product
+        catalog, we define a classification attribute called &quot;color&quot; in the classification system. This
+        attribute can be assigned only to the products or categories that need it. The <strong>color value</strong> will
+        reside within the product catalog, ensuring that only relevant products will have the color attribute.
+    </li>
+</ul>
+<p>This way, the classification system allows for flexible assignment of attributes to only those products that need
+    them, instead of forcing every product to have all possible attributes.</p>
+<h4><strong>3. Benefits of Using the Classification System</strong></h4>
+<p>Using the <strong>Classification System</strong> provides several key advantages:</p>
+<ul>
+    <li><p><strong>Selective Attribute Assignment</strong>: You can define attributes for only specific products or
+        categories. This is especially useful when not all products require the same attributes (e.g., &quot;color&quot;
+        is relevant to mobile phones but not to processors).</p>
+    </li>
+    <li><p><strong>Dynamic Attribute Management</strong>: When you define attributes as part of the classification
+        system rather than the product model, you can more easily manage product attributes dynamically at runtime. If
+        an attribute becomes unnecessary or irrelevant, it can be removed or altered without impacting all products.</p>
+    </li>
+    <li><p><strong>Attribute Flexibility</strong>: Classification attributes allow for flexible, dynamic product
+        modeling, ensuring that attributes can be added, modified, or removed without altering the product item types in
+        the <strong>items.xml</strong> configuration.</p>
+    </li>
+</ul>
+<h4><strong>4. Data Modeling with Classification System</strong></h4>
+<p>The <strong>Classification System</strong> works in a hierarchical manner, similar to the Product Catalog:</p>
+<ul>
+    <li><strong>Classification System Versions</strong>: The Classification System can have multiple versions, each of
+        which may contain different classifying categories.
+    </li>
+    <li><strong>Classifying Categories</strong>: These categories are the primary containers for classification
+        attributes.
+    </li>
+    <li><strong>Classification Attributes (Category Features)</strong>: These attributes are assigned to the relevant
+        products or categories within the Product Catalog, and they behave as product attributes once linked.
+    </li>
+</ul>
+<p>This separation between <strong>product attributes</strong> and <strong>classification attributes</strong> enables
+    you to manage product data more efficiently and with less duplication. The classification system also helps in
+    maintaining a clear distinction between static attributes (which are part of the product model) and dynamic
+    attributes (which can be managed and updated through the classification system).</p>
+<h4><strong>5. When to Prefer Using the Classification System</strong></h4>
+<p>You should prefer the <strong>Classification System</strong> in the following cases:</p>
+<ul>
+    <li><p><strong>Selective Product Attributes</strong>: When you only need to define an attribute for a specific
+        subset of products rather than for every product in the catalog.</p>
+    </li>
+    <li><p><strong>Short-Lived or Dynamic Attributes</strong>: When the lifetime of an attribute is uncertain, and it
+        may become obsolete after a few weeks or months. The Classification System allows you to add or remove
+        attributes easily without modifying the product model.</p>
+    </li>
+    <li><p><strong>Runtime Attribute Assignment</strong>: When you need the flexibility to add attributes dynamically at
+        runtime, based on evolving business requirements.</p>
+    </li>
+</ul>
+<h4><strong>6. Classification System Structure</strong></h4>
+<p>The Classification System hierarchy includes the following components:</p>
+<ol>
+    <li><strong>Classification System Versions</strong>: Each version can define different attributes or category
+        features.
+    </li>
+    <li><strong>Classifying Categories</strong>: Categories that define classification attributes, and are assigned to
+        products in the product catalog.
+    </li>
+    <li><strong>Classification Attributes (Category Features)</strong>: These attributes hold the product-specific
+        values for the corresponding attribute once assigned to the product catalog.
+    </li>
+</ol>
+<h4><strong>7. Example Use Case</strong></h4>
+<p><strong>Requirement</strong>: You have a variety of products in your catalog, and some of them (e.g., mobile phones,
+    cameras) require a &quot;color&quot; attribute, while others (e.g., processors, RAM) do not. Instead of adding the
+    color attribute to all product types in the items.xml, you use the Classification System to define the &quot;color&quot;
+    classification attribute and assign it only to those products that need it.</p>
+<p><strong>Solution</strong>:</p>
+<ul>
+    <li>Define a <strong>&quot;color&quot;</strong> classification attribute in the Classification System.</li>
+    <li>Link this classification attribute to relevant products or product categories (e.g., mobile phones, cameras).
+    </li>
+    <li>The actual <strong>color value</strong> (like &quot;red&quot;, &quot;blue&quot;, etc.) is stored with the
+        product in the Product Catalog.
+    </li>
+</ul>
+<p>In this way, the classification attribute &quot;color&quot; is <strong>conditionally assigned</strong> to products,
+    providing flexibility and reducing unnecessary data.</p>
+<hr>
+
+<h3><strong>Synchronization Overview in SAP Hybris</strong></h3>
+<p>Synchronization is a critical process in SAP Hybris that ensures the <strong>Online catalog</strong> remains in sync
+    with the latest content changes made in the <strong>Staged catalog</strong>. It provides an efficient mechanism for
+    testing, approving, and transferring catalog content with minimal disruption to the live storefront. The process can
+    be handled manually via the HMC or automated using cron jobs or cockpits for content and product catalog
+    synchronization.</p>
+
+<h4><strong>Catalog Versions:</strong></h4>
+<ol>
+    <li><p><strong>Staged Catalog Version</strong>:</p>
+        <ul>
+            <li>This catalog version is used for <strong>testing</strong> and <strong>content validation</strong>.</li>
+            <li>It acts as a staging area where catalog content is reviewed and finalized before going live.</li>
+        </ul>
+    </li>
+    <li><p><strong>Online Catalog Version</strong>:</p>
+        <ul>
+            <li>This version is active and used to display content on the storefront.</li>
+            <li>Only the <strong>Online catalog version</strong> is exposed to customers.</li>
+        </ul>
+    </li>
+</ol>
+<p>Both catalog versions typically contain the same content, but the <strong>Staged version</strong> is a test version,
+    and the <strong>Online version</strong> is the live version. When updates are made to the Staged version, they must
+    be <strong>synchronized</strong> to the Online version for those changes to reflect on the storefront.</p>
+<h4><strong>Synchronization Process:</strong></h4>
+<p>Synchronization involves <strong>copying</strong> the catalog content from one catalog version (typically <strong>Staged</strong>)
+    to another (usually <strong>Online</strong>). When synchronization is initiated, the content in the Staged catalog
+    version is copied over to the Online catalog version, making it available to the public.</p>
+<h4><strong>Steps to Perform Synchronization:</strong></h4>
+<ol>
+    <li><p><strong>Search and Open Catalog:</strong></p>
+        <ul>
+            <li>In the <strong>Hybris Management Console (HMC)</strong> or <strong>Cockpits</strong>, search for the
+                catalog you want to synchronize (e.g., <code>apparelProductCatalog</code>).
+            </li>
+            <li>Open the catalog, and you will see both <strong>Staged</strong> and <strong>Online</strong> catalog
+                versions.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Identify Active Catalog Version:</strong></p>
+        <ul>
+            <li>The <strong>Online catalog version</strong> should be the <strong>active version</strong>. It is
+                important to ensure that the <strong>Online version</strong> is active before initiating the
+                synchronization process.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Open Staged Catalog Version:</strong></p>
+        <ul>
+            <li>Navigate to the <strong>Staged catalog version</strong> and click on the <strong>Catalog
+                Versions</strong> tab.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Create New Synchronization:</strong></p>
+        <ul>
+            <li>Right-click under <strong>Dependent Catalog Versions</strong> and select <strong>Create New
+                Synchronization</strong>.
+            </li>
+            <li>Define the <strong>source</strong> catalog version (Staged) and the <strong>target</strong> catalog
+                version (Online).
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Synchronize:</strong></p>
+        <ul>
+            <li>In the Staged catalog version, go to the <strong>Catalog Versions</strong> tab and click on the <strong>Synchronize
+                catalog version</strong> button.
+            </li>
+            <li>Select <strong>Staged</strong> as the source catalog version and click <strong>Next</strong>.</li>
+            <li>The <strong>Target</strong> catalog version (Online) will be automatically selected based on the
+                synchronization rule. Verify that the target catalog version is correct.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Start Synchronization:</strong></p>
+        <ul>
+            <li>Click <strong>Start</strong> to initiate the synchronization process.</li>
+            <li>The content from the Staged catalog version will be copied to the Online version.</li>
+        </ul>
+    </li>
+    <li><p><strong>Monitor Progress:</strong></p>
+        <ul>
+            <li>Wait for the synchronization process to complete. Once successful, all the content from the <strong>Staged</strong>
+                version will be transferred to the <strong>Online</strong> version.
+            </li>
+            <li>A synchronization <strong>job</strong> will be created and executed in the background to carry out the
+                transfer.
+            </li>
+        </ul>
+    </li>
+</ol>
+<h4><strong>Additional Synchronization Methods:</strong></h4>
+<ul>
+    <li><strong>CMS Cockpit</strong>: This can be used for synchronization in <strong>Content Catalogs</strong>.</li>
+    <li><strong>Product Cockpit</strong>: This is used for synchronization in <strong>Product Catalogs</strong>.</li>
+    <li><strong>Cron Jobs</strong>: Synchronization can be automated by writing a cron job and configuring it to run at
+        regular intervals, ensuring that the content is kept up to date.
+    </li>
+</ul>
+<h4><strong>Important Notes:</strong></h4>
+<ul>
+    <li><strong>Backend Processing</strong>: Every time synchronization is initiated, a synchronization job is created
+        and processed in the backend.
+    </li>
+    <li><strong>Content Transfer</strong>: The actual content (products, categories, media, etc.) in the <strong>Staged
+        catalog version</strong> is copied over to the <strong>Online catalog version</strong>.
+    </li>
+    <li><strong>Active Catalog Version</strong>: Ensure the Online version is set as active for synchronization to take
+        place properly.
+    </li>
+</ul>
+<h4><strong>Why Synchronization Is Important:</strong></h4>
+<ul>
+    <li><strong>Consistency</strong>: Synchronization ensures that the <strong>live storefront</strong> reflects the
+        latest content updates from the <strong>Staged version</strong>, which might have undergone testing or
+        revisions.
+    </li>
+    <li><strong>Version Control</strong>: It allows content management teams to test changes in the Staged version
+        before pushing them to the live store, avoiding errors or unwanted changes on the public-facing platform.
+    </li>
+</ul>
+
+<h3><strong>Solr</strong></h3>
+<p><strong>Solr</strong> is an essential component for optimizing search functionality. By indexing
+    product and catalog data, Solr improves the performance and scalability of eCommerce websites. The <strong>three
+        indexing strategies</strong>—Full, Update, and Delete indexing—allow for flexible management of the search
+    index. Proper configuration and scheduling of cron jobs ensure that Solr stays synchronized with Hybris data,
+    providing users with fast, accurate search results.</p>
+
+<p>In the context of <strong>eCommerce</strong> sites, search functionality is paramount, especially when dealing with
+    large product catalogs. SAP Hybris leverages <strong>Apache Solr</strong>, an open-source search platform, to
+    enhance the search experience by allowing <strong>faster product searches</strong>. Solr in Hybris is used to index
+    product data and provide faster, more efficient search capabilities compared to directly querying the database.</p>
+
+<h3><strong>How Solr Works</strong></h3>
+<ol>
+    <li><p><strong>Data Sources:</strong></p>
+        <ul>
+            <li><strong>Indexed Data</strong>: When data is indexed in <strong>Solr</strong>, it is stored in Solr&#39;s
+                search engine and can be accessed from there directly for faster retrieval.
+            </li>
+            <li><strong>Non-Indexed Data</strong>: If the data isn&#39;t indexed, it is fetched from the Hybris <strong>database</strong>.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Communication Flow</strong>: </p>
+        <ul>
+            <li>Data is transferred from the Hybris DB to Solr for indexing.</li>
+            <li>Once indexed, <strong>Solr</strong> handles queries, reducing the load on the Hybris database.</li>
+            <li>The data is indexed in <strong>Solr</strong> but isn&#39;t written back to the Hybris DB, making
+                communication <strong>one-way</strong>.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Performance</strong>: </p>
+        <ul>
+            <li>Accessing indexed data from <strong>Solr</strong> is significantly faster than querying the <strong>Hybris
+                database</strong> directly, especially when dealing with large datasets.
+            </li>
+            <li>Therefore, Solr is preferred for searching because of its ability to deliver faster results, thanks to
+                indexing.
+            </li>
+        </ul>
+    </li>
+</ol>
+<h3><strong>Solr Indexing Strategies</strong></h3>
+<p>Hybris supports three types of indexing strategies for Solr:</p>
+<ol>
+    <li><p><strong>Full Indexing</strong>:</p>
+        <ul>
+            <li>This strategy deletes all previously indexed documents and starts from scratch by indexing everything
+                anew.
+            </li>
+            <li>It can be time-consuming, so it is not recommended for frequent use.</li>
+            <li><strong>Commit Modes</strong>:
+                <ul>
+                    <li><strong>Direct Mode</strong>: If indexing fails, the previously committed documents remain
+                        intact and available.
+                    </li>
+                    <li><strong>Two-Phase Mode</strong>: In case of a failure, everything is rolled back. Solr creates a
+                        temporary core, and indexing is done there. If successful, it swaps with the original core;
+                        otherwise, the original core remains safe.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Update Indexing</strong>:</p>
+        <ul>
+            <li>In this strategy, only the modified documents within a specific time frame are indexed. The previously
+                indexed data remains unchanged.
+            </li>
+            <li>This approach is faster than full indexing and is ideal for frequent updates.</li>
+        </ul>
+    </li>
+    <li><p><strong>Delete Indexing</strong>:</p>
+        <ul>
+            <li>This strategy removes specific indexed documents from the Solr index.</li>
+            <li>It is useful for ensuring that outdated or unnecessary data is cleared periodically, maintaining the
+                integrity of the search index.
+            </li>
+        </ul>
+    </li>
+</ol>
+<h3><strong>What Can Be Indexed?</strong></h3>
+<ul>
+    <li><strong>Item Types</strong>: Solr can index any Hybris item type, which includes products, categories, and other
+        entities.
+    </li>
+    <li><strong>Indexing Product Attributes</strong>: By default, Hybris provides indexing for the
+        <strong>Product</strong> item type out of the box. However, if new attributes are added to the
+        <strong>Product</strong> item type, these attributes need to be explicitly added to the <strong>Solr Impex
+            configuration</strong> to ensure they are indexed.
+    </li>
+    <li><strong>Impex Configuration</strong>: The best practice for indexing is to define the Solr configuration in an
+        <strong>Impex</strong> file. This approach is reusable and works across various environments (DEV, TEST, PROD).
+    </li>
+    <li><strong>Solr Queries</strong>: You can define specific queries in the Solr Impex file to fetch data from the
+        Hybris DB for indexing and describe the fields for indexing.
+    </li>
+</ul>
+<h3><strong>Cron Jobs for Indexing</strong></h3>
+<p>Hybris provides pre-configured <strong>cron jobs</strong> for performing the different types of indexing:</p>
+<ul>
+    <li><strong>Full Indexing</strong></li>
+    <li><strong>Update Indexing</strong></li>
+    <li><strong>Delete Indexing</strong></li>
+</ul>
+<p>These cron jobs automate the indexing process and can be scheduled at regular intervals, ensuring that Solr stays
+    up-to-date with the latest data from the Hybris database.</p>
+<h3><strong>Benefits of Using Solr in Hybris</strong></h3>
+<ol>
+    <li><strong>Faster Search</strong>: Solr significantly reduces search time by indexing product data and allowing it
+        to be retrieved directly from Solr, rather than querying the Hybris database.
+    </li>
+    <li><strong>Scalability</strong>: As product catalogs grow, Solr can handle vast amounts of data efficiently, which
+        helps scale the search functionality of eCommerce websites.
+    </li>
+    <li><strong>Advanced Search Features</strong>: Solr provides features such as <strong>faceted search</strong>,
+        <strong>full-text search</strong>, and <strong>real-time indexing</strong>, improving the search experience for
+        end users.
+    </li>
+</ol>
+
+<h3>Difference between Impex Decorator vs. Impex Translator in Hybris</h3>
+<ul>
+    <li><strong>Impex Decorators</strong> are used to <strong>alter raw CSV data</strong> before it is processed into
+        the item model. They are typically used for simpler tasks like combining fields or formatting data.
+    </li>
+    <li><strong>Impex Translators</strong> are used to <strong>apply transformations on item attributes</strong> once
+        the data has been converted into Hybris items. They are suited for tasks that require more complex logic on the
+        model level, such as encoding or processing passwords.
+    </li>
+</ul>
+<p>decorators are ideal for <strong>pre-processing data</strong> in the CSV file, while translators are used
+    for <strong>post-processing</strong> the Hybris item once it is created from the CSV data.</p>
+
+<h3>1. <strong>Impex Decorator</strong></h3>
+<h4><strong>Decorator Lifecycle</strong></h4>
+<ul>
+    <li>The <strong>Impex Decorator</strong> (also known as a <strong>Cell Decorator</strong>) is executed early in the
+        <strong>Impex processing</strong> lifecycle.
+    </li>
+    <li>It allows you to <strong>modify the raw data</strong> before it is processed into Hybris items. The decorator
+        intercepts the data and <strong>produces a modified version of the data</strong> before it gets further
+        processed.
+    </li>
+</ul>
+<h4><strong>Decorator Input/Output</strong></h4>
+<ul>
+    <li>The decorator receives <strong>a row of data</strong> and the <strong>index of the column</strong> where it is
+        applied.
+    </li>
+    <li>It modifies the cell value based on the data in that specific row.</li>
+    <li>After modification, the updated value is then passed along the lifecycle.</li>
+</ul>
+<h4><strong>Example Use Case</strong>:</h4>
+<ul>
+    <li><p>If you need to combine price and currency into a single display value, a decorator would modify the <strong>raw
+        CSV data</strong> before it&#39;s processed into the item.</p>
+        <p><strong>Decorator Class Example:</strong></p>
+        <pre><code class="language-java">public class PriceDisplayValueDecorator extends AbstractImpExCSVCellDecorator {
+    private String currencyIndex;
+
+    @Override
+    public void init(AbstractColumnDescriptor column) throws HeaderValidationException {
+        super.init(column);
+        currencyIndex = column.getDescriptorData().getModifier(&quot;currency_index&quot;);
+    }
+
+    @Override
+    public String decorate(int index, Map&lt;Integer, String&gt; map) {
+        final String currency = map.get(currencyIndex);
+        final String priceValue = map.get(index);
+        return priceValue + currency;  // Modify the price cell value by appending the currency
+    }
+}
+</code></pre>
+        <p><strong>Impex Syntax:</strong></p>
+        <pre><code class="language-impex">INSERT_UPDATE CustomPrice; code[unique=true]; currency; priceValue[cellDecorator=com.custom.hybris.impex.PriceDisplayValueDecorator, currency_index=2];
+;price1; €; 100
+;price2; €; 87
+;price3; $; 99
+</code></pre>
+        <p>After applying the decorator, the data would be updated as follows:</p>
+        <pre><code class="language-impex">INSERT_UPDATE CustomPrice; code[unique=true]; currency; priceValue;
+;price1; €; 100€
+;price2; €; 87€
+;price3; $; 99$
+</code></pre>
+    </li>
+</ul>
+<h4><strong>When to Use a Decorator:</strong></h4>
+<ul>
+    <li>When you need to <strong>modify individual cell data</strong> in the ImpEx CSV file.</li>
+    <li>Useful for <strong>pre-processing</strong> and altering data <strong>before it is converted into items</strong>.
+    </li>
+    <li>Ideal for <strong>simple transformations</strong> like formatting or combining multiple columns into one.</li>
+</ul>
+<hr>
+<h3>2. <strong>Impex Translator</strong></h3>
+<h4><strong>Translator Lifecycle</strong></h4>
+<ul>
+    <li>The <strong>Impex Translator</strong> is applied <strong>after</strong> the data has been converted into
+        <strong>Hybris items</strong> during the import process.
+    </li>
+    <li>It acts on the <strong>created item</strong> (after the row has been transformed into a model object) and
+        performs operations on the model’s attributes, rather than the raw CSV data.
+    </li>
+</ul>
+<h4><strong>Translator Input/Output</strong></h4>
+<ul>
+    <li>The translator operates on <strong>item objects</strong> and receives the value from the specific cell where the
+        translator is configured.
+    </li>
+    <li>The <strong>output</strong> is generally the <strong>transformed value</strong> that will be set directly on the
+        model item’s attribute.
+    </li>
+</ul>
+<h4><strong>Example Use Case</strong>:</h4>
+<ul>
+    <li><p>When you need to <strong>encode user passwords</strong> or perform other complex transformations on an item’s
+        data after it has been created.</p>
+        <p><strong>Translator Class Example:</strong></p>
+        <pre><code class="language-java">public class PasswordEncoderTranslator extends AbstractValueTranslator {
+    @Override
+    public Object importValue(String cellValue, Item item) throws JaloInvalidParameterException {
+        User user = (User) item;
+        String encodedPassword = encodePassword(cellValue);
+        user.setPassword(encodedPassword);
+        return item;
+    }
+
+    @Override
+    public String exportValue(Object item) throws JaloInvalidParameterException {
+        return &quot;*********&quot;;  // Don&#39;t export password
+    }
+}
+</code></pre>
+        <p><strong>Impex Syntax:</strong></p>
+        <pre><code class="language-impex">INSERT_UPDATE Unit; uid[unique=true]; password[translator=com.custom.hybris.impex.PasswordEncoderTranslator];
+;user1; password1
+;user2; password2
+</code></pre>
+        <p>After importing, the password will be encoded and set on the <code>User</code> item model.</p>
+    </li>
+</ul>
+<h4><strong>When to Use a Translator:</strong></h4>
+<ul>
+    <li>When you need to <strong>modify the item’s attributes</strong> after the data has been converted to an item,
+        like <strong>encoding values</strong> or applying business logic directly to the model.
+    </li>
+    <li>Translators are typically used when dealing with more <strong>complex transformations</strong> that happen
+        <strong>on the item model</strong>.
+    </li>
+</ul>
+<hr>
+<h3>Key Differences Between Impex Decorator and Impex Translator</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Feature</th>
+        <th><strong>Impex Decorator</strong></th>
+        <th><strong>Impex Translator</strong></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Lifecycle Stage</strong></td>
+        <td>Executes <strong>before</strong> the data is converted into an item.</td>
+        <td>Executes <strong>after</strong> the row has been converted into an item.</td>
+    </tr>
+    <tr>
+        <td><strong>Input/Output</strong></td>
+        <td>Modifies <strong>raw CSV data</strong> (rows and cells).</td>
+        <td>Modifies <strong>item attributes</strong> (after the item is created).</td>
+    </tr>
+    <tr>
+        <td><strong>Primary Use</strong></td>
+        <td><strong>Cell-level transformation</strong> (e.g., combine price and currency).</td>
+        <td><strong>Item-level transformation</strong> (e.g., password encoding).</td>
+    </tr>
+    <tr>
+        <td><strong>Execution Context</strong></td>
+        <td>Works on the <strong>raw data</strong> before it&#39;s imported into Hybris.</td>
+        <td>Works on the <strong>model object (item)</strong> once it has been created from the raw data.</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3><strong>Event System in SAP Commerce</strong></h3>
+<p>SAP Commerce (Hybris) utilizes an event-driven architecture, where events are published by a source and listened to
+    by one or more listeners that act upon them. This system is based on the Spring event system but enhanced to handle
+    SAP Commerce-specific logic. Events in SAP Commerce can be <strong>local</strong> (within the same node) or <strong>clustered</strong>
+    (across multiple nodes in a distributed system), providing flexibility for communication between components in
+    either single-node or multi-node setups.</p>
+<h3><strong>How Events Work</strong></h3>
+<ul>
+    <li><strong>Event Publisher</strong>: The source of the event, which publishes events when certain conditions occur
+        (e.g., an order is created, a product&#39;s attribute changes, etc.).
+    </li>
+    <li><strong>Event Listener</strong>: Any component that registers to receive events. Once the event is published,
+        the listener reacts by performing specific logic.
+    </li>
+    <li><strong>Event Service</strong>: The central component that manages event publication and listener registration.
+    </li>
+</ul>
+<p>This event-based communication enables loose coupling between components, allowing for scalable, maintainable
+    applications.</p>
+<h4><strong>Examples of Events:</strong></h4>
+<ul>
+    <li><strong>Java Swing</strong>: A button click publishes an event.</li>
+    <li><strong>SAP Commerce Item Event</strong>: A product item publishes an event when one of its attributes (like
+        description or media thumbnail) is changed.
+    </li>
+    <li><strong>Commerce Events</strong>: Events like order submissions or session creation can be published to indicate
+        system activities.
+    </li>
+</ul>
+<hr>
+<h3><strong>Interceptors and Custom Events</strong></h3>
+
+<p>SAP Commerce&#39;s event system provides a powerful mechanism for communication between components in a loosely
+    coupled manner. The integration of <strong>interceptors</strong> with <strong>custom events</strong> allows business
+    logic to be implemented at various stages of the lifecycle of model objects. Additionally, <strong>cluster-aware
+        events</strong> enable scalable and asynchronous event processing, essential for distributed systems and
+    large-scale commerce environments. However, when using cluster-aware events, it is important to consider the
+    trade-offs in terms of reliability and use appropriate tools like the Task Service for critical business processes.
+</p>
+
+<p>In SAP Commerce, <strong>interceptors</strong> are used to handle various stages of the lifecycle of <strong>model
+    objects</strong> (which represent items in the SAP Commerce system). Interceptors can modify models, interrupt the
+    lifecycle, or even publish custom events based on conditions during the lifecycle steps. </p>
+<p>For instance, when certain business rules are violated during the model lifecycle (e.g., saving a <code>Band</code>
+    item with negative sales), an interceptor could throw an exception. Alternatively, custom events can be triggered
+    when specific conditions are met (e.g., album sales exceed a threshold).</p>
+<h3><strong>Creating Interceptors and Custom Events</strong></h3>
+
+<h4><strong>1. Custom Event Example:</strong></h4>
+<p>To demonstrate creating a custom event for a scenario where a band&#39;s album sales exceed a threshold, you
+    could:</p>
+<ul>
+    <li><strong>Create a Custom Event Class</strong>: This class would represent the event, such as <code>BandAlbumSalesEvent</code>.
+        It would include necessary attributes (e.g., the sales value).
+    </li>
+</ul>
+<h4><strong>2. Creating an Interceptor</strong>:</h4>
+<p>An interceptor is created to monitor when the <code>Band</code> item&#39;s album sales exceed a certain threshold.
+    When this occurs, the interceptor can raise a custom event (like <code>BandAlbumSalesEvent</code>) if the condition
+    is satisfied.</p>
+<pre><code class="language-java">public class BandAlbumSalesInterceptor implements Interceptor&lt;Band&gt; {
+    @Override
+    public void onEvent(Band model) throws InterceptorException {
+        if (model.getAlbumSales() &gt; 1000000) {
+            // Publish a custom event
+            eventService.publishEvent(new BandAlbumSalesEvent(model));
+        }
+    }
+}
+</code></pre>
+<h4><strong>3. Event Listener</strong>:</h4>
+<p>A listener will handle the event. For example, when the <code>BandAlbumSalesEvent</code> is published, the listener
+    could perform actions such as sending notifications or logging.</p>
+<pre><code class="language-java">public class BandAlbumSalesEventListener implements EventListener&lt;BandAlbumSalesEvent&gt; {
+    @Override
+    public void onEvent(BandAlbumSalesEvent event) {
+        // Logic to handle the event, such as logging or sending a notification
+    }
+}
+</code></pre>
+<h4><strong>4. Register Interceptor and Event Listener</strong>:</h4>
+<p>The interceptor and event listener are registered in the Spring context.</p>
+<pre><code class="language-xml">&lt;bean id=&quot;bandAlbumSalesInterceptor&quot; class=&quot;concerttours.interceptors.BandAlbumSalesInterceptor&quot;/&gt;
+&lt;bean id=&quot;BandInterceptorMapping&quot; class=&quot;de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping&quot;&gt;
+    &lt;property name=&quot;interceptor&quot; ref=&quot;bandAlbumSalesInterceptor&quot;/&gt;
+    &lt;property name=&quot;typeCode&quot; value=&quot;Band&quot;/&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;bandAlbumSalesEventListener&quot; class=&quot;concerttours.events.BandAlbumSalesEventListener&quot;&gt;
+    &lt;property name=&quot;modelService&quot; ref=&quot;modelService&quot;/&gt;
+&lt;/bean&gt;
+</code></pre>
+<p>The configuration ensures that the interceptor is invoked at the correct lifecycle stage of the <code>Band</code>
+    model and that the event listener will process the event once it&#39;s published.</p>
+<hr>
+<h3><strong>Cluster-Aware Events</strong></h3>
+<p>SAP Commerce supports <strong>cluster-aware events</strong>, allowing events to be processed across multiple nodes in
+    a cluster environment. By default, events are processed <strong>synchronously</strong>, meaning that the main thread
+    waits for the event to be handled before proceeding. However, synchronous event handling can lead to delays,
+    especially if a listener is slow or if there is a high volume of events.</p>
+<p><strong>Cluster-aware events</strong> allow asynchronous processing of events, which can be particularly useful in a
+    <strong>multi-node cluster</strong> to avoid waiting for events to be handled on a specific node. This can improve
+    performance and system responsiveness by distributing the event handling workload across multiple nodes.</p>
+<h4><strong>Benefits of Cluster-Aware Events:</strong></h4>
+<ul>
+    <li><strong>Asynchronous Processing</strong>: Events are handled in separate threads, reducing the delay in
+        processing.
+    </li>
+    <li><strong>Cluster Distribution</strong>: Events can be processed on multiple nodes of a cluster, improving
+        scalability and fault tolerance.
+    </li>
+    <li><strong>Avoid Timeout Issues</strong>: Slow listeners or complex event handling that would otherwise lead to
+        timeouts can be processed without blocking other operations.
+    </li>
+</ul>
+<h4><strong>Risks</strong>:</h4>
+<ul>
+    <li><strong>Reliability</strong>: Cluster-aware events are less reliable for business-critical processes since
+        events might not always be processed on the selected node due to transient failures.
+    </li>
+    <li><strong>Alternative</strong>: For more reliable asynchronous processing with retry logic, using the <strong>Task
+        Service</strong> is recommended. The Task Service provides better resilience for critical processes.
+    </li>
+</ul>
+<hr>
 </body>
 </html>

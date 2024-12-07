@@ -19,6 +19,30 @@ PersistenceType якраз відповідає зберігаєти чи ні.
 В dynamic випадку не зберігається, але маємо вказати attribute handler, інакше BeanId буде згенеровано автоматично
 
 
+catalog-aware
+catalog-version
+custom catalog
+sync catalog
+sync job
+Product Catalogs: catalogVersionService
+layer Dao - flexibleSearch
+ModelService
+cache
+beans
+
+
+Product Model Creation: A new product is created or an existing product is modified.
+Persistence through modelService: The modelService.save() method persists the product to the database.
+Interceptors and Validation: Interceptors run validation and other logic before and after the save.
+Database Persistence: The product is saved to the underlying database, with a corresponding item type and table.
+Event Framework: An after-save event is triggered, and other system components can act upon it.
+Caching and Search Indexing: The product may be indexed in search engines (like Solr) and cached for performance.
+Error Handling and Transactions: The save operation is wrapped in a transaction that ensures atomicity and handles errors.
+Workflow and Approval (if applicable): The product may go through a workflow for approval before becoming fully available.
+Final Visibility: Once saved, the product is available for use in the storefront, cart, and other commerce processes.
+
+
+
 What is SAP Hybris and what are its main components?
 Can you explain the architecture of SAP Hybris?
 What is the role of the items.xml file in Hybris?
