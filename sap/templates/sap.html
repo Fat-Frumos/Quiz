@@ -50,7 +50,7 @@
     faster.</p>
 
 <h3>Clustering</h3>
-<p>Clustering in SAP Commerce refers to using multiple SAP Commerce installations that share data from a single
+<p>Clustering refers to using multiple SAP Commerce installations that share data from a single
     database. The clustering functionality offers various configurable options for scaling your system effectively.</p>
 
 <h3>Containerization</h3>
@@ -75,7 +75,7 @@
     changes over time.</p>
 
 <h3>ImpEx</h3>
-<p>ImpEx is a text-based tool in SAP Commerce for importing and exporting data. It allows you to create, update, remove,
+<p>ImpEx is a text-based tool for importing and exporting data. It allows you to create, update, remove,
     and transfer data items like customer, product, or order information between CSV files and the platform.</p>
 
 <h3>Internationalization and Localization</h3>
@@ -83,7 +83,7 @@
     languages and regional requirements, ensuring that your platform caters to a global audience.</p>
 
 <h3>Java Message Service (JMS)</h3>
-<p>JMS in SAP Commerce provides asynchronous communication, allowing for remote method invocation. It complements
+<p>JMS provides asynchronous communication, allowing for remote method invocation. It complements
     synchronous solutions like RMI and Web services, providing a more flexible communication approach.</p>
 
 <h3>Logging</h3>
@@ -120,7 +120,7 @@
     you design and implement your business models effectively.</p>
 
 <h3>Product Content and Catalogs</h3>
-<p>The Product Content and Catalog features in SAP Commerce allow you to structure, manage, and organize products and
+<p>The Product Content and Catalog features allow you to structure, manage, and organize products and
     product information, making it easier to manage your online store’s catalog.</p>
 
 <h3>Search</h3>
@@ -347,7 +347,7 @@
 <hr>
 
 <h4>Modules and Extensions</h4>
-<p>Modules in SAP Commerce provide the business logic, APIs, and presentation layers. Each module consists of several
+<p>Modules provide the business logic, APIs, and presentation layers. Each module consists of several
     extensions that deliver different layers of a business function. For example, a subscription management module might
     include:</p>
 <ul>
@@ -387,15 +387,15 @@
 </p>
 <p>ItemTypes are the base of the hybris. Item types are used to create new tables or to update existing tables.</p>
 <p>The <code>items.xml</code> file in is used to define <strong>ItemTypes</strong>, which represent the business objects
-    .<br>These items are mapped to database tables. The <code>items.xml</code> file specifies attributes,
+   .<br>These items are mapped to database tables. The <code>items.xml</code> file specifies attributes,
     relations, and other metadata for<br>each type, helping to configure the data model for the application.</p>
 <p>Data entities are defined with item type elements, whereas relations between items are defined with relation
     elements.<br>Item.xml file is locate resource/ extension-name.items.xml file in each extension. which is used for
     create data model<br>of business. you can define new types,override and extend existing types.
 </p>
 <p>Type system is used for design data modeling or organize data. Types define an objects for manage and store<br>data
-    with Java implementation . For instance, Java have class and object . Class is blueprint of Object and Object is<br>instance
-    of Class. Same concept is follow. Hybris is define Type and Item. Type is blueprint of Item and Item<br>is
+    with Java implementation. For instance, Java have class and object. Class is blueprint of Object and Object is<br>instance
+    of Class. Same concept is follow. Hybris defines Type and Item. Type is blueprint of Item and Item<br>is
     instance of type.</p>
 <h4>There are two kind of Types</h4>
 <p>System Related Type : It extends type system itself and deal with manage internal data</p>
@@ -407,7 +407,7 @@
         ,<br>Relation. It is same like Java Object.
     </li>
 </ul>
-<p>Business Related Type: it is manage business activity data like Order, Customer, Product .</p>
+<p>Business Related Type: it is manage business activity data like Order, Customer, Product.</p>
 <ul>
     <li>Item types − This is used to create model (POJO) and tables in DB.</li>
     <li>Relation types − This is used to create mapping between tables.</li>
@@ -417,8 +417,8 @@
     <li>Enum types − It is used to build enumeration for preparing a particular set of values</li>
 </ul>
 <h4>CollectionTypes</h4>
-<p>A CollectionType contains number of instances of types . It is based on the Java Collection class. you can use of the<br>Collection
-    class and some of its sub-classes (List, Set, and SortedSet) . There are two types of relations that you can<br>build
+<p>A CollectionType contains number of instances of types. It is based on the Java Collection class. you can use of the<br>Collection
+    class and some of its sub-classes (List, Set, and SortedSet). There are two types of relations that you can<br>build
     with CollectionTypes: one to many relations and many to one relations. Both kinds of relation are unidirectional.
 </p>
 <p>Collection Types have technical limitations</p>
@@ -430,8 +430,8 @@
 <p>If a single CollectionType instance has several AtomicType entries that match a search query, you are not able to
     detect<br>the exact number of matches from the database directly.</p>
 <h4>RelationTypes</h4>
-<p>RelationTypes represent n:m relations in the hybris . You can link a one item to other item. LinkItems hold two<br>attributes,
-    SourceItem and TargetItem, that hold references to the respective item . LinkItem is helper type item which<br>is
+<p>RelationTypes represent n:m relations. You can link a one item to other item. LinkItems hold two<br>attributes,
+    SourceItem and TargetItem, that hold references to the respective item. LinkItem is helper type item which<br>is
     linked together of source and target item.</p>
 <h4>Kind of relation</h4>
 <p>one-to-one, unidirectional : (attribute definition, such as Product instance - Unit instance)<br>one-to many,
@@ -477,7 +477,7 @@
     methods for this ItemType.</p>
 <h5>AttributeDescriptor Modifiers</h5>
 <p>qualifier: The identifier of this Attribute<br>redeclare: change its behaviour of an attribute<br>type: The
-    identifier of the type this attribute is going to be .<br>write : Setting modifier to true results in a setter
+    identifier of the type this attribute is going to be.<br>write : Setting modifier to true results in a setter
     method being generated for this attribute and setting modifier to<br>false results in no setter method being
     generated for this attribute:<br>read: Setting modifier to true results in a getter method being generated for this
     attribute and setting the modifier to<br>false results in no getter method being generated for this attribute:</p>
@@ -515,7 +515,7 @@
     to build all the extension for your application.</p>
 <p>It enables developers to customize the platform’s functionality by selectively enabling or disabling<br>extensions,
     controlling their loading order, and managing dependencies, all of which ensure the flexibility and<br>scalability
-    of the Hybris system.</p>
+    of the system.</p>
 <h3>Difference Between Impex and FlexibleSearch</h3>
 <p><strong>Impex</strong> is a powerful import/export tool, designed primarily for inserting, updating, or
     deleting data in<br>the database from flat files (such as CSV). It allows batch operations for managing data within
@@ -541,7 +541,7 @@
 </ul>
 
 <ul>
-    <li><strong>Data Loading/Export</strong>: Impex is mainly used to load data into the Hybris database or to export
+    <li><strong>Data Loading/Export</strong>: Impex is mainly used to load data into the database or to export
         data from Hybris to<br>external files. It works with data such as products, categories, customers, orders, etc.
     </li>
     <li><strong>Flat File Format</strong>: Impex scripts are typically written in a flat file format, where each line
@@ -606,7 +606,7 @@
         processed in Java code<br>or used in the platform.
     </li>
     <li>It is a querying tool for fetching data, not for modifying data.</li>
-    <li>It is used both in the Hybris administration console (HAC) and programmatically in DAOs.</li>
+    <li>It is used both in the administration console (HAC) and programmatically in DAOs.</li>
     <li>Supports parameterized queries, allowing dynamic input (e.g., filtering results based on user inputs).</li>
     <li>Ensures database portability by abstracting SQL differences between databases.</li>
     <li>Allows executing complex queries, including localized values and excluding subtypes.</li>
@@ -1663,14 +1663,14 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
     the persistence layer to interact with the database.</p>
 
 <h5>Models</h5>
-<p>Models in SAP Commerce are Java objects that represent items (like products or orders). They contain all attributes
+<p>Models are Java objects that represent items (like products or orders). They contain all attributes
     of an item, regardless of the extension it's associated with, providing unified access to the data. Models are
     typically Plain Old Java Objects (POJOs) and are easy to use without any storage requirements, which makes them
     suitable for testing and debugging.</p>
 <p>Models are used by DAOs, services, strategies, converters, and facades for data processing and management.</p>
 
 <h3>Working with the ServiceLayer</h3>
-<p>The ServiceLayer provides an API for developing services in SAP Commerce, making it easy to implement business logic
+<p>The ServiceLayer provides an API for developing services, making it easy to implement business logic
     in a clean and structured way. You can follow these procedures to work with the ServiceLayer effectively:</p>
 
 <ul>
@@ -1692,10 +1692,10 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
 <h5>Assumed Knowledge</h5>
 <p>Before using the ServiceLayer, it’s assumed that you have basic knowledge in the following areas:</p>
 <ul>
-    <li>Extension structure in SAP Commerce (core and web modules).</li>
+    <li>Extension structure (core and web modules).</li>
     <li>Defining custom types using the <code>items.xml</code> file.</li>
     <li>Understanding the Spring framework and its integration with SAP Commerce.</li>
-    <li>Familiarity with the Spring MVC framework, which is used for web application development in SAP Commerce.</li>
+    <li>Familiarity with the Spring MVC framework, which is used for web application development.</li>
 </ul>
 
 <h5>Preparations</h5>
@@ -1703,7 +1703,7 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
     preparing your extension as described in the "Preparing an Extension for ServiceLayer Examples" document.</p>
 
 <h3>ServiceLayer Overview</h3>
-<p>The ServiceLayer in SAP Commerce is a crucial API for implementing business logic. It allows developers to
+<p>The ServiceLayer is a crucial API for implementing business logic. It allows developers to
     encapsulate business processes in Java classes called services. Each service addresses a specific, well-defined
     requirement, ensuring a modular and scalable architecture.</p>
 
@@ -1714,7 +1714,7 @@ product008           ; Product 8          ; {electronicsCatalog:online} ; 150.00
         others optional, is used to build the ServiceLayer.
     </li>
     <li><strong>Working with the ServiceLayer:</strong> A collection of procedures to help developers quickly implement
-        common use cases in SAP Commerce.
+        common use cases.
     </li>
     <li><strong>Key Services Overview:</strong> Built-in services that fall under three categories: System,
         Infrastructure, and Platform services.
@@ -2048,9 +2048,9 @@ private CustomProductService customProductService;
 </ul>
 
 
-<h3>Region Cache in SAP Commerce (Hybris)</h3>
+<h3>Region Cache (Hybris)</h3>
 
-<p>The <strong>Region Cache</strong> in SAP Commerce (Hybris) offers a flexible and highly configurable caching solution
+<p>The <strong>Region Cache</strong> (Hybris) offers a flexible and highly configurable caching solution
     that optimizes the performance of the system. By organizing cache into regions, SAP Commerce allows developers to
     handle high-traffic and volatile data separately from more stable data, ensuring efficient memory usage and better
     response times.</p>
@@ -2089,7 +2089,7 @@ private CustomProductService customProductService;
     </li>
 </ol>
 <h3>Cache Regions</h3>
-<p>Each <strong>cache region</strong> in SAP Commerce stores a different kind of data, and you can configure each region
+<p>Each <strong>cache region</strong> stores a different kind of data, and you can configure each region
     with distinct properties:</p>
 <ul>
     <li><strong>Type System Region</strong>: Stores type system items.</li>
@@ -2245,14 +2245,14 @@ custom.global-context=custom-cache-spring.xml
     </li>
 </ol>
 
-<h3>Relation Caching in SAP Commerce Cloud</h3>
+<h3>Relation Caching Cloud</h3>
 <p>Relation caching improves the performance of SAP Commerce Cloud by storing results for <strong>related items</strong>
     (like users and user groups) separately, without triggering unnecessary cache invalidations. The system provides
     flexibility through <strong>configuration properties</strong> that allow enabling, disabling, and customizing
     relation caching at different levels. By carefully configuring cache size and invalidation strategies, you can
     ensure your system scales efficiently while maintaining the integrity of related data caches.</p>
 
-<p>Relation caching in SAP Commerce Cloud stores results of FlexibleSearch queries that involve relationships between
+<p>Relation caching Cloud stores results of FlexibleSearch queries that involve relationships between
     items, particularly focusing on collections like user and user group relations (e.g.,
     <code>PrincipalGroupRelation</code>). This specialized cache avoids the overhead of checking modification counters
     during cache validation, thus improving performance, especially when frequent modifications (like user creation) are
@@ -2311,7 +2311,7 @@ custom.global-context=custom-cache-spring.xml
 <ol>
     <li><p><strong>Global Configuration</strong></p>
         <ul>
-            <li><p>Relation caching is enabled by default in SAP Commerce Cloud, but you can configure it using the
+            <li><p>Relation caching is enabled by default Cloud, but you can configure it using the
                 following properties:</p>
                 <pre><code class="language-properties">relation.cache.enabled=true  # Enables relation caching globally
 relation.cache.default.capacity=10000  # Defines how many items the relation cache can store by default
@@ -2375,14 +2375,14 @@ relation.cache.PrincipalGroupRelation.capacity=50000  # Defines how many results
 <p>By customizing these components, you can ensure that your relation cache is optimized for your specific needs,
     especially in systems with heavy loads or complex relationships between items.</p>
 
-<h3>Restrictions in SAP Commerce Cloud</h3>
-<p>Restrictions in SAP Commerce Cloud are a powerful tool to filter and limit search results based on user roles or
+<h3>Restrictions Cloud</h3>
+<p>Restrictions Cloud are a powerful tool to filter and limit search results based on user roles or
     session context. They work seamlessly with <strong>FlexibleSearch</strong> queries to restrict data across the
     platform, not just in Backoffice. Restrictions can be managed dynamically, enabling or disabling them as needed, and
     they can be applied globally or to specific user groups or sessions. Custom restrictions can be created using both
     the SAP Commerce API and ImpEx for flexible control over data access and visibility.</p>
 
-<p>Restrictions in SAP Commerce Cloud provide a flexible mechanism to limit search results based on the type of data
+<p>Restrictions Cloud provide a flexible mechanism to limit search results based on the type of data
     being searched and the user’s context (e.g., which user or user group is logged in). These restrictions are
     automatically applied to <strong>FlexibleSearch</strong> queries and help filter data without requiring
     modifications to the business layer. They operate transparently by modifying the <strong>WHERE</strong> clause of
@@ -2666,13 +2666,13 @@ modelService.save(restriction);
     system provides efficient data modeling and allows for the easy management of product attributes that can change
     over time. This approach enhances both the flexibility and scalability of the product data structure.</p>
 
-<p>In SAP Hybris, the <strong>Classification System</strong> is used to manage product attributes in a way that allows
+<p>the <strong>Classification System</strong> is used to manage product attributes in a way that allows
     dynamic assignment and fine-grained control over which products or product categories receive certain attributes.
     This is in contrast to the more static approach of adding attributes directly to the <strong>Product
         Catalog</strong>.</p>
 
 <h4><strong>1. Key Concepts of Classification System</strong></h4>
-<p>The <strong>Classification System</strong> is another type system in SAP Hybris that organizes product attributes
+<p>is another type system in SAP Hybris that organizes product attributes
     based on categories. These categories are referred to as <strong>classifying categories</strong>, and they are
     structured hierarchically, similar to the <strong>Product Catalog</strong> type system, which defines product
     categories.</p>
@@ -2686,7 +2686,7 @@ modelService.save(restriction);
     </li>
 </ul>
 <h4><strong>2. How Classification System Works</strong></h4>
-<p>The <strong>Classification System</strong> allows for the creation of classification attributes (like &quot;color&quot;)
+<p> allows for the creation of classification attributes (like &quot;color&quot;)
     that can be assigned only to certain products or categories within the <strong>Product Catalog</strong>, without
     needing to add them to every product. This is beneficial in situations where only some products require certain
     attributes. For example:</p>
@@ -2762,7 +2762,6 @@ modelService.save(restriction);
         values for the corresponding attribute once assigned to the product catalog.
     </li>
 </ol>
-<h4><strong>7. Example Use Case</strong></h4>
 <p><strong>Requirement</strong>: You have a variety of products in your catalog, and some of them (e.g., mobile phones,
     cameras) require a &quot;color&quot; attribute, while others (e.g., processors, RAM) do not. Instead of adding the
     color attribute to all product types in the items.xml, you use the Classification System to define the &quot;color&quot;
@@ -2894,7 +2893,6 @@ modelService.save(restriction);
         place properly.
     </li>
 </ul>
-<h4><strong>Why Synchronization Is Important:</strong></h4>
 <ul>
     <li><strong>Consistency</strong>: Synchronization ensures that the <strong>live storefront</strong> reflects the
         latest content updates from the <strong>Staged version</strong>, which might have undergone testing or
@@ -2906,7 +2904,7 @@ modelService.save(restriction);
 </ul>
 
 <h3><strong>Solr</strong></h3>
-<p><strong>Solr</strong> is an essential component for optimizing search functionality. By indexing
+<p> is an essential component for optimizing search functionality. By indexing
     product and catalog data, Solr improves the performance and scalability of eCommerce websites. The <strong>three
         indexing strategies</strong>—Full, Update, and Delete indexing—allow for flexible management of the search
     index. Proper configuration and scheduling of cron jobs ensure that Solr stays synchronized with Hybris data,
@@ -3193,10 +3191,11 @@ modelService.save(restriction);
     </tbody>
 </table>
 <hr>
-<h3><strong>Event System in SAP Commerce</strong></h3>
+<h3><strong>Event System</strong></h3>
 <p>SAP Commerce (Hybris) utilizes an event-driven architecture, where events are published by a source and listened to
     by one or more listeners that act upon them. This system is based on the Spring event system but enhanced to handle
-    SAP Commerce-specific logic. Events in SAP Commerce can be <strong>local</strong> (within the same node) or <strong>clustered</strong>
+    SAP Commerce-specific logic. Events can be <strong>local</strong> (within the same node) or
+    <strong>clustered</strong>
     (across multiple nodes in a distributed system), providing flexibility for communication between components in
     either single-node or multi-node setups.</p>
 <h3><strong>How Events Work</strong></h3>
@@ -3318,5 +3317,62 @@ modelService.save(restriction);
     </li>
 </ul>
 <hr>
+
+<h3><strong>Page Template</strong></h3>
+<p>defines the structure for reusable content pages. It acts as a
+    blueprint for creating various content pages, ensuring consistency across the pages. The following points explain
+    its significance:</p>
+<ul>
+    <li><strong>Reusability</strong>: Page templates are reusable and define a standard layout for creating multiple
+        pages.
+    </li>
+    <li><strong>Slots</strong>: These templates include slots that can hold various components. These slots are
+        available to child pages created from the template.
+    </li>
+    <li><strong>Catalog Awareness</strong>: The page template is catalog-aware and can be managed within the CMS.</li>
+    <li><strong>Frontend Integration</strong>: Each page template is associated with a <code>frontendTemplateName</code>,
+        typically a JSP file, which determines how the page is rendered.
+    </li>
+    <li><strong>Restricted Page Types</strong>: A template can be restricted to specific page types (e.g., <code>ContentPage</code>,
+        <code>ProductPage</code>, <code>CategoryPage</code>, <code>CatalogPage</code>).
+    </li>
+</ul>
+<h3><strong>Velocity Templates</strong></h3>
+<p>Velocity templates, identified by the <code>.vm</code> extension, are used within the CMS cockpit and SmartEdit to
+    define page structures. They are essentially text files with embedded HTML tags. Here’s how they function:</p>
+<ul>
+    <li><strong>Structure Definition</strong>: They define the structure of the cockpit editor area, especially for
+        content slots.
+    </li>
+    <li><strong>Impex Import</strong>: Changes to <code>.vm</code> files only take effect after an Impex import. Each
+        time a <code>.vm</code> file is modified, the Impex must be executed again to reflect changes.
+    </li>
+    <li><strong>FileLoaderValueTranslator</strong>: This component searches for specific files at a given location and
+        returns their content as a string. You can also add inline strings instead of using an external file for the
+        Velocity template.
+    </li>
+</ul>
+<h3><strong>Content Slot</strong></h3>
+<p><strong>Content Slot</strong> is a container for components. It can be defined at different
+    levels:</p>
+<ul>
+    <li><strong>Template Level</strong>: Slots defined at the template level are inherited by all pages created from
+        that template. These slots can be shared among multiple pages.
+    </li>
+    <li><strong>Page Level</strong>: Slots defined at the page level are specific to that page. If a content slot is
+        defined at both the template and page level, the page-level slot overrides the template-level one.
+    </li>
+</ul>
+<h3><strong>Content Slot for Template</strong></h3>
+<p>This refers to content slots that need to be available for all pages derived from a particular template. The
+    positioning of these slots is defined in the template and used on the frontend for rendering.</p>
+<h3><strong>Content Slot for Page</strong></h3>
+<p>Content slots defined at the page level are specific to the page itself. These slots are not shared with other pages
+    and are unique to the particular content page.</p>
+<h3><strong>Content Slot Name</strong></h3>
+<p>The <code>contentSlotName</code> is used to restrict content slots to specific components within a template. For
+    instance, in a <code>ProductDetailsPageTemplate</code>, content slots might be restricted to specific components
+    like <code>ProductVariantSelectorComponentModel</code> or <code>ProductAddToCartComponentModel</code>. </p>
+
 </body>
 </html>
