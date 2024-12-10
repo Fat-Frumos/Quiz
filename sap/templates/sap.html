@@ -39,99 +39,6 @@
     supports tools like JRebel, which can help avoid unnecessary rebuilds during the development phase, improving
     efficiency.</p>
 
-<h3>Business Process Management</h3>
-<p>Business processes are workflows that define the operations and transactions that occur within an
-    e-commerce environment. These processes are essential for automating tasks, streamlining operations, and ensuring
-    efficient execution of business logic. The processes run asynchronously, meaning actions are executed independently,
-    enabling a smooth flow of operations without blocking other tasks. Business processes are defined through XML files,
-    where each process consists of nodes (actions, decisions, events, etc.) that guide the workflow from one step to
-    another.</p>
-
-<p>This structure ensures that the business process executes the defined workflow reliably and asynchronously, with each
-    step being handled appropriately based on the system state and external interactions.</p>
-
-<hr>
-<h3>Key Concepts of Business Processes in Hybris</h3>
-<ol>
-    <li><p><strong>Business Process Engine</strong>:<br>The Business Process Engine allows for the
-        asynchronous execution of business processes, which are defined in XML. The engine ensures that each action in
-        the process is completed before transitioning to the next. A transition is the link between two actions, guiding
-        the workflow based on the outcome of a previous action. The process engine persists the state of the process,
-        meaning that even if a system crash occurs, the process will resume from its last known state after recovery.
-    </p>
-    </li>
-    <li><p><strong>Process Definition</strong>:<br>A process definition specifies the sequence of steps
-        (nodes) that make up the workflow. Each node represents a step in the process, and actions within those nodes
-        determine the next step. The nodes include action nodes, wait nodes, notify nodes, and end nodes. Transitions
-        between nodes dictate how the process progresses based on the outcomes (e.g., success or failure).</p>
-    </li>
-    <li><p><strong>Action Nodes</strong>:<br>Action nodes are critical as they execute the business logic. Each action
-        is linked to a bean that performs a specific function, and the outcome of this action determines the next step
-        in the process. If the action succeeds, the process moves to one node, and if it fails, it moves to another.</p>
-    </li>
-    <li><p><strong>Wait Nodes</strong>:<br>Wait nodes are used when the process needs to wait for external events or
-        systems to complete a task before continuing. These events might be tied to external systems or processes that
-        trigger the next step in the workflow.</p>
-    </li>
-    <li><p><strong>Notify Nodes</strong>:<br>Notify nodes are used to send notifications to user groups or specific
-        users at certain points in the process, updating them on the status or actions required.</p>
-    </li>
-    <li><p><strong>End Nodes</strong>:<br>End nodes mark the completion of a business process. These nodes store the
-        final state of the process (e.g., success, error) and typically define messages like &quot;Process completed
-        successfully&quot; or &quot;Process failed.&quot;</p>
-    </li>
-</ol>
-<hr>
-<h3>Sample Business Process Example</h3>
-<p>Consider a simple process where, after an order is placed, email notifications are sent to the customer and the
-    business partners. This example could involve the following sequence of steps:</p>
-<ol>
-    <li><strong>Check Order</strong>: This action checks the order details to ensure everything is in order.</li>
-    <li><strong>Send Customer Notification</strong>: This action sends an email notification to the customer confirming
-        the order.
-    </li>
-    <li><strong>Send Partner Notification</strong>: This action sends an email notification to business partners
-        involved in fulfilling the order.
-    </li>
-    <li><strong>End Process</strong>: The process ends with a success message, or in case of an error, it moves to a
-        failure state.
-    </li>
-</ol>
-<hr>
-<h3>Business Process Execution and Synchronization</h3>
-<ul>
-    <li><p><strong>Asynchronous Execution</strong>: By default, Hybris executes business process actions asynchronously,
-        allowing each action to run independently without blocking others. This ensures a responsive system where
-        processes can operate concurrently.</p>
-    </li>
-    <li><p><strong>Synchronous Execution</strong>: In some cases, actions must be run synchronously, i.e., one after
-        another within the same task. This can be explicitly configured by modifying properties in the <code>local.properties</code>
-        file to ensure actions in a business process do not proceed until the current action completes.</p>
-    </li>
-</ul>
-<hr>
-<h3>Practical Example of a Business Process</h3>
-<ol>
-    <li><strong>Step 1</strong>: Define the XML for the business process, e.g.,
-        <code>placeOrderNotificationProcess.xml</code>, which specifies the sequence of actions, transitions, and end
-        states.
-    </li>
-    <li><strong>Step 2</strong>: Register the process definition and actions in the configuration files (e.g., <code>spring.xml</code>),
-        linking the defined XML process to the system.
-    </li>
-    <li><strong>Step 3</strong>: Implement the action classes that perform the required business logic, like checking
-        order details or sending notifications.
-    </li>
-    <li><strong>Step 4</strong>: Initiate the business process programmatically by calling the <code>BusinessProcessService</code>
-        to create and start the process instance when an order is placed.
-    </li>
-</ol>
-
-
-<p>Business processes are a series of steps or activities that repeat over time. Business process management in SAP
-    Commerce helps identify, define, document, control, and optimize these processes, integrating both automated and
-    human-driven activities.</p>
-
 <h3>Caching</h3>
 <p>The SAP Commerce Cache is an important part of the persistence layer, improving performance by reducing the number of
     database queries. It stores search results, item attributes, and item instances in memory, making data access
@@ -987,6 +894,154 @@
     controlling their loading order, and managing dependencies, all of which ensure the flexibility and<br>scalability
     of the system.</p>
 
+<h3>Model Life Cycle in SAP Hybris (Commerce)</h3>
+<p>The <strong>Model Life Cycle</strong> in SAP Hybris Commerce describes how a <strong>Model</strong>, which represents
+    a database record (entity), transitions through various phases. These phases control how models are created,
+    modified, saved, and deleted, while also providing hooks for custom logic via <strong>interceptors</strong>. The
+    lifecycle ensures that models are managed efficiently, reflecting changes in the database only when explicitly
+    saved, rather than automatically syncing data.</p>
+<h3>Phases of Model Life Cycle:</h3>
+<ol>
+    <li><p><strong>Instantiating the Model:</strong></p>
+        <ul>
+            <li>A model can be instantiated in two ways:
+                <ul>
+                    <li><strong>Through its constructor</strong>: This involves using the <code>new</code> keyword to
+                        create a new instance.
+                    </li>
+                    <li><strong>Using a factory method in the <code>ModelService</code></strong>: This provides a more
+                        flexible way to create models, especially dynamically.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <p>Example of creating an instance:</p>
+        <pre><code class="language-java">ProductModel product = new ProductModel();
+</code></pre>
+        <p>or through <code>ModelService</code>:</p>
+        <pre><code class="language-java">ProductModel product = modelService.create(ProductModel.class);
+</code></pre>
+    </li>
+    <li><p><strong>Loading an Existing Model:</strong><br>Models can be loaded from the database using different
+        mechanisms:</p>
+        <ul>
+            <li><strong>Using the Primary Key (PK)</strong>: The <code>ModelService.get()</code> method fetches a model
+                by its primary key.
+            </li>
+        </ul>
+        <pre><code class="language-java">ProductModel product = modelService.get(pk);
+</code></pre>
+        <ul>
+            <li><strong>Using a FlexibleSearch query</strong>: Retrieve models using query expressions.</li>
+            <li><strong>Using an Example Model</strong>: A model instance can be created, modified to contain specific
+                attributes, and used to search for matching records.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Modifying Model Values:</strong><br>Once a model is instantiated, its properties can be modified
+        using standard getter/setter methods.</p>
+        <pre><code class="language-java">product.setCatalogVersion(catalogVersion);
+product.setCode(code);
+</code></pre>
+    </li>
+    <li><p><strong>Saving Model Values:</strong><br>After making modifications, models must be explicitly saved to
+        persist changes to the database. The <code>ModelService.save()</code> method is used for this.</p>
+        <ul>
+            <li><strong>Saving individual models</strong>:
+                <pre><code class="language-java">modelService.save(product);
+</code></pre>
+            </li>
+            <li><strong>Saving all modified models</strong> in the context:
+                <pre><code class="language-java">modelService.saveAll();
+</code></pre>
+            </li>
+        </ul>
+        <p>When saving, any referenced models (models referenced by other models) are also saved automatically if they
+            are new or modified.</p>
+    </li>
+    <li><p><strong>Removing the Model:</strong><br>To delete a model from the database, use the <code>remove()</code>
+        method of <code>ModelService</code>.</p>
+        <pre><code class="language-java">modelService.remove(product);
+</code></pre>
+    </li>
+    <li><p><strong>Refreshing the Model:</strong><br>To refresh a model&#39;s state from the database, the <code>refresh()</code>
+        method is used, which will discard unsaved changes.</p>
+        <pre><code class="language-java">modelService.refresh(product);
+</code></pre>
+    </li>
+</ol>
+<h3>Lazy Loading in Models</h3>
+<ul>
+    <li><p><strong>Lazy loading</strong> ensures that model properties are not loaded from the database until they are
+        explicitly accessed. The model is instantiated with empty or default values, and the actual data is fetched from
+        the database only when required. This reduces the initial overhead of loading unnecessary data.</p>
+        <p>The loading behavior can be controlled via the <code>servicelayer.prefetch</code> property:</p>
+        <ul>
+            <li><code>literal</code>: Pre-fetch only atomic attributes, not reference attributes.</li>
+            <li><code>all</code>: Pre-fetch all attributes, including references.</li>
+        </ul>
+    </li>
+</ul>
+<h3>Model Context</h3>
+<ul>
+    <li><strong>Model Context</strong> keeps track of changes to models during their lifecycle. When a model is loaded
+        or created, it is automatically placed in the context.
+    </li>
+    <li>Changes to models are only saved when explicitly requested. For example, if a <code>CategoryModel</code>
+        references a <code>ProductModel</code>, the product will only be saved if it is new or modified when saving the
+        category.
+    </li>
+    <li>Models are not thread-safe, so access to models across multiple threads must be synchronized.</li>
+</ul>
+<h3>Saving Models and Referenced Models</h3>
+<ul>
+    <li>When saving a model, if it holds references to other models, these referenced models are saved <strong>if they
+        are new or modified</strong>. However, already saved models are not updated unless explicitly saved.
+    </li>
+</ul>
+<h3>Using Interceptors</h3>
+<ul>
+    <li><strong>Interceptors</strong> are hooks that can be used to intervene in the lifecycle of a model, allowing you
+        to modify or validate models during different stages of their lifecycle, such as before saving, after saving,
+        etc.
+    </li>
+</ul>
+<h3>Converting Between Models and Hybris Items</h3>
+<p>Hybris uses two different layers of data representation:</p>
+<ul>
+    <li><strong>Service Layer</strong>: Models (used in business logic)</li>
+    <li><strong>Jalo Layer</strong>: Items (used in lower-level data access)</li>
+</ul>
+<p>You can convert between these layers:</p>
+<ul>
+    <li><strong>Model to Item</strong>:
+        <pre><code class="language-java">Product productItem = modelService.getSource(productModel);
+</code></pre>
+    </li>
+    <li><strong>Item to Model</strong>:
+        <pre><code class="language-java">CartModel cartModel = modelService.get(cartItem);
+</code></pre>
+    </li>
+</ul>
+<h3>Key Points in Model Life Cycle:</h3>
+<ol>
+    <li><strong>Explicit Save</strong>: Models are not automatically saved, and changes are only persisted when
+        explicitly saved.
+    </li>
+    <li><strong>Lazy Loading</strong>: Data is loaded on-demand when a model&#39;s properties are accessed, not when the
+        model is instantiated.
+    </li>
+    <li><strong>Model Context</strong>: Changes are tracked, and related models are saved together based on references.
+    </li>
+    <li><strong>Factory Methods</strong>: <code>ModelService</code> provides methods to create models dynamically,
+        attach them to the context, and apply default values.
+    </li>
+</ol>
+<p>This lifecycle ensures that the models are efficiently managed, changes are tracked, and database persistence is
+    optimized in the Hybris Commerce platform.</p>
+
+<h3><strong>Impex</strong></h3>
+
 <p><strong>Impex</strong> files are used for importing and exporting
     data to and from the system. The <strong>Impex header</strong> defines the structure and metadata for the import
     data, specifying how the data should be handled, which attributes are involved, and additional settings for the
@@ -1103,6 +1158,99 @@
 <p>These keywords help define the structure, behavior, and rules for importing and managing data within Hybris.</p>
 
 <hr>
+
+<h3>Business Process Management</h3>
+<p>Business processes are workflows that define the operations and transactions that occur within an
+    e-commerce environment. These processes are essential for automating tasks, streamlining operations, and ensuring
+    efficient execution of business logic. The processes run asynchronously, meaning actions are executed independently,
+    enabling a smooth flow of operations without blocking other tasks. Business processes are defined through XML files,
+    where each process consists of nodes (actions, decisions, events, etc.) that guide the workflow from one step to
+    another.</p>
+
+<p>This structure ensures that the business process executes the defined workflow reliably and asynchronously, with each
+    step being handled appropriately based on the system state and external interactions.</p>
+
+<hr>
+<h3>Key Concepts of Business Processes in Hybris</h3>
+<ol>
+    <li><p><strong>Business Process Engine</strong>:<br>The Business Process Engine allows for the
+        asynchronous execution of business processes, which are defined in XML. The engine ensures that each action in
+        the process is completed before transitioning to the next. A transition is the link between two actions, guiding
+        the workflow based on the outcome of a previous action. The process engine persists the state of the process,
+        meaning that even if a system crash occurs, the process will resume from its last known state after recovery.
+    </p>
+    </li>
+    <li><p><strong>Process Definition</strong>:<br>A process definition specifies the sequence of steps
+        (nodes) that make up the workflow. Each node represents a step in the process, and actions within those nodes
+        determine the next step. The nodes include action nodes, wait nodes, notify nodes, and end nodes. Transitions
+        between nodes dictate how the process progresses based on the outcomes (e.g., success or failure).</p>
+    </li>
+    <li><p><strong>Action Nodes</strong>:<br>Action nodes are critical as they execute the business logic. Each action
+        is linked to a bean that performs a specific function, and the outcome of this action determines the next step
+        in the process. If the action succeeds, the process moves to one node, and if it fails, it moves to another.</p>
+    </li>
+    <li><p><strong>Wait Nodes</strong>:<br>Wait nodes are used when the process needs to wait for external events or
+        systems to complete a task before continuing. These events might be tied to external systems or processes that
+        trigger the next step in the workflow.</p>
+    </li>
+    <li><p><strong>Notify Nodes</strong>:<br>Notify nodes are used to send notifications to user groups or specific
+        users at certain points in the process, updating them on the status or actions required.</p>
+    </li>
+    <li><p><strong>End Nodes</strong>:<br>End nodes mark the completion of a business process. These nodes store the
+        final state of the process (e.g., success, error) and typically define messages like &quot;Process completed
+        successfully&quot; or &quot;Process failed.&quot;</p>
+    </li>
+</ol>
+<hr>
+<h3>Sample Business Process Example</h3>
+<p>Consider a simple process where, after an order is placed, email notifications are sent to the customer and the
+    business partners. This example could involve the following sequence of steps:</p>
+<ol>
+    <li><strong>Check Order</strong>: This action checks the order details to ensure everything is in order.</li>
+    <li><strong>Send Customer Notification</strong>: This action sends an email notification to the customer confirming
+        the order.
+    </li>
+    <li><strong>Send Partner Notification</strong>: This action sends an email notification to business partners
+        involved in fulfilling the order.
+    </li>
+    <li><strong>End Process</strong>: The process ends with a success message, or in case of an error, it moves to a
+        failure state.
+    </li>
+</ol>
+<hr>
+<h3>Business Process Execution and Synchronization</h3>
+<ul>
+    <li><p><strong>Asynchronous Execution</strong>: By default, Hybris executes business process actions asynchronously,
+        allowing each action to run independently without blocking others. This ensures a responsive system where
+        processes can operate concurrently.</p>
+    </li>
+    <li><p><strong>Synchronous Execution</strong>: In some cases, actions must be run synchronously, i.e., one after
+        another within the same task. This can be explicitly configured by modifying properties in the <code>local.properties</code>
+        file to ensure actions in a business process do not proceed until the current action completes.</p>
+    </li>
+</ul>
+<hr>
+<h3>Practical Example of a Business Process</h3>
+<ol>
+    <li><strong>Step 1</strong>: Define the XML for the business process, e.g.,
+        <code>placeOrderNotificationProcess.xml</code>, which specifies the sequence of actions, transitions, and end
+        states.
+    </li>
+    <li><strong>Step 2</strong>: Register the process definition and actions in the configuration files (e.g., <code>spring.xml</code>),
+        linking the defined XML process to the system.
+    </li>
+    <li><strong>Step 3</strong>: Implement the action classes that perform the required business logic, like checking
+        order details or sending notifications.
+    </li>
+    <li><strong>Step 4</strong>: Initiate the business process programmatically by calling the <code>BusinessProcessService</code>
+        to create and start the process instance when an order is placed.
+    </li>
+</ol>
+
+<p>Business processes are a series of steps or activities that repeat over time. Business process management in SAP
+    Commerce helps identify, define, document, control, and optimize these processes, integrating both automated and
+    human-driven activities.</p>
+
 
 <h3>Cache Overview</h3>
 <p>Caching is essential for enhancing the performance and scalability of a system by storing frequently accessed data
