@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Dependency Injection (DI) Strategies in SAP Hybris</h3>
+<p>In SAP Hybris, <strong>Dependency Injection (DI)</strong> is a core design principle that allows objects to be
+    injected with their dependencies rather than creating them directly. This promotes loose coupling, modular design,
+    and easier testability. DI in Hybris typically leverages the Spring Framework, which is fully integrated into the
+    platform.</p>
+<p>There are several strategies or techniques to manage DI in Hybris, including constructor injection, setter injection,
+    and field injection. Let&#39;s explore these strategies in detail:</p>
+<hr>
+<h3>1. <strong>Constructor Injection</strong></h3>
+<p><strong>Constructor Injection</strong> is the most preferred and recommended strategy in Hybris for injecting
+    dependencies. It ensures that the object’s dependencies are available immediately upon instantiation and are
+    provided in a controlled, immutable way.</p>
+<h4>How it works:</h4>
+<ul>
+    <li>Dependencies are passed to the constructor when an instance of a class is created.</li>
+    <li>Spring injects the dependencies automatically through the constructor.</li>
+</ul>
+<h4>Example:</h4>
+<pre><code class="language-java">@Component
+public class MyService {
+
+    private final ProductService productService;
+
+    // Constructor Injection
+    @Autowired
+    public MyService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    public void performAction() {
+        productService.executeAction();
+    }
+}
+</code></pre>
+<h4>Advantages:</h4>
+<ul>
+    <li><strong>Immutability</strong>: Dependencies are injected at the time of object creation, and they cannot be
+        changed later.
+    </li>
+    <li><strong>Easier to Test</strong>: Constructor injection makes testing easier because all dependencies are
+        explicitly passed and can be mocked.
+    </li>
+    <li><strong>Clarity</strong>: It is clear what dependencies are required for a class to function correctly.</li>
+</ul>
+<h4>When to use:</h4>
+<ul>
+    <li>When all dependencies are mandatory for the class to function.</li>
+    <li>When you want to ensure immutability and thread safety.</li>
+</ul>
+<hr>
+<h3>2. <strong>Setter Injection</strong></h3>
+<p><strong>Setter Injection</strong> is another common DI strategy where dependencies are injected via setter methods,
+    allowing more flexibility in configuration, but at the cost of potentially creating mutable objects.</p>
+<h4>How it works:</h4>
+<ul>
+    <li>Dependencies are injected via public setter methods after the class is instantiated.</li>
+    <li>Spring calls the setter methods and passes the dependencies at runtime.</li>
+</ul>
+<h4>Example:</h4>
+<pre><code class="language-java">@Component
+public class MyService {
+
+    private ProductService productService;
+
+    // Setter Injection
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
+    public void performAction() {
+        productService.executeAction();
+    }
+}
+</code></pre>
+<h4>Advantages:</h4>
+<ul>
+    <li><strong>Flexibility</strong>: Dependencies can be injected or changed after the object is created.</li>
+    <li><strong>Optional Dependencies</strong>: It&#39;s easier to manage optional dependencies, as setters can be used
+        for non-required properties.
+    </li>
+</ul>
+<h4>When to use:</h4>
+<ul>
+    <li>When dependencies are optional.</li>
+    <li>When you need more flexibility in configuring dependencies after object creation.</li>
+</ul>
+<hr>
+<h3>3. <strong>Field Injection</strong></h3>
+<p><strong>Field Injection</strong> is the most direct and least explicit form of DI. Dependencies are injected directly
+    into the fields of a class, bypassing the constructor or setter methods. It relies on the <code>@Autowired</code>
+    annotation directly on the field.</p>
+<h4>How it works:</h4>
+<ul>
+    <li>Spring injects the dependency directly into the field without the need for constructor or setter methods.</li>
+</ul>
+<h4>Example:</h4>
+<pre><code class="language-java">@Component
+public class MyService {
+
+    @Autowired
+    private ProductService productService;
+
+    public void performAction() {
+        productService.executeAction();
+    }
+}
+</code></pre>
+<h4>Advantages:</h4>
+<ul>
+    <li><strong>Simplicity</strong>: Minimal boilerplate code is needed. It&#39;s very easy to use.</li>
+    <li><strong>Quick Setup</strong>: For small projects or simple components, field injection can be fast and
+        convenient.
+    </li>
+</ul>
+<h4>Disadvantages:</h4>
+<ul>
+    <li><strong>Lack of Visibility</strong>: It’s not immediately clear which dependencies a class needs, as they are
+        not explicitly passed through the constructor or setter methods.
+    </li>
+    <li><strong>Testing Issues</strong>: Testing can become more difficult because dependencies cannot be easily mocked
+        or controlled. Field injection makes it harder to make the class immutable or ensure that all dependencies are
+        set correctly.
+    </li>
+</ul>
+<h4>When to use:</h4>
+<ul>
+    <li>For quick-and-dirty prototypes or tests.</li>
+    <li>When dependencies are injected directly into specific service classes that don’t need to be immutable.</li>
+</ul>
+<hr>
+<h3>4. <strong>Autowiring by Type and Name</strong></h3>
+<p>In Spring DI, you can use the <code>@Autowired</code> annotation to autowire beans by type or by name. By default,
+    Spring performs autowiring by type, but you can also autowire beans by name to resolve multiple beans of the same
+    type.</p>
+<h4>Autowiring by Type (Default):</h4>
+<ul>
+    <li>Spring injects the dependency based on the type of the field or constructor parameter.</li>
+</ul>
+<h4>Autowiring by Name:</h4>
+<ul>
+    <li>You can specify the bean name to be injected by using the <code>@Qualifier</code> annotation.</li>
+</ul>
+<pre><code class="language-java">@Autowired
+@Qualifier(&quot;productServiceBean&quot;)
+private ProductService productService;
+</code></pre>
+<h4>When to use:</h4>
+<ul>
+    <li>Autowiring by type is most common.</li>
+    <li>Autowiring by name is useful when multiple beans of the same type exist in the Spring container and you need to
+        specify which one should be injected.
+    </li>
+</ul>
+<hr>
+<h3>5. <strong>Lazy Initialization</strong></h3>
+<p><strong>Lazy Initialization</strong> is a strategy where dependencies are only instantiated when they are first
+    required, instead of being initialized at startup. This can be useful for optimizing startup time and memory usage,
+    particularly in cases where certain dependencies are rarely used.</p>
+<h4>How it works:</h4>
+<ul>
+    <li>Dependencies are injected lazily using <code>@Lazy</code> annotation.</li>
+</ul>
+<pre><code class="language-java">@Autowired
+@Lazy
+private ProductService productService;
+</code></pre>
+<h4>When to use:</h4>
+<ul>
+    <li>When certain dependencies are rarely used and you want to delay their creation for performance reasons.</li>
+</ul>
+<hr>
+<h3>6. <strong>Qualifier Annotation</strong></h3>
+<p>When you have multiple beans of the same type, you can specify which bean should be injected using the <code>@Qualifier</code>
+    annotation in conjunction with <code>@Autowired</code>.</p>
+<h4>Example:</h4>
+<pre><code class="language-java">@Component
+public class MyService {
+
+    @Autowired
+    @Qualifier(&quot;specialProductService&quot;)
+    private ProductService productService;
+
+    public void performAction() {
+        productService.executeAction();
+    }
+}
+</code></pre>
+<h4>When to use:</h4>
+<ul>
+    <li>When you have multiple beans of the same type and you need to distinguish between them.</li>
+</ul>
+<hr>
+<h3>7. <strong>Primary Bean</strong></h3>
+<p>In case of multiple beans of the same type, you can mark one of the beans as primary using the <code>@Primary</code>
+    annotation. The <code>@Autowired</code> annotation will then inject this primary bean when no
+    <code>@Qualifier</code> is specified.</p>
+<h4>Example:</h4>
+<pre><code class="language-java">@Bean
+@Primary
+public ProductService productService() {
+    return new ProductServiceImpl();
+}
+</code></pre>
+<h4>When to use:</h4>
+<ul>
+    <li>When one of the beans of the same type is considered the default and should be injected when no explicit
+        qualification is given.
+    </li>
+</ul>
+<hr>
+<h3>Conclusion</h3>
+<ul>
+    <li><strong>Constructor Injection</strong> is the preferred DI strategy as it ensures that all required dependencies
+        are provided at the time of object creation and enforces immutability.
+    </li>
+    <li><strong>Setter Injection</strong> provides flexibility for optional dependencies but can lead to mutable
+        objects.
+    </li>
+    <li><strong>Field Injection</strong> is the simplest but least explicit and can lead to poor testability and
+        maintainability.
+    </li>
+    <li><strong>Autowiring</strong> strategies (by type, name, and qualifiers) allow for better control and flexibility
+        when working with multiple beans of the same type.
+    </li>
+    <li><strong>Lazy Initialization</strong> helps with performance optimization by delaying the instantiation of
+        certain dependencies.
+    </li>
+</ul>
+<p>Choosing the right DI strategy depends on the requirements of your class, such as whether dependencies are mandatory,
+    optional, or changeable after instantiation. Generally, constructor injection is favored for most scenarios, while
+    setter and field injection are used when flexibility or simplicity is needed.</p>
+<p>In the context of Spring and SAP Hybris, the <code>@Required</code> annotation is a part of Spring&#39;s <strong>dependency
+    injection</strong> mechanism and is used to indicate that a bean property must be set during the bean initialization
+    phase. This annotation is typically used for <strong>setter injection</strong>. When a bean is being created by the
+    Spring container, Spring will check whether the required property (annotated with <code>@Required</code>) is set,
+    and if not, it will throw an exception during the bean&#39;s initialization phase.</p>
+<h3>Key Points of <code>@Required</code> Annotation:</h3>
+<ol>
+    <li><p><strong>Setter Injection</strong>:<br>The <code>@Required</code> annotation is typically used on <strong>setter
+        methods</strong> to indicate that the property is mandatory and must be injected by Spring.</p>
+    </li>
+    <li><p><strong>Validation at Initialization</strong>:<br>When Spring initializes the bean, it checks whether the
+        required property is set. If it isn&#39;t, an exception (<code>BeanInitializationException</code>) will be
+        thrown, indicating that the required dependency is missing.</p>
+    </li>
+    <li><p><strong>Dependency Injection Context</strong>:<br>The <code>@Required</code> annotation works in the context
+        of <strong>autowiring</strong> and dependency injection within the Spring container. It helps ensure that all
+        necessary properties are set before the bean is used.</p>
+    </li>
+    <li><p><strong>Usage</strong>:<br>It can be placed on a <strong>setter method</strong> in a Spring-managed bean.</p>
+    </li>
+</ol>
+<h3>Example:</h3>
+<pre><code class="language-java">@Component
+public class ProductService {
+
+    private ProductRepository productRepository;
+
+    // Setter method with @Required annotation
+    @Required
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    public void performAction() {
+        productRepository.executeAction();
+    }
+}
+</code></pre>
+<p>In the above example, if the <code>ProductRepository</code> bean is not provided by the Spring container during
+    initialization, Spring will throw an exception because <code>@Required</code> indicates that the <code>productRepository</code>
+    dependency must be injected.</p>
+<h3>Important Notes:</h3>
+<ol>
+    <li><p><strong>Spring 3 and Later</strong>:<br>The <code>@Required</code> annotation was commonly used in earlier
+        versions of Spring to indicate mandatory dependencies. However, in modern versions of Spring (Spring 4 and
+        later), the use of <code>@Autowired</code> (which can handle required properties) has largely replaced <code>@Required</code>
+        for dependency injection.</p>
+    </li>
+    <li><p><strong>Considerations for Usage</strong>:</p>
+        <ul>
+            <li><strong>Automatic Dependency Injection</strong>: If you use <code>@Autowired</code>, Spring will
+                automatically inject the required dependency, and you don&#39;t necessarily need <code>@Required</code>.
+            </li>
+            <li><strong>Optional Dependencies</strong>: If a dependency is optional, you should either use setter
+                injection without <code>@Required</code> or handle it programmatically within your application code.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Spring 5 and Beyond</strong>:<br>In newer versions of Spring, it&#39;s generally recommended to rely
+        on constructor injection with <code>@Autowired</code> (which makes dependencies mandatory by default) rather
+        than using <code>@Required</code>.</p>
+    </li>
+</ol>
+<h3>When to Use <code>@Required</code>:</h3>
+<ul>
+    <li><strong>Legacy Code</strong>: If you&#39;re working with legacy Spring code that uses <code>@Required</code> and
+        setter-based dependency injection.
+    </li>
+    <li><strong>Explicit Mandatory Properties</strong>: When you need to enforce that a certain setter method must be
+        called with a valid bean during initialization.
+    </li>
+</ul>
+<h3>Summary:</h3>
+<ul>
+    <li><strong><code>@Required</code></strong> is used to mark setter methods as mandatory for dependency injection.
+    </li>
+    <li>It is part of <strong>setter injection</strong> and helps ensure that required dependencies are provided before
+        the bean is used.
+    </li>
+    <li><strong>Spring 4+</strong> prefers constructor injection with <code>@Autowired</code> for better clarity and
+        immutability, making the usage of <code>@Required</code> less common.
+    </li>
+</ul>
+<h3>Abstract:</h3>
+<p>In Spring, beans can be defined with different scopes, primarily <strong>Singleton</strong> and
+    <strong>Prototype</strong>, which dictate the lifecycle and instance management of beans. <strong>Singleton</strong>
+    scope ensures a single shared instance across the application context, while <strong>Prototype</strong> scope
+    creates a new instance each time the bean is requested. This difference significantly impacts memory management,
+    performance, and state management in Spring-based applications.</p>
+<hr>
+<h3><strong>Bean Scopes in Spring: Singleton vs Prototype</strong></h3>
+<h4><strong>Singleton Scope</strong>:</h4>
+<ul>
+    <li><p><strong>Definition</strong>: A <strong>singleton</strong> scoped bean means that the Spring container will
+        create <strong>only one instance</strong> of the bean for the entire Spring container (i.e., the application
+        context). This instance is shared across the application for every request.</p>
+    </li>
+    <li><p><strong>Lifecycle</strong>: A single instance is created when the Spring context is initialized (during the
+        application startup), and it is destroyed when the Spring context is destroyed (application shutdown).</p>
+    </li>
+    <li><p><strong>Use Case</strong>: Singleton beans are ideal for <strong>stateless services</strong> or when an
+        instance should be reused throughout the application&#39;s lifecycle (e.g., database connections, service layer
+        components).</p>
+    </li>
+    <li><p><strong>Example</strong>:</p>
+        <pre><code class="language-java">@Component
+@Scope(&quot;singleton&quot;)
+public class MySingletonBean {
+    // This bean will be created once and shared across the whole application context.
+}
+</code></pre>
+    </li>
+    <li><p><strong>Behavior</strong>: The same instance of the bean will be injected into all dependent classes. This
+        can be beneficial for performance but should be avoided if the bean holds state-specific data that should not be
+        shared across requests or threads.</p>
+    </li>
+</ul>
+<h4><strong>Prototype Scope</strong>:</h4>
+<ul>
+    <li><p><strong>Definition</strong>: A <strong>prototype</strong> scoped bean means that a <strong>new
+        instance</strong> of the bean is created each time it is requested from the Spring container.</p>
+    </li>
+    <li><p><strong>Lifecycle</strong>: The bean&#39;s lifecycle is managed by the container only for its creation. After
+        the bean is instantiated, the container does not manage its destruction. The bean is typically destroyed when it
+        is no longer referenced, and you would need to manage its destruction manually if needed (using <code>@PreDestroy</code>
+        or implementing <code>DisposableBean</code>).</p>
+    </li>
+    <li><p><strong>Use Case</strong>: Prototype beans are useful for <strong>stateful beans</strong> where each instance
+        needs to be independent of others (e.g., user sessions, transient stateful services).</p>
+    </li>
+    <li><p><strong>Example</strong>:</p>
+        <pre><code class="language-java">@Component
+@Scope(&quot;prototype&quot;)
+public class MyPrototypeBean {
+    // A new instance will be created every time this bean is requested.
+}
+</code></pre>
+    </li>
+    <li><p><strong>Behavior</strong>: Each request for the bean results in a fresh instance. This is useful in cases
+        where the bean holds state or other properties that should not be shared across different components or threads.
+    </p>
+    </li>
+</ul>
+<hr>
+<h3><strong>Key Differences</strong>:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Aspect</th>
+        <th><strong>Singleton Scope</strong></th>
+        <th><strong>Prototype Scope</strong></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><strong>Number of Instances</strong></td>
+        <td>One instance per Spring container</td>
+        <td>A new instance for every request</td>
+    </tr>
+    <tr>
+        <td><strong>Lifecycle Management</strong></td>
+        <td>Managed by Spring container, created at context startup</td>
+        <td>Managed by Spring container, but not destroyed by it</td>
+    </tr>
+    <tr>
+        <td><strong>Performance</strong></td>
+        <td>More efficient in terms of memory and performance</td>
+        <td>Can be less efficient due to frequent bean creation</td>
+    </tr>
+    <tr>
+        <td><strong>Statefulness</strong></td>
+        <td>Ideal for stateless beans</td>
+        <td>Ideal for stateful beans where each request requires a new instance</td>
+    </tr>
+    <tr>
+        <td><strong>Dependency Injection</strong></td>
+        <td>The same instance is injected into multiple classes</td>
+        <td>A new instance is injected every time the bean is requested</td>
+    </tr>
+    <tr>
+        <td><strong>Bean Destruction</strong></td>
+        <td>Destroyed when the Spring container is destroyed</td>
+        <td>Must be manually handled (e.g., <code>@PreDestroy</code> or <code>DisposableBean</code>)</td>
+    </tr>
+    <tr>
+        <td><strong>Example</strong></td>
+        <td>Service classes, singletons, utility classes</td>
+        <td>Beans representing user sessions, transient components</td>
+    </tr>
+    </tbody>
+</table>
+<hr>
+<h3><strong>Usage Considerations</strong>:</h3>
+<ul>
+    <li><p><strong>Singleton Scope</strong>:</p>
+        <ul>
+            <li>Use when the object is stateless, or the state is shared across all instances of the application (e.g.,
+                caching services, configuration managers).
+            </li>
+            <li>Spring automatically handles the lifecycle and cleanup.</li>
+            <li>Avoid in multi-threaded contexts when the bean holds state that could conflict between different threads
+                or requests.
+            </li>
+        </ul>
+    </li>
+    <li><p><strong>Prototype Scope</strong>:</p>
+        <ul>
+            <li>Use when you need a <strong>unique</strong> instance per request, typically for <strong>stateful
+                beans</strong>.
+            </li>
+            <li>The container does not manage the destruction of prototype beans, so you need to manage them manually if
+                necessary (e.g., resource cleanup).
+            </li>
+            <li>Be cautious of <strong>memory overhead</strong> due to frequent instantiation.</li>
+        </ul>
+    </li>
+</ul>
+<h3><strong>Example of Usage</strong>:</h3>
+<h4>Singleton Bean:</h4>
+<pre><code class="language-java">@Component
+@Scope(&quot;singleton&quot;)
+public class DatabaseService {
+    public DatabaseService() {
+        System.out.println(&quot;DatabaseService instance created&quot;);
+    }
+
+    public void connect() {
+        System.out.println(&quot;Connecting to the database...&quot;);
+    }
+}
+</code></pre>
+<h4>Prototype Bean:</h4>
+<pre><code class="language-java">@Component
+@Scope(&quot;prototype&quot;)
+public class UserSession {
+    public UserSession() {
+        System.out.println(&quot;New UserSession instance created&quot;);
+    }
+
+    public void startSession() {
+        System.out.println(&quot;Starting a new session...&quot;);
+    }
+}
+</code></pre>
+<ul>
+    <li><p><strong>Requesting Singleton Bean</strong>:</p>
+        <pre><code class="language-java">@Autowired
+private DatabaseService databaseService1;
+
+@Autowired
+private DatabaseService databaseService2;
+
+// databaseService1 and databaseService2 will refer to the same instance.
+</code></pre>
+    </li>
+    <li><p><strong>Requesting Prototype Bean</strong>:</p>
+        <pre><code class="language-java">@Autowired
+private UserSession userSession1;
+
+@Autowired
+private UserSession userSession2;
+
+// userSession1 and userSession2 will refer to different instances.
+</code></pre>
+    </li>
+</ul>
+<hr>
+<h3><strong>Summary</strong>:</h3>
+<ul>
+    <li><strong>Singleton scope</strong> is used when a single shared instance is needed, reducing memory usage and
+        overhead, making it suitable for stateless services and shared resources.
+    </li>
+    <li><strong>Prototype scope</strong> creates a new instance each time, making it ideal for stateful objects that
+        require fresh instances for every request, but it comes with the overhead of creating multiple instances.
+    </li>
+</ul>
+</body>
+</html>
